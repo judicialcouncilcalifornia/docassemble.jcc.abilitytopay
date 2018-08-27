@@ -1,1 +1,1 @@
-# docassemble.theme
+# docassemble.template
