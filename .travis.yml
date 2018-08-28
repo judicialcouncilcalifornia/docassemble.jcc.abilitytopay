@@ -2,8 +2,7 @@ language: node_js
 node_js:
 - node
 install:
-- npm install --global --upgrade yarn
-- yarn install bootstrap sass
+- npm install bootstrap sass
 jobs:
   include:
   - stage: Lint
