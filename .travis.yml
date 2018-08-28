@@ -8,8 +8,8 @@ jobs:
   - stage: Lint
     if: ( type = push ) && ( branch != master )
     script:
-    - npx sass source/input.scss docassemble/jcc/ability-to-pay/data/static/style.css
+    - npx sass source/style.scss docassemble/jcc/ability-to-pay/data/static/style.css
   - stage: Release
     if: ( type = push ) && ( branch = master )
     script:
-    - npx sass source/input.scss docassemble/jcc/ability-to-pay/data/static/style.css
+    - npx sass source/style.scss docassemble/jcc/ability-to-pay/data/static/style.css
