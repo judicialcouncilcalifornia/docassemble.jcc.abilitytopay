@@ -1,6 +1,9 @@
 modules:
   - docassemble.base.util
 ---
+features:
+  bootstrap theme: style.css
+---
 metadata:
   title: Ability to Pay
 ---
