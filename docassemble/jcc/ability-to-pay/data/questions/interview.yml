@@ -1,0 +1,258 @@
+modules:
+  - docassemble.base.util
+---
+metadata:
+  title: Ability to Pay
+---
+field: get_started
+question: |
+  Request a reduction in your traffic fine
+continue button label: Get Started
+---
+field: before_you_start
+question: |
+  Before You Start
+subquestion: |
+  This online system is an optional way to request a fine reduction due to financial need. If you want to contest your ticket, see the [instructions on your ticket](http://www.courts.ca.gov/selfhelp-traffic.htm) for more information on contesting your ticket.
+
+  Use this tool to:
+
+  * Request a reduction in your traffic fine based on financial need
+  * Request to pay in installments (set up payment plan)
+  * Request Community Service 
+  * Request more time to pay your ticket 
+---
+question: |
+  Find your Citation
+subquestion: |
+  Let's gather details on the citation to address!
+fields:
+- County: county
+  choices:
+  - "Alameda": Alameda
+  - "Alpine": Alpine
+  - "Amador": Amador
+  - "Butte": Butte
+  - "Calaveras": Calaveras
+  - "Colusa": Colusa
+  - "Contra Costa": Contra Costa
+  - "Del Norte": Del Norte
+  - "El Dorado": El Dorado
+  - "Fresno": Fresno
+  - "Glenn": Glenn
+  - "Humboldt": Humboldt
+  - "Imperial": Imperial
+  - "Inyo": Inyo
+  - "Kern": Kern
+  - "Kings": Kings
+  - "Lake": Lake
+  - "Lassen": Lassen
+  - "Los Angeles": Los Angeles
+  - "Madera": Madera
+  - "Marin": Marin
+  - "Mariposa": Mariposa
+  - "Mendocino": Mendocino
+  - "Merced": Merced
+  - "Modoc": Modoc
+  - "Mono": Mono
+  - "Monterey": Monterey
+  - "Napa": Napa
+  - "Nevada": Nevada
+  - "Orange": Orange
+  - "Placer": Placer
+  - "Plumas": Plumas
+  - "Riverside": Riverside
+  - "Sacramento": Sacramento
+  - "San Benito": San Benito
+  - "San Bernardino": San Bernardino
+  - "San Diego": San Diego
+  - "San Francisco": San Francisco
+  - "San Joaquin": San Joaquin
+  - "San Luis Obispo": San Luis Obispo
+  - "San Mateo": San Mateo
+  - "Santa Barbara": Santa Barbara
+  - "Santa Clara": Santa Clara
+  - "Santa Cruz": Santa Cruz
+  - "Shasta": Shasta
+  - "Sierra": Sierra
+  - "Siskiyou": Siskiyou
+  - "Solano": Solano
+  - "Sonoma": Sonoma
+  - "Stanislaus": Stanislaus
+  - "Sutter": Sutter
+  - "Tehama": Tehama
+  - "Trinity": Trinity
+  - "Tulare": Tulare
+  - "Tuolumne": Tuolumne
+  - "Ventura": Ventura
+  - "Yolo": Yolo
+  - "Yuba": Yuba
+- "Citation Number": citation_number
+---
+field: is_citation
+question: |
+  We found your citation and it qualifies!
+subquestion: |
+  County | Citation Number | Name | DL#
+  -|-|-|-
+  ${county} | ${citation_number} | Jane Doe | 0123456789
+---
+field: additional_requests
+question: |
+  Request to Court
+subquestion: |
+  A court official will accept or deny your request.
+fields:
+- "Whether or not your request for a reduction is granted, would you like to add any of the following requests to the current or reduced amount?": additional_requests
+  datatype: checkboxes
+  choices:
+  - "Payment Plan (default at $25/month)": payment_plan
+  - "Community Service (for the current or reduced amount)": community_service
+  - "Extension (more Time to Pay)": extension
+---
+field: how_work
+question: |
+  How this works
+subquestion: |
+  We are going to walk through a few questions to help the Court get a better understanding for your situation and your eligibility for your reduction request.
+
+  Even though this is an online process, a judge/court official  will still review your request the same way they would if you came to court in person.
+---
+question: |
+  Public Benefits
+subquestion: |
+  Do you currently receive any public benefits?
+yesno: has_benefits
+---
+question: |
+  Public Benefits
+fields:
+- "Which of the following public benefits do you currently receive?": benefits
+  datatype: checkboxes
+  choices:
+  - "CalFresh (Food Stamps)": cal_fresh
+  - Medi-Cal: medi_cal
+  - "Supplemental Security Income (SSI)": ssi
+  - "State Supplemental Payment (SSP)": ssp
+  - "County Relief/General Assistance": cr_ga
+  - "In Home Supportive Services (IHSS)": ihss
+  - "California Work Opportunity and Responsibility to Kids Act (Cal WORKS)": cal_works
+  - "Tribal Temporary Assistance for Needy Families (TANF)": tanf
+  - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
+  - Other: other
+---
+question: |
+  Public Benefits
+subquestion: |
+  You said you receive Calfresh, can you please upload a picture of your CalFresh card?
+fields:
+- Calfrash Card: calfresh_card
+  datatype: file
+---
+question: |
+  Public Benefits
+subquestion: |
+  Do you currently receive any public benefits?
+yesno: has_benefits
+---
+question: |
+  Current Income
+subquestion: |
+  How much money do you earn (take-home pay) or get from other sources(including income received in your family from a spouse or live-in romantic partner)? Answer the best you can.
+fields:
+- Income: income
+  datatype: currency
+- Frequency: frequency
+  choices:
+  - "Once a year": annual
+  - "Once a month": monthly
+  - "Twice a month": twice_monthly
+  - "Every two weeks": two_weeks
+  - "Every week": weekly
+---
+question: |
+  Household Details
+subquestion: |
+  Tell us about your household
+fields:
+- Residents: residents
+  datatype: number
+---
+question: |
+  Monthly Expenses
+subquestion: |
+  Please enter your monthly expenses, as applicable
+fields:
+- Housing: housing_expenses
+  datatype: currency
+- Other: other_expenses
+  datatype: currency
+---
+question: |
+  Plea
+subquestion: |
+  In order to proceed with your request for a reduction, you need to admit responsibility for the charge for which you received a ticket and plead no contest.  
+
+  To plead no contest, please waive the following: 
+
+  * To be represented by an attorney employed by you;
+  * To have a speedy and public trial in front of a judge;
+  * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
+  * To have the witnesses against you testify under oath in court, and to question such witnesses;
+  * To remain silent and not testify and not incriminate yourself.
+  
+  Continue if you have read, understand and waive the rights above and agree to plead “No Contest”.
+
+  **Any conviction will be reported to the Department of Motor Vehicles (DMV). This is the case whether you pay in full or not.**
+yesno: has_plea
+---
+question: |
+  Final Step
+subquestion: |
+  The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.
+
+  I declare under penalty of perjury, under the laws of the State of California, that all information on or attached to this form is true.
+yesno: has_sworn
+---
+mandatory: True
+code: |
+  get_started
+  before_you_start
+  county
+  citation_number
+  is_citation
+  additional_requests
+  how_work
+  if has_benefits:
+    if benefits["cal_fresh"]:
+      calfresh_card
+  income
+  frequency
+  residents
+  housing_expenses
+  other_expenses
+  if not has_plea:
+    do_exit
+  if not has_sworn:
+    do_exit
+  send_email(to=["ari@chivuku.la"], template=submission)
+  all_done
+---
+question: |
+  Thank you!
+subquestion: |
+  Expect a response from the court in XX business days. If you don't get a notification from your court please contact XXXXX@XXXX.gov.
+sets: all_done
+---
+template: submission
+subject: |
+  Request for ${ citation_number }
+content: |
+  This is an e-mail sent from a
+  **docassemble** interview.
+
+  Have a nice day!
+---
+question: |
+  Process exited
+sets: do_exit
