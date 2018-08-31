@@ -174,9 +174,4 @@ $form-group-margin-bottom:              1rem;
 // $form-feedback-valid-color:         theme-color("success");
 $form-feedback-invalid-color:       theme-color("danger");
 
-
 @import "../node_modules/bootstrap/scss/bootstrap";
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Lora", Georgia, Times, serif;
-}
