@@ -6328,6 +6328,60 @@ a.text-dark:hover, a.text-dark:focus {
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
-input.labelauty + label.btn-light {
+input.labelauty + label.btn-light, input.labelauty + label.btn-primary {
   padding: 1rem 0.75rem;
   border: 1px solid #dee2e6; }
+
+input.labelauty + label.btn-light {
+  background-color: #fff; }
+  input.labelauty + label.btn-light:hover, input.labelauty + label.btn-light:focus {
+    background-color: #e8f0fa; }
+
+input.labelauty + label.btn-primary {
+  background-color: #e8f0fa; }
+  input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus {
+    background-color: #a9c7ec; }
+
+input.labelauty + label .svg-inline--fa {
+  display: none; }
+
+input[type="checkbox"],
+input[type="radio"] {
+  opacity: 0;
+  position: absolute; }
+  input[type="checkbox"] + label,
+  input[type="radio"] + label {
+    cursor: pointer;
+    padding: rem-calc(4) 0; }
+  input[type="checkbox"]:disabled + label,
+  input[type="radio"]:disabled + label {
+    opacity: 0.5; }
+    input[type="checkbox"]:disabled + label, input[type="checkbox"]:disabled + label::before,
+    input[type="radio"]:disabled + label,
+    input[type="radio"]:disabled + label::before {
+      cursor: pointer; }
+    input[type="checkbox"]:disabled + label::before,
+    input[type="radio"]:disabled + label::before {
+      background-color: #adb5bd;
+      box-shadow: 0 0 0 1px #adb5bd; }
+
+input[type="checkbox"]:checked + label::before {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAAAXNSR0IArs4c6QAAAQhJREFUOBGtky2LAlEUhsdPRCyC+AMMBoMgGywWQSxG/4DNIEaTYFo22mxu2bjJZrFZphj8JSJ+rmV8XpkBZ4YdxfHCwz3n3HOeGeYyhvGGZVlWAYZSxcP6EBVxmJAlzoXyISjBBi5wgOTLQobLsIUzrCEdRvaBYGfLVuwZl4xC1lUISOitgmQnMMH9ZhTyoDUK8NyO6KnBHiRbQso3Q7ECWkf48jXYBc7qoA8v2QL+vwAOeyChGHul1Jr2mWRzSHh7fDlNA3tI0onTQNy6q8+IY87Zw53mPugtJJ1C4y7/JY4+lHgbGOqChH+g21T8AxFv79M5wx3QBegv+IbXZc5TkbTh08mf3a8D6CoIuED3eQAAAABJRU5ErkJggg==);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 80%; }
+
+input[type="checkbox"]:focus + label::before {
+  box-shadow: 0 0 0 1px, 0 0 3px 4px; }
+
+input[type="radio"]:focus + label::before {
+  box-shadow: 0 0 0 2px, 0 0 0 3px, 0 0 3px 4px #f4ac3b, 0 0 7px 4px #f4ac3b; }
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMzIgMzIiPgo8dGl0bGU+Y2Fycm90LWRvd248L3RpdGxlPgo8cGF0aCBkPSJNMC4yIDEwLjRsMTQuNCAxNC40YzAuOCAwLjggMiAwLjggMi42IDBsMTQuNC0xNC40YzAuNC0wLjQgMC40LTEgMC4yLTEuNGwtMS40LTEuNGMtMC40LTAuNC0xLTAuNC0xLjQgMGwtMTIuNCAxMi40Yy0wLjQgMC40LTEgMC40LTEuNCAwbC0xMi4yLTEyLjJjLTAuNC0wLjQtMS0wLjQtMS40IDBsLTEuNCAxLjJjLTAuMiAwLjQtMC4yIDEgMCAxLjR6Ij48L3BhdGg+Cjwvc3ZnPgo=);
+  background-position: right 1.6rem center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem;
+  width: 100%; }
