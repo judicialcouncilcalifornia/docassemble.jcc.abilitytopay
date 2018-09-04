@@ -1,8 +1,9 @@
 /* Custom Stuff Here */
 
 @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
 @import url('https://fonts.googleapis.com/css?family=Lora');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 //
 // Color system
@@ -20,25 +21,32 @@ $gray-800: #343a40;
 $gray-900: #212529;
 $black:    #000;
 
-$blue:    #007bff;
+$blue:    #0B5FA5;
 $indigo:  #6610f2;
 $purple:  #6f42c1;
 $pink:    #e83e8c;
-$red:     #dc3545;
+$red:     #c53b00;
 $orange:  #fd7e14;
 $yellow:  #ffc107;
-$green:   #28a745;
+$green:   #2b9999;
 $teal:    #20c997;
-$cyan:    #17a2b8;
+$cyan:    #1b97e0;
+$gold:    #f4ac3b;
+$blue-100: #e8f0fa;
+$blue-500: #1b97e0;
+$blue-800: #244f73;
+$blue-900: #13293d;
+$olive-100: #f3f5ee;
+$olive-500: #73877B;
 
-$primary:       $blue;
-$secondary:     $gray-600;
+$primary:       $gold;
+$secondary:     $blue;
 $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
-$light:         $gray-100;
-$dark:          $gray-800;
+$light:         $blue-100;
+$dark:          $blue-800;
 
 $theme-colors: (
   "primary":    $primary,
@@ -67,19 +75,35 @@ $colors: (
   "gray-dark":  $gray-800
 );
 
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg:                   $white;
+$body-color:                $gray-900;
+
 // Links
 //
 // Style anchor elements.
 
-$link-color:                $primary;
+$link-color:                $blue;
 $link-decoration:           none;
 $link-hover-color:          darken($link-color, 15%);
 $link-hover-decoration:     underline;
 
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$border-width:                1px;
+$border-color:                $gray-300;
+
+$border-radius:               .25rem;
+
 // Fonts
 //
 
-$font-family-sans-serif:      "Source Sans Pro", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-sans-serif:      "Lato", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base:            $font-family-sans-serif;
 
@@ -89,12 +113,12 @@ $font-size-sm:                ($font-size-base * .875);
 
 $line-height-base:            1.5;
 
-$h1-font-size:                $font-size-base * 2.5;
-$h2-font-size:                $font-size-base * 2;
-$h3-font-size:                $font-size-base * 1.75;
-$h4-font-size:                $font-size-base * 1.5;
-$h5-font-size:                $font-size-base * 1.25;
-$h6-font-size:                $font-size-base;
+$h1-font-size:                $font-size-base * 2.5; // 40
+$h2-font-size:                $font-size-base * 2; // 32
+$h3-font-size:                $font-size-base * 1.75; // 28
+$h4-font-size:                $font-size-base * 1.5; // 24
+$h5-font-size:                $font-size-base * 1.25; // 20
+$h6-font-size:                $font-size-base; // 16
 
 $headings-font-family:        "Lora", Georgia, Times, serif;
 $headings-font-weight:        500;
@@ -102,20 +126,20 @@ $headings-font-weight:        500;
 // Buttons + Forms
 //
 
-$input-btn-padding-y:         .375rem;
-$input-btn-padding-x:         .75rem;
+$input-btn-padding-y:         .75rem;
+$input-btn-padding-x:         1rem;
 $input-btn-line-height:       $line-height-base;
 
 $input-btn-focus-width:       .2rem;
-// $input-btn-focus-color:       rgba($component-active-bg, .25);
-// $input-btn-focus-box-shadow:  0 0 0 $input-btn-focus-width $input-btn-focus-color;
+$input-btn-focus-color:       #daebf9;
+$input-btn-focus-box-shadow:  0 0 0 $input-btn-focus-width $input-btn-focus-color;
 
 // Buttons
 //
 
 $btn-padding-y:               $input-btn-padding-y;
-$btn-padding-x:               $input-btn-padding-x;
-$btn-line-height:             $input-btn-line-height;
+$btn-padding-x:               1.25rem;
+$btn-line-height:             1.625rem;
 
 // $btn-border-width:            $input-btn-border-width;
 
@@ -139,15 +163,15 @@ $input-line-height:                     $input-btn-line-height;
 $input-bg:                              $white;
 $input-disabled-bg:                     $gray-200;
 
-$input-color:                           $gray-700;
-$input-border-color:                    $gray-400;
+$input-color:                           #1b1c1a;
+$input-border-color:                    #c3c3c3;
 // $input-border-width:                    $input-btn-border-width;
 $input-box-shadow:                      inset 0 1px 1px rgba($black, .075);
 
 // $input-border-radius:                   $border-radius;
 
 // $input-focus-bg:                        $input-bg;
-// $input-focus-border-color:              lighten($component-active-bg, 25%);
+$input-focus-border-color:              #5c7393;
 // $input-focus-color:                     $input-color;
 // $input-focus-width:                     $input-btn-focus-width;
 // $input-focus-box-shadow:                $input-btn-focus-box-shadow;
@@ -155,7 +179,7 @@ $input-box-shadow:                      inset 0 1px 1px rgba($black, .075);
 $input-placeholder-color:               $gray-600;
 // $input-plaintext-color:                 $body-color;
 
-$input-transition:                      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+// $input-transition:                      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
 $form-text-margin-top:                  .25rem;
 
@@ -171,7 +195,63 @@ $form-group-margin-bottom:              1rem;
 // Form validation
 // $form-feedback-margin-top:          $form-text-margin-top;
 // $form-feedback-font-size:           $small-font-size;
-// $form-feedback-valid-color:         theme-color("success");
+$form-feedback-valid-color:         theme-color("success");
 $form-feedback-invalid-color:       theme-color("danger");
 
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+$table-cell-padding:          .75rem;
+$table-cell-padding-sm:       .3rem;
+
+$table-bg:                    transparent;
+$table-accent-bg:             rgba($black, .05);
+$table-hover-bg:              rgba($black, .075);
+$table-active-bg:             $table-hover-bg;
+
+$table-border-width:          $border-width;
+$table-border-color:          $gray-300;
+
+$table-head-bg:               $gray-200;
+$table-head-color:            $gray-700;
+
+$table-dark-bg:               $gray-900;
+$table-dark-accent-bg:        rgba($white, .05);
+$table-dark-hover-bg:         rgba($white, .075);
+$table-dark-border-color:     lighten($gray-900, 7.5%);
+$table-dark-color:            $body-bg;
+
+$table-striped-order:         odd;
+
+$table-caption-color:         $text-muted;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+
+.da-has-error {
+  color: $red;
+  font-family: $headings-font-family;
+  font-style: italic;
+
+  input[type="text"] {
+    border-color: $danger;
+    box-shadow: 0 0 0 .1rem $danger;
+  }
+}
+
+.form-group {
+  &.has-error {
+    background-color: #fdf6f5;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+input.labelauty + label {
+
+  &.btn-light {
+    padding: $input-padding-x $input-padding-y;
+    border: 1px solid $border-color;
+  }
+}
