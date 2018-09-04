@@ -1253,7 +1253,7 @@ pre {
 .form-control {
   display: block;
   width: 100%;
-  height: calc(2.25rem + 2px);
+  height: 3.25rem;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   line-height: 1.5;
@@ -6339,7 +6339,7 @@ input.labelauty + label.btn-light {
 
 input.labelauty + label.btn-primary {
   background-color: #e8f0fa; }
-  input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus {
+  input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus, input.labelauty + label.btn-primary:active {
     background-color: #a9c7ec; }
 
 input.labelauty + label .svg-inline--fa {
@@ -6367,11 +6367,14 @@ input.labelauty + label .labelauty-checked-image {
 input.labelauty + label input.labelauty:checked + label > span.labelauty-checked-image {
   display: block; }
 
+input[type="text"], input[type="email"], input[type="date"] {
+  height: 3.25rem; }
+
 select {
   appearance: none;
   -webkit-appearance: none;
   background-image: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMzIgMzIiPgo8dGl0bGU+Y2Fycm90LWRvd248L3RpdGxlPgo8cGF0aCBkPSJNMC4yIDEwLjRsMTQuNCAxNC40YzAuOCAwLjggMiAwLjggMi42IDBsMTQuNC0xNC40YzAuNC0wLjQgMC40LTEgMC4yLTEuNGwtMS40LTEuNGMtMC40LTAuNC0xLTAuNC0xLjQgMGwtMTIuNCAxMi40Yy0wLjQgMC40LTEgMC40LTEuNCAwbC0xMi4yLTEyLjJjLTAuNC0wLjQtMS0wLjQtMS40IDBsLTEuNCAxLjJjLTAuMiAwLjQtMC4yIDEgMCAxLjR6Ij48L3BhdGg+Cjwvc3ZnPgo=);
-  background-position: right 1.6rem center;
+  background-position: right 1rem center;
   background-repeat: no-repeat;
-  background-size: 1.3rem;
+  background-size: 1rem;
   width: 100%; }
