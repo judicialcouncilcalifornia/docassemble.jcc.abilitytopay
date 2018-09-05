@@ -251,6 +251,8 @@ $table-caption-color:         $text-muted;
 }
 
 input.labelauty + label {
+  display: flex;
+
   &.btn-light,
   &.btn-primary {
     padding: $input-padding-x $input-padding-y;
@@ -306,6 +308,11 @@ input.labelauty + label {
   input.labelauty:checked + label > span.labelauty-checked-image {
     display: block;
   }
+
+  input.labelauty + label > span.labelauty-unchecked-image, 
+  input.labelauty + label > span.labelauty-checked-image {
+    min-width: 1rem;
+  }
 }
 
 input[type="text"], input[type="email"], input[type="date"] {
@@ -338,6 +345,11 @@ select {
 
     .nav-link {
       color: $olive-500;
+
+      &:hover, 
+      &:focus {
+        color: $blue-800;
+      }
     }
 
     .text-muted {

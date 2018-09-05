@@ -6328,44 +6328,42 @@ a.text-dark:hover, a.text-dark:focus {
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
-input.labelauty + label.btn-light, input.labelauty + label.btn-primary {
-  padding: 1rem 0.75rem;
-  border: 1px solid #dee2e6; }
-
-input.labelauty + label.btn-light {
-  background-color: #fff; }
-  input.labelauty + label.btn-light:hover, input.labelauty + label.btn-light:focus {
+input.labelauty + label {
+  display: flex; }
+  input.labelauty + label.btn-light, input.labelauty + label.btn-primary {
+    padding: 1rem 0.75rem;
+    border: 1px solid #dee2e6; }
+  input.labelauty + label.btn-light {
+    background-color: #fff; }
+    input.labelauty + label.btn-light:hover, input.labelauty + label.btn-light:focus {
+      background-color: #e8f0fa; }
+  input.labelauty + label.btn-primary {
     background-color: #e8f0fa; }
-
-input.labelauty + label.btn-primary {
-  background-color: #e8f0fa; }
-  input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus, input.labelauty + label.btn-primary:active, input.labelauty + label.btn-primary:not(:disabled):not(.disabled):active {
-    background-color: #a9c7ec; }
-
-input.labelauty + label .svg-inline--fa {
-  display: none; }
-
-input.labelauty + label .labelauty-unchecked-image,
-input.labelauty + label .labelauty-checked-image {
-  box-shadow: 0 0 0 1px #adb5bd;
-  height: 1rem;
-  width: 1rem;
-  line-height: 1rem; }
-
-input.labelauty + label .labelauty-unchecked-image {
-  background-color: #fff; }
-
-input.labelauty + label .labelauty-checked-image {
-  display: none;
-  box-shadow: 0 0 0 1px #adb5bd;
-  background-color: #1b97e0;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAAAXNSR0IArs4c6QAAAQhJREFUOBGtky2LAlEUhsdPRCyC+AMMBoMgGywWQSxG/4DNIEaTYFo22mxu2bjJZrFZphj8JSJ+rmV8XpkBZ4YdxfHCwz3n3HOeGeYyhvGGZVlWAYZSxcP6EBVxmJAlzoXyISjBBi5wgOTLQobLsIUzrCEdRvaBYGfLVuwZl4xC1lUISOitgmQnMMH9ZhTyoDUK8NyO6KnBHiRbQso3Q7ECWkf48jXYBc7qoA8v2QL+vwAOeyChGHul1Jr2mWRzSHh7fDlNA3tI0onTQNy6q8+IY87Zw53mPugtJJ1C4y7/JY4+lHgbGOqChH+g21T8AxFv79M5wx3QBegv+IbXZc5TkbTh08mf3a8D6CoIuED3eQAAAABJRU5ErkJggg==);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: 80%; }
-
-input.labelauty + label input.labelauty:checked + label > span.labelauty-checked-image {
-  display: block; }
+    input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus, input.labelauty + label.btn-primary:active, input.labelauty + label.btn-primary:not(:disabled):not(.disabled):active {
+      background-color: #a9c7ec; }
+  input.labelauty + label .svg-inline--fa {
+    display: none; }
+  input.labelauty + label .labelauty-unchecked-image,
+  input.labelauty + label .labelauty-checked-image {
+    box-shadow: 0 0 0 1px #adb5bd;
+    height: 1rem;
+    width: 1rem;
+    line-height: 1rem; }
+  input.labelauty + label .labelauty-unchecked-image {
+    background-color: #fff; }
+  input.labelauty + label .labelauty-checked-image {
+    display: none;
+    box-shadow: 0 0 0 1px #adb5bd;
+    background-color: #1b97e0;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAAAXNSR0IArs4c6QAAAQhJREFUOBGtky2LAlEUhsdPRCyC+AMMBoMgGywWQSxG/4DNIEaTYFo22mxu2bjJZrFZphj8JSJ+rmV8XpkBZ4YdxfHCwz3n3HOeGeYyhvGGZVlWAYZSxcP6EBVxmJAlzoXyISjBBi5wgOTLQobLsIUzrCEdRvaBYGfLVuwZl4xC1lUISOitgmQnMMH9ZhTyoDUK8NyO6KnBHiRbQso3Q7ECWkf48jXYBc7qoA8v2QL+vwAOeyChGHul1Jr2mWRzSHh7fDlNA3tI0onTQNy6q8+IY87Zw53mPugtJJ1C4y7/JY4+lHgbGOqChH+g21T8AxFv79M5wx3QBegv+IbXZc5TkbTh08mf3a8D6CoIuED3eQAAAABJRU5ErkJggg==);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 80%; }
+  input.labelauty + label input.labelauty:checked + label > span.labelauty-checked-image {
+    display: block; }
+  input.labelauty + label input.labelauty + label > span.labelauty-unchecked-image,
+  input.labelauty + label input.labelauty + label > span.labelauty-checked-image {
+    min-width: 1rem; }
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: 3.25rem; }
@@ -6391,6 +6389,8 @@ select {
   padding: 1rem 1rem .75rem; }
   .navbar.navbar-dark .nav-link, .navbar.bg-dark .nav-link {
     color: #73877B; }
+    .navbar.navbar-dark .nav-link:hover, .navbar.navbar-dark .nav-link:focus, .navbar.bg-dark .nav-link:hover, .navbar.bg-dark .nav-link:focus {
+      color: #244f73; }
   .navbar.navbar-dark .text-muted, .navbar.bg-dark .text-muted {
     color: #73877B; }
   .navbar.navbar-dark .navbar-brand, .navbar.bg-dark .navbar-brand {
