@@ -329,6 +329,25 @@ select {
   margin-top: 2rem;
 }
 
+.navbar {
+  &.navbar-dark {
+    background-color: $olive-100;
+    box-shadow: inset 0px 5px 0px 0px $olive-500;
+
+    &.nav-link {
+      color: $olive-500;
+    }
+
+    .text-muted {
+      color: $olive-500;
+    }
+
+    .navbar-brand {
+      color: $blue-800;
+    }
+  }
+}
+
 // .btn-primary {
 //   &:hover, 
 //   &:focus {
