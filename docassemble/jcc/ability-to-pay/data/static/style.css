@@ -6386,7 +6386,7 @@ select {
   margin-top: 2rem; }
 
 .navbar.navbar-dark, .navbar.bg-dark {
-  background-color: #f3f5ee;
+  background-color: #f3f5ee !important;
   box-shadow: inset 0px 5px 0px 0px #73877B; }
   .navbar.navbar-dark.nav-link, .navbar.bg-dark.nav-link {
     color: #73877B; }

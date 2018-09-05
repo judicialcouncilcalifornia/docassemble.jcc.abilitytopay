@@ -332,7 +332,7 @@ select {
 .navbar {
   &.navbar-dark,
   &.bg-dark {
-    background-color: $olive-100;
+    background-color: $olive-100 !important;
     box-shadow: inset 0px 5px 0px 0px $olive-500;
 
     &.nav-link {
