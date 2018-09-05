@@ -6385,12 +6385,12 @@ select {
   padding: 0 2rem 2rem;
   margin-top: 2rem; }
 
-.navbar.navbar-dark {
+.navbar.navbar-dark, .navbar.bg-dark {
   background-color: #f3f5ee;
   box-shadow: inset 0px 5px 0px 0px #73877B; }
-  .navbar.navbar-dark.nav-link {
+  .navbar.navbar-dark.nav-link, .navbar.bg-dark.nav-link {
     color: #73877B; }
-  .navbar.navbar-dark .text-muted {
+  .navbar.navbar-dark .text-muted, .navbar.bg-dark .text-muted {
     color: #73877B; }
-  .navbar.navbar-dark .navbar-brand {
+  .navbar.navbar-dark .navbar-brand, .navbar.bg-dark .navbar-brand {
     color: #244f73; }
