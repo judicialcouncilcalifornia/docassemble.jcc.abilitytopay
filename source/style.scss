@@ -251,7 +251,7 @@ $table-caption-color:         $text-muted;
 }
 
 input.labelauty + label {
-  display: flex;
+  display: flex !important;
 
   &.btn-light,
   &.btn-primary {
@@ -304,15 +304,15 @@ input.labelauty + label {
     background-repeat: no-repeat;
     background-size: 80%;
   }
+}
 
-  input.labelauty:checked + label > span.labelauty-checked-image {
-    display: block;
-  }
+input.labelauty:checked + label > span.labelauty-checked-image {
+  display: block;
+}
 
-  input.labelauty + label > span.labelauty-unchecked-image, 
-  input.labelauty + label > span.labelauty-checked-image {
-    min-width: 1rem;
-  }
+input.labelauty + label > span.labelauty-unchecked-image, 
+input.labelauty + label > span.labelauty-checked-image {
+  min-width: 1rem;
 }
 
 input[type="text"], input[type="email"], input[type="date"] {

@@ -6329,7 +6329,7 @@ a.text-dark:hover, a.text-dark:focus {
   padding-bottom: 1rem; }
 
 input.labelauty + label {
-  display: flex; }
+  display: flex !important; }
   input.labelauty + label.btn-light, input.labelauty + label.btn-primary {
     padding: 1rem 0.75rem;
     border: 1px solid #dee2e6; }
@@ -6359,11 +6359,13 @@ input.labelauty + label {
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: 80%; }
-  input.labelauty + label input.labelauty:checked + label > span.labelauty-checked-image {
-    display: block; }
-  input.labelauty + label input.labelauty + label > span.labelauty-unchecked-image,
-  input.labelauty + label input.labelauty + label > span.labelauty-checked-image {
-    min-width: 1rem; }
+
+input.labelauty:checked + label > span.labelauty-checked-image {
+  display: block; }
+
+input.labelauty + label > span.labelauty-unchecked-image,
+input.labelauty + label > span.labelauty-checked-image {
+  min-width: 1rem; }
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: 3.25rem; }
