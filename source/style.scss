@@ -271,7 +271,8 @@ input.labelauty + label {
 
     &:hover, 
     &:focus,
-    &:active {
+    &:active,
+    &:not(:disabled):not(.disabled):active {
       background-color: darken($blue-100, 15%);
     }
   }
@@ -319,6 +320,13 @@ select {
   background-repeat: no-repeat;
   background-size: 1rem;
   width: 100%;
+}
+
+.tab-pane {
+  border-radius: 0.5rem;
+  border: 1px solid #efefef;
+  padding: 0 2rem 2rem;
+  margin-top: 2rem;
 }
 
 // .btn-primary {

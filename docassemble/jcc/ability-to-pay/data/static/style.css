@@ -6339,7 +6339,7 @@ input.labelauty + label.btn-light {
 
 input.labelauty + label.btn-primary {
   background-color: #e8f0fa; }
-  input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus, input.labelauty + label.btn-primary:active {
+  input.labelauty + label.btn-primary:hover, input.labelauty + label.btn-primary:focus, input.labelauty + label.btn-primary:active, input.labelauty + label.btn-primary:not(:disabled):not(.disabled):active {
     background-color: #a9c7ec; }
 
 input.labelauty + label .svg-inline--fa {
@@ -6378,3 +6378,9 @@ select {
   background-repeat: no-repeat;
   background-size: 1rem;
   width: 100%; }
+
+.tab-pane {
+  border-radius: 0.5rem;
+  border: 1px solid #efefef;
+  padding: 0 2rem 2rem;
+  margin-top: 2rem; }
