@@ -241,6 +241,9 @@ $progress-bar-bg:                   $primary;
 $progress-bar-animation-timing:     1s linear infinite !default;
 $progress-bar-transition:           width .6s ease !default;
 
+$table-accent-bg:            $olive-100;
+$table-cell-padding:         1rem .75rem;
+
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -275,7 +278,7 @@ input.labelauty + label {
 
   &.btn-light,
   &.btn-primary {
-    padding: $input-padding-x $input-padding-y;
+    padding: .6875rem;
     border: 1px solid $border-color;
   }
 
@@ -332,8 +335,32 @@ input.labelauty:checked + label > span.labelauty-checked-image {
 
 input.labelauty + label > span.labelauty-unchecked-image, 
 input.labelauty + label > span.labelauty-checked-image {
-  min-width: 1rem;
+  height: 1.875rem;
+  width: 1.875rem;
+  min-width: 1.875rem;
+  border-radius: 3px;
 }
+
+input.labelauty + label > span.labelauty-unchecked, 
+input.labelauty + label > span.labelauty-checked {
+  margin-left: .6875rem;
+  padding-top: .6875rem;
+}
+
+input.labelauty.radio-icon + label {
+  > span.labelauty-unchecked-image,
+  > span.labelauty-checked-image {
+    border-radius: 50%;
+    height: .6667rem;
+    width: .6667rem;
+  }
+
+  > span.labelauty-checked-image {
+    background-image: 0;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px $info;
+  }
+}
+
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: $input-height !important;
@@ -350,10 +377,13 @@ select {
 }
 
 .tab-pane {
-  // border-radius: 0.5rem;
-  // border: 1px solid #efefef;
-  // padding: 0 2rem 2rem;
   margin-top: 2rem;
+  margin-left: 0 !important;
+  
+  @include media-breakpoint-up(lg) {
+    flex: 0 0 65%;
+    max-width: 65%;
+  }
 
   p {
     em {
@@ -367,7 +397,8 @@ select {
 .navbar {
   &.navbar-dark,
   &.bg-dark {
-    background-color: $blue-800 !important;
+    background-color: $blue-900 !important;
+    border-bottom: 4px solid $blue;
     padding: .75rem 1rem .75rem;
 
     .nav-link {
@@ -446,6 +477,29 @@ select {
 
 .form-group.required .col-form-label:after {
   content: '';
+}
+
+.danavcontainer {
+  position: relative;
+}
+
+.dabackicon {
+  position: absolute;
+  bottom: -50px;
+  left: 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-decoration: underline;
+  color: $info;
+  letter-spacing: .5px;
+}
+
+.navbar-brand {
+  margin-right: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+
 }
 
 // .btn-primary {
