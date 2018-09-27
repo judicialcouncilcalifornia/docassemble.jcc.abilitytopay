@@ -113,6 +113,7 @@ $font-size-sm:                ($font-size-base * .875);
 
 $line-height-base:            1.5;
 
+$hero-font-size:              $font-size-base * 3; // 48
 $h1-font-size:                $font-size-base * 2.5; // 40
 $h2-font-size:                $font-size-base * 2; // 32
 $h3-font-size:                $font-size-base * 1.75; // 28
@@ -228,8 +229,20 @@ $table-striped-order:         odd;
 
 $table-caption-color:         $text-muted;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+// Progress bars
 
+$progress-height:                   .5rem;
+$progress-font-size:                ($font-size-base * .75) !default;
+$progress-bg:                       $gray-100;
+$progress-border-radius:            $border-radius !default;
+$progress-box-shadow:               inset 0 .1rem .1rem rgba($black, .1) !default;
+$progress-bar-color:                $white !default;
+$progress-bar-bg:                   $primary;
+$progress-bar-animation-timing:     1s linear infinite !default;
+$progress-bar-transition:           width .6s ease !default;
+
+
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 .da-has-error {
   color: $red;
@@ -316,7 +329,7 @@ input.labelauty + label > span.labelauty-checked-image {
 }
 
 input[type="text"], input[type="email"], input[type="date"] {
-  height: $input-height;
+  height: $input-height !important;
 }
 
 select {
@@ -339,6 +352,7 @@ select {
     em {
       font-family: $headings-font-family;
       font-size: $h5-font-size;
+      font-style: normal;
     }
   }
 }
@@ -346,25 +360,24 @@ select {
 .navbar {
   &.navbar-dark,
   &.bg-dark {
-    background-color: $olive-100 !important;
-    box-shadow: inset 0px 3px 0px 0px $olive-500;
-    padding: 1rem 1rem .75rem;
+    background-color: $blue-800 !important;
+    padding: .75rem 1rem .75rem;
 
     .nav-link {
-      color: $olive-500;
+      color: $white;
 
       &:hover, 
       &:focus {
-        color: $blue-800;
+        color: $white;
       }
     }
 
     .text-muted {
-      color: $olive-500;
+      color: $white;
     }
 
     .navbar-brand {
-      color: $blue-800;
+      color: $white;
     }
   }
 }
@@ -372,8 +385,21 @@ select {
 .page-header {
   h3 {
     font-size: $h2-font-size;
-    color: $blue-900;
+    color: $blue-800;
+    border-bottom: 0;
+
+    @include media-breakpoint-up(md) {
+      font-size: $hero-font-size;
+    }
   }
+}
+
+.btn {
+  letter-spacing: 1px;
+}
+
+.form-actions {
+  margin-top: 2rem;
 }
 
 // .btn-primary {
