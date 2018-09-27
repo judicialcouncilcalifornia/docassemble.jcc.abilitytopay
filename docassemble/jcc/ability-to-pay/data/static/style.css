@@ -6414,9 +6414,11 @@ select {
   margin-top: 4rem; }
 
 .col-form-label .col-md-4 {
-  width: 100% !important;
-  max-width: 100% !important; }
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  text-align: left !important;
+  padding-bottom: 2rem; }
 
 .fieldpart .col-md-8 {
-  width: 100% !important;
+  flex: 0 0 100% !important;
   max-width: 100% !important; }
