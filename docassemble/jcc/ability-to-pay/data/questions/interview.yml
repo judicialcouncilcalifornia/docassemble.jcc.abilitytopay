@@ -29,7 +29,7 @@ subquestion: |
 question: |
   Find your Citation
 subquestion: |
-  Let's gather details on the citation to address!
+  *Let's gather details on the citation to address!*
 fields:
 - County: county
   choices:
@@ -126,7 +126,10 @@ question: |
   Public Benefits
 subquestion: |
   Do you currently receive any public benefits?
-yesno: has_benefits
+field: has_benefits
+choices:
+  - "Yes"
+  - "No"
 ---
 question: |
   Public Benefits

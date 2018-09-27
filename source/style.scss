@@ -383,10 +383,11 @@ select {
 }
 
 .page-header {
+  border-bottom: 0;
+
   h3 {
     font-size: $h2-font-size;
     color: $blue-800;
-    border-bottom: 0;
 
     @include media-breakpoint-up(md) {
       font-size: $hero-font-size;
@@ -399,7 +400,23 @@ select {
 }
 
 .form-actions {
-  margin-top: 2rem;
+  margin-top: 4rem;
+}
+
+.col-form-label {
+  .col-md-4 {
+    flex: 0 0 100%;!important;
+    max-width: 100% !important;
+    text-align: left !important;
+    padding-bottom: 2rem;
+  }
+}
+
+.fieldpart {
+  .col-md-8 {
+    flex: 0 0 100%; !important;
+    max-width: 100% !important;
+  }
 }
 
 // .btn-primary {

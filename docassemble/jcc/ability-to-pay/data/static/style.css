@@ -6398,16 +6398,25 @@ select {
   .navbar.navbar-dark .navbar-brand, .navbar.bg-dark .navbar-brand {
     color: #fff; }
 
-.page-header h3 {
-  font-size: 2rem;
-  color: #244f73;
+.page-header {
   border-bottom: 0; }
-  @media (min-width: 768px) {
-    .page-header h3 {
-      font-size: 3rem; } }
+  .page-header h3 {
+    font-size: 2rem;
+    color: #244f73; }
+    @media (min-width: 768px) {
+      .page-header h3 {
+        font-size: 3rem; } }
 
 .btn {
   letter-spacing: 1px; }
 
 .form-actions {
-  margin-top: 2rem; }
+  margin-top: 4rem; }
+
+.col-form-label .col-md-4 {
+  width: 100% !important;
+  max-width: 100% !important; }
+
+.fieldpart .col-md-8 {
+  width: 100% !important;
+  max-width: 100% !important; }
