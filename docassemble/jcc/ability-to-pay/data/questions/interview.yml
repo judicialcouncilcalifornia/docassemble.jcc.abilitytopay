@@ -3,6 +3,7 @@ modules:
 ---
 features:
   bootstrap theme: style.css
+  progress bar: True
 ---
 metadata:
   title: Ability to Pay
@@ -16,14 +17,14 @@ field: before_you_start
 question: |
   Before You Start
 subquestion: |
-  This online system is an optional way to request a fine reduction due to financial need. If you want to contest your ticket, see the [instructions on your ticket](http://www.courts.ca.gov/selfhelp-traffic.htm) for more information on contesting your ticket.
+  *This online system is an optional way to request a fine reduction due to financial need. If you want to contest your ticket, see the [instructions on your ticket](http://www.courts.ca.gov/selfhelp-traffic.htm) for more information on contesting your ticket.*
 
   Use this tool to:
 
   * Request a reduction in your traffic fine based on financial need
   * Request to pay in installments (set up payment plan)
   * Request Community Service 
-  * Request more time to pay your ticket 
+  * Request more time to pay your ticket
 ---
 question: |
   Find your Citation

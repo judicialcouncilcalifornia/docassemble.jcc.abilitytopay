@@ -330,10 +330,17 @@ select {
 }
 
 .tab-pane {
-  border-radius: 0.5rem;
-  border: 1px solid #efefef;
-  padding: 0 2rem 2rem;
+  // border-radius: 0.5rem;
+  // border: 1px solid #efefef;
+  // padding: 0 2rem 2rem;
   margin-top: 2rem;
+
+  p {
+    em {
+      font-family: $headings-font-family;
+      font-size: $h5-font-size;
+    }
+  }
 }
 
 .navbar {
@@ -359,6 +366,13 @@ select {
     .navbar-brand {
       color: $blue-800;
     }
+  }
+}
+
+.page-header {
+  h3 {
+    font-size: $h2-font-size;
+    color: $blue-900;
   }
 }
 
