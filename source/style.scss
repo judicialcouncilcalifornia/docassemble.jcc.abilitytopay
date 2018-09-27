@@ -404,7 +404,7 @@ select {
 }
 
 .col-form-label {
-  .col-md-4 {
+  &.col-md-4 {
     flex: 0 0 100% !important;
     max-width: 100% !important;
     text-align: left !important;
@@ -413,7 +413,7 @@ select {
 }
 
 .fieldpart {
-  .col-md-8 {
+  &.col-md-8 {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }
