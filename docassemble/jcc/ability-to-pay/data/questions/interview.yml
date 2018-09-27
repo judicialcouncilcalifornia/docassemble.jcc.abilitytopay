@@ -151,7 +151,7 @@ fields:
 question: |
   Public Benefits
 subquestion: |
-  You said you receive Calfresh, can you please upload a picture of your CalFresh card?
+  *You said you receive Calfresh, can you please upload a picture of your CalFresh card?*
 fields:
 - Calfrash Card: calfresh_card
   datatype: file
@@ -159,7 +159,7 @@ fields:
 question: |
   Public Benefits
 subquestion: |
-  Do you currently receive any public benefits?
+  *Do you currently receive any public benefits?*
 field: has_benefits
 choices:
   - "Yes"
