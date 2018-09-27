@@ -126,10 +126,8 @@ question: |
   Public Benefits
 subquestion: |
   *Do you currently receive any public benefits?*
-field: has_benefits
-choices:
-  - "Yes"
-  - "No"
+fields: has_benefits
+  - datatype: yesnoradio
 ---
 question: |
   Public Benefits
@@ -160,10 +158,11 @@ question: |
   Public Benefits
 subquestion: |
   *Do you currently receive any public benefits?*
-field: has_benefits
-choices:
-  - "Yes"
-  - "No"
+fields: has_benefits
+  - input type: radio
+    choices:
+      - "Yes"
+      - "No"
 ---
 question: |
   Current Income
@@ -216,7 +215,10 @@ subquestion: |
   Continue if you have read, understand and waive the rights above and agree to plead “No Contest”.
 
   **Any conviction will be reported to the Department of Motor Vehicles (DMV). This is the case whether you pay in full or not.**
-yesno: has_plea
+field: has_plea
+choices:
+  - "Yes"
+  - "No"
 ---
 question: |
   Final Step

@@ -248,6 +248,8 @@ $progress-bar-transition:           width .6s ease !default;
   color: $red;
   font-family: $headings-font-family;
   font-style: italic;
+  margin-top: .5rem;
+  display: inline-block;
 
   input[type="text"] {
     border-color: $danger;
@@ -260,6 +262,11 @@ $progress-bar-transition:           width .6s ease !default;
     background-color: #fdf6f5;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-left: 4px solid $danger;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding-left: 11px;
+    padding-right: 15px;
   }
 }
 
@@ -401,6 +408,19 @@ select {
 
 .form-actions {
   margin-top: 4rem;
+
+  .btn-success {
+    background-color: #f29d17;
+
+    &:focus {
+      background-color: #f29d17;
+    }
+
+    &:active,
+    &.active {
+      background-color: #f29d17;
+    }
+  }
 }
 
 .col-form-label {
@@ -409,6 +429,12 @@ select {
     max-width: 100% !important;
     text-align: left !important;
   }
+
+  em {
+    font-family: $headings-font-family;
+    font-size: $h5-font-size;
+    font-style: normal;
+  }
 }
 
 .fieldpart {
@@ -416,6 +442,10 @@ select {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }
+}
+
+.form-group.required .col-form-label:after
+  content: '';
 }
 
 // .btn-primary {
