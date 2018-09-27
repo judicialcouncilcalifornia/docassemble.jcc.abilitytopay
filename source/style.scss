@@ -383,7 +383,7 @@ select {
 }
 
 .page-header {
-  border-bottom: 0;
+  border-bottom: 0 !important;
 
   h3 {
     font-size: $h2-font-size;
@@ -408,7 +408,6 @@ select {
     flex: 0 0 100% !important;
     max-width: 100% !important;
     text-align: left !important;
-    padding-bottom: 2rem;
   }
 }
 

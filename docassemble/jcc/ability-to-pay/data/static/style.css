@@ -6399,7 +6399,7 @@ select {
     color: #fff; }
 
 .page-header {
-  border-bottom: 0; }
+  border-bottom: 0 !important; }
   .page-header h3 {
     font-size: 2rem;
     color: #244f73; }
@@ -6416,8 +6416,7 @@ select {
 .col-form-label.col-md-4 {
   flex: 0 0 100% !important;
   max-width: 100% !important;
-  text-align: left !important;
-  padding-bottom: 2rem; }
+  text-align: left !important; }
 
 .fieldpart.col-md-8 {
   flex: 0 0 100% !important;

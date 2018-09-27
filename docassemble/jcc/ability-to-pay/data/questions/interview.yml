@@ -105,7 +105,7 @@ field: additional_requests
 question: |
   Request to Court
 subquestion: |
-  A court official will accept or deny your request.
+  *A court official will accept or deny your request.*
 fields:
 - "Whether or not your request for a reduction is granted, would you like to add any of the following requests to the current or reduced amount?": additional_requests
   datatype: checkboxes
@@ -118,23 +118,21 @@ field: how_work
 question: |
   How this works
 subquestion: |
-  We are going to walk through a few questions to help the Court get a better understanding for your situation and your eligibility for your reduction request.
+  *We are going to walk through a few questions to help the Court get a better understanding for your situation and your eligibility for your reduction request.*
 
   Even though this is an online process, a judge/court official  will still review your request the same way they would if you came to court in person.
 ---
 question: |
   Public Benefits
 subquestion: |
-  Do you currently receive any public benefits?
-field: has_benefits
-choices:
-  - "Yes"
-  - "No"
+  *Do you currently receive any public benefits?*
+fields: has_benefits
+  datatype: yesnoradio
 ---
 question: |
   Public Benefits
 fields:
-- "Which of the following public benefits do you currently receive?": benefits
+- "<em>Which of the following public benefits do you currently receive?</em>": benefits
   datatype: checkboxes
   choices:
   - "CalFresh (Food Stamps)": cal_fresh
@@ -160,12 +158,15 @@ question: |
   Public Benefits
 subquestion: |
   Do you currently receive any public benefits?
-yesno: has_benefits
+fields: has_benefits
+  datatype: yesnoradio
 ---
 question: |
   Current Income
 subquestion: |
-  How much money do you earn (take-home pay) or get from other sources(including income received in your family from a spouse or live-in romantic partner)? Answer the best you can.
+  *How much money do you earn (take-home pay) or get from other sources(including income received in your family from a spouse or live-in romantic partner)?* 
+
+  Answer the best you can.
 fields:
 - Income: income
   datatype: currency
@@ -180,7 +181,7 @@ fields:
 question: |
   Household Details
 subquestion: |
-  Tell us about your household
+  *Tell us about your household*
 fields:
 - Residents: residents
   datatype: number
@@ -188,7 +189,7 @@ fields:
 question: |
   Monthly Expenses
 subquestion: |
-  Please enter your monthly expenses, as applicable
+  *Please enter your monthly expenses, as applicable*
 fields:
 - Housing: housing_expenses
   datatype: currency
@@ -198,7 +199,7 @@ fields:
 question: |
   Plea
 subquestion: |
-  In order to proceed with your request for a reduction, you need to admit responsibility for the charge for which you received a ticket and plead no contest.  
+  *In order to proceed with your request for a reduction, you need to admit responsibility for the charge for which you received a ticket and plead no contest.*
 
   To plead no contest, please waive the following: 
 
@@ -216,7 +217,7 @@ yesno: has_plea
 question: |
   Final Step
 subquestion: |
-  The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.
+  *The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.*
 
   I declare under penalty of perjury, under the laws of the State of California, that all information on or attached to this form is true.
 yesno: has_sworn
@@ -248,7 +249,7 @@ code: |
 question: |
   Thank you!
 subquestion: |
-  Expect a response from the court in XX business days. If you don't get a notification from your court please contact XXXXX@XXXX.gov.
+  *Expect a response from the court in XX business days. If you don't get a notification from your court please contact XXXXX@XXXX.gov.*
 sets: all_done
 ---
 template: submission
