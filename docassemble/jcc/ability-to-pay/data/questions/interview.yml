@@ -126,8 +126,8 @@ question: |
   Public Benefits
 subquestion: |
   *Do you currently receive any public benefits?*
-fields: has_benefits
-  - datatype: yesnoradio
+field: has_benefits
+datatype: yesnoradio
 ---
 question: |
   Public Benefits
@@ -158,11 +158,11 @@ question: |
   Public Benefits
 subquestion: |
   *Do you currently receive any public benefits?*
-fields: has_benefits
-  - input type: radio
-    choices:
-      - "Yes"
-      - "No"
+field: has_benefits
+input type: radio
+choices:
+  - "Yes"
+  - "No"
 ---
 question: |
   Current Income
