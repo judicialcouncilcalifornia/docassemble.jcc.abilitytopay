@@ -476,7 +476,7 @@ select {
 }
 
 .form-group.required .col-form-label:after {
-  content: '';
+  content: '' !important;
 }
 
 .danavcontainer {
@@ -498,8 +498,14 @@ select {
   margin-right: 0;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
+.input-group-text {
+  background-color: transparent;
+  border-right: 0;
+}
 
+.input-group > .form-control:not(:first-child), 
+.input-group > .custom-select:not(:first-child) {
+  border-left: 0;
 }
 
 // .btn-primary {

@@ -226,7 +226,10 @@ subquestion: |
   *The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.*
 
   I declare under penalty of perjury, under the laws of the State of California, that all information on or attached to this form is true.
-yesno: has_sworn
+field: has_sworn
+choices:
+  - "Yes"
+  - "No"
 ---
 mandatory: True
 code: |
