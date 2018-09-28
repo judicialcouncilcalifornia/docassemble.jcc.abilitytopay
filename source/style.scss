@@ -345,7 +345,6 @@ input.labelauty + label > span.labelauty-checked-image {
 input.labelauty + label > span.labelauty-unchecked, 
 input.labelauty + label > span.labelauty-checked {
   margin-left: .6875rem !important;
-  padding-top: .425rem;
 }
 
 input.labelauty.radio-icon + label {
@@ -366,11 +365,11 @@ input.labelauty.radio-icon + label {
   }
 
   &.btn-primary {
-    padding: 1rem;
+    padding: .85rem;
   }
 
   > span.labelauty-checked {
-
+    padding-left: 6px;
   }
 
   > span.labelauty-unchecked {
