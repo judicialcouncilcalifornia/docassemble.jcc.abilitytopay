@@ -6381,7 +6381,7 @@ input.labelauty + label > span.labelauty-unchecked,
 input.labelauty + label > span.labelauty-checked {
   margin-left: .6875rem !important;
   padding-top: 3px;
-  line-height: 1.5rem; }
+  line-height: 1.5rem !important; }
 
 input.labelauty.radio-icon + label {
   align-items: center; }
