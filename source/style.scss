@@ -368,18 +368,17 @@ input.labelauty.radio-icon + label {
   }
 
   &.btn-primary {
-    min-height: 3.25px;
+    min-height: 3.25rem;
   }
 
   > span.labelauty-checked {
-    padding-left: 5px;
+    padding-left: 4px;
   }
 
   > span.labelauty-unchecked {
 
   }
 }
-
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: $input-height !important;
@@ -519,7 +518,7 @@ select {
   letter-spacing: .5px;
 
   &.text-muted {
-    color: $info;
+    color: $info !important;
   }
 }
 
