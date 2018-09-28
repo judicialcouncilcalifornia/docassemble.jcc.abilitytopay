@@ -390,6 +390,13 @@ select {
       font-family: $headings-font-family;
       font-size: $h5-font-size;
       font-style: normal;
+      padding-bottom: 1rem;
+      display: inline-block;
+
+      @include media-breakpoint-up(md) {
+        font-size: $h3-font-size;
+        line-height: 2.5rem;
+      }
     }
   }
 }
