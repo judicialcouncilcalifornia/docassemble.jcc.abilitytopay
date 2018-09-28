@@ -6355,7 +6355,7 @@ input.labelauty + label {
     box-shadow: 0 0 0 1px #adb5bd;
     height: 1rem;
     width: 1rem;
-    line-height: 1rem; }
+    line-height: 1.5rem; }
   input.labelauty + label .labelauty-unchecked-image {
     background-color: #fff; }
   input.labelauty + label .labelauty-checked-image {
@@ -6375,7 +6375,8 @@ input.labelauty + label > span.labelauty-checked-image {
   height: 1.875rem !important;
   width: 1.875rem !important;
   min-width: 1.875rem;
-  border-radius: 3px; }
+  border-radius: 3px;
+  padding-top: 3px; }
 
 input.labelauty + label > span.labelauty-unchecked,
 input.labelauty + label > span.labelauty-checked {
@@ -6400,7 +6401,10 @@ input.labelauty.radio-icon + label {
   input.labelauty.radio-icon + label.btn-primary {
     min-height: 3.25rem; }
   input.labelauty.radio-icon + label > span.labelauty-checked {
-    padding-left: 4px; }
+    padding-left: 4px;
+    padding-top: 0; }
+  input.labelauty.radio-icon + label > span.labelauty-unchecked {
+    padding-top: 0; }
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: 3.25rem !important; }
