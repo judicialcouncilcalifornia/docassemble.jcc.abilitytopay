@@ -311,7 +311,7 @@ input.labelauty + label {
     box-shadow: 0 0 0 1px $gray-500;
     height: 1rem;
     width: 1rem;
-    line-height: 1.5rem;
+    line-height: 1;
   }
 
   .labelauty-unchecked-image {
@@ -345,6 +345,8 @@ input.labelauty + label > span.labelauty-unchecked,
 input.labelauty + label > span.labelauty-checked {
   margin-left: .6875rem !important;
   padding-top: 3px;
+  line-height: 1.5rem;
+
 }
 
 input.labelauty.radio-icon + label {
