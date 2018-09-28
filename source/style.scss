@@ -351,13 +351,18 @@ input.labelauty.radio-icon + label {
   > span.labelauty-unchecked-image,
   > span.labelauty-checked-image {
     border-radius: 50%;
-    height: 1.25rem !important;
-    width: 1.25rem !important;
   }
 
   > span.labelauty-checked-image {
     background-image: none !important;
     box-shadow: 0 0 0 3px #fff, 0 0 0 5px $info;
+    height: 1.25rem !important;
+    width: 1.25rem !important;
+    min-width: 1.25rem !important;
+  }
+
+  &.btn-primary {
+    padding: .9rem;
   }
 }
 

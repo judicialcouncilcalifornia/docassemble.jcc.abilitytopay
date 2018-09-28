@@ -6384,13 +6384,17 @@ input.labelauty + label > span.labelauty-checked {
 
 input.labelauty.radio-icon + label > span.labelauty-unchecked-image,
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
-  border-radius: 50%;
-  height: 1.25rem !important;
-  width: 1.25rem !important; }
+  border-radius: 50%; }
 
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
   background-image: none !important;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #1b97e0; }
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #1b97e0;
+  height: 1.25rem !important;
+  width: 1.25rem !important;
+  min-width: 1.25rem !important; }
+
+input.labelauty.radio-icon + label.btn-primary {
+  padding: .9rem; }
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: 3.25rem !important; }
