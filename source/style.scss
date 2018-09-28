@@ -347,7 +347,7 @@ input.labelauty + label > span.labelauty-checked {
 }
 
 input.labelauty.radio-icon + label {
-  align-items: center
+  align-items: center;
 
   > span.labelauty-unchecked-image,
   > span.labelauty-checked-image {
@@ -376,7 +376,7 @@ input.labelauty.radio-icon + label {
   }
 
   > span.labelauty-unchecked {
-
+    
   }
 }
 
