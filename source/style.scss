@@ -113,6 +113,7 @@ $font-size-sm:                ($font-size-base * .875);
 
 $line-height-base:            1.5;
 
+$hero-font-size:              $font-size-base * 3; // 48
 $h1-font-size:                $font-size-base * 2.5; // 40
 $h2-font-size:                $font-size-base * 2; // 32
 $h3-font-size:                $font-size-base * 1.75; // 28
@@ -228,13 +229,30 @@ $table-striped-order:         odd;
 
 $table-caption-color:         $text-muted;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+// Progress bars
 
+$progress-height:                   .5rem;
+$progress-font-size:                ($font-size-base * .75) !default;
+$progress-bg:                       $gray-100;
+$progress-border-radius:            $border-radius !default;
+$progress-box-shadow:               inset 0 .1rem .1rem rgba($black, .1) !default;
+$progress-bar-color:                $white !default;
+$progress-bar-bg:                   $primary;
+$progress-bar-animation-timing:     1s linear infinite !default;
+$progress-bar-transition:           width .6s ease !default;
+
+$table-accent-bg:            $olive-100;
+$table-cell-padding:         1rem .75rem;
+
+
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 .da-has-error {
   color: $red;
   font-family: $headings-font-family;
   font-style: italic;
+  margin-top: .5rem;
+  display: inline-block;
 
   input[type="text"] {
     border-color: $danger;
@@ -247,15 +265,20 @@ $table-caption-color:         $text-muted;
     background-color: #fdf6f5;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-left: 4px solid $danger;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding-left: 11px;
+    padding-right: 15px;
   }
 }
 
 input.labelauty + label {
-  display: flex !important;
+  display: flex !important;;
 
   &.btn-light,
   &.btn-primary {
-    padding: $input-padding-x $input-padding-y;
+    padding: .6875rem;
     border: 1px solid $border-color;
   }
 
@@ -288,7 +311,7 @@ input.labelauty + label {
     box-shadow: 0 0 0 1px $gray-500;
     height: 1rem;
     width: 1rem;
-    line-height: 1rem;
+    line-height: 1;
   }
 
   .labelauty-unchecked-image {
@@ -312,11 +335,57 @@ input.labelauty:checked + label > span.labelauty-checked-image {
 
 input.labelauty + label > span.labelauty-unchecked-image, 
 input.labelauty + label > span.labelauty-checked-image {
-  min-width: 1rem;
+  height: 1.875rem !important;
+  width: 1.875rem !important;
+  min-width: 1.875rem;
+  border-radius: 3px;
 }
 
+input.labelauty + label > span.labelauty-unchecked, 
+input.labelauty + label > span.labelauty-checked {
+  margin-left: .6875rem !important;
+  padding-top: 3px;
+  line-height: 1.5rem !important;
+}
+
+input.labelauty.radio-icon + label {
+  align-items: center;
+
+  > span.labelauty-unchecked-image,
+  > span.labelauty-checked-image {
+    border-radius: 50%;
+    height: 1.75rem !important;
+    width: 1.75rem !important;
+    min-width: 1.75rem !important;
+  }
+
+  > span.labelauty-checked-image {
+    background-image: none !important;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px $info;
+    height: 1.25rem !important;
+    width: 1.25rem !important;
+    min-width: 1.25rem !important;
+    margin-top: 2px;
+    margin-left: 4px;
+  }
+
+  &.btn-primary {
+    min-height: 3.25rem;
+  }
+
+  > span.labelauty-checked {
+    padding-left: 4px;
+    padding-top: 0;
+  }
+
+  > span.labelauty-unchecked {
+    padding-top: 0;
+  }
+}
+
+
 input[type="text"], input[type="email"], input[type="date"] {
-  height: $input-height;
+  height: $input-height !important;
 }
 
 select {
@@ -330,36 +399,149 @@ select {
 }
 
 .tab-pane {
-  border-radius: 0.5rem;
-  border: 1px solid #efefef;
-  padding: 0 2rem 2rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
+  margin-left: 0 !important;
+  
+  @include media-breakpoint-up(lg) {
+    flex: 0 0 65%;
+    max-width: 65%;
+  }
+
+  p {
+    em {
+      font-family: $headings-font-family;
+      font-size: $h5-font-size;
+      font-style: normal;
+      padding-bottom: 1rem;
+      display: inline-block;
+
+      @include media-breakpoint-up(md) {
+        font-size: $h3-font-size;
+        line-height: 2.5rem;
+      }
+    }
+  }
 }
 
 .navbar {
   &.navbar-dark,
   &.bg-dark {
-    background-color: $olive-100 !important;
-    box-shadow: inset 0px 3px 0px 0px $olive-500;
-    padding: 1rem 1rem .75rem;
+    background-color: $blue-900 !important;
+    border-bottom: 4px solid $blue;
+    padding: .75rem 1rem .75rem;
 
     .nav-link {
-      color: $olive-500;
+      color: $white;
 
       &:hover, 
       &:focus {
-        color: $blue-800;
+        color: $white;
       }
     }
 
     .text-muted {
-      color: $olive-500;
+      color: $white;
     }
 
     .navbar-brand {
-      color: $blue-800;
+      color: $white;
     }
   }
+}
+
+.page-header {
+  border-bottom: 0 !important;
+
+  h3 {
+    font-size: $h2-font-size;
+    color: $blue-800;
+
+    @include media-breakpoint-up(md) {
+      font-size: $hero-font-size;
+    }
+  }
+}
+
+.btn {
+  letter-spacing: 1px;
+}
+
+.form-actions {
+  margin-top: 4rem;
+
+  .btn-success {
+    background-color: #f29d17;
+
+    &:focus {
+      background-color: #f29d17;
+    }
+
+    &:active,
+    &.active {
+      background-color: #f29d17;
+    }
+  }
+}
+
+.col-form-label {
+  &.col-md-4 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+  }
+
+  em {
+    font-family: $headings-font-family;
+    font-size: $h5-font-size;
+    font-style: normal;
+  }
+}
+
+.fieldpart {
+  &.col-md-8 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.form-group.required .col-form-label:after {
+  content: '' !important;
+}
+
+.danavcontainer {
+  position: relative;
+}
+
+.dabackicon {
+  position: absolute;
+  bottom: -50px;
+  left: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-decoration: underline;
+  letter-spacing: .5px;
+
+  @include media-breakpoint-up(sm) {
+    left: 20px;
+  }
+
+  &.text-muted {
+    color: $info !important;
+  }
+}
+
+.navbar-brand {
+  margin-right: 0;
+}
+
+.input-group-text {
+  background-color: transparent;
+  border-right: 0;
+}
+
+.input-group > .form-control:not(:first-child), 
+.input-group > .custom-select:not(:first-child) {
+  border-left: 0;
 }
 
 // .btn-primary {
