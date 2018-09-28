@@ -343,16 +343,16 @@ input.labelauty + label > span.labelauty-checked-image {
 
 input.labelauty + label > span.labelauty-unchecked, 
 input.labelauty + label > span.labelauty-checked {
-  margin-left: .6875rem;
-  padding-top: .6875rem;
+  margin-left: .6875rem !important;
+  padding-top: .425rem;
 }
 
 input.labelauty.radio-icon + label {
   > span.labelauty-unchecked-image,
   > span.labelauty-checked-image {
     border-radius: 50%;
-    height: .6667rem;
-    width: .6667rem;
+    height: 1.25rem !important;
+    width: 1.25rem !important;
   }
 
   > span.labelauty-checked-image {
@@ -492,7 +492,7 @@ select {
   text-decoration: underline;
   letter-spacing: .5px;
 
-  .text-muted {
+  &.text-muted {
     color: $info;
   }
 }

@@ -6379,14 +6379,14 @@ input.labelauty + label > span.labelauty-checked-image {
 
 input.labelauty + label > span.labelauty-unchecked,
 input.labelauty + label > span.labelauty-checked {
-  margin-left: .6875rem;
-  padding-top: .6875rem; }
+  margin-left: .6875rem !important;
+  padding-top: .425rem; }
 
 input.labelauty.radio-icon + label > span.labelauty-unchecked-image,
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
   border-radius: 50%;
-  height: .6667rem;
-  width: .6667rem; }
+  height: 1.25rem !important;
+  width: 1.25rem !important; }
 
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
   background-image: none !important;
@@ -6478,7 +6478,7 @@ select {
   font-size: 14px;
   text-decoration: underline;
   letter-spacing: .5px; }
-  .dabackicon .text-muted {
+  .dabackicon.text-muted {
     color: #1b97e0; }
 
 .navbar-brand {
