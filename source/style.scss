@@ -275,6 +275,7 @@ $table-cell-padding:         1rem .75rem;
 
 input.labelauty + label {
   display: flex !important;
+  align-items: center;
 
   &.btn-light,
   &.btn-primary {
@@ -351,6 +352,9 @@ input.labelauty.radio-icon + label {
   > span.labelauty-unchecked-image,
   > span.labelauty-checked-image {
     border-radius: 50%;
+    height: 1.75rem !important;
+    width: 1.75rem !important;
+    min-width: 1.75rem !important;
   }
 
   > span.labelauty-checked-image {
@@ -362,7 +366,15 @@ input.labelauty.radio-icon + label {
   }
 
   &.btn-primary {
-    padding: .9rem;
+    padding: 1rem;
+  }
+
+  > span.labelauty-checked {
+
+  }
+
+  > span.labelauty-unchecked {
+
   }
 }
 

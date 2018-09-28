@@ -6336,7 +6336,8 @@ a.text-dark:hover, a.text-dark:focus {
   padding-right: 15px; }
 
 input.labelauty + label {
-  display: flex !important; }
+  display: flex !important;
+  align-items: center; }
   input.labelauty + label.btn-light, input.labelauty + label.btn-primary {
     padding: .6875rem;
     border: 1px solid #dee2e6; }
@@ -6384,7 +6385,10 @@ input.labelauty + label > span.labelauty-checked {
 
 input.labelauty.radio-icon + label > span.labelauty-unchecked-image,
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
-  border-radius: 50%; }
+  border-radius: 50%;
+  height: 1.75rem !important;
+  width: 1.75rem !important;
+  min-width: 1.75rem !important; }
 
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
   background-image: none !important;
@@ -6394,7 +6398,7 @@ input.labelauty.radio-icon + label > span.labelauty-checked-image {
   min-width: 1.25rem !important; }
 
 input.labelauty.radio-icon + label.btn-primary {
-  padding: .9rem; }
+  padding: 1rem; }
 
 input[type="text"], input[type="email"], input[type="date"] {
   height: 3.25rem !important; }
