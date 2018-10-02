@@ -101,7 +101,6 @@ subquestion: |
   -|-|-|-
   ${county} | ${citation_number} | Jane Doe | 0123456789
 ---
-field: additional_requests
 question: |
   Request to Court
 subquestion: |
