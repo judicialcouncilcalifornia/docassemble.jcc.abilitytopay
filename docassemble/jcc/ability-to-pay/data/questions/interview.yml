@@ -8,11 +8,6 @@ features:
 metadata:
   title: Ability to Pay
 ---
-field: get_started
-question: |
-  Request a reduction in your traffic fine
-continue button label: Get Started
----
 field: before_you_start
 question: |
   Before You Start
@@ -27,11 +22,9 @@ subquestion: |
   * Request more time to pay your ticket
 ---
 question: |
-  Find your Citation
-subquestion: |
-  *Let's gather details on the citation to address!*
+  Find Citation
 fields:
-- County: county
+- "What county did you get the citation in?": county
   choices:
   - "Alameda": Alameda
   - "Alpine": Alpine
@@ -91,47 +84,53 @@ fields:
   - "Ventura": Ventura
   - "Yolo": Yolo
   - "Yuba": Yuba
-- "Citation Number": citation_number
----
-field: is_citation
-question: |
-  We found your citation and it qualifies!
-subquestion: |
-  County | Citation Number | Name | DL#
-  -|-|-|-
-  ${county} | ${citation_number} | Jane Doe | 0123456789
+- "What's the citation number?": citation_number
 ---
 question: |
   Request to Court
 subquestion: |
-  *A court official will accept or deny your request.*
-fields:
-- "Whether or not your request for a reduction is granted, would you like to add any of the following requests to the current or reduced amount?": additional_requests
-  datatype: checkboxes
+  * **Citation Number: ${citation_number}**
+  * Date of Citation: 12-12-2019
+  * Current fine: $10.00
+  * License Number: 012394858
+  * Citation Violation Counts: 10
+fields: 
+- "Would you like to request a reduction in your fine for this citation?": verify_citation
+  input type: radio
   choices:
-  - "Payment Plan (default at $25/month)": payment_plan
-  - "Community Service (for the current or reduced amount)": community_service
-  - "Extension (more Time to Pay)": extension
+  - "Yes": correct_citation
+  - "That's not the right citation!": name_lookup
+- What is your first name?: first_name
+  show if:
+    variable: verify_citation
+    is: name_lookup
+- What is your last name?: last_name
+  show if:
+    variable: verify_citation
+    is: name_lookup
+- What's your date of birth?: dob
+  datatype: date
+  show if:
+    variable: verify_citation
+    is: name_lookup
+- What is your Driver's License Number?: license_number
+  datatype: number
+  show if:
+    variable: verify_citation
+    is: name_lookup
 ---
 field: how_work
 question: |
   How this works
 subquestion: |
-  *We are going to walk through a few questions to help the Court get a better understanding for your situation and your eligibility for your reduction request.*
+  *We are going to walk through a few questions to help the Court better understand your need for a reduction.*
 
   Even though this is an online process, a judge/court official  will still review your request the same way they would if you came to court in person.
 ---
 question: |
   Public Benefits
-subquestion: |
-  *Do you currently receive any public benefits?*
-field: has_benefits
-datatype: yesnoradio
----
-question: |
-  Public Benefits
 fields:
-- "<em>Which of the following public benefits do you currently receive?</em>": benefits
+- 'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other"': benefits
   datatype: checkboxes
   choices:
   - "CalFresh (Food Stamps)": cal_fresh
@@ -146,22 +145,12 @@ fields:
   - Other: other
 ---
 question: |
-  Public Benefits
+  CalFresh Detail
 subquestion: |
   *You said you receive Calfresh, can you please upload a picture of your CalFresh card?*
 fields:
 - Calfrash Card: calfresh_card
   datatype: file
----
-question: |
-  Public Benefits
-subquestion: |
-  *Do you currently receive any public benefits?*
-field: has_benefits
-input type: radio
-choices:
-  - "Yes"
-  - "No"
 ---
 question: |
   Current Income
@@ -170,36 +159,58 @@ subquestion: |
 
   Answer the best you can.
 fields:
-- Income: income
-  datatype: currency
-- Frequency: frequency
+- Frequency of Income: frequency
   choices:
   - "Once a year": annual
   - "Once a month": monthly
   - "Twice a month": twice_monthly
   - "Every two weeks": two_weeks
   - "Every week": weekly
+- Amount of Income: income
+  datatype: currency
 ---
 question: |
   Household Details
-subquestion: |
-  *Tell us about your household*
 fields:
-- Residents: residents
+- "How many people live in your household?": residents
   datatype: number
 ---
 question: |
   Monthly Expenses
 subquestion: |
-  *Please enter your monthly expenses, as applicable*
+  *Help us understand your monthly expenses.*
 fields:
-- Housing: housing_expenses
+- Monthly Rent: monthly_rent
   datatype: currency
-- Other: other_expenses
+- Mortgage: mortgage
+  datatype: currency
+- Utilities: utilities
+  datatype: currency
+- Phone Bill: phone_bill
+  datatype: currency
+- Food (Groceries & Restaurants): food
+  datatype: currency
+- Insurance: insurance
+  datatype: currency
+- Clothing: clothing
+  datatype: currency
+- Child/Spousal Support: child_spousal_support
+  datatype: currency
+- Transportation (Gas, Car Payments, Transit): transportation
   datatype: currency
 ---
 question: |
-  Plea
+  Additional Requests
+fields:
+- "A court official will review your request. Whether or not your request for a reduction is granted, would you like to add any of the following requests to the current or reduced amount?": additional_requests
+  datatype: checkboxes
+  choices:
+  - "Payment Plan (default at $25/month)": payment_plan
+  - "Community Service (for the current or reduced amount)": community_service
+  - "Extension (more Time to Pay)": extension
+---
+question: |
+  Make your Plea
 subquestion: |
   *In order to proceed with your request for a reduction, you need to admit responsibility for the charge for which you received a ticket and plead no contest.*
 
@@ -214,44 +225,62 @@ subquestion: |
   Continue if you have read, understand and waive the rights above and agree to plead “No Contest”.
 
   **Any conviction will be reported to the Department of Motor Vehicles (DMV). This is the case whether you pay in full or not.**
-field: has_plea
-choices:
-  - "Yes"
-  - "No"
+fields:
+- "I have read, understand and waive the rights above and agree to plead No Contest": agree_no_contest
+  datatype: yesno
+---
+question: |
+  Optional Questions
+fields:
+- "Was this tool helpful in addressing this traffic matter?": tool_helpful
+- "Would you have been able to go to court in person?": able_in_person
+  datatype: yesnoradio
+- "Why would getting to court have been difficult for you?": why_difficult
+  input type: checkboxes
+  show if:
+    variable: able_in_person
+    is: false
+  choices:
+    - "Physical Disability": why_difficult
+    - "Can't take time off work": why_difficult
+    - "Childcare": childcare
 ---
 question: |
   Final Step
 subquestion: |
   *The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.*
-
-  I declare under penalty of perjury, under the laws of the State of California, that all information on or attached to this form is true.
-field: has_sworn
-choices:
-  - "Yes"
-  - "No"
+fields:
+- Signature: signature
+- Date: signature_date
 ---
 mandatory: True
 code: |
-  get_started
   before_you_start
   county
   citation_number
-  is_citation
-  additional_requests
+  verify_citation
   how_work
-  if has_benefits:
-    if benefits["cal_fresh"]:
-      calfresh_card
+  benefits
+  if benefits["cal_fresh"]:
+    calfresh_card
   income
   frequency
   residents
-  housing_expenses
-  other_expenses
-  if not has_plea:
-    do_exit
-  if not has_sworn:
-    do_exit
-  send_email(to=["ari@chivuku.la"], template=submission)
+  monthly_rent
+  mortgage
+  utilities
+  phone_bill
+  food
+  insurance
+  clothing
+  child_spousal_support
+  transportation
+  additional_requests
+  agree_no_contest
+  tool_helpful
+  able_in_person
+  signature
+  send_email(to=["rohan.deshpande-t@jud.ca.gov"], template=submission)
   all_done
 ---
 question: |
