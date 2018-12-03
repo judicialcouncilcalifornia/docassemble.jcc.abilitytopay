@@ -95,11 +95,31 @@ fields:
 ---
 field: is_citation
 question: |
-  We found your citation and it qualifies!
+  We found your citation and it qualify!
 subquestion: |
   County | Citation Number | Name | DL#
   -|-|-|-
   ${county} | ${citation_number} | Jane Doe | 0123456789
+fields:
+  - html: |
+  <table class="table table-striped">
+  <thead>
+  <tr>
+  <th>County</th>
+  <th>Citation Number</th>
+  <th>Name</th>
+  <th>DL#</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>Alameda</td>
+  <td>123</td>
+  <td>Jane Doe</td>
+  <td>0123456789</td>
+  </tr>
+  </tbody>
+  </table>
 ---
 question: |
   Request to Court
