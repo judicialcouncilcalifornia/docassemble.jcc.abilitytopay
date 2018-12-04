@@ -127,7 +127,7 @@ fields:
       <input class="radio-icon labelauty"></input>
       <label class="btn-primary">
         <span class="labelauty-unchecked-image"></span>
-        <span class="labelauty-unchecked">Alpine</span>
+        <span class="labelauty-unchecked">Option 1</span>
         <span class="labelauty-checked-image"></span>
         <span class="labelauty-checked">Alpine</span>
       </label>
@@ -138,7 +138,15 @@ fields:
     <td data-title="DL#">0123456789</td>
     </tr>
     <tr>
-    <td class="table-card_radio"><input class="radio-icon labelauty"></input></td>
+    <td class="table-card_radio">
+      <input class="radio-icon labelauty"></input>
+      <label class="btn-primary">
+        <span class="labelauty-unchecked-image"></span>
+        <span class="labelauty-unchecked">Option 2</span>
+        <span class="labelauty-checked-image"></span>
+        <span class="labelauty-checked">Alpine</span>
+      </label>
+    </td>
     <td data-title="County">Alameda</td>
     <td data-title="Citation Number">13</td>
     <td data-title="Name">Jane Doe</td>

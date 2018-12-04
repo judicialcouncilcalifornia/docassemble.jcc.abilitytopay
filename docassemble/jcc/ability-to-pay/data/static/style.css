@@ -6540,3 +6540,5 @@ select {
       position: absolute;
       vertical-align: middle;
       left: 2rem; }
+    .table-card tbody td.table-card_radio {
+      padding-left: 0; }

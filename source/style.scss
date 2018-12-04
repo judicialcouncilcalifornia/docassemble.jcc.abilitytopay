@@ -579,5 +579,9 @@ select {
       vertical-align: middle;
       left: 2rem;
     }
+
+    &.table-card_radio {
+      padding-left: 0;
+    }
   }
 }
