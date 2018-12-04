@@ -546,22 +546,37 @@ select {
 
 .table-card {
   table-layout: fixed;
+  background: $olive-100;
+  border-top: 5px solid $olive-500;
 
   thead {
     display: none;
   }
+
   tbody tr {
     display: block;
   }
+
   tbody td {
     display: block;
     padding-left: 40%;
+    border-top: 0;
+    padding: .25rem .75rem;
+
+    &:first-child {
+      padding-top: 1rem;
+    }
+
+    &:last-child {
+      padding-bottom: 1rem;
+    }
+
     &:before {
       content: attr(data-title);
       display: table-cell;
       position: absolute;
       vertical-align: middle;
+      left: 2rem;
     }
   }
 }
-

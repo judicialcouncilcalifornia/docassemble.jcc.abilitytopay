@@ -6517,16 +6517,25 @@ select {
   border-left: 0; }
 
 .table-card {
-  table-layout: fixed; }
+  table-layout: fixed;
+  background: #f3f5ee;
+  border-top: 5px solid #73877B; }
   .table-card thead {
     display: none; }
   .table-card tbody tr {
     display: block; }
   .table-card tbody td {
     display: block;
-    padding-left: 40%; }
+    padding-left: 40%;
+    border-top: 0;
+    padding: .25rem .75rem; }
+    .table-card tbody td:first-child {
+      padding-top: 1rem; }
+    .table-card tbody td:last-child {
+      padding-bottom: 1rem; }
     .table-card tbody td:before {
       content: attr(data-title);
       display: table-cell;
       position: absolute;
-      vertical-align: middle; }
+      vertical-align: middle;
+      left: 2rem; }
