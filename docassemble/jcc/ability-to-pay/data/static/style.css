@@ -6517,18 +6517,19 @@ select {
   border-left: 0; }
 
 .table-card {
-  table-layout: fixed;
-  background: #f3f5ee;
-  border-top: 5px solid #73877B; }
+  table-layout: fixed; }
   .table-card thead {
     display: none; }
   .table-card tbody tr {
-    display: block; }
+    display: block;
+    background: #f3f5ee;
+    border-top: 5px solid #73877B;
+    margin-bottom: 1rem; }
   .table-card tbody td {
     display: block;
-    padding-left: 40%;
     border-top: 0;
-    padding: .25rem .75rem; }
+    padding: .25rem .75rem;
+    padding-left: 40%; }
     .table-card tbody td:first-child {
       padding-top: 1rem; }
     .table-card tbody td:last-child {
