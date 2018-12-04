@@ -6515,3 +6515,18 @@ select {
 .input-group > .form-control:not(:first-child),
 .input-group > .custom-select:not(:first-child) {
   border-left: 0; }
+
+.table-card {
+  table-layout: fixed; }
+  .table-card thead {
+    display: none; }
+  .table-card tbody tr {
+    display: block; }
+  .table-card tbody td {
+    display: block;
+    padding-left: 40%; }
+    .table-card tbody td:before {
+      content: attr(data-title);
+      display: table-cell;
+      position: absolute;
+      vertical-align: middle; }
