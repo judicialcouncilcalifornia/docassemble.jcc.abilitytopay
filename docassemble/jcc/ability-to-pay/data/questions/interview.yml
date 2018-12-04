@@ -93,7 +93,7 @@ fields:
   - "Yuba": Yuba
 - "Citation Number": citation_number
 - html: |
-    <table class="table table-striped">
+    <table class="table table-card">
     <thead>
     <tr>
     <th>County</th>
@@ -104,10 +104,10 @@ fields:
     </thead>
     <tbody>
     <tr>
-    <td>Alpine</td>
-    <td>12</td>
-    <td>Jane Doe</td>
-    <td>0123456789</td>
+    <td data-title="County">Alpine</td>
+    <td data-title="Citation Number">12</td>
+    <td data-title="Name">Jane Doe</td>
+    <td data-title="DL#">0123456789</td>
     </tr>
     </tbody>
     </table>

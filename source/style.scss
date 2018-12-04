@@ -544,34 +544,23 @@ select {
   border-left: 0;
 }
 
-// .btn-primary {
-//   &:hover, 
-//   &:focus {
+.table-card {
+  table-layout: fixed;
 
-//   }
-
-//   &:focus {
-
-//   }
-    
-//   &:active,
-//   &.active {
-
-//   }
-// }
-
-// .btn-secondary {
-//   &:hover, 
-//   &:focus {
-
-//   }
-
-//   &:focus {
-
-//   }
-    
-//   &:active,
-//   &.active {
-
-//   }
-// }
+  thead {
+    display: none;
+  }
+  tbody tr {
+    display: block;
+  }
+  tbody td {
+    display: block;
+    padding-left: 40%;
+    &:before {
+      content: attr(data-title);
+      display: table-cell;
+      position: absolute;
+      vertical-align: middle;
+    }
+  }
+}
