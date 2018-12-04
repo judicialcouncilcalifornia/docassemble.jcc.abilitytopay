@@ -102,6 +102,15 @@ subquestion: |
   ${county} | ${citation_number} | Jane Doe | 0123456789
 ---
 question: |
+  I was thinking about your birthday.
+fields:
+  - html: |
+      The date and time today is
+      <span class="mytime" id="today_time"></span>.
+  - "When is your next birthday?": birth_date
+    datatype: date
+---
+question: |
   Request to Court
 subquestion: |
   *A court official will accept or deny your request.*
