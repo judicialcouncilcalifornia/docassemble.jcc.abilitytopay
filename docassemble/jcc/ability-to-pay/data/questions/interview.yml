@@ -93,8 +93,24 @@ fields:
   - "Yuba": Yuba
 - "Citation Number": citation_number
 - html: |
-      The date and time today is
-      <span class="mytime" id="today_time"></span>.
+    <table class="table table-striped">
+    <thead>
+    <tr>
+    <th>County</th>
+    <th>Citation Number</th>
+    <th>Name</th>
+    <th>DL#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Alpine</td>
+    <td>12</td>
+    <td>Jane Doe</td>
+    <td>0123456789</td>
+    </tr>
+    </tbody>
+    </table>
 ---
 field: is_citation
 question: |
@@ -103,13 +119,6 @@ subquestion: |
   County | Citation Number | Name | DL#
   -|-|-|-
   ${county} | ${citation_number} | Jane Doe | 0123456789
----
-question: |
-  Birthday
-fields:
-  - html: |
-      The date and time today is
-      <span class="mytime" id="today_time"></span>.
 ---
 question: |
   Request to Court
