@@ -111,14 +111,58 @@ fields:
     </tr>
     </tbody>
     </table>
+    <table class="table table-card">
+    <thead>
+    <tr>
+    <td class="table-card_radio-header"></td>
+    <th>County</th>
+    <th>Citation Number</th>
+    <th>Name</th>
+    <th>DL#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td class="table-card_radio">
+      <input class="radio-icon labelauty"></input>
+      <label class="btn-primary">
+        <span class="labelauty-unchecked-image"></span>
+        <span class="labelauty-unchecked">Alpine</span>
+        <span class="labelauty-checked-image"></span>
+        <span class="labelauty-unchecked">Alpine</span>
+      </label>
+    </td>
+    <td data-title="County">Alpine</td>
+    <td data-title="Citation Number">12</td>
+    <td data-title="Name">Jane Doe</td>
+    <td data-title="DL#">0123456789</td>
+    </tr>
+    <tr>
+    <td class="table-card_radio"><input class="radio-icon labelauty"></input></td>
+    <td data-title="County">Alameda</td>
+    <td data-title="Citation Number">13</td>
+    <td data-title="Name">Jane Doe</td>
+    <td data-title="DL#">0123456789</td>
+    </tr>
+    </tbody>
+    </table>
 ---
 field: is_citation
 question: |
-  We found your citation and it qualify!
+  We found your citation and it qualifies!
 subquestion: |
   County | Citation Number | Name | DL#
   -|-|-|-
   ${county} | ${citation_number} | Jane Doe | 0123456789
+---
+question: |
+  What type of shoes do you wear?
+field: target_variable
+choices:
+  - Alameda<br> 13<br> Jane Doe<br> 0123456789
+  - Sandals<br> 13<br> Jane Doe<br> 0123456789
+  - Clogs<br> 13<br> Jane Doe<br> 0123456789
+  - Other<br> 13<br> Jane Doe<br> 0123456789
 ---
 question: |
   Request to Court
