@@ -497,9 +497,15 @@ select {
   }
 }
 
-.fieldpart,
-.yesnospacing {
+.fieldpart {
   &.col-md-8 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.yesnospacing {
+  .col-md-8 {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }

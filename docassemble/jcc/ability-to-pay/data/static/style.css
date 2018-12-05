@@ -6481,8 +6481,11 @@ select {
   font-size: 1.25rem;
   font-style: normal; }
 
-.fieldpart.col-md-8,
-.yesnospacing.col-md-8 {
+.fieldpart.col-md-8 {
+  flex: 0 0 100% !important;
+  max-width: 100% !important; }
+
+.yesnospacing .col-md-8 {
   flex: 0 0 100% !important;
   max-width: 100% !important; }
 
