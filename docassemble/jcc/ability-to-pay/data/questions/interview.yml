@@ -127,6 +127,24 @@ subquestion: |
   *Do you currently receive any public benefits?*
 field: has_benefits
 datatype: yesnoradio
+fields:
+  - html: |
+      <div class="inline-radios row">
+      <input class="radio-icon labelauty"></input>
+      <label class="btn-primary">
+        <span class="labelauty-unchecked-image"></span>
+        <span class="labelauty-unchecked">Option 1</span>
+        <span class="labelauty-checked-image"></span>
+        <span class="labelauty-checked">Alpine</span>
+      </label>
+      <input class="radio-icon labelauty"></input>
+      <label class="btn-primary">
+        <span class="labelauty-unchecked-image"></span>
+        <span class="labelauty-unchecked">Option 1</span>
+        <span class="labelauty-checked-image"></span>
+        <span class="labelauty-checked">Alpine</span>
+      </label>
+      </div>
 ---
 question: |
   Public Benefits
