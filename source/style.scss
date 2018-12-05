@@ -544,6 +544,12 @@ select {
   border-left: 0;
 }
 
+.inline-radios {
+  .btn-primary {
+    margin-right: 1rem;
+  }
+}
+
 // .btn-primary {
 //   &:hover, 
 //   &:focus {
