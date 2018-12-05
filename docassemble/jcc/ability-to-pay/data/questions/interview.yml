@@ -92,6 +92,23 @@ fields:
   - "Yolo": Yolo
   - "Yuba": Yuba
 - "Citation Number": citation_number
+- html: |
+    <div class="inline-radios row">
+    <input class="radio-icon labelauty"></input>
+    <label class="btn-primary">
+      <span class="labelauty-unchecked-image"></span>
+      <span class="labelauty-unchecked">Option 1</span>
+      <span class="labelauty-checked-image"></span>
+      <span class="labelauty-checked">Alpine</span>
+    </label>
+    <input class="radio-icon labelauty"></input>
+    <label class="btn-primary">
+      <span class="labelauty-unchecked-image"></span>
+      <span class="labelauty-unchecked">Option 1</span>
+      <span class="labelauty-checked-image"></span>
+      <span class="labelauty-checked">Alpine</span>
+    </label>
+    </div>
 ---
 field: is_citation
 question: |
@@ -146,23 +163,6 @@ fields:
   - "Tribal Temporary Assistance for Needy Families (TANF)": tanf
   - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
   - Other: other
-- html: |
-    <div class="inline-radios row">
-    <input class="radio-icon labelauty"></input>
-    <label class="btn-primary">
-      <span class="labelauty-unchecked-image"></span>
-      <span class="labelauty-unchecked">Option 1</span>
-      <span class="labelauty-checked-image"></span>
-      <span class="labelauty-checked">Alpine</span>
-    </label>
-    <input class="radio-icon labelauty"></input>
-    <label class="btn-primary">
-      <span class="labelauty-unchecked-image"></span>
-      <span class="labelauty-unchecked">Option 1</span>
-      <span class="labelauty-checked-image"></span>
-      <span class="labelauty-checked">Alpine</span>
-    </label>
-    </div>
 ---
 question: |
   Public Benefits
