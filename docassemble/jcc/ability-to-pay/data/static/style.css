@@ -6516,7 +6516,7 @@ select {
 .input-group > .custom-select:not(:first-child) {
   border-left: 0; }
 
-.inline-radios .btn-primary {
-  margin-right: 1rem; }
-  .inline-radios .btn-primary:first-of-type {
-    padding-left: 15px; }
+.inline-radios {
+  padding-left: 15px; }
+  .inline-radios .btn-primary {
+    margin-right: 1rem; }
