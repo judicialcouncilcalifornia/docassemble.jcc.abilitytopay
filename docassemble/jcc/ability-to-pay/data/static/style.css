@@ -6518,3 +6518,5 @@ select {
 
 .inline-radios .btn-primary {
   margin-right: 1rem; }
+  .inline-radios .btn-primary:first-of-type {
+    padding-left: 15px; }

@@ -94,7 +94,6 @@ fields:
 - "Citation Number": citation_number
 - html: |
     <div class="inline-radios row">
-    <div class="col-md-12">
     <input class="radio-icon labelauty"></input>
     <label class="btn-primary">
       <span class="labelauty-unchecked-image"></span>
@@ -109,7 +108,6 @@ fields:
       <span class="labelauty-checked-image"></span>
       <span class="labelauty-checked">Alpine</span>
     </label>
-    </div>
     </div>
 ---
 field: is_citation
