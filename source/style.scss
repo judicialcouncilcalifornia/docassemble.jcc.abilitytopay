@@ -509,6 +509,10 @@ select {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }
+
+  .offset-md-4 {
+    margin-left: 0 !important;
+  }
 }
 
 .form-group.required .col-form-label:after {
