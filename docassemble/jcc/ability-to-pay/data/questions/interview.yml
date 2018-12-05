@@ -144,8 +144,6 @@ subquestion: |
   *Do you currently receive any public benefits?*
 field: has_benefits
 datatype: yesnoradio
-fields:
-  
 ---
 question: |
   Public Benefits
