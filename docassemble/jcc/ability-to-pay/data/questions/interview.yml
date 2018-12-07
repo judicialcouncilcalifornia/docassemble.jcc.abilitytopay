@@ -134,8 +134,6 @@ fields:
   datatype: checkboxes
   choices:
   - "CalFresh (Food Stamps)": cal_fresh
-    help: |
-      Comfortable shoes.
   - Medi-Cal: medi_cal
   - "Supplemental Security Income (SSI)": ssi
   - "State Supplemental Payment (SSP)": ssp
