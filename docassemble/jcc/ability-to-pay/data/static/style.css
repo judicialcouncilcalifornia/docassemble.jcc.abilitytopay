@@ -6523,4 +6523,6 @@ select {
   padding-right: 1.5rem;
   padding-bottom: 1rem;
   padding-left: 1.1rem;
-  border-left: 4px solid; }
+  border-left: 4px solid #1b97e0; }
+  .showif .form-group.has-error {
+    border-left: 4px solid #c53b00; }
