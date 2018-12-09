@@ -555,6 +555,22 @@ select {
   border-left: 0;
 }
 
+.showif {
+  .form-group {
+    margin-right: -3rem;
+    margin-bottom: 0;
+    margin-left: -3rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1rem;
+    padding-left: 1.1rem;
+    border-left: 4px solid $cyan;
+
+    &.has-error {
+      border-left: 4px solid $red;
+    }
+  }
+}
+
 // .btn-primary {
 //   &:hover, 
 //   &:focus {
