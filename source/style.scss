@@ -571,34 +571,44 @@ select {
   }
 }
 
-// .btn-primary {
-//   &:hover, 
-//   &:focus {
+.table-card {
+  table-layout: fixed;
 
-//   }
+  thead {
+    display: none;
+  }
 
-//   &:focus {
+  tbody tr {
+    display: block;
+    background: $olive-100;
+    border-top: 5px solid $olive-500;
+    margin-bottom: 1rem;
+  }
 
-//   }
-    
-//   &:active,
-//   &.active {
+  tbody td {
+    display: block;
+    border-top: 0;
+    padding: .25rem .75rem;
+    padding-left: 40%;
 
-//   }
-// }
+    &:first-child {
+      padding-top: 1rem;
+    }
 
-// .btn-secondary {
-//   &:hover, 
-//   &:focus {
+    &:last-child {
+      padding-bottom: 1rem;
+    }
 
-//   }
+    &:before {
+      content: attr(data-title);
+      display: table-cell;
+      position: absolute;
+      vertical-align: middle;
+      left: 2rem;
+    }
 
-//   &:focus {
-
-//   }
-    
-//   &:active,
-//   &.active {
-
-//   }
-// }
+    &.table-card_radio {
+      padding: 0;
+    }
+  }
+}

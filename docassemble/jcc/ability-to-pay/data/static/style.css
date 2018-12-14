@@ -6533,3 +6533,30 @@ select {
   border-left: 4px solid #1b97e0; }
   .showif .form-group.has-error {
     border-left: 4px solid #c53b00; }
+
+.table-card {
+  table-layout: fixed; }
+  .table-card thead {
+    display: none; }
+  .table-card tbody tr {
+    display: block;
+    background: #f3f5ee;
+    border-top: 5px solid #73877B;
+    margin-bottom: 1rem; }
+  .table-card tbody td {
+    display: block;
+    border-top: 0;
+    padding: .25rem .75rem;
+    padding-left: 40%; }
+    .table-card tbody td:first-child {
+      padding-top: 1rem; }
+    .table-card tbody td:last-child {
+      padding-bottom: 1rem; }
+    .table-card tbody td:before {
+      content: attr(data-title);
+      display: table-cell;
+      position: absolute;
+      vertical-align: middle;
+      left: 2rem; }
+    .table-card tbody td.table-card_radio {
+      padding: 0; }

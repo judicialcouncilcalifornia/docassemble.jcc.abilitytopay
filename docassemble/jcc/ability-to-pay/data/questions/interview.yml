@@ -97,13 +97,26 @@ fields:
 ---
 question: |
   Request to Court
-subquestion: |
-  * **Citation Number: ${citation_number}**
-  * Date of Citation: 12-12-2019
-  * Current fine: $10.00
-  * License Number: 012394858
-  * Citation Violation Counts: 10
 fields: 
+- html: |
+    <table class="table table-card">
+      <thead>
+        <tr>
+          <th>County</th>
+          <th>Citation Number</th>
+          <th>Name</th>
+          <th>DL#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-title="County">Alpine</td>
+          <td data-title="Citation Number">12</td>
+          <td data-title="Name">Jane Doe</td>
+          <td data-title="DL#">0123456789</td>
+        </tr>
+      </tbody>
+    </table>
 - "Would you like to request a reduction in your fine for this citation?": verify_citation
   input type: radio
   choices:
