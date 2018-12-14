@@ -4,15 +4,24 @@ modules:
 features:
   bootstrap theme: style.css
   progress bar: True
+  javascript: a2p.js
 ---
 metadata:
   title: Ability to Pay
+---
+template: help_tip
+content: | 
+  <span title="${help_tip_text}" data-toggle="tooltip">(?)</span>
+---
+code: |
+   help_tip_text = "This is text that shows in a tooltip."
 ---
 field: before_you_start
 question: |
   Before You Start
 subquestion: |
   *This online system is an optional way to request a fine reduction due to financial need. If you want to contest your ticket, see the [instructions on your ticket](http://www.courts.ca.gov/selfhelp-traffic.htm) for more information on contesting your ticket.*
+  ${help_tip}
 
   Use this tool to:
 
