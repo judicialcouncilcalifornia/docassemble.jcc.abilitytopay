@@ -112,7 +112,7 @@ question: |
   Request to Court
 fields: 
 - html: |
-   <div class="info-card">${citation_number}<dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl></div>
+   <div class="info-card"><h4>${citation_number}</h4><dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl></div>
 - "Would you like to request a reduction in your fine for this citation?": verify_citation
   input type: radio
   choices:
