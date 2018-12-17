@@ -47,7 +47,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
                 out.setdefault(package, []).append(prefix+name)
     return out
 
-setup(name='docassemble.jcc.ability-to-pay',
+setup(name='docassemble.jcc.abilitytopay',
       version='0.0.0',
       description=('JCC Ability to Pay'),
       long_description=read("README.md"),
@@ -60,5 +60,5 @@ setup(name='docassemble.jcc.ability-to-pay',
       namespace_packages = ['docassemble'],
       install_requires = [],
       zip_safe = False,
-      package_data=find_package_data(where='docassemble/jcc/ability-to-pay', package='docassemble.jcc.ability-to-pay'),
+      package_data=find_package_data(where='docassemble/jcc/abilitytopay', package='docassemble.jcc.abilitytopay'),
   )
