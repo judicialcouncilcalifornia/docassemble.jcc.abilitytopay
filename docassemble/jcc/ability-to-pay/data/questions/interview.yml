@@ -1,5 +1,6 @@
 modules:
   - docassemble.base.util
+  - .a2p
 ---
 features:
   bootstrap theme: style.css
@@ -95,28 +96,23 @@ fields:
   - "Yuba": Yuba
 - "What's the citation number?": citation_number
 ---
+code: |
+  citation_data = fetch_citation_data(citation_number, county)
+  if citation_data['success']:
+      data = citation_data['data']
+      violation_date = date_from_iso8601(data['charges'][0]['violationDate'])
+      total_due = format_money(data['totalDueAmt'])
+      first_name = data['firstName']
+      last_name = data['lastName']
+  else:
+      log('Sorry, we could not find that citation.', 'danger')
+      reconsider('county')
+---
 question: |
   Request to Court
 fields: 
 - html: |
-    <table class="table table-card">
-      <thead>
-        <tr>
-          <th>County</th>
-          <th>Citation Number</th>
-          <th>Name</th>
-          <th>DL#</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-title="County">Alpine</td>
-          <td data-title="Citation Number">12</td>
-          <td data-title="Name">Jane Doe</td>
-          <td data-title="DL#">0123456789</td>
-        </tr>
-      </tbody>
-    </table>
+    ${citation_number}<dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl>
 - "Would you like to request a reduction in your fine for this citation?": verify_citation
   input type: radio
   choices:
@@ -140,6 +136,27 @@ fields:
   show if:
     variable: verify_citation
     is: name_lookup
+---
+code: |
+   if verify_citation == "name_lookup":
+       response = fetch_case_data(first_name, last_name, dob, citation_number, 'Santa Clara')
+       if response['success']:
+            case_lookup_results = []
+            for case in response['data']:
+                violation_date = date_from_iso8601(case['violationDate'])
+                total_due = format_money(case['totalDueAmt'])
+                case_lookup_results.append({ case['citationNumber']: "{citationNumber}<dl><dt>Name</dt><dd>{name}</dd><dt>Citation Number</dt><dd>{citationNumber}</dd><dt>County</dt><dd>{county}</dd><dt>Violation Date</dt><dd>{violationDate}</dd><dt>Total Due</dt><dd>{totalDue}</dd></dl>".format(name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=case['citationNumber'], violationDate=violation_date, totalDue=total_due) })
+       else:
+          log('Sorry, we could not find that citation.', 'danger')
+          reconsider('county')
+            
+---
+question: Which of the following is your citation?
+fields:
+- "Select the citation from the list below.": selected_case
+  input type: radio
+  code: |
+    case_lookup_results
 ---
 field: how_work
 question: |
@@ -247,6 +264,7 @@ subquestion: |
   Continue if you have read, understand and waive the rights above and agree to plead “No Contest”.
 
   **Any conviction will be reported to the Department of Motor Vehicles (DMV). This is the case whether you pay in full or not.**
+progress: 75
 fields:
 - "I have read, understand and waive the rights above and agree to plead No Contest": agree_no_contest
   datatype: yesno
@@ -271,9 +289,13 @@ question: |
   Final Step
 subquestion: |
   *The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.*
+progress: 95
 fields:
 - Signature: signature
 - Date: signature_date
+---
+code: |
+  submit_to_a2p = submit_interview(all_variables())
 ---
 mandatory: True
 code: |
@@ -281,6 +303,9 @@ code: |
   county
   citation_number
   verify_citation
+  if verify_citation == "name_lookup":
+    selected_case
+    case_lookup_results
   how_work
   benefits
   if benefits["cal_fresh"]:
@@ -302,7 +327,7 @@ code: |
   tool_helpful
   able_in_person
   signature
-  send_email(to=["rohan.deshpande-t@jud.ca.gov"], template=submission)
+  submit_to_a2p
   all_done
 ---
 question: |
@@ -311,15 +336,7 @@ subquestion: |
   *Expect a response from the court in XX business days. If you don't get a notification from your court please contact XXXXX@XXXX.gov.*
 sets: all_done
 ---
-template: submission
-subject: |
-  Request for ${ citation_number }
-content: |
-  This is an e-mail sent from a
-  **docassemble** interview.
-
-  Have a nice day!
----
 question: |
-  Process exited
+  Goodbye!
 sets: do_exit
+
