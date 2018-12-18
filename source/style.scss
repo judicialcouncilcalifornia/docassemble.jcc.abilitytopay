@@ -614,7 +614,7 @@ select {
 }
 
 .info-card {
-  @include padding(1rem);
+  padding: 1rem;
   background: $olive-100;
   border-top: 5px solid $olive-500;
 
