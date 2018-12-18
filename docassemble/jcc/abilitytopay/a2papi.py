@@ -3,11 +3,9 @@ import calendar
 import time
 import json
 import dateutil.parser
+from docassemble.base.util import *
 
 AD_URL = "https://login.microsoftonline.com/a2pca.onmicrosoft.com/oauth2/token"
-CLIENT_ID="some_id"
-CLIENT_SECRET='some_secret'
-
 CITATION_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/citation'
 CASE_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/cases'
 SUBMIT_URL = 'https://a2papi.azurewebsites.net/api/request'
@@ -57,8 +55,8 @@ def __do_request(url, params):
     oauth_params = {
             'resource': '3b347c8c-3faa-4331-8273-a5f575997d4e',
             'grant_type': 'client_credentials',
-            'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET,
+            'client_id': get_config("a2p.client_id"),
+            'client_secret': get_config("a2p.client_secret"),
             'scope': 'openid 3b347c8c-3faa-4331-8273-a5f575997d4e'
     }
     r = requests.post(AD_URL, oauth_params)
@@ -72,7 +70,7 @@ def __submit_image(image_data):
     return
     # TODO: Debug azure storage import on DocAssemble.
     # from azure.storage.blob import BlockBlobService
-    # blob = BlockBlobService(account_name='a2pca', account_key='account_key')
+    # blob = BlockBlobService(account_name='a2pca', account_key=get_config('a2p.blob_account_key'))
 
 def submit_interview(data):
     request_params = {
