@@ -612,3 +612,20 @@ select {
     }
   }
 }
+
+.info-card {
+  @include padding(1rem);
+  background: $olive-100;
+  border-top: 5px solid $olive-500;
+
+  dl {
+    display: grid;
+    grid-template: auto / 10em 1fr;
+    margin-bottom: 0;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
