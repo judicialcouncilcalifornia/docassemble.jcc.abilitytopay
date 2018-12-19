@@ -11,7 +11,7 @@ metadata:
   title: Ability to Pay
 ---
 template: help_tip
-content: | 
+content: |
   <span title="${help_tip_text}" data-toggle="tooltip">(?)</span>
 ---
 code: |
@@ -19,22 +19,23 @@ code: |
 ---
 field: before_you_start
 question: |
-  Before You Start
+  Ability to Pay Request
 subquestion: |
-  *This online system is an optional way to request a fine reduction due to financial need. If you want to contest your ticket, see the [instructions on your ticket](http://www.courts.ca.gov/selfhelp-traffic.htm) for more information on contesting your ticket.*
-  ${help_tip}
+  *This online system is an optional way to request a fine reduction for yout traffic ticket in cases of financial need.*
 
   Use this tool to:
 
   * Request a reduction in your traffic fine based on financial need
   * Request to pay in installments (set up payment plan)
-  * Request Community Service 
+  * Request Community Service
   * Request more time to pay your ticket
+  ${help_tip}
 ---
 question: |
-  Find Citation
+  Look Up Your Citation
+
 fields:
-- "What county did you get the citation in?": county
+- "What California county did you get the citation in?": county
   choices:
   - "Alameda": Alameda
   - "Alpine": Alpine
@@ -95,38 +96,37 @@ fields:
   - "Yolo": Yolo
   - "Yuba": Yuba
 - "What's the citation number?": citation_number
+- "I don't have my citation number": no_citation_number
+  datatype: yesno
+- What is your first name?: first_name
+  show if: no_citation_number
+- What is your last name?: last_name
+  show if: no_citation_number
+- What's your date of birth?: dob
+  datatype: date
+  show if: no_citation_number
+- What is your Driver's License Number?: license_number
+  datatype: number
+  show if: no_citation_number
 ---
 code: |
-  citation_data = fetch_citation_data(citation_number, county)
-  if citation_data['success']:
-      data = citation_data['data']
-      violation_date = date_from_iso8601(data['charges'][0]['violationDate'])
-      total_due = format_money(data['totalDueAmt'])
-      first_name = data['firstName']
-      last_name = data['lastName']
-  else:
-      log('Sorry, we could not find that citation.', 'danger')
-      reconsider('county')
+  if not no_citation_number:
+    citation_data = fetch_citation_data(citation_number, county)
+    if citation_data['success']:
+        data = citation_data['data']
+        violation_date = date_from_iso8601(data['charges'][0]['violationDate'])
+        total_due = format_money(data['totalDueAmt'])
+        first_name = data['firstName']
+        last_name = data['lastName']
+    else:
+        log('Sorry, we could not find that citation.', 'danger')
+        reconsider('county')
 ---
 question: |
   Request to Court
-fields: 
+fields:
 - html: |
-   <div class="info-card">
-     <h4>${citation_number}</h4>
-     <dl>
-       <dt>Name</dt>
-       <dd>${first_name} ${last_name}</dd>
-       <dt>Citation Number</dt>
-       <dd>${citation_number}</dd>
-       <dt>County</dt>
-       <dd>${county}</dd>
-       <dt>Violation Date</dt>
-       <dd>${violation_date}</dd>
-       <dt>Total Due</dt>
-       <dd>${total_due}</dd>
-     </dl>
-   </div>
+    <div class="info-card"><h4>${citation_number}</h4><dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl></div>
 - "Would you like to request a reduction in your fine for this citation?": verify_citation
   input type: radio
   choices:
@@ -152,7 +152,7 @@ fields:
     is: name_lookup
 ---
 code: |
-   if verify_citation == "name_lookup":
+   if verify_citation == "name_lookup" or not no_citation_number:
        response = fetch_case_data(first_name, last_name, dob, citation_number, 'Santa Clara')
        if response['success']:
             case_lookup_results = []
@@ -163,7 +163,7 @@ code: |
        else:
           log('Sorry, we could not find that citation.', 'danger')
           reconsider('county')
-            
+
 ---
 question: Which of the following is your citation?
 fields:
@@ -176,9 +176,9 @@ field: how_work
 question: |
   How this works
 subquestion: |
-  *We are going to walk through a few questions to help the Court better understand your need for a reduction.*
+  *We will walk ask you a few questions to help the Court better understand your need for a reduction.*
 
-  Even though this is an online process, a judge/court official  will still review your request the same way they would if you came to court in person.
+  Be prepared to share information about your monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
 ---
 question: |
   Public Benefits
@@ -187,28 +187,137 @@ fields:
   datatype: checkboxes
   choices:
   - "CalFresh (Food Stamps)": cal_fresh
-  - Medi-Cal: medi_cal
+  - "Medi-Cal": medi_cal
   - "Supplemental Security Income (SSI)": ssi
   - "State Supplemental Payment (SSP)": ssp
   - "County Relief/General Assistance": cr_ga
   - "In Home Supportive Services (IHSS)": ihss
-  - "California Work Opportunity and Responsibility to Kids Act (Cal WORKS)": cal_works
+  - "California Work Opportunity and Responsibility to Kids Act (CalWORKS)": cal_works
   - "Tribal Temporary Assistance for Needy Families (TANF)": tanf
   - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
   - Other: other
 ---
 question: |
-  CalFresh Detail
+  Proof of CalFresh
 subquestion: |
-  *You said you receive Calfresh, can you please upload a picture of your CalFresh card?*
+  *You said you receive Calfresh.  Can you please upload a picture of your CalFresh card?*
 fields:
-- Calfrash Card: calfresh_card
+- Calfresh Card: calfresh_proof
   datatype: file
+  required: false
+- "I don't have proof available": calfresh_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": calfresh_no_proof_reason
+  show if: calfresh_no_proof
+---
+question: |
+ Proof of Medi-Cal
+subquestion: |
+  *You said you receive Medi-Cal. Can you please upload a picture of your Medi-Cal card?*
+fields:
+- Medi-Cal Card: medi_cal_proof
+  datatype: file
+  required: false
+- "I don't have proof available": medi_cal_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": medi_cal_no_proof_reason
+  show if: medi_cal_no_proof
+---
+question: |
+  Proof of SSI
+subquestion: |
+ *You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of SSI: ssi_proof
+  datatype: file
+  required: false
+- "I don't have proof available": ssi_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": ssi_no_proof_reason
+  show if: ssi_no_proof
+---
+question: |
+  Proof of State Supplemental Payment
+subquestion: |
+  *You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of SSP: ssp_proof
+  datatype: file
+  required: false
+- "I don't have proof available": ssp_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": ssp_no_proof_reason
+  show if: ssp_no_proof
+---
+question: |
+  Proof of General Assistance/County Relief
+subquestion: |
+  *You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of GA/CR: cr_ga_proof
+  datatype: file
+  required: false
+- "I don't have proof available": cr_ga_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": cr_ga_no_proof_reason
+  show if: cr_ga_no_proof
+---
+question: |
+  Proof of In Home Supportive Services
+subquestion: |
+  *You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of IHSS: ihss_proof
+  datatype: file
+  required: false
+- "I don't have proof available": ihss_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": ihss_no_proof_reason
+  show if: ihss_no_proof
+---
+question: |
+  Proof of TANF
+subquestion: |
+  *You said you receive Temporary Tribal Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of TANF: tanf_proof
+  datatype: file
+  required: false
+- "I don't have proof available": tanf_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": tanf_no_proof_reason
+  show if: tanf_no_proof
+---
+question: |
+  Proof of CalWORKS
+subquestion: |
+  *You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of CalWORKS: cal_works_proof
+  datatype: file
+  required: false
+- "I don't have proof available": cal_works_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": cal_works_no_proof_reason
+  show if: cal_works_no_proof
+---
+question: |
+  Proof of CAPI
+subquestion: |
+  *You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of CAPI: capi_proof
+  datatype: file
+  required: false
+- "I don't have proof available": capi_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": capi_no_proof_reason
+  show if: capi_no_proof
 ---
 question: |
   Current Income
 subquestion: |
-  *How much money do you earn (take-home pay) or get from other sources(including income received in your family from a spouse or live-in romantic partner)?* 
+  *How much money do you earn (take-home pay) or get from other sources, including payments from people in your household (such as spouse or live-in romantic partner)?*
 
   Answer the best you can.
 fields:
@@ -231,7 +340,7 @@ fields:
 question: |
   Monthly Expenses
 subquestion: |
-  *Help us understand your monthly expenses.*
+  *Estimate what you pay _each month_ for the following expenses.*
 fields:
 - Monthly Rent: monthly_rent
   datatype: currency
@@ -267,14 +376,14 @@ question: |
 subquestion: |
   *In order to proceed with your request for a reduction, you need to admit responsibility for the charge for which you received a ticket and plead no contest.*
 
-  To plead no contest, please waive the following: 
+  To plead no contest, please waive the following rights:
 
   * To be represented by an attorney employed by you;
   * To have a speedy and public trial in front of a judge;
   * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
   * To have the witnesses against you testify under oath in court, and to question such witnesses;
   * To remain silent and not testify and not incriminate yourself.
-  
+
   Continue if you have read, understand and waive the rights above and agree to plead “No Contest”.
 
   **Any conviction will be reported to the Department of Motor Vehicles (DMV). This is the case whether you pay in full or not.**
@@ -302,11 +411,12 @@ fields:
 question: |
   Final Step
 subquestion: |
-  *The information you have provided will not be sent to the court until you hit submit. You must also promise what you have submitted is true.*
+  *The information you have provided will not be sent to the court until you click Submit. By clicking submit, you are declaring under penalty of perjury that what you have reported is true.*
 progress: 95
 fields:
 - Signature: signature
 - Date: signature_date
+continue button label: Submit
 ---
 code: |
   submit_to_a2p = submit_interview(all_variables())
@@ -323,7 +433,21 @@ code: |
   how_work
   benefits
   if benefits["cal_fresh"]:
-    calfresh_card
+    calfresh_proof
+  if benefits["medi_cal"]:
+    medi_cal_proof
+  if benefits["ssi"]:
+    ssi_proof
+  if benefits["ssp"]:
+    ssp_proof
+  if benefits["cr_ga"]:
+    cr_ga_proof
+  if benefits["ihss"]:
+    ihss_proof
+  if benefits["cal_works"]:
+    cal_works_proof
+  if benefits["capi"]:
+    capi_proof
   income
   frequency
   residents
@@ -347,7 +471,7 @@ code: |
 question: |
   Thank you!
 subquestion: |
-  *Expect a response from the court in XX business days. If you don't get a notification from your court please contact XXXXX@XXXX.gov.*
+  *Expect a response from the court by email in 14 business days. If you don't get a notification please contact the Court.*
 sets: all_done
 ---
 question: |
