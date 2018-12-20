@@ -13,8 +13,8 @@ jobs:
   - stage: Compile
     if: type = api
     script:
-    - npx sass --style compressed source/style.scss docassemble/jcc/abilitytopay/data/static/style.css
+    - npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css
     - git remote add target "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
     - git add -A
-    - git commit -m "ACTUALIZE ${TRAVIS_BUILD_NUMBER}"
+    - git commit -m "ACTUALIZE ${TRAVIS_BUILD_NUMBER}" || { echo "Skipped Commit"; }
     - git push target HEAD:$TRAVIS_BRANCH
