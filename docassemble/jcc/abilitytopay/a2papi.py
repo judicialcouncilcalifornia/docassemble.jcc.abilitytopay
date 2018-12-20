@@ -52,11 +52,12 @@ def __format_response(response):
     return data
 
 def __do_request(url, params):
+    a2p_config = get_config('a2p')
     oauth_params = {
             'resource': '3b347c8c-3faa-4331-8273-a5f575997d4e',
             'grant_type': 'client_credentials',
-            'client_id': get_config("a2p.client_id"),
-            'client_secret': get_config("a2p.client_secret"),
+            'client_id': a2p_config["client_id"],
+            'client_secret': a2p_config["client_secret"],
             'scope': 'openid 3b347c8c-3faa-4331-8273-a5f575997d4e'
     }
     r = requests.post(AD_URL, oauth_params)
