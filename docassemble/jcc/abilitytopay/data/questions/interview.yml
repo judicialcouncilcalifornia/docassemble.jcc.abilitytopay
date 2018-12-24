@@ -418,9 +418,6 @@ fields:
 - Date: signature_date
 continue button label: Submit
 ---
-code: |
-  submit_to_a2p = submit_interview(all_variables())
----
 mandatory: True
 code: |
   before_you_start
@@ -432,22 +429,32 @@ code: |
     case_lookup_results
   how_work
   benefits
+
+  attachment_urls = []
   if benefits["cal_fresh"]:
     calfresh_proof
+    attachment_urls.append(calfresh_proof.url_for())
   if benefits["medi_cal"]:
     medi_cal_proof
+    attachment_urls.append(medi_cal_proof.url_for())
   if benefits["ssi"]:
     ssi_proof
+    attachment_urls.append(ssi_proof.url_for())
   if benefits["ssp"]:
     ssp_proof
+    attachment_urls.append(ssp_proof.url_for())
   if benefits["cr_ga"]:
     cr_ga_proof
+    attachment_urls.append(cr_ga_proof.url_for())
   if benefits["ihss"]:
     ihss_proof
+    attachment_urls.append(ihss_proof.url_for())
   if benefits["cal_works"]:
     cal_works_proof
+    attachment_urls.append(cal_works_proof.url_for())
   if benefits["capi"]:
     capi_proof
+    attachment_urls.append(capi_proof.url_for())
   income
   frequency
   residents
@@ -465,7 +472,7 @@ code: |
   tool_helpful
   able_in_person
   signature
-  submit_to_a2p
+  submit_interview(all_variables(), attachment_urls)
   all_done
 ---
 question: |

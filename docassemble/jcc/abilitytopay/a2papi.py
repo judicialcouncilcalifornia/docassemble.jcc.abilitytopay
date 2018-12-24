@@ -3,7 +3,9 @@ import calendar
 import time
 import json
 import dateutil.parser
+import hashlib
 from docassemble.base.util import *
+from azure.storage.blob import BlockBlobService
 
 AD_URL = "https://login.microsoftonline.com/a2pca.onmicrosoft.com/oauth2/token"
 CITATION_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/citation'
@@ -52,12 +54,11 @@ def __format_response(response):
     return data
 
 def __do_request(url, params):
-    a2p_config = get_config('a2p')
     oauth_params = {
             'resource': '3b347c8c-3faa-4331-8273-a5f575997d4e',
             'grant_type': 'client_credentials',
-            'client_id': a2p_config["client_id"],
-            'client_secret': a2p_config["client_secret"],
+            'client_id': __get_a2p_config()["client_id"],
+            'client_secret': __get_a2p_config()["client_secret"],
             'scope': 'openid 3b347c8c-3faa-4331-8273-a5f575997d4e'
     }
     r = requests.post(AD_URL, oauth_params)
@@ -67,13 +68,28 @@ def __do_request(url, params):
     headers = { 'Authorization': 'Bearer ' + access_token }
     return requests.post(url, params, None, headers=headers)
 
-def __submit_image(image_data):
-    return
-    # TODO: Debug azure storage import on DocAssemble.
-    # from azure.storage.blob import BlockBlobService
-    # blob = BlockBlobService(account_name='a2pca', account_key=get_config('a2p.blob_account_key'))
+def __get_a2p_config():
+    return get_config('a2p')
 
-def submit_interview(data):
+def __submit_image_from_url(url):
+    blob_service = BlockBlobService(account_name='a2pca', account_key=__get_a2p_config()['blob_account_key'])
+    image_body = requests.get(url).content
+    filename = 'a2p_daupload_' + hashlib.sha224(image_body).hexdigest()
+    blob_service.create_blob_from_bytes('attachments', filename, image_body)
+
+    return {
+            "fileName": filename,
+            "blobName": filename,
+            "size": len(image_body)
+            }
+
+def submit_interview(data, attachment_urls=[]):
+    benefitFilesData = []
+
+    for url in attachment_urls:
+        image_meta = __submit_image_from_url(url)
+        benefitFilesData.append(image_meta)
+
     request_params = {
         "requestStatus": "Submitted",
         "petition": {
@@ -87,7 +103,7 @@ def submit_interview(data):
             "onCalWorks": data.get('cal_works'),
             "onTANF": data.get('tanf'),
             "onCAPI": data.get('capi'),
-            "benefitFiles": [],
+            "benefitFiles": benefitFilesData,
             "rent": data.get('monthly_rent'),
             "mortgage": data.get('mortgage'),
             "phone": data.get('phone_bill'),
@@ -149,7 +165,6 @@ def submit_interview(data):
     return __format_response(res)
 
 
-
-print(fetch_citation_data('CT98966', 'Tulare'))
+# print(fetch_citation_data('CT98966', 'Tulare'))
 # print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
-#print(submit_interview({ 'citationNumber': 1234 }))
+# print(submit_interview({ 'citationNumber': 1234 }))
