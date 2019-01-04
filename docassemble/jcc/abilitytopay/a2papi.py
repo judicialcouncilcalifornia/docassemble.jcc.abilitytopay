@@ -3,6 +3,7 @@ import calendar
 import time
 import json
 import dateutil.parser
+import datetime
 import hashlib
 from docassemble.base.util import *
 from azure.storage.blob import BlockBlobService
@@ -38,7 +39,7 @@ def date_from_iso8601(date_string):
 def format_money(money_string):
     return '${:,.2f}'.format(money_string)
 
-def __format_response(response):
+def __format_response(response, request_body=None):
     data = {}
     data['response_code'] = response.status_code
 
@@ -46,6 +47,9 @@ def __format_response(response):
         data['data'] = response.json()
         data['success'] = True
         data['error'] = None
+
+        if request_body:
+            data['request_body'] = request_body
     else:
         data['data'] = {}
         data['success'] = False
@@ -65,8 +69,8 @@ def __do_request(url, params):
     data = r.json()
     access_token = data['access_token']
 
-    headers = { 'Authorization': 'Bearer ' + access_token }
-    return requests.post(url, params, None, headers=headers)
+    headers = { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
+    return requests.post(url, data=None, json=params, headers=headers)
 
 def __get_a2p_config():
     return get_config('a2p')
@@ -83,44 +87,73 @@ def __submit_image_from_url(url):
             "size": len(image_body)
             }
 
-def submit_interview(data, attachment_urls=[]):
-    benefitFilesData = []
+def build_submit_payload(data, attachment_urls):
+    benefit_files_data = []
 
     for url in attachment_urls:
+        log("Uploading file: %s" % url)
         image_meta = __submit_image_from_url(url)
-        benefitFilesData.append(image_meta)
+        benefit_files_data.append(image_meta)
 
+    no_proof_fields = [
+        'calfresh_no_proof',
+        'medi_cal_no_proof',
+        'ssi_no_proof',
+        'ssp_no_proof',
+        'cr_ga_no_proof',
+        'ihss_no_proof',
+        'tanf_no_proof'
+        'cal_works_no_proof',
+        'capi_no_proof',
+    ]
+
+    no_docs_upload_comments = ", ".join([data.get(field + '_reason') for field in no_proof_fields if data.get(field + '_reason')])
+    case_information = data.get('case_information')
+
+    no_benefits = True
+    for benefit in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga', 'ihss', 'cal_works', 'tanf', 'capi']:
+        if data.get(benefit):
+            no_benefits = False
+
+    submitted_on = datetime.datetime.now().isoformat()
+
+    on_other_benefits = False
+    other_benefits_desc = data.get('benefits', {}).get('other')
+    if other_benefits_desc:
+        on_other_benefits = True
+ 
     request_params = {
         "requestStatus": "Submitted",
         "petition": {
-            "noBenefits": data.get('benefits'),
-            "onFoodStamps": data.get('cal_fresh'),
-            "onSuppSecIncome": data.get('ssi'),
-            "onSSP": data.get('ssp'),
-            "onMedical": data.get('medi_cal'),
-            "onCountyRelief": data.get('cr_ga'),
-            "onIHSS": data.get('ihss'),
-            "onCalWorks": data.get('cal_works'),
-            "onTANF": data.get('tanf'),
-            "onCAPI": data.get('capi'),
-            "benefitFiles": benefitFilesData,
+            "noBenefits": no_benefits,
+            "onFoodStamps": data.get('cal_fresh', False),
+            "onSuppSecIncome": data.get('ssi', False),
+            "onSSP": data.get('ssp', False),
+            "onMedical": data.get('medi_cal', False),
+            "onCountyRelief": data.get('cr_ga', False),
+            "onIHSS": data.get('ihss', False),
+            "onCalWorks": data.get('cal_works', False),
+            "onTANF": data.get('tanf', False),
+            "onCAPI": data.get('capi', False),
+            "benefitFiles": benefit_files_data,
             "rent": data.get('monthly_rent'),
             "mortgage": data.get('mortgage'),
             "phone": data.get('phone_bill'),
             "food": data.get('food'),
             "insurance": data.get('insurance'),
+            "isBenefitsProof": False,
+            "isCivilAssessWaiver": False,
             "clothes": data.get('clothing'),
             "childSpousalSupp": data.get('child_spousal_support'),
             "carPayment": data.get('transportation'),
             "utilities": data.get('utilities'),
             "otherExpenses": [],
-            "isMoreTimeToPay": data.get('extension'),
-            "isPaymentPlan": data.get('payment_plan'),
+            "isMoreTimeToPay": data.get('extension', False),
+            "isPaymentPlan": data.get('payment_plan', False),
             "isReductionOfPayment": True,
-            "isCommunityService": data.get('community_service'),
-            #"isCivilAssessWaiver": ,
+            "isCommunityService": data.get('community_service', False),
             "isOtherRequest": False,
-            #"otherRequestDesc": null,
+            "otherRequestDesc": data.get('other_hardship'),
             "selectAllRights": True,
             "representByAttorneyRight": True,
             "speedyTrialRight": True,
@@ -130,18 +163,27 @@ def submit_interview(data, attachment_urls=[]):
             "isPleadGuilty": True,
             "isPleadNoContest": False,
             "supportingFiles": [],
-            #"noDocsToUploadReason": "I got evicted",
-            #"noDocsToUploadComments": "comments",
-            "isDeclare": True
+            "noDocsToUploadReason": "See comments",
+            "noDocsToUploadComments": no_docs_upload_comments,
+            "isDeclare": True,
+            "onOtherBenefits": on_other_benefits,
+            "onOtherBenefitsDesc": other_benefits_desc,
         },
         "caseInformation": {
-            "citationNumber": data.get('citation_number'),
+            "caseNumber": case_information.get('caseNumber'),
+            "citationDocumentId": case_information.get('documentid'),
+            "citationNumber": case_information.get('citationNumber'),
+            "civilAssessFee": case_information.get('civilAssessFee'),
             "county": data.get('county'),
+            "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
+            "totalDueAmt": case_information.get('totalDueAmt'),
+            "violationDate": case_information.get('charges', [])[0].get('violationDate'),
+            "violationDescription": " / ".join([desc.get('violationDescription') for desc in case_information.get('charges', {})])
         },
         "benefitsStatus": True,
         "defendantInformation": {
             "incomeAmount": data.get('income'),
-            "incomeFrequency": data.get('frequency'),
+            "incomeFrequency": "Month",
             "totalFamilyMembers": data.get('residents'),
         },
         "survey": {
@@ -152,19 +194,27 @@ def submit_interview(data, attachment_urls=[]):
         "submittedById": "0",
         "judgment": "Submitted",
         "submittedByEmail": "temp@temp.com",
-        "submittedOn": {
-            "$date": calendar.timegm(time.gmtime()),
-        },
+        "submittedOn": submitted_on,
         "needMoreInformation": [],
         "toolRecommendations": [],
         "judicialOrder": [],
         "auditInformation": [],
         "__v": 0
     }
-    res = __do_request(SUBMIT_URL, json.dumps(request_params))
-    return __format_response(res)
+    return request_params
 
 
-# print(fetch_citation_data('CT98966', 'Tulare'))
+def submit_interview(data, attachment_urls=[], debug=False):
+    params = build_submit_payload(data, attachment_urls)
+    log("Submitting Payload: %s" % params)
+    res = __do_request(SUBMIT_URL, params)
+
+    if debug:
+        return __format_response(res, params)
+    else:
+        return __format_response(res)
+
+
+#print(fetch_citation_data('CT98966', 'Tulare'))
 # print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
-# print(submit_interview({ 'citationNumber': 1234 }))
+#print(submit_interview({ 'citationNumber': 1234 }))

@@ -629,3 +629,10 @@ select {
     margin-bottom: 1rem;
   }
 }
+
+/* Hide everything except back button */
+.navbar { 
+  #pagetitle, #mynavbar-right, #mobiletoggler, #navbar-collapse, ul {
+    display: none;
+  }
+}

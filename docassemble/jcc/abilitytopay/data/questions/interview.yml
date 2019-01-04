@@ -19,7 +19,7 @@ code: |
 ---
 field: before_you_start
 question: |
-  Ability to Pay Request
+  Request a Fine Reduction
 subquestion: |
   *This online system is an optional way to request a fine reduction for yout traffic ticket in cases of financial need.*
 
@@ -30,6 +30,7 @@ subquestion: |
   * Request Community Service
   * Request more time to pay your ticket
   ${help_tip}
+
 ---
 question: |
   Look Up Your Citation
@@ -37,64 +38,8 @@ question: |
 fields:
 - "What California county did you get the citation in?": county
   choices:
-  - "Alameda": Alameda
-  - "Alpine": Alpine
-  - "Amador": Amador
-  - "Butte": Butte
-  - "Calaveras": Calaveras
-  - "Colusa": Colusa
-  - "Contra Costa": Contra Costa
-  - "Del Norte": Del Norte
-  - "El Dorado": El Dorado
-  - "Fresno": Fresno
-  - "Glenn": Glenn
-  - "Humboldt": Humboldt
-  - "Imperial": Imperial
-  - "Inyo": Inyo
-  - "Kern": Kern
-  - "Kings": Kings
-  - "Lake": Lake
-  - "Lassen": Lassen
-  - "Los Angeles": Los Angeles
-  - "Madera": Madera
-  - "Marin": Marin
-  - "Mariposa": Mariposa
-  - "Mendocino": Mendocino
-  - "Merced": Merced
-  - "Modoc": Modoc
-  - "Mono": Mono
-  - "Monterey": Monterey
-  - "Napa": Napa
-  - "Nevada": Nevada
-  - "Orange": Orange
-  - "Placer": Placer
-  - "Plumas": Plumas
-  - "Riverside": Riverside
-  - "Sacramento": Sacramento
-  - "San Benito": San Benito
-  - "San Bernardino": San Bernardino
-  - "San Diego": San Diego
-  - "San Francisco": San Francisco
-  - "San Joaquin": San Joaquin
-  - "San Luis Obispo": San Luis Obispo
-  - "San Mateo": San Mateo
-  - "Santa Barbara": Santa Barbara
-  - "Santa Clara": Santa Clara
-  - "Santa Cruz": Santa Cruz
   - "Shasta": Shasta
-  - "Sierra": Sierra
-  - "Siskiyou": Siskiyou
-  - "Solano": Solano
-  - "Sonoma": Sonoma
-  - "Stanislaus": Stanislaus
-  - "Sutter": Sutter
-  - "Tehama": Tehama
-  - "Trinity": Trinity
   - "Tulare": Tulare
-  - "Tuolumne": Tuolumne
-  - "Ventura": Ventura
-  - "Yolo": Yolo
-  - "Yuba": Yuba
 - "What's the citation number?": citation_number
 - "I don't have my citation number": no_citation_number
   datatype: yesno
@@ -113,11 +58,11 @@ code: |
   if not no_citation_number:
     citation_data = fetch_citation_data(citation_number, county)
     if citation_data['success']:
-        data = citation_data['data']
-        violation_date = date_from_iso8601(data['charges'][0]['violationDate'])
-        total_due = format_money(data['totalDueAmt'])
-        first_name = data['firstName']
-        last_name = data['lastName']
+        case_information = citation_data['data']
+        violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
+        total_due = format_money(case_information['totalDueAmt'])
+        first_name = case_information['firstName']
+        last_name = case_information['lastName']
     else:
         log('Sorry, we could not find that citation.', 'danger')
         reconsider('county')
@@ -171,6 +116,9 @@ fields:
   input type: radio
   code: |
     case_lookup_results
+---
+code: |
+  case_information = fetch_citation_data(selected_case, county)['data']
 ---
 field: how_work
 question: |
@@ -317,17 +265,10 @@ fields:
 question: |
   Current Income
 subquestion: |
-  *How much money do you earn (take-home pay) or get from other sources, including payments from people in your household (such as spouse or live-in romantic partner)?*
+  *How much money do you take home each month?*
 
-  Answer the best you can.
+  Answer the best you can. Be sure to include income from your job and any other sources, including payments from people in your household (such as spouse or live-in partner)?
 fields:
-- Frequency of Income: frequency
-  choices:
-  - "Once a year": annual
-  - "Once a month": monthly
-  - "Twice a month": twice_monthly
-  - "Every two weeks": two_weeks
-  - "Every week": weekly
 - Amount of Income: income
   datatype: currency
 ---
@@ -340,9 +281,10 @@ fields:
 question: |
   Monthly Expenses
 subquestion: |
-  *Estimate what you pay _each month_ for the following expenses.*
+  *You said you take home $${ income } each month.*
+  *Now, please estimate what you pay _each month_ for the following expenses.*
 fields:
-- Monthly Rent: monthly_rent
+- Rent: monthly_rent
   datatype: currency
 - Mortgage: mortgage
   datatype: currency
@@ -356,20 +298,30 @@ fields:
   datatype: currency
 - Clothing: clothing
   datatype: currency
-- Child/Spousal Support: child_spousal_support
+- Child or Spousal Support: child_spousal_support
   datatype: currency
 - Transportation (Gas, Car Payments, Transit): transportation
   datatype: currency
+
+- "Would you like to report other expenses or reasons for financial hardship?": other_hardship
+  datatype: yesnoradio
+- "What other fiancial hardship would you like the Court to consider?": hardship
+  show if: other_hardship
+  datatype: area
+
 ---
 question: |
   Additional Requests
 fields:
-- "A court official will review your request. Whether or not your request for a reduction is granted, would you like to add any of the following requests to the current or reduced amount?": additional_requests
+- "Would you like to add any of the following requests to the current or reduced amount?": additional_requests
   datatype: checkboxes
   choices:
-  - "Payment Plan (default at $25/month)": payment_plan
-  - "Community Service (for the current or reduced amount)": community_service
+  - "Payment Plan": payment_plan
+  - "Community Service": community_service
   - "Extension (more Time to Pay)": extension
+under: |
+  Note: Your court may charge administrative fees for setting up a community service work plan
+
 ---
 question: |
   Make your Plea
@@ -394,6 +346,8 @@ fields:
 ---
 question: |
   Optional Questions
+subquestion: |
+  *Your information will be kept confidential and may be used for research conducted to improve court services.*
 fields:
 - "Was this tool helpful in addressing this traffic matter?": tool_helpful
 - "Would you have been able to go to court in person?": able_in_person
@@ -414,8 +368,8 @@ subquestion: |
   *The information you have provided will not be sent to the court until you click Submit. By clicking submit, you are declaring under penalty of perjury that what you have reported is true.*
 progress: 95
 fields:
-- Signature: signature
-- Date: signature_date
+- "What's email address can the Court use to share the decision about your request?": email
+  datatype: email
 continue button label: Submit
 ---
 mandatory: True
@@ -456,7 +410,6 @@ code: |
     capi_proof
     attachment_urls.append(capi_proof.url_for())
   income
-  frequency
   residents
   monthly_rent
   mortgage
@@ -471,17 +424,18 @@ code: |
   agree_no_contest
   tool_helpful
   able_in_person
-  signature
-  submit_interview(all_variables(), attachment_urls)
+  email
+  submit_response = submit_interview(all_variables(), attachment_urls, True)
   all_done
 ---
 question: |
   Thank you!
 subquestion: |
-  *Expect a response from the court by email in 14 business days. If you don't get a notification please contact the Court.*
+  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 sets: all_done
 ---
 question: |
   Goodbye!
 sets: do_exit
+
 
