@@ -121,7 +121,14 @@ def build_submit_payload(data, attachment_urls):
     other_benefits_desc = data.get('benefits', {}).get('other')
     if other_benefits_desc:
         on_other_benefits = True
- 
+
+    violDescriptions = []
+    idx = 0
+    for desc in case_information.get('charges', {}):
+        if desc.get('violationDescription'):
+            idx += 1
+            violDescriptions.append("Count %s: %s" % (idx, desc.get('violationDescription'))
+
     request_params = {
         "requestStatus": "Submitted",
         "petition": {
@@ -178,7 +185,8 @@ def build_submit_payload(data, attachment_urls):
             "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
             "totalDueAmt": case_information.get('totalDueAmt'),
             "violationDate": case_information.get('charges', [])[0].get('violationDate'),
-            "violationDescription": " / ".join([desc.get('violationDescription') for desc in case_information.get('charges', {})])
+            "violationDescription": violationDescription = " / ".join(violDescriptions),
+ 
         },
         "benefitsStatus": True,
         "defendantInformation": {
