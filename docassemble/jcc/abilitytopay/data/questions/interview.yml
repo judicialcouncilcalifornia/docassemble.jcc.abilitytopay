@@ -10,6 +10,9 @@ features:
 metadata:
   title: Ability to Pay
 ---
+show login: False
+show profile link: False
+---
 template: help_tip
 content: |
   <span title="${help_tip_text}" data-toggle="tooltip">(?)</span>
