@@ -127,7 +127,7 @@ def build_submit_payload(data, attachment_urls):
     for desc in case_information.get('charges', {}):
         if desc.get('violationDescription'):
             idx += 1
-            violDescriptions.append("Count %s: %s" % (idx, desc.get('violationDescription'))
+            violDescriptions.append("Count %s: %s" % (idx, desc.get('violationDescription')))
 
     request_params = {
         "requestStatus": "Submitted",
@@ -185,7 +185,7 @@ def build_submit_payload(data, attachment_urls):
             "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
             "totalDueAmt": case_information.get('totalDueAmt'),
             "violationDate": case_information.get('charges', [])[0].get('violationDate'),
-            "violationDescription": violationDescription = " / ".join(violDescriptions),
+            "violationDescription": " / ".join(violDescriptions),
  
         },
         "benefitsStatus": True,
