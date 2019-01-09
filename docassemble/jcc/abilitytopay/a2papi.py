@@ -121,6 +121,7 @@ def build_submit_payload(data, attachment_urls):
     other_benefits_desc = data.get('benefits', {}).get('other')
     if other_benefits_desc:
         on_other_benefits = True
+        no_benefits = False
 
     violDescriptions = []
     idx = 0
@@ -128,6 +129,8 @@ def build_submit_payload(data, attachment_urls):
         if desc.get('violationDescription'):
             idx += 1
             violDescriptions.append("Count %s: %s" % (idx, desc.get('violationDescription')))
+
+    additional_requests = data.get('additional_requests', {}) 
 
     request_params = {
         "requestStatus": "Submitted",
@@ -155,10 +158,10 @@ def build_submit_payload(data, attachment_urls):
             "carPayment": data.get('transportation'),
             "utilities": data.get('utilities'),
             "otherExpenses": [],
-            "isMoreTimeToPay": data.get('extension', False),
-            "isPaymentPlan": data.get('payment_plan', False),
+            "isMoreTimeToPay": additional_requests.get('extension', False),
+            "isPaymentPlan": additional_requests.get('payment_plan', False),
             "isReductionOfPayment": True,
-            "isCommunityService": data.get('community_service', False),
+            "isCommunityService": additional_requests.get('community_service', False),
             "isOtherRequest": False,
             "otherRequestDesc": data.get('other_hardship'),
             "selectAllRights": True,
