@@ -204,7 +204,7 @@ def build_submit_payload(data, attachment_urls):
         },
         "submittedById": "0",
         "judgment": "Submitted",
-        "submittedByEmail": "temp@temp.com",
+        "submittedByEmail": data.get('email'),
         "submittedOn": submitted_on,
         "needMoreInformation": [],
         "toolRecommendations": [],
