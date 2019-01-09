@@ -29,7 +29,8 @@ subquestion: |
   * Request to pay in installments (set up payment plan)
   * Request Community Service
   * Request more time to pay your ticket
-  ${help_tip}
+  
+  If you wish to contest the ticket or resolve the matter in person, please contact your Court. Refer to your reminder notice. 
 
 ---
 question: |
