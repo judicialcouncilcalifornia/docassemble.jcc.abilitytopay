@@ -6574,5 +6574,5 @@ select {
     margin-bottom: 1rem; }
 
 /* Hide everything except back button */
-.navbar #mynavbar-right, .navbar #mobiletoggler, .navbar #navbar-collapse, .navbar ul {
-  display: none; }
+.navbar .mynavbar-right, .navbar #mobiletoggler, .navbar #navbar-collapse, .navbar ul {
+  display: none !important; }
