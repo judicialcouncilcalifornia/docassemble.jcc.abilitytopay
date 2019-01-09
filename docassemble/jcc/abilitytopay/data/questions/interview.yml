@@ -42,6 +42,7 @@ fields:
   - "Shasta": Shasta
   - "Tulare": Tulare
 - "What's the citation number?": citation_number
+  required: false
 - "I don't have my citation number": no_citation_number
   datatype: yesno
 - What is your first name?: first_name
@@ -52,7 +53,6 @@ fields:
   datatype: date
   show if: no_citation_number
 - What is your Driver's License Number?: license_number
-  datatype: number
   show if: no_citation_number
 ---
 code: |
