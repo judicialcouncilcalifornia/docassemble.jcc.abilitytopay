@@ -191,7 +191,7 @@ def build_submit_payload(data, attachment_urls):
             "violationDescription": " / ".join(violDescriptions),
  
         },
-        "benefitsStatus": True,
+        "benefitsStatus": not no_benefits,
         "defendantInformation": {
             "incomeAmount": data.get('income'),
             "incomeFrequency": "Month",
