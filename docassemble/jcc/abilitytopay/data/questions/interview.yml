@@ -23,7 +23,7 @@ question: |
 subquestion: |
   *This online system is an optional way to request a fine reduction for yout traffic ticket in cases of financial need.*
 
-  Use this tool to:
+  **Use this tool to:**
 
   * Request a reduction in your traffic fine based on financial need
   * Request to pay in installments (set up payment plan)
@@ -144,12 +144,17 @@ fields:
   - "California Work Opportunity and Responsibility to Kids Act (CalWORKS)": cal_works
   - "Tribal Temporary Assistance for Needy Families (TANF)": tanf
   - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
-  - Other: other
+  - "Other": other
+  
+- "What's the other public benefit you receive?": other_benefit_name
+  show if:
+    variable: benefits['other']
+    is: True  
 ---
 question: |
   Proof of CalFresh
 subquestion: |
-  *You said you receive Calfresh.  Can you please upload a picture of your CalFresh card?*
+   ### You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?
 fields:
 - Calfresh Card: calfresh_proof
   datatype: file
@@ -162,7 +167,7 @@ fields:
 question: |
  Proof of Medi-Cal
 subquestion: |
-  *You said you receive Medi-Cal. Can you please upload a picture of your Medi-Cal card?*
+  ### You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
 fields:
 - Medi-Cal Card: medi_cal_proof
   datatype: file
@@ -262,6 +267,14 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": capi_no_proof_reason
   show if: capi_no_proof
+  ---
+question: |
+  Proof of "${other_benefit_name}"
+subquestion: | 
+  ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit. 
+fields:
+- "Upload picture": other_benefit_picture
+  datatype: file
 ---
 question: |
   Current Income
@@ -368,11 +381,14 @@ fields:
 question: |
   Final Step
 subquestion: |
-  *The information you have provided will not be sent to the court until you click Submit. By clicking submit, you are declaring under penalty of perjury that what you have reported is true.*
+  *The information you have provided will not be sent to the court until you click Submit. By clicking submit, *
 progress: 95
 fields:
 - "What's email address can the Court use to share the decision about your request?": email
   datatype: email
+- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
+  datatype: yesno    
+  
 continue button label: Submit
 ---
 mandatory: True
@@ -420,6 +436,8 @@ code: |
     capi_proof
     if hasattr(capi_proof, 'url_for'):
       attachment_urls.append(capi_proof.url_for())
+  if benefits['other']:
+    other_benefit_picture    
   income
   residents
   monthly_rent
