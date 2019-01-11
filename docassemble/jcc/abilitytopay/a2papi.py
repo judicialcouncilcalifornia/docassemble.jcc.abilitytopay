@@ -13,7 +13,6 @@ CITATION_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/citation'
 CASE_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/cases'
 SUBMIT_URL = 'https://a2papi.azurewebsites.net/api/request'
 
-
 def fetch_citation_data(citation_number, county):
     citation_params = {
             'num': citation_number,
@@ -108,19 +107,20 @@ def build_submit_payload(data, attachment_urls):
     ]
 
     no_docs_upload_comments = ", ".join([data.get(field + '_reason') for field in no_proof_fields if data.get(field + '_reason')])
+
     case_information = data.get('case_information')
 
+    benefits = data.get('benefits', {}).get('elements', {})
     no_benefits = True
-    for benefit in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga', 'ihss', 'cal_works', 'tanf', 'capi']:
-        if data.get(benefit):
+    for benefit_name in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga', 'ihss', 'cal_works', 'tanf', 'capi', 'other']:
+        if benefits.get(benefit_name):
             no_benefits = False
 
     submitted_on = datetime.datetime.now().isoformat()
 
-    on_other_benefits = False
-    other_benefits_desc = data.get('benefits', {}).get('other')
-    if other_benefits_desc:
-        on_other_benefits = True
+    on_other_benefits = benefits.get('other', False)
+    if on_other_benefits:
+        other_benefits_desc = data.get('other_benefits_name')
         no_benefits = False
 
     violDescriptions = []
@@ -130,21 +130,21 @@ def build_submit_payload(data, attachment_urls):
             idx += 1
             violDescriptions.append("Count %s: %s" % (idx, desc.get('violationDescription')))
 
-    additional_requests = data.get('additional_requests', {}) 
+    additional_requests = data.get('additional_requests', {}).get('elements', {})
 
     request_params = {
         "requestStatus": "Submitted",
         "petition": {
             "noBenefits": no_benefits,
-            "onFoodStamps": data.get('cal_fresh', False),
-            "onSuppSecIncome": data.get('ssi', False),
-            "onSSP": data.get('ssp', False),
-            "onMedical": data.get('medi_cal', False),
-            "onCountyRelief": data.get('cr_ga', False),
-            "onIHSS": data.get('ihss', False),
-            "onCalWorks": data.get('cal_works', False),
-            "onTANF": data.get('tanf', False),
-            "onCAPI": data.get('capi', False),
+            "onFoodStamps": benefits.get('cal_fresh', False),
+            "onSuppSecIncome": benefits.get('ssi', False),
+            "onSSP": benefits.get('ssp', False),
+            "onMedical": benefits.get('medi_cal', False),
+            "onCountyRelief": benefits.get('cr_ga', False),
+            "onIHSS": benefits.get('ihss', False),
+            "onCalWorks": benefits.get('cal_works', False),
+            "onTANF": benefits.get('tanf', False),
+            "onCAPI": benefits.get('capi', False),
             "benefitFiles": benefit_files_data,
             "rent": data.get('monthly_rent'),
             "mortgage": data.get('mortgage'),
