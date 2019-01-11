@@ -119,6 +119,7 @@ def build_submit_payload(data, attachment_urls):
     submitted_on = datetime.datetime.now().isoformat()
 
     on_other_benefits = benefits.get('other', False)
+    other_benefits_desc = None
     if on_other_benefits:
         other_benefits_desc = data.get('other_benefits_name')
         no_benefits = False
@@ -151,7 +152,7 @@ def build_submit_payload(data, attachment_urls):
             "phone": data.get('phone_bill'),
             "food": data.get('food'),
             "insurance": data.get('insurance'),
-            "isBenefitsProof": False,
+            "isBenefitsProof": len(attachment_urls) > 0,
             "isCivilAssessWaiver": False,
             "clothes": data.get('clothing'),
             "childSpousalSupp": data.get('child_spousal_support'),
