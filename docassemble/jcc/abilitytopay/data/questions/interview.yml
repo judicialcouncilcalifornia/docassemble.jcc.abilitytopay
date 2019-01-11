@@ -29,8 +29,8 @@ subquestion: |
   * Request to pay in installments (set up payment plan)
   * Request Community Service
   * Request more time to pay your ticket
-  
-  If you wish to contest the ticket or resolve the matter in person, please contact your Court. Refer to your reminder notice. 
+
+  If you wish to contest the ticket or resolve the matter in person, please contact your Court. Refer to your reminder notice.
 
 ---
 question: |
@@ -98,7 +98,7 @@ fields:
     is: name_lookup
 ---
 code: |
-   if verify_citation == "name_lookup" or not no_citation_number:
+   if no_citation_number or (defined('verify_citation') and verify_citation == "name_lookup"):
        response = fetch_case_data(first_name, last_name, dob, citation_number, 'Santa Clara')
        if response['data']:
             case_lookup_results = []
@@ -446,3 +446,4 @@ sets: all_done
 question: |
   Goodbye!
 sets: do_exit
+
