@@ -25,7 +25,7 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
     case_params = {
             'firstName': first_name,
             'lastName': last_name,
-            'dateOfBirth': dob,
+            'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
             'driversLicense': drivers_license,
             'county': county
     }
@@ -44,14 +44,12 @@ def __format_response(response, request_body=None):
 
     if response.ok:
         data['data'] = response.json()
-        data['success'] = True
         data['error'] = None
 
         if request_body:
             data['request_body'] = request_body
     else:
         data['data'] = {}
-        data['success'] = False
         data['error'] = response.text
 
     return data
