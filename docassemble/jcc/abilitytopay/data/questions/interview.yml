@@ -267,7 +267,7 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": capi_no_proof_reason
   show if: capi_no_proof
-  ---
+---
 question: |
   Proof of "${other_benefit_name}"
 subquestion: | 
