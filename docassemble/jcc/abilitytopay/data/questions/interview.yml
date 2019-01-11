@@ -324,26 +324,28 @@ under: |
   Note: Your court may charge administrative fees for setting up a community service work plan
 
 ---
+---
 question: |
   Make your Plea
-subquestion: |
-  *In order to proceed with your request for a reduction, you need to admit responsibility for the charge for which you received a ticket and plead no contest.*
+subquestion:  |
+  In order to submit your fine reduction request, you need to admit responsibility for the ticket by pleading **Guilty** or **No Contest**.
+  If you do not want to admit responsibility or if you do not understand these rights, please exit the system and contact your court to set up an in-person court appearance.
 
-  To plead no contest, please waive the following rights:
+  By pleading you will be giving up the following rights:
 
   * To be represented by an attorney employed by you;
   * To have a speedy and public trial in front of a judge;
   * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
   * To have the witnesses against you testify under oath in court, and to question such witnesses;
   * To remain silent and not testify and not incriminate yourself.
-
-  Continue if you have read, understand and waive the rights above and agree to plead “No Contest”.
-
-  **Any conviction will be reported to the Department of Motor Vehicles (DMV). This is the case whether you pay in full or not.**
-progress: 75
 fields:
-- "I have read, understand and waive the rights above and agree to plead No Contest": agree_no_contest
-  datatype: yesno
+- "Make a choice between pleading Guilty or No Contest. A no contest plea is a way of saying, 'I don’t believe I did all that the officer charges, but I admit violating the law.'": plea
+  datatype: radio
+  choices:
+  - No Contest Plea. I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.: agree_no_contest
+  - Guilty Plea. I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.: agree_guilty
+under: |
+  Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
 ---
 question: |
   Optional Questions
@@ -430,7 +432,7 @@ code: |
   child_spousal_support
   transportation
   additional_requests
-  agree_no_contest
+  plea
   tool_helpful
   able_in_person
   email
@@ -446,4 +448,3 @@ sets: all_done
 question: |
   Goodbye!
 sets: do_exit
-

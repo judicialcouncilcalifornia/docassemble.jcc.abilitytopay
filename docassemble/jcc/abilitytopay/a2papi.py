@@ -44,12 +44,14 @@ def __format_response(response, request_body=None):
 
     if response.ok:
         data['data'] = response.json()
+        data['success'] = True
         data['error'] = None
 
         if request_body:
             data['request_body'] = request_body
     else:
         data['data'] = {}
+        data['success'] = False
         data['error'] = response.text
 
     return data
@@ -169,8 +171,8 @@ def build_submit_payload(data, attachment_urls):
             "presentEvidenceRight": True,
             "testifyUnderOathRight": True,
             "remainSilentRight": True,
-            "isPleadGuilty": True,
-            "isPleadNoContest": False,
+            "isPleadGuilty": data.get('plea', '') == "agree_guilty",
+            "isPleadNoContest": data.get('plea', '') == "agree_no_contest",
             "supportingFiles": [],
             "noDocsToUploadReason": "See comments",
             "noDocsToUploadComments": no_docs_upload_comments,
@@ -188,7 +190,7 @@ def build_submit_payload(data, attachment_urls):
             "totalDueAmt": case_information.get('totalDueAmt'),
             "violationDate": case_information.get('charges', [])[0].get('violationDate'),
             "violationDescription": " / ".join(violDescriptions),
- 
+
         },
         "benefitsStatus": not no_benefits,
         "defendantInformation": {
@@ -228,3 +230,4 @@ def submit_interview(data, attachment_urls=[], debug=False):
 #print(fetch_citation_data('CT98966', 'Tulare'))
 # print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
 #print(submit_interview({ 'citationNumber': 1234 }))
+
