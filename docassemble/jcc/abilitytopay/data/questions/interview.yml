@@ -363,20 +363,52 @@ under: |
 question: |
   Optional Questions
 subquestion: |
-  *Your information will be kept confidential and may be used for research conducted to improve court services.*
+  ### Your information will be kept confidential and may be used for research conducted to improve court services.
 fields:
-- "Was this tool helpful in addressing this traffic matter?": tool_helpful
-- "Would you have been able to go to court in person?": able_in_person
-  datatype: yesnoradio
-- "Why would getting to court have been difficult for you?": why_difficult
-  input type: checkboxes
-  show if:
-    variable: able_in_person
-    is: false
+- "How helpful was this tool in addressing your traffic ticket?": tool_helpful
+  datatype: radio
+  choices: 
+  - Very helpful: tool_very_helpful
+  - Somewhat helpful: tool_somewhat_helpful
+  - As helpful as coming into court: tool_as_helpful
+  - Somewhat unhelpful: tool_somewhat_unhelpful
+  - Not helpful at all: tool_not_helpful
+- "Can you say more about what difficulty you encountered with the tool?": tool_difficult
+  datatype: area
+  show if: 
+    variable: tool_helpful
+    is: tool_not_helpful
+  
+- "If you get another traffic ticket, how would you prefer to resolve it?": prefer
+  required: false
+  datatype: radio
   choices:
-    - "Physical Disability": why_difficult
-    - "Can't take time off work": why_difficult
-    - "Childcare": childcare
+  - Use this online tool: prefer_online
+  - In-person at court : prefer_court 
+  - Unsure: prefer_unsure
+- "Would it have been difficult to come to court in person?": difficult
+  required: false
+  datatype: radio
+  choices: 
+  - Yes: difficult_yes
+  - No: difficult_no
+- "Tell us why it's difficult for you to come to court in person (check all that apply)": why_difficult
+  required: false
+  datatype: checkboxes
+  show if:
+    variable: difficult
+    is: difficult_yes
+  choices:
+    - "Physical Disability": difficult_disability
+    - "Can't take time off work": difficult_work
+    - "Childcare": difficult_childcare
+    - "Other": difficult_other
+  none of the above: False
+    
+- "Share why it's difficult for you to come to court in person": difficult_open_text
+  show if:
+    variable: why_difficult['difficult_other']
+    is: True
 ---
 question: |
   Final Step
