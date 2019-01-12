@@ -482,7 +482,8 @@ code: |
   child_spousal_support
   transportation
   additional_requests
-  plea
+  if not case_information.get('preAdjudicated'):
+    plea
   tool_helpful
   able_in_person
   email
