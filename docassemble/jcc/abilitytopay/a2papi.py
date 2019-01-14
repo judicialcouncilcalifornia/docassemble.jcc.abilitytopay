@@ -133,6 +133,11 @@ def build_submit_payload(data, attachment_urls):
 
     additional_requests = data.get('additional_requests', {}).get('elements', {})
 
+    difficultyToVisitCourtDueTo = data.get("difficult_open_text", "")
+    for k, v in data.get('why_difficult', {}).get('elements', {}).items():
+         if v:
+              difficultyToVisitCourtDueTo += "/ " + k
+
     request_params = {
         "requestStatus": "Submitted",
         "petition": {
@@ -201,7 +206,7 @@ def build_submit_payload(data, attachment_urls):
         "survey": {
             "isAddressedTrafficMatter": data.get('tool_helpful', '') + ',' + data.get('tool_difficult', ''),
             "willYouVisitCourt": data.get('prefer'),
-            "difficultyToVisitCourtDueTo": ",".join([k for k,v in data.get('why_difficult', {}).get('elements', {}) if v]),
+            "difficultyToVisitCourtDueTo": difficultyToVisitCourtDueTo,
         },
         "submittedById": "0",
         "judgment": "Submitted",
@@ -230,4 +235,5 @@ def submit_interview(data, attachment_urls=[], debug=False):
 #print(fetch_citation_data('CT98966', 'Tulare'))
 # print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
 #print(submit_interview({ 'citationNumber': 1234 }))
+
 
