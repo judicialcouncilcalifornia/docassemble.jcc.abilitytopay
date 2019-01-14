@@ -438,36 +438,28 @@ code: |
   attachment_urls = []
   if benefits["cal_fresh"]:
     calfresh_proof
-    if hasattr(calfresh_proof, 'url_for'):
-      attachment_urls.append(calfresh_proof.url_for())
+    attachment_urls.append(calfresh_proof.url_for())
   if benefits["medi_cal"]:
     medi_cal_proof
-    if hasattr(medi_cal_proof, 'url_for'):
-      attachment_urls.append(medi_cal_proof.url_for())
+    attachment_urls.append(medi_cal_proof.url_for())
   if benefits["ssi"]:
     ssi_proof
-    if hasattr(ssi_proof, 'url_for'):
-      attachment_urls.append(ssi_proof.url_for())
+    attachment_urls.append(ssi_proof.url_for())
   if benefits["ssp"]:
     ssp_proof
-    if hasattr(ssp_proof, 'url_for'):
-      attachment_urls.append(ssp_proof.url_for())
+    attachment_urls.append(ssp_proof.url_for())
   if benefits["cr_ga"]:
     cr_ga_proof
-    if hasattr(cr_ga_proof, 'url_for'):
-      attachment_urls.append(cr_ga_proof.url_for())
+    attachment_urls.append(cr_ga_proof.url_for())
   if benefits["ihss"]:
     ihss_proof
-    if hasattr(ihss_proof, 'url_for'):
-      attachment_urls.append(ihss_proof.url_for())
+    attachment_urls.append(ihss_proof.url_for())
   if benefits["cal_works"]:
     cal_works_proof
-    if hasattr(cal_works_proof, 'url_for'):
-      attachment_urls.append(cal_works_proof.url_for())
+    attachment_urls.append(cal_works_proof.url_for())
   if benefits["capi"]:
     capi_proof
-    if hasattr(capi_proof, 'url_for'):
-      attachment_urls.append(capi_proof.url_for())
+    attachment_urls.append(capi_proof.url_for())
   if benefits['other']:
     other_benefit_picture    
   income
