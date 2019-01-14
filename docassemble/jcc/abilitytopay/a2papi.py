@@ -199,7 +199,7 @@ def build_submit_payload(data, attachment_urls):
             "totalFamilyMembers": data.get('residents'),
         },
         "survey": {
-            "isAddressedTrafficMatter": data.get('tool_helpful', '') + ',' + data.get('tool_difficult'),
+            "isAddressedTrafficMatter": data.get('tool_helpful', '') + ',' + data.get('tool_difficult', ''),
             "willYouVisitCourt": data.get('prefer'),
             "difficultyToVisitCourtDueTo": ",".join([k for k,v in data.get('why_difficult', {}).get('elements', {}) if v]),
         },
