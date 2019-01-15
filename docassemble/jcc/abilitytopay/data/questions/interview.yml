@@ -125,9 +125,9 @@ field: how_work
 question: |
   How this works
 subquestion: |
-  *We will walk ask you a few questions to help the Court better understand your need for a reduction.*
+  *We will walk you through a few questions to help the Court better understand your need for a reduction.*
 
-  Be prepared to share information about your monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
+  Be prepared to share information about your income, monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
 ---
 question: |
   Public Benefits
@@ -142,7 +142,7 @@ fields:
   - "County Relief/General Assistance": cr_ga
   - "In Home Supportive Services (IHSS)": ihss
   - "California Work Opportunity and Responsibility to Kids Act (CalWORKS)": cal_works
-  - "Tribal Temporary Assistance for Needy Families (TANF)": tanf
+  - "Temporary Assistance for Needy Families (TANF)": tanf
   - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
   - "Other": other
   
@@ -279,12 +279,14 @@ fields:
 question: |
   Current Income
 subquestion: |
-  *How much money do you take home each month?*
+  ### How much money do you take home each month?
 
   Answer the best you can. Be sure to include income from your job and any other sources, including payments from people in your household (such as spouse or live-in partner)?
 fields:
 - Amount of Income: income
   datatype: currency
+  min: 0 
+  max: 83333
 ---
 question: |
   Household Details
@@ -295,8 +297,9 @@ fields:
 question: |
   Monthly Expenses
 subquestion: |
-  *You said you take home $${ income } each month.*
-  *Now, please estimate what you pay _each month_ for the following expenses.*
+  ### Now, please estimate what you pay _each month_ for the following expenses.*
+  ### You said you take home $${ income } each month.
+  
 fields:
 - Rent: monthly_rent
   datatype: currency
