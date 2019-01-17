@@ -304,50 +304,40 @@ subquestion: |
   
 fields:
 - Rent: monthly_rent
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Mortgage: mortgage
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Utilities: utilities
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Phone Bill: phone_bill
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Food (Groceries & Restaurants): food
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Insurance: insurance
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Clothing: clothing
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 - Child or Spousal Support: child_spousal_support
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
 - Transportation (Gas, Car Payments, Transit): transportation
-  required: false
   datatype: currency
   min: 0 
-  max: 10,000
+  max: 10000
 
 - "Would you like to report other expenses or reasons for financial hardship?": other_hardship
   datatype: yesnoradio
