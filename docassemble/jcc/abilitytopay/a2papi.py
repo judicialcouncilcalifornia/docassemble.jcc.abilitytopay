@@ -106,7 +106,11 @@ def build_submit_payload(data, attachment_urls):
         'capi_no_proof',
     ]
 
-    no_docs_upload_comments = ", ".join([data.get(field + '_reason') for field in no_proof_fields if data.get(field + '_reason')])
+    no_docs_upload_comments = []
+    for field in no_proof_fields:
+        reason = data.get(field + "_reason")
+        if reason:
+            no_docs_upload_comments.append("%s: %s" % field, reason)
 
     case_information = data.get('case_information')
 
@@ -126,10 +130,14 @@ def build_submit_payload(data, attachment_urls):
 
     violDescriptions = []
     idx = 0
-    for desc in case_information.get('charges', {}):
-        if desc.get('violationDescription'):
-            idx += 1
-            violDescriptions.append("Count %s: %s" % (idx, desc.get('violationDescription')))
+    for charge in case_information.get('charges', {}):
+        descr = []
+        idx += 1
+        descr.append("Count %s" % idx)
+        if charge.get('chargeCode'):
+            descr.append(charge.get('chargeCode'))
+        descr.append(charge.get('violationDescription'))
+        violDescriptions.append("-".join(descr))
 
     additional_requests = data.get('additional_requests', {}).get('elements', {})
 
@@ -180,7 +188,7 @@ def build_submit_payload(data, attachment_urls):
             "isPleadNoContest": data.get('plea', '') == "agree_no_contest",
             "supportingFiles": [],
             "noDocsToUploadReason": "See comments",
-            "noDocsToUploadComments": no_docs_upload_comments,
+            "noDocsToUploadComments": "\n".join(no_docs_upload_comments),
             "isDeclare": True,
             "onOtherBenefits": on_other_benefits,
             "onOtherBenefitsDesc": other_benefits_desc,
@@ -194,7 +202,7 @@ def build_submit_payload(data, attachment_urls):
             "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
             "totalDueAmt": case_information.get('totalDueAmt'),
             "violationDate": case_information.get('charges', [])[0].get('violationDate'),
-            "violationDescription": " / ".join(violDescriptions),
+            "violationDescription": "\n".join(violDescriptions),
 
         },
         "benefitsStatus": not no_benefits,
