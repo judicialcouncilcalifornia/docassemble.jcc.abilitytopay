@@ -6502,8 +6502,8 @@ select {
   background: #fff;
   position: absolute;
   bottom: -46px;
-  left: 0;
-  right: 0;
+  left: -15px;
+  right: -15px;
   height: 30px; }
 
 .dabackicon {
