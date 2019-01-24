@@ -632,7 +632,10 @@ select {
 
 /* Hide everything except back button */
 .navbar { 
-  .mynavbar-right, #mobiletoggler, #navbar-collapse, ul {
+  .mynavbar-right, 
+  #mobiletoggler, 
+  #navbar-collapse, ul,
+  &.navbar-dark .navbar-toggler {
     display: none !important;
   }
 }
