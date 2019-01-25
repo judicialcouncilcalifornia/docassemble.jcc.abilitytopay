@@ -354,7 +354,7 @@ fields:
   choices:
   - "Payment Plan": payment_plan
   - "Community Service": community_service
-  - "Extension (more Time to Pay)": extension
+  - "Extension (more time to pay)": extension
 under: |
   Note: Your court may charge administrative fees for setting up a community service work plan
 
