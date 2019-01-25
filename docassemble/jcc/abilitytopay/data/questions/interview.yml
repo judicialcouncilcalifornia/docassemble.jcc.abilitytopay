@@ -286,7 +286,7 @@ fields:
 - Amount of Income: income
   datatype: currency
   min: 0 
-  max: 83333
+  max: 75000
 ---
 question: |
   Household Details
@@ -294,7 +294,7 @@ fields:
 - "How many people live in your household?": residents
   datatype: number
   min: 0 
-  max: 20
+  max: 15
 ---
 question: |
   Monthly Expenses
