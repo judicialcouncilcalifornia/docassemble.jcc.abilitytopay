@@ -17,9 +17,8 @@ content: |
 code: |
    help_tip_text = "This is text that shows in a tooltip."
 ---
-field: before_you_start
 question: |
-  Request a Fine Reduction
+  ### Request a Fine Reduction
 subquestion: |
   *This online system is an optional way to request a fine reduction for yout traffic ticket in cases of financial need.*
 
@@ -31,10 +30,16 @@ subquestion: |
   * Request more time to pay your ticket
 
   If you wish to contest the ticket or resolve the matter in person, please contact your Court. Refer to your reminder notice.
+fields:
+- "**Necesita español?**": requires_spanish_assistance
+  datatype: yesno
+- note: |
+    LA HERRAMIENTA PARA CALCULAR LA CAPACIDAD DE PAGO SOLO ESTÁ DISPONIBLE ACTUALMENTE EN INGLÉS. SI NECESITA SERVICIOS DE AYUDA LINGÜÍSTICA, VAYA AL JUZGADO INDICADO EN SU MULTA DE TRÁNSITO PARA CONSEGUIR AYUDA.
+  show if: requires_spanish_assistance
 
 ---
 question: |
-  Look Up Your Citation
+  ### Look Up Your Citation
 
 fields:
 - "What California county did you get the citation in?": county
@@ -69,7 +74,7 @@ code: |
         reconsider('county')
 ---
 question: |
-  Request to Court
+  ### Request to Court
 fields:
 - html: |
     <div class="info-card"><h4>${citation_number}</h4><dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl></div>
@@ -130,7 +135,7 @@ subquestion: |
   Be prepared to share information about your income, monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
 ---
 question: |
-  Public Benefits
+  ### Public Benefits
 fields:
 - 'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other"': benefits
   datatype: checkboxes
@@ -152,7 +157,7 @@ fields:
     is: True  
 ---
 question: |
-  Proof of CalFresh
+  ### Proof of CalFresh
 subquestion: |
    ### You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?
 fields:
@@ -165,9 +170,9 @@ fields:
   show if: calfresh_no_proof
 ---
 question: |
- Proof of Medi-Cal
+ ### Proof of Medi-Cal
 subquestion: |
-  ### You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
+ ## You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
 fields:
 - Medi-Cal Card: medi_cal_proof
   datatype: file
@@ -178,7 +183,7 @@ fields:
   show if: medi_cal_no_proof
 ---
 question: |
-  Proof of SSI
+ ### Proof of SSI
 subquestion: |
  *You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -191,7 +196,7 @@ fields:
   show if: ssi_no_proof
 ---
 question: |
-  Proof of State Supplemental Payment
+  ### Proof of State Supplemental Payment
 subquestion: |
   *You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -204,7 +209,7 @@ fields:
   show if: ssp_no_proof
 ---
 question: |
-  Proof of General Assistance/County Relief
+  ### Proof of General Assistance/County Relief
 subquestion: |
   *You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -217,7 +222,7 @@ fields:
   show if: cr_ga_no_proof
 ---
 question: |
-  Proof of In Home Supportive Services
+  ### Proof of In Home Supportive Services
 subquestion: |
   *You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -230,7 +235,7 @@ fields:
   show if: ihss_no_proof
 ---
 question: |
-  Proof of TANF
+  ### Proof of TANF
 subquestion: |
   *You said you receive Temporary Tribal Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -243,7 +248,7 @@ fields:
   show if: tanf_no_proof
 ---
 question: |
-  Proof of CalWORKS
+  ### Proof of CalWORKS
 subquestion: |
   *You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -256,7 +261,7 @@ fields:
   show if: cal_works_no_proof
 ---
 question: |
-  Proof of CAPI
+  ### Proof of CAPI
 subquestion: |
   *You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
@@ -269,7 +274,7 @@ fields:
   show if: capi_no_proof
 ---
 question: |
-  Proof of "${other_benefit_name}"
+  ### Proof of "${other_benefit_name}"
 subquestion: | 
   ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit. 
 fields:
@@ -277,7 +282,7 @@ fields:
   datatype: file
 ---
 question: |
-  Current Income
+  ### Current Income
 subquestion: |
   ### How much money do you take home each month?
 
@@ -289,7 +294,7 @@ fields:
   max: 75000
 ---
 question: |
-  Household Details
+  ### Household Details
 fields:
 - "How many people live in your household?": residents
   datatype: number
@@ -297,7 +302,7 @@ fields:
   max: 15
 ---
 question: |
-  Monthly Expenses
+  ### Monthly Expenses
 subquestion: |
   ### Now, please estimate what you pay _each month_ for the following expenses.*
   ### You said you take home $${ income } each month.
@@ -347,7 +352,7 @@ fields:
 
 ---
 question: |
-  Additional Requests
+  ### Additional Requests
 fields:
 - "Would you like to add any of the following requests to the current or reduced amount?": additional_requests
   datatype: checkboxes
@@ -359,9 +364,8 @@ under: |
   Note: Your court may charge administrative fees for setting up a community service work plan
 
 ---
----
 question: |
-  Make your Plea
+  ### Make your Plea
 subquestion:  |
   In order to submit your fine reduction request, you need to admit responsibility for the ticket by pleading **Guilty** or **No Contest**.
   If you do not want to admit responsibility or if you do not understand these rights, please exit the system and contact your court to set up an in-person court appearance.
@@ -383,9 +387,9 @@ under: |
   Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
 ---
 question: |
-  Optional Questions
+  ### Optional Questions
 subquestion: |
-  ### Your information will be kept confidential and may be used for research conducted to improve court services.
+  ## Your information will be kept confidential and may be used for research conducted to improve court services.
 fields:
 - "How helpful was this tool in addressing your traffic ticket?": tool_helpful
   required: false
@@ -433,7 +437,7 @@ fields:
     is: True
 ---
 question: |
-  Final Step
+  ### Final Step
 subquestion: |
   *The information you have provided will not be sent to the court until you click Submit. By clicking submit, *
 progress: 95
@@ -447,7 +451,7 @@ continue button label: Submit
 ---
 mandatory: True
 code: |
-  before_you_start
+  requires_spanish_assistance
   county
   citation_number
   verify_citation
