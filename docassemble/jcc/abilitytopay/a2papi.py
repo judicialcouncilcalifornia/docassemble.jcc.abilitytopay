@@ -57,7 +57,7 @@ def __format_response(response, request_body=None):
     return data
 
 def __do_request(url, params):
-    resource = __get_config()['oauth_resource']
+    resource = __get_a2p_config()['oauth_resource']
     oauth_params = {
             'resource': resource,
             'grant_type': 'client_credentials',
