@@ -57,12 +57,13 @@ def __format_response(response, request_body=None):
     return data
 
 def __do_request(url, params):
+    resource = __get_config()['oauth_resource']
     oauth_params = {
-            'resource': '3b347c8c-3faa-4331-8273-a5f575997d4e',
+            'resource': resource,
             'grant_type': 'client_credentials',
             'client_id': __get_a2p_config()["client_id"],
             'client_secret': __get_a2p_config()["client_secret"],
-            'scope': 'openid 3b347c8c-3faa-4331-8273-a5f575997d4e'
+            'scope': 'openid ' + resource
     }
     r = requests.post(AD_URL, oauth_params)
     data = r.json()
