@@ -128,7 +128,7 @@ code: |
 ---
 field: how_work
 question: |
-  How this works
+  ### How this works
 subquestion: |
   *We will walk you through a few questions to help the Court better understand your need for a reduction.*
 
@@ -439,7 +439,7 @@ fields:
 question: |
   ### Final Step
 subquestion: |
-  *The information you have provided will not be sent to the court until you click Submit. By clicking submit, *
+  ## The information you have provided will not be sent to the court until you click Submit.
 progress: 95
 fields:
 - "What's email address can the Court use to share the decision about your request?": email
@@ -513,6 +513,7 @@ code: |
     plea
   tool_helpful
   email
+  submit_sign
   submit_response = submit_interview(all_variables(), attachment_urls, True)
   all_done
 ---
