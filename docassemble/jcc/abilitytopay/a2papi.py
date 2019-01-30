@@ -8,17 +8,12 @@ import hashlib
 from docassemble.base.util import *
 from azure.storage.blob import BlockBlobService
 
-AD_URL = "https://login.microsoftonline.com/a2pca.onmicrosoft.com/oauth2/token"
-CITATION_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/citation'
-CASE_LOOKUP_URL = 'https://a2papi.azurewebsites.net/api/case/cases'
-SUBMIT_URL = 'https://a2papi.azurewebsites.net/api/request'
-
 def fetch_citation_data(citation_number, county):
     citation_params = {
             'num': citation_number,
             'county': county
     }
-    res = __do_request(CITATION_LOOKUP_URL, citation_params)
+    res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
     return __format_response(res)
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
@@ -29,7 +24,7 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
             'driversLicense': drivers_license,
             'county': county
     }
-    res = __do_request(CASE_LOOKUP_URL, case_params)
+    res = __do_request(a2p_config()['case_lookup_url'], case_params)
     return __format_response(res)
 
 def date_from_iso8601(date_string):
@@ -57,26 +52,34 @@ def __format_response(response, request_body=None):
     return data
 
 def __do_request(url, params):
-    resource = __get_a2p_config()['oauth_resource']
+    resource = a2p_config()['oauth_resource']
     oauth_params = {
             'resource': resource,
             'grant_type': 'client_credentials',
-            'client_id': __get_a2p_config()["client_id"],
-            'client_secret': __get_a2p_config()["client_secret"],
+            'client_id': a2p_config()["client_id"],
+            'client_secret': a2p_config()["client_secret"],
             'scope': 'openid ' + resource
     }
-    r = requests.post(AD_URL, oauth_params)
+    r = requests.post(a2p_config()["ad_url"], oauth_params)
     data = r.json()
+    if 'access_token' not in data:
+        print("Could not get access token!")
+
     access_token = data['access_token']
 
     headers = { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
     return requests.post(url, data=None, json=params, headers=headers)
 
-def __get_a2p_config():
-    return get_config('a2p')
+def a2p_config():
+    cfg = get_config('a2p')
+    base_url = cfg['base_url']
+    cfg['citation_lookup_url'] = base_url + '/case/citation'
+    cfg['case_lookup_url'] = base_url + '/case/cases'
+    cfg['submit_url'] = base_url + '/request'
+    return cfg
 
 def __submit_image_from_url(url):
-    blob_service = BlockBlobService(account_name='a2pca', account_key=__get_a2p_config()['blob_account_key'])
+    blob_service = BlockBlobService(account_name='a2pca', account_key=a2p_config()['blob_account_key'])
     image_body = requests.get(url).content
     filename = 'a2p_daupload_' + hashlib.sha224(image_body).hexdigest()
     blob_service.create_blob_from_bytes('attachments', filename, image_body)
@@ -233,7 +236,7 @@ def build_submit_payload(data, attachment_urls):
 def submit_interview(data, attachment_urls=[], debug=False):
     params = build_submit_payload(data, attachment_urls)
     log("Submitting Payload: %s" % params)
-    res = __do_request(SUBMIT_URL, params)
+    res = __do_request(a2p_config()['submit_url'], params)
 
     if debug:
         return __format_response(res, params)
@@ -241,8 +244,11 @@ def submit_interview(data, attachment_urls=[], debug=False):
         return __format_response(res)
 
 
-#print(fetch_citation_data('CT98966', 'Tulare'))
+# NOTE: Testing the below functions on local may not work
+# due to firewall restrictions.
+# 
+# print(fetch_citation_data('MCRDINTR180000001001', 'Shasta'))
 # print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
-#print(submit_interview({ 'citationNumber': 1234 }))
+# print(submit_interview({ 'citationNumber': 1234 }))
 
 
