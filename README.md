@@ -9,6 +9,8 @@ This is a standard DocAssemble package. The only required configuration is setti
       client_secret: <client secret for backend>
       blob_account_key: <azure storage blob account key>
       oauth_resource: <resource ID for backend>
+      base_url: <API host for making requests to A2P backend>
+      ad_url: <ActiveDirectory URL for getting oauth tokens>
 
 ## TODO
 
