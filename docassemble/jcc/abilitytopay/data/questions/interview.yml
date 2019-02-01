@@ -97,7 +97,6 @@ fields:
     variable: verify_citation
     is: name_lookup
 - What is your Driver's License Number?: license_number
-  datatype: number
   show if:
     variable: verify_citation
     is: name_lookup
