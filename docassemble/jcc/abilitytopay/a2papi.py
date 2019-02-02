@@ -34,22 +34,26 @@ def format_money(money_string):
     return '${:,.2f}'.format(money_string)
 
 def __format_response(response, request_body=None):
-    data = {}
-    data['response_code'] = response.status_code
+    response_data = {}
+    response_data['response_code'] = response.status_code
+    response_data['data'] = response.json()
+
+    # Protect against server response of empty hash
+    if response_data['data'] == [{}]:
+        response_data['data'] = None
 
     if response.ok:
-        data['data'] = response.json()
-        data['success'] = True
-        data['error'] = None
+        response_data['success'] = True
+        response_data['error'] = None
 
         if request_body:
-            data['request_body'] = request_body
+            response_data['request_body'] = request_body
     else:
-        data['data'] = None
-        data['success'] = False
-        data['error'] = response.text
+        response_data['data'] = None
+        response_data['success'] = False
+        response_data['error'] = response.text
 
-    return data
+    return response_data
 
 def __do_request(url, params):
     resource = a2p_config()['oauth_resource']
