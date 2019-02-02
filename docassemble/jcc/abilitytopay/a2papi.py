@@ -45,7 +45,7 @@ def __format_response(response, request_body=None):
         if request_body:
             data['request_body'] = request_body
     else:
-        data['data'] = {}
+        data['data'] = None
         data['success'] = False
         data['error'] = response.text
 
