@@ -103,17 +103,18 @@ fields:
 ---
 code: |
    if no_citation_number or (defined('verify_citation') and verify_citation == "name_lookup"):
-       response = fetch_case_data(first_name, last_name, dob, citation_number, 'Santa Clara')
+       response = fetch_case_data(first_name, last_name, dob, license_number, county)
        if response['data']:
             case_lookup_results = []
             for case in response['data']:
-                violation_date = date_from_iso8601(case['violationDate'])
-                total_due = format_money(case['totalDueAmt'])
-                case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>Name</dt><dd>{name}</dd><dt>Citation Number</dt><dd>{citationNumber}</dd><dt>County</dt><dd>{county}</dd><dt>Violation Date</dt><dd>{violationDate}</dd><dt>Total Due</dt><dd>{totalDue}</dd></dl></div>".format(name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=case['citationNumber'], violationDate=violation_date, totalDue=total_due) })
+                charges = case['charges']
+                c_violation_date = date_from_iso8601(charges[0]['violationDate'])
+                c_total_due = format_money(case['totalDueAmt'])
+                c_citation_number = case['citationNumber']
+                case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>Name</dt><dd>{name}</dd><dt>Citation Number</dt><dd>{citationNumber}</dd><dt>County</dt><dd>{county}</dd><dt>Violation Date</dt><dd>{violationDate}</dd><dt>Total Due</dt><dd>{totalDue}</dd></dl></div>".format(name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
        else:
           log('Check the information you entered. Try again.', 'danger')
           reconsider('county')
-
 ---
 question: Which of the following is your citation?
 fields:
@@ -453,8 +454,12 @@ code: |
   requires_spanish_assistance
   county
   citation_number
-  verify_citation
-  if verify_citation == "name_lookup":
+  if not no_citation_number:
+    verify_citation
+    if verify_citation == "name_lookup":
+      selected_case
+      case_lookup_results
+  if no_citation_number:
     selected_case
     case_lookup_results
   how_work
