@@ -102,21 +102,21 @@ def build_submit_payload(data, attachment_urls):
         image_meta = __submit_image_from_url(url)
         benefit_files_data.append(image_meta)
 
-    no_proof_fields = [
-        'calfresh_no_proof',
-        'medi_cal_no_proof',
-        'ssi_no_proof',
-        'ssp_no_proof',
-        'cr_ga_no_proof',
-        'ihss_no_proof',
-        'tanf_no_proof'
-        'cal_works_no_proof',
-        'capi_no_proof',
+    proof_fields = [
+        'calfresh',
+        'medi_cal',
+        'ssi',
+        'ssp',
+        'cr_ga',
+        'ihss',
+        'tanf'
+        'cal_works',
+        'capi',
     ]
 
     no_docs_upload_comments = []
-    for field in no_proof_fields:
-        reason = data.get(field + "_reason")
+    for field in proof_fields:
+        reason = data.get(field + "_no_proof_reason")
         if reason:
             no_docs_upload_comments.append("%s: %s" % field, reason)
 
