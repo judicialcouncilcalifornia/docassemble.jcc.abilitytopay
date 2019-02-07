@@ -118,7 +118,7 @@ def build_submit_payload(data, attachment_urls):
     for field in proof_fields:
         reason = data.get(field + "_no_proof_reason")
         if reason:
-            no_docs_upload_comments.append("%s: %s" % field, reason)
+            no_docs_upload_comments.append("%s: %s" % (field, reason))
 
     case_information = data.get('case_information')
 
