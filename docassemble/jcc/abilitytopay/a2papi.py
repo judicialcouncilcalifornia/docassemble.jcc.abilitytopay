@@ -56,9 +56,17 @@ def __format_response(response, request_body=None):
     return response_data
 
 def __log_response(msg, response):
-    log("--------------------")
-    log(msg)
-    log(response.text)
+    lines = []
+    lines.append("-----------")
+    lines.append("Request URL: %s" % response.request.url)
+    lines.append("Request Body: %s" % response.request.body)
+    lines.append("Request Headers: %s" % response.request.headers)
+    lines.append("Response URL: %s" % response.url)
+    lines.append("Response Body: %s" % response.text)
+    lines.append("Response Headers: %s" % response.headers)
+    lines.append("Response Code: %s" % response.status_code)
+    lines.append("-----------")
+    log("\n".join(lines))
 
 def __do_request(url, params):
     resource = a2p_config()['oauth_resource']
