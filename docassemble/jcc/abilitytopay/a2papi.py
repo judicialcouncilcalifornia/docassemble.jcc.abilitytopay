@@ -55,6 +55,11 @@ def __format_response(response, request_body=None):
 
     return response_data
 
+def __log_response(msg, response):
+    log("--------------------")
+    log(msg)
+    log(response.text)
+
 def __do_request(url, params):
     resource = a2p_config()['oauth_resource']
     oauth_params = {
@@ -67,12 +72,14 @@ def __do_request(url, params):
     r = requests.post(a2p_config()["ad_url"], oauth_params)
     data = r.json()
     if 'access_token' not in data:
-        print("Could not get access token!")
+        __log_response("could not get access token", r)
 
     access_token = data['access_token']
 
     headers = { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
-    return requests.post(url, data=None, json=params, headers=headers)
+    res = requests.post(url, data=None, json=params, headers=headers)
+    __log_response("a2p api request", res)
+    return res
 
 def a2p_config():
     cfg = get_config('a2p')
