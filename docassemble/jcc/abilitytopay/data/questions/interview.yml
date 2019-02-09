@@ -1,6 +1,7 @@
+---
 modules:
-  - docassemble.base.util
-  - docassemble.jcc.abilitytopay.a2papi
+- docassemble.base.util
+- docassemble.jcc.abilitytopay.a2papi
 ---
 features:
   bootstrap theme: style.css
@@ -426,10 +427,10 @@ fields:
     variable: difficult
     is: difficult_yes
   choices:
-    - "Physical Disability": difficult_disability
-    - "Can't take time off work": difficult_work
-    - "Childcare": difficult_childcare
-    - "Other": difficult_other
+  - "Physical Disability": difficult_disability
+  - "Can't take time off work": difficult_work
+  - "Childcare": difficult_childcare
+  - "Other": difficult_other
   none of the above: False
     
 - "Share why it's difficult for you to come to court in person": difficult_open_text
