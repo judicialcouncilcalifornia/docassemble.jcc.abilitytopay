@@ -346,7 +346,7 @@ fields:
 
 - "Would you like to report other expenses or reasons for financial hardship?": other_hardship
   datatype: yesnoradio
-- "What other fiancial hardship would you like the Court to consider?": hardship
+- "What other financial hardship would you like the Court to consider?": hardship
   show if: other_hardship
   datatype: area
 
@@ -360,8 +360,9 @@ fields:
   - "Payment Plan": payment_plan
   - "Community Service": community_service
   - "Extension (more time to pay)": extension
-under: |
-  Note: Your court may charge administrative fees for setting up a community service work plan
+  - note: |
+    Note: Your court may charge administrative fees for setting up a payment plan or community service work plan.
+
 
 ---
 question: |
@@ -445,8 +446,11 @@ fields:
 - "What's email address can the Court use to share the decision about your request?": email
   datatype: email
 - "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
-  datatype: yesno    
-  
+  datatype: yesnowide    
+validation code: |
+  if not submit_sign:
+    validation_error("You cannot continue until you electronically sign under penalty of perjury.")  
+    
 continue button label: Submit
 ---
 mandatory: True
