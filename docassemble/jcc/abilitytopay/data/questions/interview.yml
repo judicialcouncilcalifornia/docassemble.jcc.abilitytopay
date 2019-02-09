@@ -276,7 +276,7 @@ fields:
 ---
 question: |
   ### Proof of "${other_benefit_name}"
-subquestion: | 
+subquestion: |
   ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
 fields:
 - "Upload picture": other_benefit_picture
@@ -291,7 +291,7 @@ subquestion: |
 fields:
 - Amount of Income: income
   datatype: currency
-  min: 0 
+  min: 0
   max: 75000
 ---
 question: |
@@ -299,7 +299,7 @@ question: |
 fields:
 - "How many people live in your household?": residents
   datatype: number
-  min: 0 
+  min: 0
   max: 15
 ---
 question: |
@@ -417,7 +417,7 @@ fields:
 - "Would it have been difficult to come to court in person?": difficult
   required: false
   datatype: radio
-  choices: 
+  choices:
   - Yes: difficult_yes
   - No: difficult_no
 - "Tell us why it's difficult for you to come to court in person (check all that apply)": why_difficult
@@ -451,7 +451,7 @@ fields:
 validation code: |
   if not submit_sign:
     validation_error("You cannot continue until you electronically sign under penalty of perjury.")
-    
+
 continue button label: Submit
 ---
 mandatory: True
