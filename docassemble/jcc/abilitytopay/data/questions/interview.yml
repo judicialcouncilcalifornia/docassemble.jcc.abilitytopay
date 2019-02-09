@@ -151,11 +151,11 @@ fields:
   - "Temporary Assistance for Needy Families (TANF)": tanf
   - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
   - "Other": other
-  
+
 - "What's the other public benefit you receive?": other_benefit_name
   show if:
     variable: benefits['other']
-    is: True  
+    is: True
 ---
 question: |
   ### Proof of CalFresh
@@ -277,7 +277,7 @@ fields:
 question: |
   ### Proof of "${other_benefit_name}"
 subquestion: | 
-  ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit. 
+  ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
 fields:
 - "Upload picture": other_benefit_picture
   datatype: file
@@ -307,42 +307,42 @@ question: |
 subquestion: |
   ### Now, please estimate what you pay _each month_ for the following expenses.*
   ### You said you take home $${ income } each month.
-  
+
 fields:
 - Rent: monthly_rent
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Mortgage: mortgage
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Utilities: utilities
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Phone Bill: phone_bill
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Food (Groceries & Restaurants): food
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Insurance: insurance
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Clothing: clothing
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 - Child or Spousal Support: child_spousal_support
   datatype: currency
-  min: 0 
+  min: 0
 - Transportation (Gas, Car Payments, Transit): transportation
   datatype: currency
-  min: 0 
+  min: 0
   max: 10000
 
 - "Would you like to report other expenses or reasons for financial hardship?": other_hardship
@@ -368,7 +368,7 @@ fields:
 ---
 question: |
   ### Make your Plea
-subquestion:  |
+subquestion: |
   In order to submit your fine reduction request, you need to admit responsibility for the ticket by pleading **Guilty** or **No Contest**.
   If you do not want to admit responsibility or if you do not understand these rights, please exit the system and contact your court to set up an in-person court appearance.
 
@@ -383,8 +383,8 @@ fields:
 - "Make a choice between pleading Guilty or No Contest. A no contest plea is a way of saying, 'I don’t believe I did all that the officer charges, but I admit violating the law.'": plea
   datatype: radio
   choices:
-  - "**No Contest Plea.** I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty." : agree_no_contest
-  - "**Guilty Plea.** I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty." : agree_guilty
+  - "**No Contest Plea.** I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.": agree_no_contest
+  - "**Guilty Plea.** I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.": agree_guilty
 under: |
   Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
 ---
@@ -396,7 +396,7 @@ fields:
 - "How helpful was this tool in addressing your traffic ticket?": tool_helpful
   required: false
   datatype: radio
-  choices: 
+  choices:
   - Very helpful: tool_very_helpful
   - Somewhat helpful: tool_somewhat_helpful
   - As helpful as coming into court: tool_as_helpful
@@ -404,7 +404,7 @@ fields:
   - Not helpful at all: tool_not_helpful
 - "Can you say more about what difficulty you encountered with the tool?": tool_difficult
   datatype: area
-  show if: 
+  show if:
     variable: tool_helpful
     is: tool_not_helpful
 - "If you get another traffic ticket, how would you prefer to resolve it?": prefer
@@ -412,7 +412,7 @@ fields:
   datatype: radio
   choices:
   - Use this online tool: prefer_online
-  - In-person at court : prefer_court 
+  - In-person at court: prefer_court
   - Unsure: prefer_unsure
 - "Would it have been difficult to come to court in person?": difficult
   required: false
@@ -432,7 +432,7 @@ fields:
   - "Childcare": difficult_childcare
   - "Other": difficult_other
   none of the above: False
-    
+
 - "Share why it's difficult for you to come to court in person": difficult_open_text
   show if:
     variable: why_difficult['difficult_other']
@@ -447,10 +447,10 @@ fields:
 - "What's email address can the Court use to share the decision about your request?": email
   datatype: email
 - "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
-  datatype: yesnowide    
+  datatype: yesnowide
 validation code: |
   if not submit_sign:
-    validation_error("You cannot continue until you electronically sign under penalty of perjury.")  
+    validation_error("You cannot continue until you electronically sign under penalty of perjury.")
     
 continue button label: Submit
 ---
