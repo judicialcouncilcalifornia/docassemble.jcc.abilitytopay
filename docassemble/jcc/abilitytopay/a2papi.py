@@ -97,10 +97,12 @@ def a2p_config():
     cfg['submit_url'] = base_url + '/request'
     return cfg
 
-def __submit_image_from_url(url):
-    blob_service = BlockBlobService(account_name='a2pca', account_key=a2p_config()['blob_account_key'])
+def __submit_image_from_url(proof_type, url):
+    orig_filename = re.findall(r"filename%3D(.*?)&", url)[0]
+    filename = "ProofOf%s_%s" % (proof_type, orig_filename)
+
+    blob_service = BlockBlobService(account_name='a2pca', account_key=__get_a2p_config()['blob_account_key'])
     image_body = requests.get(url).content
-    filename = 'a2p_daupload_' + hashlib.sha224(image_body).hexdigest()
     blob_service.create_blob_from_bytes('attachments', filename, image_body)
 
     return {
@@ -109,12 +111,13 @@ def __submit_image_from_url(url):
             "size": len(image_body)
             }
 
-def build_submit_payload(data, attachment_urls):
+
+def build_submit_payload(data, attachments):
     benefit_files_data = []
 
-    for url in attachment_urls:
+    for proof_type, url in attachments:
         log("Uploading file: %s" % url)
-        image_meta = __submit_image_from_url(url)
+        image_meta = __submit_image_from_url(proof_type, url)
         benefit_files_data.append(image_meta)
 
     proof_fields = [
@@ -188,7 +191,7 @@ def build_submit_payload(data, attachment_urls):
             "phone": data.get('phone_bill'),
             "food": data.get('food'),
             "insurance": data.get('insurance'),
-            "isBenefitsProof": len(attachment_urls) > 0,
+            "isBenefitsProof": len(attachments) > 0,
             "isCivilAssessWaiver": False,
             "clothes": data.get('clothing'),
             "childSpousalSupp": data.get('child_spousal_support'),
@@ -252,8 +255,8 @@ def build_submit_payload(data, attachment_urls):
     return request_params
 
 
-def submit_interview(data, attachment_urls=[], debug=False):
-    params = build_submit_payload(data, attachment_urls)
+def submit_interview(data, attachments=[], debug=False):
+    params = build_submit_payload(data, attachments)
     log("Submitting Payload: %s" % params)
     res = __do_request(a2p_config()['submit_url'], params)
 
