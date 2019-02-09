@@ -2,8 +2,7 @@
 extends: default
 
 rules:
-  line-length:
-    max: 160
+  line-length: disable
   truthy: disable
   indentation:
     indent-sequences: false
