@@ -6,7 +6,7 @@ if: type = push
 script:
 - pip3 install --upgrade setuptools pip
 - pip3 install yamllint
-- yamllint docassemble/jcc/abilitytopay/questions
+- yamllint docassemble/jcc/abilitytopay/data/questions
 deploy:
   provider: pypi
   user: "$PYPI_USER"
