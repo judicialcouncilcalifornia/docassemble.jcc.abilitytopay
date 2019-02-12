@@ -472,35 +472,35 @@ code: |
   attachment_urls = []
   if benefits["cal_fresh"]:
     calfresh_proof
-    if not calfresh_no_proof:
+    if not isinstance(calfresh_proof, basestring):
       attachment_urls.append(("CalFresh", calfresh_proof.url_for()))
   if benefits["medi_cal"]:
     medi_cal_proof
-    if not medi_cal_no_proof:
+    if not isinstance(medi_cal_proof, basestring):
       attachment_urls.append(("MediCal", medi_cal_proof.url_for()))
   if benefits["ssi"]:
     ssi_proof
-    if not ssi_no_proof:
+    if not isinstance(ssi_proof, basestring):
       attachment_urls.append(("SSI", ssi_proof.url_for()))
   if benefits["ssp"]:
     ssp_proof
-    if not ssp_no_proof:
+    if not isinstance(ssp_proof, basestring):
       attachment_urls.append(("SSP", ssp_proof.url_for()))
   if benefits["cr_ga"]:
     cr_ga_proof
-    if not cr_ga_no_proof:
+    if not isinstance(cr_ga_proof, basestring):
       attachment_urls.append(("CRGA", cr_ga_proof.url_for()))
   if benefits["ihss"]:
     ihss_proof
-    if not ihss_no_proof:
+    if not isinstance(ihss_proof, basestring):
       attachment_urls.append(("IHSS", ihss_proof.url_for()))
   if benefits["cal_works"]:
     cal_works_proof
-    if not cal_works_no_proof:
+    if not isinstance(cal_works_proof, basestring):
       attachment_urls.append(("CalWorks", cal_works_proof.url_for()))
   if benefits["capi"]:
     capi_proof
-    if not capi_no_proof:
+    if not isinstance(capi_proof, basestring):
       attachment_urls.append(("CAPI", capi_proof.url_for()))
   if benefits['other']:
     other_benefit_picture
