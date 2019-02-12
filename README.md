@@ -12,6 +12,11 @@ This is a standard DocAssemble package. The only required configuration is setti
       base_url: <API host for making requests to A2P backend>
       ad_url: <ActiveDirectory URL for getting oauth tokens>
 
+You can also set the following variables to enable exception emails:
+
+    error notification email: <some email>
+    error notification variables: True
+
 ## TODO
 
 * Insert notes about CSS/styling process
