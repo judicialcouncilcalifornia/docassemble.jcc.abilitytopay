@@ -9,7 +9,3 @@ script:
 - yamllint docassemble/jcc/abilitytopay/data/questions
 - npm install bootstrap sass
 - npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css
-deploy:
-  provider: pypi
-  user: "$PYPI_USER"
-  password: "$PYPI_SECRET"
