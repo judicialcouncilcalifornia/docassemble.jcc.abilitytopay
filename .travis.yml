@@ -1,20 +1,13 @@
-language: node_js
-node_js:
-- node
-install:
-- npm install bootstrap sass picaresque
-- npx picaresque
-jobs:
-  include:
-  - stage: Lint
-    if: type = push
-    script:
-    - npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css
-  - stage: Compile
-    if: type = api
-    script:
-    - npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css
-    - git remote add target "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
-    - git add -A
-    - git commit -m "ACTUALIZE ${TRAVIS_BUILD_NUMBER}" || { echo "Skipped Commit"; }
-    - git push target HEAD:$TRAVIS_BRANCH
+dist: xenial
+language: python
+python:
+- "3.7"
+if: type = push
+script:
+- pip3 install --upgrade setuptools pip
+- pip3 install yamllint
+- yamllint docassemble/jcc/abilitytopay/data/questions
+deploy:
+  provider: pypi
+  user: "$PYPI_USER"
+  password: "$PYPI_SECRET"
