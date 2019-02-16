@@ -1,8 +1,0 @@
-{
-  "GITHUB_TOKEN": {
-    "description": "GitHub Token"
-  },
-  "GITHUB_USER": {
-    "description": "GitHub Username"
-  }
-}
