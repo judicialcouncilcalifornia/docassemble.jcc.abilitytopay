@@ -35,7 +35,8 @@ $gold:    #f4ac3b;
 $blue-100: #e8f0fa;
 $blue-500: #1b97e0;
 $blue-800: #244f73;
-$blue-900: #13293d;
+$blue-900: #2a3c50;
+$blue-950: #13293E;
 $olive-100: #f3f5ee;
 $olive-500: #73877B;
 
@@ -427,7 +428,7 @@ select {
   &.navbar-dark,
   &.bg-dark {
     background-color: $blue-900 !important;
-    border-bottom: 4px solid $blue;
+    border-top: 4px solid $blue;
     padding: .75rem 1rem .75rem;
 
     .nav-link {
@@ -654,4 +655,14 @@ select {
   }
 }
 
+/* Custom Branding */
+a#pagetitle {
+  background-image: url(/packagestatic/docassemble.jcc.abilitytopay/california-courts-logo.png);
+  color: transparent;
+  background-size: contain;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 242px;  // 484
+  height: 40px;  // 80
+}
 @import 'pages';
