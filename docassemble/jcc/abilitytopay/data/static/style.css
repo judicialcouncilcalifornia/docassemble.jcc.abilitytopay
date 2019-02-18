@@ -1,5 +1,5 @@
 /* Custom Stuff Here */
-@import url("https://fonts.googleapis.com/css?family=Lora");
+@import url("https://fonts.googleapis.com/css?family=Lora:italic");
 @import url("https://fonts.googleapis.com/css?family=Lato");
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
@@ -6494,6 +6494,39 @@ select {
 
 .form-group.required .col-form-label:after {
   content: '' !important; }
+
+.help-tip {
+  font-family: "Lora", Georgia, Times, serif;
+  font-style: italic;
+  display: block;
+  margin-bottom: 0.5em; }
+
+.help-widget {
+  border-bottom: 2px solid #2694f1;
+  padding-bottom: 2px;
+  text-decoration: none !important;
+  margin-left: 1.3em; }
+
+.help-widget::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  margin-left: -1.3em;
+  border: 8px solid transparent;
+  border-left-color: #1b97e0;
+  margin-top: 0.25em; }
+
+.help-widget.opened::before {
+  border-left-color: transparent;
+  border-top-color: #1b97e0;
+  margin-top: 0.6em; }
+
+.help-widget-body {
+  display: none;
+  background: #e8f0fa;
+  padding: 20px;
+  margin-top: 1.5em;
+  margin-botom: 0.5em; }
 
 .danavcontainer {
   position: relative; }

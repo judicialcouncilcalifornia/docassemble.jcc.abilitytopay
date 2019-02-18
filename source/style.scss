@@ -2,7 +2,7 @@
 
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
-@import url('https://fonts.googleapis.com/css?family=Lora');
+@import url('https://fonts.googleapis.com/css?family=Lora:italic');
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 //
@@ -518,6 +518,40 @@ select {
 
 .form-group.required .col-form-label:after {
   content: '' !important;
+}
+
+.help-tip {
+  font-family: $headings-font-family;
+  font-style: italic;
+  display: block;
+  margin-bottom: 0.5em;
+}
+.help-widget {
+  border-bottom: 2px solid lighten($blue, 20%);
+  padding-bottom: 2px;
+  text-decoration: none !important;
+  margin-left: 1.3em;
+}
+.help-widget::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  margin-left: -1.3em;
+  border: 8px solid transparent;
+  border-left-color: $cyan;
+  margin-top: 0.25em;
+}
+.help-widget.opened::before {
+  border-left-color: transparent;
+  border-top-color: $cyan;
+  margin-top: 0.6em;
+}
+.help-widget-body {
+  display: none;
+  background: $blue-100;
+  padding: 20px;
+  margin-top: 1.5em;
+  margin-botom: 0.5em;
 }
 
 .danavcontainer {
