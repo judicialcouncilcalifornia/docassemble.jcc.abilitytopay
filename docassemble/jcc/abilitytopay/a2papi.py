@@ -10,23 +10,42 @@ from docassemble.base.util import *
 from azure.storage.blob import BlockBlobService
 
 def fetch_citation_data(citation_number, county):
-    citation_params = {
-            'num': citation_number,
-            'county': county
-    }
-    res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
-    return __format_response(res)
+    try:
+        citation_params = {
+                'num': citation_number,
+                'county': county
+        }
+        res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
+        return __format_response(res)
+    except Exception as e:
+        return __default_response(e)
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
-    case_params = {
-            'firstName': first_name,
-            'lastName': last_name,
-            'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
-            'driversLicense': drivers_license,
-            'county': county
-    }
-    res = __do_request(a2p_config()['case_lookup_url'], case_params)
-    return __format_response(res)
+    try:
+        case_params = {
+                'firstName': first_name,
+                'lastName': last_name,
+                'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
+                'driversLicense': drivers_license,
+                'county': county
+        }
+        res = __do_request(a2p_config()['case_lookup_url'], case_params)
+        return __format_response(res)
+    except Exception as e:
+        return __default_response(e)
+
+def submit_interview(data, attachments=[], debug=False):
+    try:
+        params = __build_submit_payload(data, attachments)
+        log("Submitting Payload: %s" % params)
+        res = __do_request(a2p_config()['submit_url'], params)
+
+        if debug:
+            return __format_response(res, params)
+        else:
+            return __format_response(res)
+    except Exception as e:
+        return __default_response(e)
 
 def date_from_iso8601(date_string):
     return dateutil.parser.parse(date_string).date()
@@ -112,7 +131,7 @@ def __submit_image_from_url(proof_type, url):
             "size": len(image_body)
             }
 
-def build_submit_payload(data, attachments):
+def __build_submit_payload(data, attachments):
     benefit_files_data = []
 
     for proof_type, url in attachments:
@@ -254,16 +273,13 @@ def build_submit_payload(data, attachments):
     }
     return request_params
 
-
-def submit_interview(data, attachments=[], debug=False):
-    params = build_submit_payload(data, attachments)
-    log("Submitting Payload: %s" % params)
-    res = __do_request(a2p_config()['submit_url'], params)
-
-    if debug:
-        return __format_response(res, params)
-    else:
-        return __format_response(res)
+def __default_response(exception):
+    log("Error trying to communicate with A2P API: %s" % exception)
+    return {
+        'data': None,
+        'error': exception,
+        'success': False
+    }
 
 
 # NOTE: Testing the below functions on local may not work
