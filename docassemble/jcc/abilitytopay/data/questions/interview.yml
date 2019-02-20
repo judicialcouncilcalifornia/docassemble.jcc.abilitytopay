@@ -306,7 +306,7 @@ fields:
 question: |
   ### Monthly Expenses
 subquestion: |
-  ### Now, please estimate what you pay _each month_ for the following expenses.*
+  ### Now, please estimate what you pay _each month_ for the following expenses.
   ### You said you take home $${ income } each month.
 
 fields:
@@ -361,8 +361,8 @@ fields:
   choices:
   - "Payment Plan": payment_plan
   - "Community Service": community_service
-  - "Extension (more time to pay)": extension
-  - note: |
+  - "Extension": extension
+- note: |
     Note: Your court may charge administrative fees for setting up a payment plan or community service work plan.
 
 
@@ -429,6 +429,7 @@ fields:
     is: difficult_yes
   choices:
   - "Physical Disability": difficult_disability
+  - "Transportation": difficult_transportation
   - "Can't take time off work": difficult_work
   - "Childcare": difficult_childcare
   - "Other": difficult_other
