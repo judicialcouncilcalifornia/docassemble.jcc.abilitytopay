@@ -520,7 +520,7 @@ code: |
   child_spousal_support
   transportation
   additional_requests
-  if not case_information.get('preAdjudicated'):
+  if not case_information.get('adjudicated'):
     plea
   tool_helpful
   email
