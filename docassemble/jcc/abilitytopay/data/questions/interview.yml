@@ -2,6 +2,7 @@
 modules:
 - docassemble.base.util
 - docassemble.jcc.abilitytopay.a2papi
+- .help_widget
 ---
 features:
   bootstrap theme: style.css
@@ -43,30 +44,25 @@ fields:
   - "Tulare": Tulare
 - "What's the citation number?": citation_number
   required: false
-- html: <span class="help-tip">I'm a help tip</span>
+- html: ${ help_tip("I'm a simple help tip.") }
 - "I don't have my citation number": no_citation_number
   datatype: yesno
 - What is your first name?: first_name
   show if: no_citation_number
 - What is your last name?: last_name
   show if: no_citation_number
-- html: <span class="help-tip">I'm a help tip 2</span>
+- html: ${ help_tip("I'm a help tip 2") }
   show if: no_citation_number
 - What's your date of birth?: dob
   datatype: date
   show if: no_citation_number
 - html: |
-    <a href="#" class="help-widget">Help with public benefits</a>
-    <div class="help-widget-body">
-    <h5>What is considered a public benefit?</h5>
-    You'll be able to put lots of help text here. Lorem ipsum dolor sit amet consectetur adipiscing elit nullam, purus pulvinar vestibulum nascetur tempus ultrices eget sociis, primis habitant netus sapien egestas euismod vitae.
-    </div>
+    ${ help_widget("Help with public benefits", "What is considered a public benefit?", "You'll be able to put lots of help text here. Lorem ipsum dolor sit amet consectetur adipiscing elit nullam, purus pulvinar vestibulum nascetur tempus ultrices eget sociis, primis habitant netus sapien egestas euismod vitae.") }
   show if: no_citation_number
 - What is your Driver's License Number?: license_number
   show if: no_citation_number
 ---
 code: |
-  help_tip_text = "Foobar help"
   if not no_citation_number:
     citation_data = fetch_citation_data(citation_number, county)
     if citation_data['data']:
