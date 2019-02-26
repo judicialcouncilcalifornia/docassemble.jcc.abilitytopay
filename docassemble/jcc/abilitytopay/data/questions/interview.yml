@@ -443,25 +443,25 @@ fields:
 question: |
   ### Final Step
 fields:
-  - What email address can the Court use to communicate about your request?: email_address_first
-    datatype: email
-  - Please enter your email address again.: email_address
-    datatype: email
-  - note: |
-      Make sure the e-mail addresses match.
-    js hide if: |
-      val('email_address') != '' && val('email_address_first') == val('email_address')
-  - note: |
-      <span class="text-success">E-mail addresses match!</span>
-    js show if: |
-      val('email_address') != '' && val('email_address_first') == val('email_address')
-  - "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
-    datatype: yesnowide   
+- What email address can the Court use to communicate about your request?: email_address_first
+  datatype: email
+- Please enter your email address again.: email_address
+  datatype: email
+- note: |
+    Make sure the e-mail addresses match.
+  js hide if: |
+    val('email_address') != '' && val('email_address_first') == val('email_address')
+- note: |
+    <span class="text-success">E-mail addresses match!</span>
+  js show if: |
+    val('email_address') != '' && val('email_address_first') == val('email_address')
+- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
+  datatype: yesnowide
 validation code: |
   if email_address_first != email_address:
     validation_error("You cannot continue until you confirm your e-mail address")
   if not submit_sign:
-    validation_error("You cannot continue until you electronically sign under penalty of perjury.")  
+    validation_error("You cannot continue until you electronically sign under penalty of perjury.")
 
 continue button label: Submit
 ---
