@@ -481,6 +481,17 @@ code: |
   how_work
   benefits
 
+  - "CalFresh (Food Stamps)": cal_fresh
+  - "Medi-Cal": medi_cal
+  - "Supplemental Security Income (SSI)": ssi
+  - "State Supplemental Payment (SSP)": ssp
+  - "County Relief/General Assistance": cr_ga
+  - "In Home Supportive Services (IHSS)": ihss
+  - "California Work Opportunity and Responsibility to Kids Act (CalWORKS)": cal_works
+  - "Temporary Assistance for Needy Families (TANF)": tanf
+  - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
+  - "Other": other
+
   attachment_urls = []
   if benefits["cal_fresh"]:
     calfresh_proof
@@ -510,6 +521,10 @@ code: |
     cal_works_proof
     if cal_works_proof:
       attachment_urls.append(("CalWorks", cal_works_proof.url_for()))
+  if benefits["tanf"]:
+    tanf_proof
+    if tanf_proof:
+      attachment_urls.append(("TANF", tanf_proof.url_for()))
   if benefits["capi"]:
     capi_proof
     if capi_proof:
