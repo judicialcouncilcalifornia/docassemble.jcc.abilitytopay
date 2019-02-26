@@ -1,6 +1,12 @@
 # Ability to Pay DocAssemble Interview
 
-## Setup
+## Local Development Installation
+
+DocAssemble uses Docker for both local development and deployment. You can find the instructions to setup Docassemble using Docker here:
+
+https://docassemble.org/docs/docker.html#install
+
+## Configuration
 
 This is a standard DocAssemble package. The only required configuration is setting up the appropriate A2P API keys in the DocAssemble Configuration tab in the admin dropdown:
 
@@ -16,6 +22,8 @@ You can also set the following variables to enable exception emails:
 
     error notification email: <some email>
     error notification variables: True
+
+To setup email support (so that exception emails will actually send), make sure you have a properly configured SMTP server or provider like SendGrid and follow the steps here: https://docassemble.org/docs/config.html#mail
 
 ## TODO
 
