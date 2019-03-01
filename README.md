@@ -50,3 +50,7 @@ In situations where results are not ideal, you can view the DocAssemble logs (se
 Since we are currently pre-launch, we are debugging the entire request and response objects (including URL, body, headers, and response code). This information is present in the logs to ease with the debugging process.
 
 We also wrap each of the three main entrypoint methods mentioned above in a `try... except` block and send an empty response back to DA. This is to avoid having the user see an unhelpful technical error screen. In the logs, however, we log the exception so that we can debug later (the error begins with the text "Error trying to communicate with A2P API").
+
+## Infrastructure
+
+The DA Ability to Pay instance currently runs on JCC Azure. The setup instructions are located in `infra/azure_notes.sh`.
