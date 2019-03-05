@@ -9,30 +9,33 @@ import hashlib
 from docassemble.base.util import *
 from azure.storage.blob import BlockBlobService
 
+
 def fetch_citation_data(citation_number, county):
     try:
         citation_params = {
-                'num': citation_number,
-                'county': county
+            'num': citation_number,
+            'county': county
         }
         res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
         return __format_response(res)
     except Exception as e:
         return __default_response(e)
 
+
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
     try:
         case_params = {
-                'firstName': first_name,
-                'lastName': last_name,
-                'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
-                'driversLicense': drivers_license,
-                'county': county
+            'firstName': first_name,
+            'lastName': last_name,
+            'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
+            'driversLicense': drivers_license,
+            'county': county
         }
         res = __do_request(a2p_config()['case_lookup_url'], case_params)
         return __format_response(res)
     except Exception as e:
         return __default_response(e)
+
 
 def submit_interview(data, attachments=[], debug=False):
     try:
@@ -47,11 +50,14 @@ def submit_interview(data, attachments=[], debug=False):
     except Exception as e:
         return __default_response(e)
 
+
 def date_from_iso8601(date_string):
     return dateutil.parser.parse(date_string).date()
 
+
 def format_money(money_string):
     return '${:,.2f}'.format(money_string)
+
 
 def __format_response(response, request_body=None):
     response_data = {}
@@ -75,6 +81,7 @@ def __format_response(response, request_body=None):
 
     return response_data
 
+
 def __log_response(msg, response):
     lines = []
     lines.append("-----------")
@@ -88,14 +95,15 @@ def __log_response(msg, response):
     lines.append("-----------")
     log("\n".join(lines))
 
+
 def __do_request(url, params):
     resource = a2p_config()['oauth_resource']
     oauth_params = {
-            'resource': resource,
-            'grant_type': 'client_credentials',
-            'client_id': a2p_config()["client_id"],
-            'client_secret': a2p_config()["client_secret"],
-            'scope': 'openid ' + resource
+        'resource': resource,
+        'grant_type': 'client_credentials',
+        'client_id': a2p_config()["client_id"],
+        'client_secret': a2p_config()["client_secret"],
+        'scope': 'openid ' + resource
     }
     r = requests.post(a2p_config()["ad_url"], oauth_params)
     data = r.json()
@@ -104,10 +112,11 @@ def __do_request(url, params):
 
     access_token = data['access_token']
 
-    headers = { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' }
+    headers = {'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json'}
     res = requests.post(url, data=None, json=params, headers=headers)
     __log_response("a2p api request", res)
     return res
+
 
 def a2p_config():
     cfg = get_config('a2p')
@@ -116,6 +125,7 @@ def a2p_config():
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
     return cfg
+
 
 def __submit_image_from_url(proof_type, url):
     orig_filename = re.findall(r"filename%3D(.*?)&", url)[0]
@@ -126,10 +136,11 @@ def __submit_image_from_url(proof_type, url):
     blob_service.create_blob_from_bytes('attachments', filename, image_body)
 
     return {
-            "fileName": filename,
-            "blobName": filename,
-            "size": len(image_body)
-            }
+        "fileName": filename,
+        "blobName": filename,
+        "size": len(image_body)
+    }
+
 
 def __build_submit_payload(data, attachments):
     benefit_files_data = []
@@ -188,8 +199,8 @@ def __build_submit_payload(data, attachments):
 
     difficultyToVisitCourtDueTo = data.get("difficult_open_text", "")
     for k, v in data.get('why_difficult', {}).get('elements', {}).items():
-         if v:
-              difficultyToVisitCourtDueTo += "/ " + k
+        if v:
+            difficultyToVisitCourtDueTo += "/ " + k
 
     request_params = {
         "requestStatus": "Submitted",
@@ -263,7 +274,7 @@ def __build_submit_payload(data, attachments):
         },
         "submittedById": "0",
         "judgment": "Submitted",
-        "submittedByEmail": data.get('email'),
+        "submittedByEmail": data.get('email_address'),
         "submittedOn": submitted_on,
         "needMoreInformation": [],
         "toolRecommendations": [],
@@ -272,6 +283,7 @@ def __build_submit_payload(data, attachments):
         "__v": 0
     }
     return request_params
+
 
 def __default_response(exception):
     log("Error trying to communicate with A2P API: %s" % exception)
@@ -284,9 +296,7 @@ def __default_response(exception):
 
 # NOTE: Testing the below functions on local may not work
 # due to firewall restrictions.
-# 
+#
 # print(fetch_citation_data('MCRDINTR180000001001', 'Shasta'))
 # print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
 # print(submit_interview({ 'citationNumber': 1234 }))
-
-
