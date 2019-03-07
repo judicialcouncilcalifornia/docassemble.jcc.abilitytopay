@@ -131,7 +131,7 @@ def __submit_image_from_url(proof_type, url):
     orig_filename = re.findall(r"filename%3D(.*?)&", url)[0]
     filename = "ProofOf%s_%s" % (proof_type, orig_filename)
 
-    blob_service = BlockBlobService(account_name='a2pca', account_key=a2p_config()['blob_account_key'])
+    blob_service = BlockBlobService(account_name=a2p_config()['blob_account_name'], account_key=a2p_config()['blob_account_key'])
     image_body = requests.get(url).content
     blob_service.create_blob_from_bytes('attachments', filename, image_body)
 

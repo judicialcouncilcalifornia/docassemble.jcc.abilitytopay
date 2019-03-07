@@ -37,6 +37,7 @@ The only required configuration is setting up the appropriate A2P API keys in th
       client_id: <client id for backend>
       client_secret: <client secret for backend>
       blob_account_key: <azure storage blob account key>
+      blob_account_name: <azure storage blob account name>
       oauth_resource: <resource ID for backend>
       base_url: <API host for making requests to A2P backend>
       ad_url: <ActiveDirectory URL for getting oauth tokens>
