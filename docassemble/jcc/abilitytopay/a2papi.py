@@ -228,7 +228,7 @@ def __build_submit_payload(data, attachments):
             "childSpousalSupp": data.get('child_spousal_support'),
             "carPayment": data.get('transportation'),
             "utilities": data.get('utilities'),
-            "otherExpenses": data.get('hardship'),
+            "otherExpenses": data.get('hardship', []),
             "isMoreTimeToPay": additional_requests.get('extension', False),
             "isPaymentPlan": additional_requests.get('payment_plan', False),
             "isReductionOfPayment": True,
