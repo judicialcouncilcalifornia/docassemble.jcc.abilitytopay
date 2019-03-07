@@ -2,7 +2,7 @@ import requests
 import calendar
 import time
 import json
-import re
+from urllib.parse import parse_qs
 import dateutil.parser
 import datetime
 import hashlib
@@ -128,7 +128,8 @@ def a2p_config():
 
 
 def __submit_image_from_url(proof_type, url):
-    orig_filename = re.findall(r"filename%3D(.*?)&", url)[0]
+    # TODO: Find a better way to get original filename from DA.
+    orig_filename = parse_qs(url)['rscd'][0].replace('attachment; filename=', '')
     filename = "ProofOf%s_%s" % (proof_type, orig_filename)
 
     blob_service = BlockBlobService(account_name=a2p_config()['blob_account_name'], account_key=a2p_config()['blob_account_key'])
