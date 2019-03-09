@@ -40,7 +40,6 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
 def submit_interview(data, attachments=[], debug=False):
     try:
         params = __build_submit_payload(data, attachments)
-        log("Submitting Payload: %s" % params)
         res = __do_request(a2p_config()['submit_url'], params)
 
         if debug:
