@@ -2,9 +2,9 @@ import requests
 import calendar
 import time
 import json
-from urllib.parse import parse_qs
 import dateutil.parser
 import datetime
+import re
 import hashlib
 from docassemble.base.util import *
 from azure.storage.blob import BlockBlobService
@@ -128,8 +128,12 @@ def a2p_config():
 
 def __submit_image_from_url(proof_type, url):
     # TODO: Find a better way to get original filename from DA.
-    orig_filename = parse_qs(url)['rscd'][0].replace('attachment; filename=', '')
-    filename = "ProofOf%s_%s" % (proof_type, orig_filename)
+    filename = "ProofOf%s" % proof_type
+    try:
+        orig_filename = re.findall(r"filename%3D(.*?)(&|$)", url)[0][0]
+        filename += "_%s" % orig_filename
+    except:
+        pass
 
     blob_service = BlockBlobService(account_name=a2p_config()['blob_account_name'], account_key=a2p_config()['blob_account_key'])
     image_body = requests.get(url).content
