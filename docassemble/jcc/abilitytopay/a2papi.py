@@ -207,7 +207,10 @@ def __build_submit_payload(data, attachments):
     otherExpenses = []
     value = data.get('hardship')
     if value:
-        otherExpenses.append(value)
+        otherExpenses.append({
+            'otherExpensesDesc': value,
+            'otherExpensesAmt': None,
+        })
 
     request_params = {
         "requestStatus": "Submitted",
