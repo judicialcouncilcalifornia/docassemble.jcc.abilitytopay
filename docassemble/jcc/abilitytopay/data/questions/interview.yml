@@ -2,7 +2,7 @@
 modules:
 - docassemble.base.util
 - docassemble.jcc.abilitytopay.a2papi
-- .help_widget
+- docassemble.jcc.abilitytopay.help_widget
 ---
 features:
   bootstrap theme: style.css
@@ -44,20 +44,14 @@ fields:
   - "Tulare": Tulare
 - "What's the citation number?": citation_number
   required: false
-- html: ${ help_tip("I'm a simple help tip.") }
 - "I don't have my citation number": no_citation_number
   datatype: yesno
 - What is your first name?: first_name
   show if: no_citation_number
 - What is your last name?: last_name
   show if: no_citation_number
-- html: ${ help_tip("I'm a help tip 2") }
-  show if: no_citation_number
 - What's your date of birth?: dob
   datatype: date
-  show if: no_citation_number
-- html: |
-    ${ help_widget("Help with public benefits", "What is considered a public benefit?", "You'll be able to put lots of help text here. Lorem ipsum dolor sit amet consectetur adipiscing elit nullam, purus pulvinar vestibulum nascetur tempus ultrices eget sociis, primis habitant netus sapien egestas euismod vitae.") }
   show if: no_citation_number
 - What is your Driver's License Number?: license_number
   show if: no_citation_number
