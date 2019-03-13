@@ -2,6 +2,7 @@
 modules:
 - docassemble.base.util
 - docassemble.jcc.abilitytopay.a2papi
+- docassemble.jcc.abilitytopay.help_widget
 ---
 features:
   bootstrap theme: style.css
@@ -10,13 +11,6 @@ features:
 ---
 metadata:
   title: Ability to Pay
----
-template: help_tip
-content: |
-  <span title="${help_tip_text}" data-toggle="tooltip">(?)</span>
----
-code: |
-   help_tip_text = "This is text that shows in a tooltip."
 ---
 id: landing-page
 question: |
