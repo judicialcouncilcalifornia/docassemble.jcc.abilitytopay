@@ -235,7 +235,7 @@ def __build_submit_payload(data, attachments):
             "phone": data.get('phone_bill'),
             "food": data.get('food'),
             "insurance": data.get('insurance'),
-            "isBenefitsProof": len(attachments) > 0,
+            "isBenefitsProof": len(attachments) == 0,
             "isCivilAssessWaiver": False,
             "clothes": data.get('clothing'),
             "childSpousalSupp": data.get('child_spousal_support'),
