@@ -1,13 +1,15 @@
-import requests
 import calendar
-import time
-import json
-import dateutil.parser
 import datetime
-import re
 import hashlib
-from docassemble.base.util import *
+import json
+import re
+import time
+
+import dateutil.parser
+import requests
 from azure.storage.blob import BlockBlobService
+
+from docassemble.base.util import *
 
 
 def fetch_citation_data(citation_number, county):
@@ -17,7 +19,9 @@ def fetch_citation_data(citation_number, county):
             'county': county
         }
         res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
-        return __format_response(res)
+        res = __format_response(res)
+        res['eligible'] = __is_citation_eligible(res['data'])
+        return res
     except Exception as e:
         return __default_response(e)
 
@@ -39,7 +43,7 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
 
 def submit_interview(data, attachments=[], debug=False):
     try:
-        params = __build_submit_payload(data, attachments)
+        params = __build_submit_payload_and_upload_images(data, attachments)
         res = __do_request(a2p_config()['submit_url'], params)
 
         if debug:
@@ -146,7 +150,7 @@ def __submit_image_from_url(proof_type, url):
     }
 
 
-def __build_submit_payload(data, attachments):
+def __build_submit_payload_and_upload_images(data, attachments):
     benefit_files_data = []
 
     for proof_type, url in attachments:
@@ -304,9 +308,30 @@ def __default_response(exception):
     return {
         'data': None,
         'error': exception,
-        'success': False
+        'success': False,
     }
 
+
+def __is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
+def __is_citation_eligible(data):
+    print(data['totalDueAmt'])
+    if 'totalDueAmt' not in data:
+        return False
+
+    if not __is_number(data['totalDueAmt']):
+        return False
+
+    if int(data['totalDueAmt']) == 0:
+        return False
+
+    return True
 
 # NOTE: Testing the below functions on local may not work
 # due to firewall restrictions.

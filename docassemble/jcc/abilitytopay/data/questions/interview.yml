@@ -60,11 +60,15 @@ code: |
   if not no_citation_number:
     citation_data = fetch_citation_data(citation_number, county)
     if citation_data['data']:
-        case_information = citation_data['data']
-        violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
-        total_due = format_money(case_information['totalDueAmt'])
-        first_name = case_information['firstName']
-        last_name = case_information['lastName']
+        if not citation_data['eligible']:
+          log("We can't process this citation online. Please contact your Court for more information.", 'danger')
+          reconsider('county')
+        else:
+          case_information = citation_data['data']
+          violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
+          total_due = format_money(case_information['totalDueAmt'])
+          first_name = case_information['firstName']
+          last_name = case_information['lastName']
     else:
         log("No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way", 'danger')
         reconsider('county')
