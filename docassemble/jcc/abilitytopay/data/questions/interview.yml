@@ -14,7 +14,7 @@ metadata:
 ---
 id: landing-page
 question: |
-  ### Request a Fine Reduction
+  ### Request a Fine Reduction 
 subquestion: |
   *This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
 
@@ -36,7 +36,7 @@ fields:
 ---
 question: |
   ### Look Up Your Citation
-
+progress: 15
 fields:
 - "What California county did you get the citation in?": county
   choices:
@@ -75,6 +75,7 @@ code: |
 ---
 question: |
   ### Request to Court
+progress: 25  
 fields:
 - html: |
     <div class="info-card"><h4>${citation_number}</h4><dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl></div>
@@ -136,6 +137,7 @@ subquestion: |
 ---
 question: |
   ### Public Benefits
+progress: 35  
 fields:
 - 'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other"': benefits
   datatype: checkboxes
@@ -283,6 +285,7 @@ fields:
 ---
 question: |
   ### Current Income
+progress: 45  
 subquestion: |
   ### How much money do you take home each month?
 
@@ -295,6 +298,7 @@ fields:
 ---
 question: |
   ### Household Details
+progress: 50  
 fields:
 - "How many people live in your household?": residents
   datatype: number
@@ -303,6 +307,7 @@ fields:
 ---
 question: |
   ### Monthly Expenses
+progress: 55  
 subquestion: |
   ### Now, please estimate what you pay _each month_ for the following expenses.
   ### You said you take home $${ income } each month.
@@ -353,6 +358,7 @@ fields:
 ---
 question: |
   ### Additional Requests
+progress: 65  
 fields:
 - "Would you like to add any of the following requests to the current or reduced amount?": additional_requests
   datatype: checkboxes
@@ -367,6 +373,7 @@ fields:
 ---
 question: |
   ### Make your Plea
+progress: 75  
 subquestion: |
   In order to submit your fine reduction request, you need to admit responsibility for the ticket by pleading **Guilty** or **No Contest**.
   If you do not want to admit responsibility or if you do not understand these rights, please exit the system and contact your court to set up an in-person court appearance.
@@ -389,6 +396,7 @@ under: |
 ---
 question: |
   ### Optional Questions
+progress: 85  
 subquestion: |
   ## Your information will be kept confidential and may be used for research conducted to improve court services.
 fields:
@@ -440,6 +448,7 @@ fields:
 ---
 question: |
   ### Final Step
+progress: 95  
 fields:
 - What email address can the Court use to communicate about your request?: email_address_first
   datatype: email
