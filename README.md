@@ -5,7 +5,6 @@
 DocAssemble uses Docker for both local development and deployment. You can find the instructions to setup Docassemble using Docker here:
 
 https://docassemble.org/docs/docker.html#install
-
 ## Configuration
 
 You can also set the following variables to enable exception emails:
@@ -55,3 +54,7 @@ We also wrap each of the three main entrypoint methods mentioned above in a `try
 ## Infrastructure
 
 The DA Ability to Pay instance currently runs on JCC Azure. The setup instructions are located in `infra/azure_notes.sh`.
+
+Since DA does not maintain tagged Docker releases, we maintain our own fork that we regularly update at `rdeshpande/docassemble`. Update the docker image by running:
+
+    ./rebuild_docker_image.sh
