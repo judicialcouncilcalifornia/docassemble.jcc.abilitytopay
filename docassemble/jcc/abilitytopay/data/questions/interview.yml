@@ -354,6 +354,10 @@ fields:
 - "What other financial hardship would you like the Court to consider?": hardship
   show if: other_hardship
   datatype: area
+- "What is the total monthly cost of these additional expenses?": hardship_amt
+  datatype: currency
+  show if: other_hardship 
+  
 
 ---
 question: |
