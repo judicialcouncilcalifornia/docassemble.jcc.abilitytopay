@@ -210,14 +210,17 @@ def __build_submit_payload_and_upload_images(data, attachments):
         if v:
             difficultyToVisitCourtDueTo += "/ " + k
 
-    # Backend requires an array here, and we must pass an empty
-    # array if the value isn't supplied by the UI.
-    otherExpenses = []
-    value = data.get('hardship')
-    if value:
-        otherExpenses.append({
-            'otherExpensesDesc': value,
-            'otherExpensesAmt': None,
+    other_expenses = []
+    hardship_desc = data.get('hardship')
+    hardship_amt = data.get('hardship_amt')
+
+    # We only check for the description in case the amount is blank.
+    # The A2P team confirmed a null value for the amount is OK.
+    # We need to send an empty array if no extra hardship is provided.
+    if hardshipDesc:
+        other_expenses.append({
+            'otherExpensesDesc': hardship_desc,
+            'otherExpensesAmt': hardship_amt,
         })
 
     request_params = {
@@ -245,7 +248,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
             "childSpousalSupp": data.get('child_spousal_support'),
             "carPayment": data.get('transportation'),
             "utilities": data.get('utilities'),
-            "otherExpenses": otherExpenses,
+            "otherExpenses": other_expenses,
             "isMoreTimeToPay": additional_requests.get('extension', False),
             "isPaymentPlan": additional_requests.get('payment_plan', False),
             "isReductionOfPayment": True,
