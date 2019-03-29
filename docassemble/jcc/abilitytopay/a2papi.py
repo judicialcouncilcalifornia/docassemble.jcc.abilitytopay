@@ -217,7 +217,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
     # We only check for the description in case the amount is blank.
     # The A2P team confirmed a null value for the amount is OK.
     # We need to send an empty array if no extra hardship is provided.
-    if hardshipDesc:
+    if hardship_desc:
         other_expenses.append({
             'otherExpensesDesc': hardship_desc,
             'otherExpensesAmt': hardship_amt,
