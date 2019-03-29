@@ -223,6 +223,8 @@ def __build_submit_payload_and_upload_images(data, attachments):
             'otherExpensesAmt': hardship_amt,
         })
 
+    hasCivilAssessFee = case_information.get('civilAssessFee', 0) > 0
+
     request_params = {
         "requestStatus": "Submitted",
         "petition": {
@@ -274,7 +276,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
             "caseNumber": case_information.get('caseNumber'),
             "citationDocumentId": case_information.get('documentid'),
             "citationNumber": case_information.get('citationNumber'),
-            "civilAssessFee": case_information.get('civilAssessFee'),
+            "civilAssessFee": hasCivilAssessFee,
             "county": data.get('county'),
             "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
             "totalDueAmt": case_information.get('totalDueAmt'),
