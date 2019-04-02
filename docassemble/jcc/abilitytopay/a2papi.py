@@ -36,7 +36,16 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
             'county': county
         }
         res = __do_request(a2p_config()['case_lookup_url'], case_params)
-        return __format_response(res)
+        res = __format_response(res)
+
+        # Only return eligible citations. TODO: Move this logic somewhere else.
+        if res['data'] is not None:
+            eligible_citations = [citation for citation in res['data'] if __is_citation_eligible(citation)]
+            if len(eligible_citations) > 0:
+                res['data'] = eligible_citations
+            else:
+                res['data'] = None
+        return res
     except Exception as e:
         return __default_response(e)
 
