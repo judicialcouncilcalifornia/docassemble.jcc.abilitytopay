@@ -42,9 +42,9 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
         if res['data'] is not None:
             eligible_citations = [citation for citation in res['data'] if __is_citation_eligible(citation)]
             for citation in res['data']:
-                print('citation: {}'.format(str(citation)))
-                print('eligible: {}'.format(__is_citation_eligible(citation)))
-            print('eligible_citations: {}'.format(eligible_citations))
+                log('citation: {}'.format(str(citation)))
+                log('eligible: {}'.format(__is_citation_eligible(citation)))
+            log('eligible_citations: {}'.format(eligible_citations))
             if len(eligible_citations) > 0:
                 res['data'] = eligible_citations
             else:
