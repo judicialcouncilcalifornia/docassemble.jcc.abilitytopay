@@ -39,11 +39,12 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
         res = __format_response(res)
 
         # Only return eligible citations. TODO: Move this logic somewhere else.
+        log('res[data]: {}'.format(res['data']))
         if res['data'] is not None:
-            eligible_citations = [citation for citation in res['data'] if __is_citation_eligible(citation)]
             for citation in res['data']:
                 log('citation: {}'.format(str(citation)))
                 log('eligible: {}'.format(__is_citation_eligible(citation)))
+            eligible_citations = [citation for citation in res['data'] if __is_citation_eligible(citation)]
             log('eligible_citations: {}'.format(eligible_citations))
             if len(eligible_citations) > 0:
                 res['data'] = eligible_citations
@@ -341,7 +342,6 @@ def __is_number(s):
 
 
 def __is_citation_eligible(data):
-    print(data['totalDueAmt'])
     if 'totalDueAmt' not in data:
         return False
 
