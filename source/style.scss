@@ -590,6 +590,11 @@ select {
   }
 }
 
+#daSpinner {
+  /* ensure the spinner renders above the back button */
+  z-index: 2000;
+}
+
 .navbar-brand {
   margin-right: 0;
 }

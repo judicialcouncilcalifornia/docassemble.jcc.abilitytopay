@@ -8916,6 +8916,11 @@ select {
   color: #1b97e0 !important;
 }
 
+#daSpinner {
+  /* ensure the spinner renders above the back button */
+  z-index: 2000;
+}
+
 .navbar-brand {
   margin-right: 0;
 }
