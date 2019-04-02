@@ -1,5 +1,7 @@
 # Ability to Pay DocAssemble Interview
 
+[![Build Status](https://travis-ci.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay.svg?branch=master)](https://travis-ci.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay)
+
 ## Local Development Installation
 
 DocAssemble uses Docker for both local development and deployment. You can find the instructions to setup Docassemble using Docker here:
