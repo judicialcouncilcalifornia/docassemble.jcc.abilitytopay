@@ -558,7 +558,7 @@ question: |
 subquestion: |
   *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 buttons:
-  - Start Another Request: restart  
+- Start Another Request: restart  
 sets: all_done
 ---
 question: |
