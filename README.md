@@ -53,10 +53,30 @@ Since we are currently pre-launch, we are debugging the entire request and respo
 
 We also wrap each of the three main entrypoint methods mentioned above in a `try... except` block and send an empty response back to DA. This is to avoid having the user see an unhelpful technical error screen. In the logs, however, we log the exception so that we can debug later (the error begins with the text "Error trying to communicate with A2P API").
 
-## Infrastructure
+### Infrastructure
 
 The DA Ability to Pay instance currently runs on JCC Azure. The setup instructions are located in `infra/azure_notes.sh`.
 
 Since DA does not maintain tagged Docker releases, we maintain our own fork that we regularly update at `rdeshpande/docassemble`. Update the docker image by running:
 
     ./rebuild_docker_image.sh
+
+### Deployment
+
+This application is currently deployed to:
+- https://mycitations.uat.courts.ca.gov/ for testing
+- https://mycitations.courts.ca.gov/ for production
+
+This repository is installed as a package in both deployments. The testing deployment installs from the [uat branch](https://github.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay/tree/uat), and the production deployment installs from the [prod branch](https://github.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay/tree/prod).
+
+To update deployed code, push to the corresponding branch, then visit e.g. https://mycitations.uat.courts.ca.gov/updatepackage, scroll down to the docassemble.jcc.abilitytopay package, and click "update".
+
+#### Monitoring
+
+The testing and production deployments are monitored with [UptimeRobot](https://uptimerobot.com/). The monitor is configured to look for the words:
+
+```
+Request a Fine Reduction
+```
+
+on the two courts.ca.gov pages linked above. The monitor sends an e-mail when a service goes up or down.

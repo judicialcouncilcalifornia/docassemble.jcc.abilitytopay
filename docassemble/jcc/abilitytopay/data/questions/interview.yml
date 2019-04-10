@@ -239,7 +239,7 @@ fields:
 question: |
   ### Proof of TANF
 subquestion: |
-  *You said you receive Temporary Tribal Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*
+  *You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*
 fields:
 - Proof of TANF: tanf_proof
   datatype: file
@@ -310,7 +310,7 @@ question: |
 progress: 55
 subquestion: |
   ### Now, please estimate what you pay _each month_ for the following expenses.
-  ### You said you take home $${ income } each month.
+  ### You said you take home ${ format_money(income) } each month.
 
 fields:
 - Rent: monthly_rent
@@ -555,6 +555,7 @@ code: |
 ---
 question: |
   ### Thank you!
+progress: 100  
 subquestion: |
   *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 buttons:
