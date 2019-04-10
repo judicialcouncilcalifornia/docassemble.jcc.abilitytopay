@@ -555,7 +555,7 @@ code: |
 ---
 question: |
   ### Thank you!
-progress: 100  
+progress: 99  
 subquestion: |
   *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 buttons:
