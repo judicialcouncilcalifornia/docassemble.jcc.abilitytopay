@@ -550,8 +550,12 @@ code: |
   tool_helpful
   email_address
   submit_sign
-  submit_response = submit_interview(all_variables(), attachment_urls, True)
+  response_submitted
   all_done
+---
+code: |
+  submit_interview(all_variables(), attachment_urls, True)
+  response_submitted = True
 ---
 question: |
   ### Thank you!
