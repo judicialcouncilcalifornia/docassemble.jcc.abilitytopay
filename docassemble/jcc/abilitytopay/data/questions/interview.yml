@@ -565,7 +565,3 @@ subquestion: |
 buttons:
 - Start Another Request: restart
 sets: all_done
----
-question: |
-  Goodbye!
-sets: do_exit
