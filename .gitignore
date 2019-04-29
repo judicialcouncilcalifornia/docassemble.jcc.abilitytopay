@@ -4,3 +4,4 @@ package.json
 yarn.lock
 .DS_Store
 tmp/
+venv

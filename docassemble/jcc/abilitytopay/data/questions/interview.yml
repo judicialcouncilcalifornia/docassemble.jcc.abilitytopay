@@ -466,15 +466,29 @@ fields:
     <span class="text-success">E-mail addresses match!</span>
   js show if: |
     val('email_address') != '' && val('email_address_first') == val('email_address')
-- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
+- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submission_signature
   datatype: yesnowide
 validation code: |
   if email_address_first != email_address:
     validation_error("You cannot continue until you confirm your e-mail address")
-  if not submit_sign:
+  if not submission_signature:
     validation_error("You cannot continue until you electronically sign under penalty of perjury.")
-
 continue button label: Submit
+continue button field: ready_to_submit
+---
+comment: |
+  Attempts to submit the interview once. If it fails, renders an error and the user can try again.
+  If it succeeds, the user can try to submit again by clicking the back button on their browser or
+  the back button on the interview page.
+code: |
+  submission_response = submit_interview(all_variables(), attachment_urls, True)
+  if submission_response['success']:
+    # Once submission_success is set, this code block will not be run again
+    # unless submission_success is forgotten (e.g. by clicking the browser back button).
+    submission_success = True
+  else:
+    log("Augh! We encountered an error when trying to submit your request. Our support team has been notified. Please try again in 24 hours.", "danger")
+    reconsider("ready_to_submit")
 ---
 mandatory: True
 code: |
@@ -549,23 +563,16 @@ code: |
     plea
   tool_helpful
   email_address
-  submit_sign
-  response_submitted
+  submission_signature
+  ready_to_submit
+  submission_success
   all_done
 ---
-code: |
-  submit_interview(all_variables(), attachment_urls, True)
-  response_submitted = True
----
+sets: all_done
 question: |
   ### Thank you!
-progress: 100 
+progress: 100
 subquestion: |
   *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 buttons:
 - Start Another Request: restart
-sets: all_done
----
-question: |
-  Goodbye!
-sets: do_exit
