@@ -466,12 +466,12 @@ fields:
     <span class="text-success">E-mail addresses match!</span>
   js show if: |
     val('email_address') != '' && val('email_address_first') == val('email_address')
-- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submit_sign
+- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submission_signature
   datatype: yesnowide
 validation code: |
   if email_address_first != email_address:
     validation_error("You cannot continue until you confirm your e-mail address")
-  if not submit_sign:
+  if not submission_signature:
     validation_error("You cannot continue until you electronically sign under penalty of perjury.")
 
 continue button label: Submit
@@ -549,7 +549,7 @@ code: |
     plea
   tool_helpful
   email_address
-  submit_sign
+  submission_signature
   response_submitted
   all_done
 ---
