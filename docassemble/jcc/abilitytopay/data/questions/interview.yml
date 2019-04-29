@@ -473,8 +473,22 @@ validation code: |
     validation_error("You cannot continue until you confirm your e-mail address")
   if not submission_signature:
     validation_error("You cannot continue until you electronically sign under penalty of perjury.")
-
 continue button label: Submit
+continue button field: ready_to_submit
+---
+comment: |
+  Attempts to submit the interview once. If it fails, renders an error and the user can try again.
+  If it succeeds, the user can try to submit again by clicking the back button on their browser or
+  the back button on the interview page.
+code: |
+  submission_response = submit_interview(all_variables(), attachment_urls, True)
+  if submission_response['success']:
+    # Once submission_success is set, this code block will not be run again
+    # unless submission_success is forgotten (e.g. by clicking the browser back button).
+    submission_success = True
+  else:
+    log("Augh! We encountered an error when trying to submit your request. Our support team has been notified. Please try again in 24 hours.", "danger")
+    reconsider("ready_to_submit")
 ---
 mandatory: True
 code: |
@@ -550,12 +564,9 @@ code: |
   tool_helpful
   email_address
   submission_signature
-  response_submitted
+  ready_to_submit
+  submission_success
   all_done
----
-code: |
-  submit_interview(all_variables(), attachment_urls, True)
-  response_submitted = True
 ---
 question: |
   ### Thank you!
