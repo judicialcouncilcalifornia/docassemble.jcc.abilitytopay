@@ -487,7 +487,7 @@ code: |
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
   else:
-    log("Augh! We encountered an error when trying to submit your request. Our support team has been notified. Please try again in 24 hours.", "danger")
+    log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
     reconsider("ready_to_submit")
 ---
 mandatory: True
