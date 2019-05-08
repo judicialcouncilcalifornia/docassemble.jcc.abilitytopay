@@ -144,13 +144,13 @@ fields:
   choices:
   - "CalFresh (Food Stamps)": cal_fresh
   - "Medi-Cal": medi_cal
-  - "Supplemental Security Income (SSI)": ssi
-  - "State Supplemental Payment (SSP)": ssp
-  - "County Relief/General Assistance": cr_ga
-  - "In Home Supportive Services (IHSS)": ihss
-  - "California Work Opportunity and Responsibility to Kids Act (CalWORKS)": cal_works
-  - "Temporary Assistance for Needy Families (TANF)": tanf
-  - "Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants (CAPI)": capi
+  - "General Assistance / County Relief": cr_ga
+  - "SSI: Supplemental Security Income": ssi
+  - "SSP: State Supplemental Payment": ssp
+  - "IHSS: In Home Supportive Services": ihss
+  - "CalWORKS: California Work Opportunity and Responsibility to Kids Act": cal_works
+  - "TANF: Temporary Assistance for Needy Families": tanf
+  - "CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants": capi
   - "Other": other
 
 - "What's the other public benefit you receive?": other_benefit_name
@@ -487,7 +487,7 @@ code: |
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
   else:
-    log("Augh! We encountered an error when trying to submit your request. Our support team has been notified. Please try again in 24 hours.", "danger")
+    log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
     reconsider("ready_to_submit")
 ---
 mandatory: True
