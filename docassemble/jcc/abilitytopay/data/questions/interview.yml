@@ -149,6 +149,7 @@ fields:
   - "SSP: State Supplemental Payment": ssp
   - "IHSS: In Home Supportive Services": ihss
   - "CalWORKS: California Work Opportunity and Responsibility to Kids Act": cal_works
+  - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
   - "TANF: Temporary Assistance for Needy Families": tanf
   - "CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants": capi
   - "Other": other
@@ -248,6 +249,19 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": tanf_no_proof_reason
   show if: tanf_no_proof
+---
+question: |
+  ### Proof of WIC
+subquestion: |
+  *You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of WIC: wic_proof
+  datatype: file
+  required: false
+- "I don't have proof available": wic_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": wic_no_proof_reason
+  show if: wic_no_proof
 ---
 question: |
   ### Proof of CalWORKS
