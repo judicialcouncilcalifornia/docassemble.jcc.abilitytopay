@@ -533,6 +533,10 @@ code: |
     ssi_proof
     if ssi_proof:
       attachment_urls.append(("SSI", ssi_proof.url_for()))
+  if benefits["wic"]:
+    wic_proof
+    if wic_proof:
+      attachment_urls.append(("wic", wic_proof.url_for()))
   if benefits["ssp"]:
     ssp_proof
     if ssp_proof:
