@@ -178,6 +178,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
         'ihss',
         'tanf'
         'cal_works',
+        'wic',
         'capi',
     ]
 
@@ -191,7 +192,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
 
     benefits = data.get('benefits', {}).get('elements', {})
     no_benefits = True
-    for benefit_name in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga', 'ihss', 'cal_works', 'tanf', 'capi', 'other']:
+    for benefit_name in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga', 'ihss', 'cal_works', 'wic', 'tanf', 'capi', 'other']:
         if benefits.get(benefit_name):
             no_benefits = False
 
@@ -247,6 +248,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
             "onCountyRelief": benefits.get('cr_ga', False),
             "onIHSS": benefits.get('ihss', False),
             "onCalWorks": benefits.get('cal_works', False),
+            "onWIC": benefits.get('wic', False),
             "onTANF": benefits.get('tanf', False),
             "onCAPI": benefits.get('capi', False),
             "benefitFiles": benefit_files_data,

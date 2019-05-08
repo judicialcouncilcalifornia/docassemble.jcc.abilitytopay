@@ -146,10 +146,10 @@ fields:
   - "Medi-Cal": medi_cal
   - "General Assistance / County Relief": cr_ga
   - "SSI: Supplemental Security Income": ssi
+  - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
   - "SSP: State Supplemental Payment": ssp
   - "IHSS: In Home Supportive Services": ihss
   - "CalWORKS: California Work Opportunity and Responsibility to Kids Act": cal_works
-  - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
   - "TANF: Temporary Assistance for Needy Families": tanf
   - "CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants": capi
   - "Other": other
