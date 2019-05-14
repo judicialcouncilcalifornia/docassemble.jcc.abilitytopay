@@ -1,3 +1,7 @@
+# These notes are now deprecated. They documented how to set up an Azure Docker for WebApp instance.
+# Docker for WebApp was flaky and annoying to work with, so we've started deploying on Azure Linux VMs instead.
+# See README.md in this same directory.
+
 # These are notes of commands to be used with the Azure CLI to setup the DocAssemble Ability to Pay instance.
 
 # This is somewhat based on: https://gist.github.com/jasonbarbee/a52ffb2df46da78d2383e2980cdb7880
