@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-[Install the azure CLI tool](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). 
+[Install the azure CLI tool](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
 
 ## Setup Azure Resources
 
@@ -55,7 +55,7 @@ az vm open-port --port 443 --resource-group $RESOURCE_GROUP_NAME --name $VM_NAME
 
 ### Disallow ssh from IPs outside of the VPN
 
-This has to be done in the azure web UI as far as I can tell. This is in the Networking tab of the VM settings. You should restrict the `default-allow-ssh` rule Source IP range to the VPN subnet. 
+This has to be done in the azure web UI as far as I can tell. This is in the Networking tab of the VM settings. You should restrict the `default-allow-ssh` rule Source IP range to the VPN subnet.
 
 ## Install dependencies on the VM
 
@@ -145,7 +145,7 @@ ssh azureuser@<public-ip-address>
 
 This will take a while (~20 mins) on the first run:
 ```
-docker run --env-file=env.list -d -p 8080:80 bennlichh/docassemble:0.4.41
+sudo docker run --env-file=env.list -d -p 8080:80 bennlichh/docassemble:0.4.41
 ```
 
 ### Attach to the container (optional)
@@ -197,4 +197,3 @@ Visit `<public-ip-address>`, ignore the cert warning, and you should see the abi
 Visit the domain name you set up and you should see the ability to pay intro screen with working SSL certificate.
 
 Complete an interview and you should see the petition show up in the clerk's module.
-
