@@ -39,7 +39,7 @@ See https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-c
 az vm create \
   --resource-group $RESOURCE_GROUP_NAME \
   --name $VM_NAME \
-  --image credativ:Debian::9latest \
+  --image credativ:Debian:9:latest \
   --admin-username azureuser \
   --generate-ssh-keys
 ```
@@ -60,6 +60,8 @@ This has to be done in the azure web UI as far as I can tell. This is in the Net
 ## Install dependencies on the VM
 
 ### ssh in
+
+On Windows, powershell needs to be installed separately.
 
 ```
 ssh azureuser@<public-ip-address>
@@ -101,7 +103,7 @@ Okay, you're done doing things on the VM for now.
 
 Copy over the nginx config file from this repo.
 ```
-scp docassemble-http-proxy azureuser@<public-ip-address>:/etc/nginx/sites-available/
+scp docassemble-https-proxy azureuser@<public-ip-address>:/etc/nginx/sites-available/
 ```
 
 ### docassemble config
