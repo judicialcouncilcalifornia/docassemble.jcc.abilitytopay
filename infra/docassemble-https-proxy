@@ -18,6 +18,10 @@ server {
 
     access_log            /var/log/nginx/docassemble-https-proxy.access.log;
 
+    # Override default upload size of 1MB.
+    # We'll let the docassemble server set this limit--nginx is just an https pass-through.
+    client_max_body_size 0;
+
     location / {
 
       proxy_set_header        Host $host;
