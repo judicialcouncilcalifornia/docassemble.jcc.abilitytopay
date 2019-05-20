@@ -146,7 +146,8 @@ fields:
   - "Medi-Cal": medi_cal
   - "General Assistance / County Relief": cr_ga
   - "SSI: Supplemental Security Income": ssi
-  - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
+  # Hide WIC for now until backend supports WIC. Can enable WIC simply by uncommenting line below.
+  # - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
   - "SSP: State Supplemental Payment": ssp
   - "IHSS: In Home Supportive Services": ihss
   - "CalWORKS: California Work Opportunity and Responsibility to Kids Act": cal_works
