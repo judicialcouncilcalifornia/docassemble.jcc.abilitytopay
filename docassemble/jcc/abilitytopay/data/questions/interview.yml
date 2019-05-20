@@ -25,7 +25,10 @@ subquestion: |
   * Request Community Service
   * Request more time to pay your ticket
 
-  If you wish to contest the ticket or resolve the matter in person, please contact your Court. Refer to your reminder notice.
+  **Do not use this tool:**
+
+  * If you wish to contest the ticket, contact your court instead.
+  * If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.
 fields:
 - "**Necesita español?**": requires_spanish_assistance
   datatype: yesno
