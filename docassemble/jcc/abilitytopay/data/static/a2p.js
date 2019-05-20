@@ -1,3 +1,19 @@
+// Temporary hack to restyle the image upload button for clarity.
+// Once we get more feedback on whether the image upload continues to be confusing,
+// we should remove this code and do a deeper fix by creating our own image upload
+// element.
+function restyleImageUploadButton() {
+    var fileInputButton = $('.file-input .input-group-btn .btn-file .hidden-xs');
+    var folderIcon = $('.file-input .input-group-btn .btn-file .fa-folder-open');
+    var buttonEl = $('.file-input .input-group-btn .btn-file');
+
+    fileInputButton.text('Add a photo...');
+    fileInputButton.css('padding-left', '2px');
+
+    folderIcon.remove();
+    var cameraIcon = $(window.FontAwesome.icon({ prefix: 'fas', iconName: 'camera' }).html[0]);
+    buttonEl.prepend(cameraIcon);
+}
 
 /* Manually redirect the user to clear cookies
  * after an idle timeout of 60 minutes. */

@@ -171,6 +171,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": calfresh_no_proof_reason
   show if: calfresh_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
  ### Proof of Medi-Cal
@@ -184,6 +186,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": medi_cal_no_proof_reason
   show if: medi_cal_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
  ### Proof of SSI
@@ -197,6 +201,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": ssi_no_proof_reason
   show if: ssi_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of State Supplemental Payment
@@ -210,6 +216,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": ssp_no_proof_reason
   show if: ssp_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of General Assistance/County Relief
@@ -223,6 +231,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": cr_ga_no_proof_reason
   show if: cr_ga_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of In Home Supportive Services
@@ -236,6 +246,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": ihss_no_proof_reason
   show if: ihss_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of TANF
@@ -249,6 +261,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": tanf_no_proof_reason
   show if: tanf_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of WIC
@@ -262,6 +276,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": wic_no_proof_reason
   show if: wic_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of CalWORKS
@@ -275,6 +291,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": cal_works_no_proof_reason
   show if: cal_works_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of CAPI
@@ -288,6 +306,8 @@ fields:
   datatype: yesno
 - "Tell us why you can't provide documentation at this time": capi_no_proof_reason
   show if: capi_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Proof of "${other_benefit_name}"
@@ -296,6 +316,8 @@ subquestion: |
 fields:
 - "Upload picture": other_benefit_picture
   datatype: file
+script: |
+  <script>restyleImageUploadButton()</script>
 ---
 question: |
   ### Current Income
