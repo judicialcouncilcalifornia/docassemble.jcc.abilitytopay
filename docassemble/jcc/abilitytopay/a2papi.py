@@ -248,7 +248,8 @@ def __build_submit_payload_and_upload_images(data, attachments):
             "onCountyRelief": benefits.get('cr_ga', False),
             "onIHSS": benefits.get('ihss', False),
             "onCalWorks": benefits.get('cal_works', False),
-            "onWIC": benefits.get('wic', False),
+            # Don't send WIC info to backend until backend supports WIC
+            # "onWIC": benefits.get('wic', False),
             "onTANF": benefits.get('tanf', False),
             "onCAPI": benefits.get('capi', False),
             "benefitFiles": benefit_files_data,
