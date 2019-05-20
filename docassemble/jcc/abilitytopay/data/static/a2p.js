@@ -1,12 +1,3 @@
-/* DocAssemble page load event */
-$(document).on('daPageLoad', function(){
-  $('[data-toggle="tooltip"]').tooltip();
-  $('a.help-widget').click(function(e) {
-    e.preventDefault();
-    $(this).addClass('opened');
-    $(this).next().show();
-  });
-});
 
 /* Manually redirect the user to clear cookies
  * after an idle timeout of 60 minutes. */
