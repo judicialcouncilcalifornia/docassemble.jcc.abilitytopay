@@ -201,7 +201,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
     on_other_benefits = benefits.get('other', False)
     other_benefits_desc = None
     if on_other_benefits:
-        other_benefits_desc = data.get('other_benefits_name')
+        other_benefits_desc = data.get('other_benefit_name')
         no_benefits = False
 
     violDescriptions = []
