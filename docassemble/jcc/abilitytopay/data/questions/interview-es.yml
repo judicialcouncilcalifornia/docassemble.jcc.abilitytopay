@@ -1,0 +1,478 @@
+---
+id: landing-page
+question: |
+  ### Request a Fine Reduction
+subquestion: |
+  *This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
+
+  **Use this tool to:**
+
+  * Request a reduction in your traffic fine
+  * Request a payment plan
+  * Request Community Service
+  * Request more time to pay your ticket
+
+  **Do not use this tool:**
+
+  * If you wish to contest the ticket, contact your court instead.
+  * If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.
+fields:
+- "**Necesita español?**": requires_spanish_assistance
+  datatype: yesno
+- note: |
+    LA HERRAMIENTA PARA CALCULAR LA CAPACIDAD DE PAGO SOLO ESTÁ DISPONIBLE ACTUALMENTE EN INGLÉS. SI NECESITA SERVICIOS DE AYUDA LINGÜÍSTICA, VAYA AL JUZGADO INDICADO EN SU MULTA DE TRÁNSITO PARA CONSEGUIR AYUDA.
+  show if: requires_spanish_assistance
+
+---
+question: |
+  ### Look Up Your Citation
+progress: 15
+fields:
+- "What California county did you get the citation in?": county
+  choices:
+  - "Shasta": Shasta
+  - "Tulare": Tulare
+- "What's the citation number?": citation_number
+  required: false
+- "I don't have my citation number": no_citation_number
+  datatype: yesno
+- What is your first name?: first_name
+  show if: no_citation_number
+- What is your last name?: last_name
+  show if: no_citation_number
+- What's your date of birth?: dob
+  datatype: date
+  show if: no_citation_number
+- What is your Driver's License Number?: license_number
+  show if: no_citation_number
+---
+question: |
+  ### Request to Court
+progress: 25
+fields:
+- html: |
+    <div class="info-card"><h4>${citation_number}</h4><dl><dt>Name</dt><dd>${first_name} ${last_name}</dd><dt>Citation Number</dt><dd>${citation_number}</dd><dt>County</dt><dd>${county}</dd><dt>Violation Date</dt><dd>${violation_date}</dd><dt>Total Due</dt><dd>${total_due}</dd></dl></div>
+- "Would you like to request a reduction in your fine for this citation?": verify_citation
+  input type: radio
+  choices:
+  - "Yes": correct_citation
+  - "That's not the right citation!": name_lookup
+- What is your first name?: first_name
+  show if:
+    variable: verify_citation
+    is: name_lookup
+- What is your last name?: last_name
+  show if:
+    variable: verify_citation
+    is: name_lookup
+- What's your date of birth?: dob
+  datatype: date
+  show if:
+    variable: verify_citation
+    is: name_lookup
+- What is your Driver's License Number?: license_number
+  show if:
+    variable: verify_citation
+    is: name_lookup
+---
+question: Which of the following is your citation?
+fields:
+- "Select the citation from the list below.": selected_case
+  input type: radio
+  code: |
+    case_lookup_results
+---
+field: how_work
+question: |
+  ### How this works
+subquestion: |
+  *We will walk you through a few questions to help the Court better understand your need for a reduction.*
+
+  Be prepared to share information about your income, monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
+---
+question: |
+  ### Public Benefits
+progress: 35
+fields:
+- 'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other"': benefits
+  datatype: checkboxes
+  choices:
+  - "CalFresh (Food Stamps)": cal_fresh
+  - "Medi-Cal": medi_cal
+  - "General Assistance / County Relief": cr_ga
+  - "SSI: Supplemental Security Income": ssi
+  # Hide WIC for now until backend supports WIC. Can enable WIC by uncommenting line below and in mandatory block.
+  # - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
+  - "SSP: State Supplemental Payment": ssp
+  - "IHSS: In Home Supportive Services": ihss
+  - "CalWORKS: California Work Opportunity and Responsibility to Kids Act": cal_works
+  - "TANF: Temporary Assistance for Needy Families": tanf
+  - "CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants": capi
+  - "Other": other
+
+- "What's the other public benefit you receive?": other_benefit_name
+  show if:
+    variable: benefits['other']
+    is: True
+---
+question: |
+  ### Proof of CalFresh
+subquestion: |
+   ### You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?
+fields:
+- Calfresh Card: calfresh_proof
+  datatype: file
+  required: false
+- "I don't have proof available": calfresh_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": calfresh_no_proof_reason
+  show if: calfresh_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+ ### Proof of Medi-Cal
+subquestion: |
+ ## You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
+fields:
+- Medi-Cal Card: medi_cal_proof
+  datatype: file
+  required: false
+- "I don't have proof available": medi_cal_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": medi_cal_no_proof_reason
+  show if: medi_cal_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+ ### Proof of SSI
+subquestion: |
+ *You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of SSI: ssi_proof
+  datatype: file
+  required: false
+- "I don't have proof available": ssi_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": ssi_no_proof_reason
+  show if: ssi_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of State Supplemental Payment
+subquestion: |
+  *You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of SSP: ssp_proof
+  datatype: file
+  required: false
+- "I don't have proof available": ssp_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": ssp_no_proof_reason
+  show if: ssp_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of General Assistance/County Relief
+subquestion: |
+  *You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of GA/CR: cr_ga_proof
+  datatype: file
+  required: false
+- "I don't have proof available": cr_ga_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": cr_ga_no_proof_reason
+  show if: cr_ga_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of In Home Supportive Services
+subquestion: |
+  *You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of IHSS: ihss_proof
+  datatype: file
+  required: false
+- "I don't have proof available": ihss_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": ihss_no_proof_reason
+  show if: ihss_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of TANF
+subquestion: |
+  *You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of TANF: tanf_proof
+  datatype: file
+  required: false
+- "I don't have proof available": tanf_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": tanf_no_proof_reason
+  show if: tanf_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of WIC
+subquestion: |
+  *You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of WIC: wic_proof
+  datatype: file
+  required: false
+- "I don't have proof available": wic_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": wic_no_proof_reason
+  show if: wic_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of CalWORKS
+subquestion: |
+  *You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of CalWORKS: cal_works_proof
+  datatype: file
+  required: false
+- "I don't have proof available": cal_works_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": cal_works_no_proof_reason
+  show if: cal_works_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of CAPI
+subquestion: |
+  *You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*
+fields:
+- Proof of CAPI: capi_proof
+  datatype: file
+  required: false
+- "I don't have proof available": capi_no_proof
+  datatype: yesno
+- "Tell us why you can't provide documentation at this time": capi_no_proof_reason
+  show if: capi_no_proof
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Proof of "${other_benefit_name}"
+subquestion: |
+  ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
+fields:
+- "Upload picture": other_benefit_picture
+  datatype: file
+script: |
+  <script>restyleImageUploadButton()</script>
+---
+question: |
+  ### Current Income
+progress: 45
+subquestion: |
+  ### How much money do you take home each month?
+
+  Answer the best you can. Be sure to include income from your job and any other sources, including payments from people in your household (such as spouse or live-in partner)?
+fields:
+- Amount of Income: income
+  datatype: currency
+  min: 0
+  max: 75000
+---
+question: |
+  ### Household Details
+progress: 50
+fields:
+- "How many people live in your household?": residents
+  datatype: number
+  min: 0
+  max: 15
+---
+question: |
+  ### Monthly Expenses
+progress: 55
+subquestion: |
+  ### Now, please estimate what you pay _each month_ for the following expenses.
+  ### You said you take home ${ format_money(income) } each month.
+
+fields:
+- Rent: monthly_rent
+  datatype: currency
+  min: 0
+  max: 10000
+- Mortgage: mortgage
+  datatype: currency
+  min: 0
+  max: 10000
+- Utilities: utilities
+  datatype: currency
+  min: 0
+  max: 10000
+- Phone Bill: phone_bill
+  datatype: currency
+  min: 0
+  max: 10000
+- Food (Groceries & Restaurants): food
+  datatype: currency
+  min: 0
+  max: 10000
+- Insurance: insurance
+  datatype: currency
+  min: 0
+  max: 10000
+- Clothing: clothing
+  datatype: currency
+  min: 0
+  max: 10000
+- Child or Spousal Support: child_spousal_support
+  datatype: currency
+  min: 0
+- Transportation (Gas, Car Payments, Transit): transportation
+  datatype: currency
+  min: 0
+  max: 10000
+
+- "Would you like to report other expenses or reasons for financial hardship?": other_hardship
+  datatype: yesnoradio
+- "What other financial hardship would you like the Court to consider?": hardship
+  show if: other_hardship
+  datatype: area
+- "What is the total monthly cost of these additional expenses?": hardship_amt
+  datatype: currency
+  show if: other_hardship
+
+
+---
+question: |
+  ### Additional Requests
+progress: 65
+fields:
+- "Would you like to add any of the following requests to the current or reduced amount?": additional_requests
+  datatype: checkboxes
+  choices:
+  - "Payment Plan": payment_plan
+  - "Community Service": community_service
+  - "Extension": extension
+- note: |
+    Note: Your court may charge administrative fees for setting up a payment plan or community service work plan.
+
+
+---
+question: |
+  ### Make your Plea
+progress: 75
+subquestion: |
+  In order to submit your fine reduction request, you need to admit responsibility for the ticket by pleading **Guilty** or **No Contest**.
+  If you do not want to admit responsibility or if you do not understand these rights, please exit the system and contact your court to set up an in-person court appearance.
+
+  By pleading you will be giving up the following rights:
+
+  * To be represented by an attorney employed by you;
+  * To have a speedy and public trial in front of a judge;
+  * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
+  * To have the witnesses against you testify under oath in court, and to question such witnesses;
+  * To remain silent and not testify and not incriminate yourself.
+fields:
+- "Make a choice between pleading Guilty or No Contest. A no contest plea is a way of saying, 'I don’t believe I did all that the officer charges, but I admit violating the law.'": plea
+  datatype: radio
+  choices:
+  - "**No Contest Plea.** I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.": agree_no_contest
+  - "**Guilty Plea.** I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.": agree_guilty
+under: |
+  Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
+---
+question: |
+  ### Optional Questions
+progress: 85
+subquestion: |
+  ## Your information will be kept confidential and may be used for research conducted to improve court services.
+fields:
+- "How helpful was this tool in addressing your traffic ticket?": tool_helpful
+  required: false
+  datatype: radio
+  choices:
+  - Very helpful: tool_very_helpful
+  - Somewhat helpful: tool_somewhat_helpful
+  - As helpful as coming into court: tool_as_helpful
+  - Somewhat unhelpful: tool_somewhat_unhelpful
+  - Not helpful at all: tool_not_helpful
+- "Can you say more about what difficulty you encountered with the tool?": tool_difficult
+  datatype: area
+  show if:
+    variable: tool_helpful
+    is: tool_not_helpful
+- "If you get another traffic ticket, how would you prefer to resolve it?": prefer
+  required: false
+  datatype: radio
+  choices:
+  - Use this online tool: prefer_online
+  - In-person at court: prefer_court
+  - Unsure: prefer_unsure
+- "Would it have been difficult to come to court in person?": difficult
+  required: false
+  datatype: radio
+  choices:
+  - Yes: difficult_yes
+  - No: difficult_no
+- "Tell us why it's difficult for you to come to court in person (check all that apply)": why_difficult
+  required: false
+  datatype: checkboxes
+  show if:
+    variable: difficult
+    is: difficult_yes
+  choices:
+  - "Physical Disability": difficult_disability
+  - "Transportation": difficult_transportation
+  - "Can't take time off work": difficult_work
+  - "Childcare": difficult_childcare
+  - "Other": difficult_other
+  none of the above: False
+
+- "Share why it's difficult for you to come to court in person": difficult_open_text
+  show if:
+    variable: why_difficult['difficult_other']
+    is: True
+---
+question: |
+  ### Final Step
+progress: 95
+fields:
+- What email address can the Court use to communicate about your request?: email_address_first
+  datatype: email
+- Please enter your email address again.: email_address
+  datatype: email
+- note: |
+    Make sure the e-mail addresses match.
+  js hide if: |
+    val('email_address') != '' && val('email_address_first') == val('email_address')
+- note: |
+    <span class="text-success">E-mail addresses match!</span>
+  js show if: |
+    val('email_address') != '' && val('email_address_first') == val('email_address')
+- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submission_signature
+  datatype: yesnowide
+validation code: |
+  if email_address_first != email_address:
+    validation_error("You cannot continue until you confirm your e-mail address")
+  if not submission_signature:
+    validation_error("You cannot continue until you electronically sign under penalty of perjury.")
+continue button label: Submit
+continue button field: ready_to_submit
+---
+sets: all_done
+question: |
+  ### Thank you!
+progress: 100
+subquestion: |
+  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
+buttons:
+- Start Another Request: restart
