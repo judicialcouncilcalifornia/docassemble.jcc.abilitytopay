@@ -53,9 +53,9 @@ az vm open-port --port 80 --resource-group $RESOURCE_GROUP_NAME --name $VM_NAME
 az vm open-port --port 443 --resource-group $RESOURCE_GROUP_NAME --name $VM_NAME --priority 1100
 ```
 
-### Disallow ssh from IPs outside of the VPN
+### Disallow ssh from IPs outside of JCC
 
-This has to be done in the azure web UI as far as I can tell. This is in the Networking tab of the VM settings. You should restrict the `default-allow-ssh` rule Source IP range to the VPN subnet.
+This has to be done in the azure web UI as far as I can tell. This is in the Networking tab of the VM settings. You should restrict the `default-allow-ssh` rule Source IP range to the JCC subnet.
 
 ## Install dependencies on the VM
 
