@@ -95,38 +95,59 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 sudo apt-get install nginx
 ```
 
-Okay, you're done doing things on the VM for now.
-
 ## Copy config to the VM
 
 ### nginx config
 
-Copy over the nginx config file from this repo.
+Download the nginx config file from this repo.
 ```
-scp docassemble-https-proxy azureuser@<public-ip-address>:/etc/nginx/sites-available/
+curl https://raw.githubusercontent.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay/master/infra/docassemble-https-proxy > ~/docassemble-https-proxy
+sudo cp ~/docassemble-https-proxy /etc/nginx/sites-available/docassemble-https-proxy
+
+# remove the default nginx config
+cd /etc/nginx/sites-enabled
+sudo rm default
+
+# enable the config you downloaded
+sudo ln -s ../sites-available/docassemble-https-proxy
 ```
 
 ### docassemble config
 
-Create an env.list file like below and copy it over.
+Create an env.list file like below in `~/env.list`.
 ```
-cat > env.list <<EOF
 DAPYTHONVERSION=3
 BEHINDHTTPSLOADBALANCER=true
 AZUREENABLE=true
-AZURECONTAINER=$STORAGE_CONTAINER_NAME
-AZUREACCOUNTNAME=$STORAGE_ACCOUNT_NAME
+AZURECONTAINER=<put storage container name here>
+AZUREACCOUNTNAME=<put storage account name here>
 AZUREACCOUNTKEY=<put the storage account key here>
-EOF
-
-scp env.list azureuser@<public-ip-address>:~
 ```
 
-## Copy over SSL certs
+## Setup SSL
+
+### Convert a .pfx file into .crt and .key files
+
+See https://gist.github.com/ericharth/8334664.
+
+```
+openssl pkcs12 -in [yourfile.pfx] -nocerts -out cert-encrypted.key
+openssl pkcs12 -in [yourfile.pfx] -clcerts -nokeys -out cert.crt
+openssl rsa -in cert-encrypted.key -out cert.key
+rm cert-encrypted.key
+```
+
+### Copy over SSL certs
 
 ```
 scp cert.crt azureuser@<public-ip-address>:/etc/nginx
 scp cert.key azureuser@<public-ip-address>:/etc/nginx
+```
+
+### Restart nginx
+
+```
+sudo systemctl restart nginx
 ```
 
 ## Update DNS entries
@@ -134,12 +155,6 @@ scp cert.key azureuser@<public-ip-address>:/etc/nginx
 Talk to infra team about how to do this.
 
 ## Setup the docassemble container
-
-### SSH back into the VM
-
-```
-ssh azureuser@<public-ip-address>
-```
 
 ### Build the docassemble docker image
 
