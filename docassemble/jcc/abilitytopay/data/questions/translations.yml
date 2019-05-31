@@ -1,3 +1,4 @@
+---
 code: |
   lang="en"
 
@@ -45,8 +46,6 @@ code: |
       "en":'### Look Up Your Citation',
       "es":"### Consultar su citación"
      },
-
-
 
     "what_county":{
       "en":'What California county did you get the citation in?',
@@ -744,8 +743,6 @@ code: |
       "en":"You cannot continue until you electronically sign under penalty of perjury.",
       "es":"You cannot continue until you electronically sign under penalty of perjury. (sp)"
      },
-
-
 
     "continue_button":{
       "en":"Submit",
