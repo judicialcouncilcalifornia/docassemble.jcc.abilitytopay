@@ -3,12 +3,10 @@ code: |
   lang="en"
 
   translations = {
-
     "req_fine_reduction":{
       "en":'###Request a Fine Reduction',
       "es":"###Cómo solicitar una reducción de multa"
      },
-
 
     "landing_page_description": {
         "en":"""
