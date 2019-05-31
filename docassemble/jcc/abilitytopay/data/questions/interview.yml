@@ -662,3 +662,4 @@ subquestion: |
 buttons:
 - ${get_translation('restart',lang)}: restart
 #- Start Another Request: restart
+prevent going back: True
