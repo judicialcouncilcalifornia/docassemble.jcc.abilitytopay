@@ -3,14 +3,18 @@ modules:
 - docassemble.base.util
 - docassemble.jcc.abilitytopay.a2papi
 - docassemble.jcc.abilitytopay.help_widget
+- docassemble.jcc.abilitytopay.translations
 ---
 features:
   bootstrap theme: style.css
   progress bar: True
   javascript: a2p.js
 ---
-include:
-  - translations.yml
+comment: |
+  Default value for lang. This block is only run once.
+mandatory: True
+code: |
+  lang = 'en'
 ---
 metadata:
   title: Ability to Pay
