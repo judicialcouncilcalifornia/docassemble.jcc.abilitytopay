@@ -620,7 +620,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "please_estimate": {
-    "en":"### Now, please estimate what you pay _each month_ for the following expenses.",
+    "en":"### Now, please estimate what you pay _each month_ for the following expenses. If you don't spend money on an expense enter $0",
     "es":"### Ahora estime cuánto paga por mes por los siguientes gastos."
     ,"zh-s":"### 现在，请估算您每个月的以下花费是多少。"
     ,"zh-t":""
@@ -733,7 +733,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "would_like_additional": {
-    "en":"Would you like to add any of the following requests to the current or reduced amount?",
+    "en":"In addition to a fine reduction, would you like to add any of the following requests to the current or reduced amount?",
     "es":"¿Quiere agregar cualquiera de las siguientes solicitudes al monto actual o reducido de su multa?"
     ,"zh-s":""
     ,"zh-t":""
