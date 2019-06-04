@@ -555,7 +555,7 @@ fields:
 #  - Somewhat helpful: tool_somewhat_helpful
   - ${get_translation('as_helpful_as_court',lang)}: tool_as_helpful
 #  - As helpful as coming into court: tool_as_helpful
-  - ${get_translation('somewhat_unhelpful',lang)}: tool_somewhat_unhelpful
+  - ${get_translation('somewhat_helpful',lang)}: tool_somewhat_unhelpful
 #  - Somewhat unhelpful: tool_somewhat_unhelpful
   - ${get_translation('not_helpful',lang)}: tool_not_helpful
 #  - Not helpful at all: tool_not_helpful
