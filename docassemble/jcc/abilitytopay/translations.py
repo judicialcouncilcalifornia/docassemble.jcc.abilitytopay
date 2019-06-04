@@ -62,99 +62,99 @@ translations = {
   "what_county": {
     "en":'What California county did you get the citation in?',
     "es":"¿En qué condado de California recibió la citación?"
-    ,"zh-s":"What California county did you get the citation in?"
-    ,"zh-t":"¿En qué condado de California recibió la citación?"
+    ,"zh-s":"您在加州哪个县得到罚单？"
+    ,"zh-t":""
   },
 
   "what_citation_number": {
     "en":"What's the citation number?",
     "es":"¿Cuál es el número de citación?"
     ,"zh-s":"罚单号码是多少？"
-    ,"zh-t":"¿Cuál es el número de citación?"
+    ,"zh-t":""
   },
 
   "dont_have_citation_number": {
     "en":"I don't have my citation number",
     "es":"No tengo mi número de citación"
     ,"zh-s":"我没有罚单号码"
-    ,"zh-t":"No tengo mi número de citación"
+    ,"zh-t":""
   },
 
   "what_first_name": {
     "en":"What is your first name?",
     "es":"¿Cuál es su nombre?"
     ,"zh-s":"您的名字是什么？"
-    ,"zh-t":"¿Cuál es su nombre?"
+    ,"zh-t":""
   },
 
   "what_last_name": {
     "en":"What is your last name?",
     "es":"¿Cuál es su apellido?"
     ,"zh-s":"您的姓是什么？"
-    ,"zh-t":"¿Cuál es su apellido?"
+    ,"zh-t":""
   },
 
   "what_dob": {
     "en":"What's your date of birth?",
     "es":"¿Cuál es su fecha de nacimiento?"
     ,"zh-s":"您的出生日期是哪天？"
-    ,"zh-t":"¿Cuál es su fecha de nacimiento?"
+    ,"zh-t":""
   },
 
   "what_license_number": {
     "en":"What is your Driver's License Number?",
     "es":"¿Cuál es el número de su licencia de manejar?"
     ,"zh-s":"您的驾照号码是多少？"
-    ,"zh-t":"¿Cuál es el número de su licencia de manejar?"
+    ,"zh-t":""
   },
 
   "request_to_court": {
     "en":"### Request to Court",
     "es":"### Solicitar a la corte"
     ,"zh-s":"### 给法院的请求"
-    ,"zh-t":"### Solicitar a la corte"
+    ,"zh-t":""
   },
 
   "name": {
     "en":"Name",
     "es":"Nombre"
     ,"zh-s":"姓名"
-    ,"zh-t":"Nombre"
+    ,"zh-t":""
   },
 
   "citation_number": {
     "en":"Citation Number",
     "es":"Número de citación"
     ,"zh-s":"罚单号码"
-    ,"zh-t":"Número de citación"
+    ,"zh-t":""
   },
 
   "county": {
     "en":"County",
     "es":"Condado"
     ,"zh-s":"县"
-    ,"zh-t":"Condado"
+    ,"zh-t":""
   },
 
   "violation_date": {
     "en":"Violation Date",
     "es":"Fecha de la contravención"
     ,"zh-s":"违规日期"
-    ,"zh-t":"Fecha de la contravención"
+    ,"zh-t":""
   },
 
   "total_due": {
     "en":"Total Due",
     "es":"Total adeudado"
     ,"zh-s":"应付总额"
-    ,"zh-t":"Total adeudado"
+    ,"zh-t":""
   },
 
   "would_like_reduction": {
     "en":"Would you like to request a reduction in your fine for this citation?",
     "es":"¿Quiere pedir una reducción en su multa para esta citación?"
     ,"zh-s":"您是否想请求减少这张罚单的罚款？"
-    ,"zh-t":"¿Quiere pedir una reducción en su multa para esta citación?"
+    ,"zh-t":""
   },
 
   "yes": {
@@ -264,7 +264,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "ssi": {
     "en":"SSI: Supplemental Security Income",
     "es":"SSI: Seguridad de ingreso suplementario"
-    ,"zh-s":""
+    ,"zh-s":"SSI：社会安全补助金"
     ,"zh-t":""
   },
 
@@ -975,63 +975,63 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
   "share_why_difficult": {
     "en":"Share why it's difficult for you to come to court in person",
     "es":"Díganos por qué le cuesta venir a la corte en persona "
-    ,"zh-s":""
+    ,"zh-s":"告诉我们您为何难以亲自去法院"
     ,"zh-t":""
   },
 
   "final_step": {
     "en":"### Final Step",
-    "es":"### Final Step (missing translation)"
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "what_email_can_court_use": {
     "en":"What email address can the Court use to communicate about your request?",
-    "es":"What email address can the Court use to communicate about your request? (missing translation)"
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "email_again": {
     "en":"Please enter your email address again.",
-    "es":"Please enter your email address again. (missing translation)"
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "make_sure_emails_match": {
     "en":"Make sure the e-mail addresses match.",
-    "es":"Make sure the e-mail addresses match."
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "emails_match": {
     "en":'<span class="text-success">E-mail addresses match!</span>',
-    "es":'<span class="text-success">E-mail addresses match! (missing translation)</span>'
-    ,"zh-s":''
-    ,"zh-t":''
+    "es":'<span class="text-success"></span>'
+    ,"zh-s":'<span class="text-success"></span>'
+    ,"zh-t":'<span class="text-success"></span>'
   },
 
 
   "penalty_of_perjury": {
     "en":"By checking this box, I declare under penalty of perjury that what I have reported is true.",
-    "es":"By checking this box, I declare under penalty of perjury that what I have reported is true. (missing translation)"
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "cant_continue_email": {
     "en":"You cannot continue until you confirm your e-mail address.",
-    "es":"You cannot continue until you confirm your e-mail address. (missing translation)"
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "cant_continue_sign": {
     "en":"You cannot continue until you electronically sign under penalty of perjury.",
-    "es":"You cannot continue until you electronically sign under penalty of perjury. (missing translation)"
+    "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
