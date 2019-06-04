@@ -341,14 +341,14 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "have_no_proof": {
     "en":"I don't have proof available",
     "es":"No tengo un comprobante en este momento"
-    ,"zh-s":"我现在没有证明"
+    ,"zh-s":""
     ,"zh-t":""
   },
 
   "why_no_proof": {
     "en":"Tell us why you can't provide documentation at this time",
     "es":"Díganos por qué no puede proporcionar documentación en este momento"
-    ,"zh-s":"告诉我们您为何现在不能提供文件"
+    ,"zh-s":""
     ,"zh-t":""
   },
 
@@ -368,7 +368,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "medi_cal_card": {
     "en":"Medi-Cal Card",
-    "es":""
+    "es":"Medi-Cal Card (missing translation)"
     ,"zh-s":""
     ,"zh-t":""
   },
@@ -425,7 +425,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "upload_gacr": {
     "en":"*You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?*",
     "es":"*Usted dijo que recibe ayuda general/ayuda del condado. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de ayuda general/ayuda del condado?*"
-    ,"zh-s":""
+    ,"zh-s":"普通救助/ 县救济"
     ,"zh-t":""
   },
 
@@ -446,7 +446,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "upload_ihss": {
     "en":"*You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?*",
     "es":"*Usted dijo que recibe servicios de apoyo en el hogar. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de servicios de apoyo en el hogar?*"
-    ,"zh-s":""
+    ,"zh-s":"居家支持服务"
     ,"zh-t":""
   },
 
@@ -467,7 +467,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "upload_tanf": {
     "en":"*You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*",
     "es":"*Usted dijo que recibe ayuda temporal para familias necesitadas. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de ayuda temporal para familias necesitadas?*"
-    ,"zh-s":""
+    ,"zh-s":"穷困家庭临时救助"
     ,"zh-t":""
   },
 
@@ -481,14 +481,14 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "proof_of_wic": {
     "en":"### Proof of WIC",
     "es":"### Comprobante de WIC"
-    ,"zh-s":"###妇女、婴儿及儿童特殊营养补助  的证明"
+    ,"zh-s":"###WIC  的证明"
     ,"zh-t":""
   },
 
   "upload_wic": {
     "en":"*You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?*",
     "es":"*Usted dijo que recibe nutrición suplementaria especial para mujeres, bebés y niños. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de nutrición suplementaria especial para mujeres, bebés y niños?*"
-    ,"zh-s":""
+    ,"zh-s":"妇女、婴儿及儿童特殊营养补助"
     ,"zh-t":""
   },
 
@@ -509,7 +509,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "upload_calworks": {
     "en":"*You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?*",
     "es":"*Usted dijo que recibe oportunidades de trabajo y responsabilidades hacia los niños de California. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de oportunidades de trabajo y responsabilidades hacia los niños de California?*"
-    ,"zh-s":""
+    ,"zh-s":"《加州工作机会及对孩子责任法案》"
     ,"zh-t":""
   },
 
@@ -530,7 +530,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   "upload_capi": {
     "en":"*You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*",
     "es":"*Usted dijo que recibe programa de ayuda en efectivo para inmigrantes legales ancianos, no videntes o discapacitados. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de programa de ayuda en efectivo para inmigrantes legales ancianos, no videntes o discapacitados?*"
-    ,"zh-s":""
+    ,"zh-s":"老人、盲人或残障合法移民现金救助计划"
     ,"zh-t":""
   },
 
