@@ -8,7 +8,9 @@ modules:
 features:
   bootstrap theme: style.css
   progress bar: True
-  javascript: a2p.js
+  javascript:
+    - includes-prototype.js
+    - a2p.js
 ---
 comment: |
   Default value for lang. This block is only run once.
