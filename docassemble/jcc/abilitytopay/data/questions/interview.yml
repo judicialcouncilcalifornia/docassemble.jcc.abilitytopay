@@ -76,6 +76,7 @@ fields:
 - ${get_translation('what_license_number',lang)}: license_number
 #- What is your Driver's License Number?: license_number
   show if: no_citation_number
+continue button field: completed_citation_form
 ---
 include:
   - code.yml

@@ -4,8 +4,9 @@ code: |
     citation_data = fetch_citation_data(citation_number, county)
     if citation_data['data']:
         if not citation_data['eligible']:
-          log("We can't process this citation online. Please contact your Court for more information.", 'danger')
-          reconsider('county')
+          log(get_translation('cant_process_online',lang), 'danger')
+          #log("We can't process this citation online. Please contact your Court for more information.", 'danger')
+          reconsider('completed_citation_form')
         else:
           case_information = citation_data['data']
           violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
@@ -13,8 +14,9 @@ code: |
           first_name = case_information['firstName']
           last_name = case_information['lastName']
     else:
-        log("No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way", 'danger')
-        reconsider('county')
+        log(get_translation('no_match_found',lang), 'danger')
+        #log("No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way", 'danger')
+        reconsider('completed_citation_form')
 ---
 code: |
    if no_citation_number or (defined('verify_citation') and verify_citation == "name_lookup"):
@@ -28,8 +30,9 @@ code: |
                 c_citation_number = case['citationNumber']
                 case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>Name</dt><dd>{name}</dd><dt>Citation Number</dt><dd>{citationNumber}</dd><dt>County</dt><dd>{county}</dd><dt>Violation Date</dt><dd>{violationDate}</dd><dt>Total Due</dt><dd>{totalDue}</dd></dl></div>".format(name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
        else:
-          log('Check the information you entered. Try again.', 'danger')
-          reconsider('county')
+          log(get_translation('check_information',lang), 'danger')
+          #log('Check the information you entered. Try again.', 'danger')
+          reconsider('completed_citation_form')
 ---
 code: |
   case_information = fetch_citation_data(selected_case, county)['data']
@@ -45,7 +48,8 @@ code: |
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
   else:
-    log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
+    log(get_translation('something_went_wrong',lang), "danger")
+    #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
     reconsider("ready_to_submit")
 ---
 mandatory: True
