@@ -406,6 +406,7 @@ fields:
   datatype: currency
   min: 0
   max: 75000
+  required: true
 ---
 question: |
   ${get_translation('household_details',lang)}
