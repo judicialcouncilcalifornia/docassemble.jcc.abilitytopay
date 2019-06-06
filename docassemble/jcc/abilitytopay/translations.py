@@ -1085,6 +1085,39 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     ,"zh-t":""
   },
 
+  #Error messages
+  ###########################################
+  "cant_process_online": {
+    "en":"We can't process this citation online. Please contact your Court for more information.",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
+
+
+  "no_match_found": {
+    "en":"No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
+
+  "check_information": {
+    "en":"Check the information you entered. Try again.",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
+
+  "something_went_wrong": {
+    "en":"Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
+
+
+
   #Not in use (currently)
   ###########################################
 
