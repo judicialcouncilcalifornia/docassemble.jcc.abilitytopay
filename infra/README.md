@@ -140,8 +140,8 @@ rm cert-encrypted.key
 ### Copy over SSL certs
 
 ```
-scp cert.crt azureuser@<public-ip-address>:/etc/nginx
-scp cert.key azureuser@<public-ip-address>:/etc/nginx
+scp cert.crt azureuser@<public-ip-address>:~ && ssh azureuser@<public-ip-address> sudo mv cert.crt /etc/nginx
+scp cert.key azureuser@<public-ip-address>:~ && ssh azureuser@<public-ip-address> sudo mv cert.key /etc/nginx
 ```
 
 ### Restart nginx
