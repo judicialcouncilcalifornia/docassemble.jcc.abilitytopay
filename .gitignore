@@ -5,3 +5,8 @@ yarn.lock
 .DS_Store
 tmp/
 venv
+tools/translations-es.xlsx
+tools/translations-zh-s.xlsx
+tools/translations-zh-t.xlsx
+*.pyc
+docassemble/jcc/abilitytopay/data/questions/code2.yml

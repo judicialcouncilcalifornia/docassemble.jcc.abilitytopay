@@ -8,7 +8,9 @@ modules:
 features:
   bootstrap theme: style.css
   progress bar: True
-  javascript: a2p.js
+  javascript:
+    - includes-prototype.js
+    - a2p.js
 ---
 comment: |
   Default value for lang. This block is only run once.
@@ -76,6 +78,7 @@ fields:
 - ${get_translation('what_license_number',lang)}: license_number
 #- What is your Driver's License Number?: license_number
   show if: no_citation_number
+continue button field: completed_citation_form
 ---
 include:
   - code.yml
@@ -406,6 +409,7 @@ fields:
   datatype: currency
   min: 0
   max: 75000
+  required: true
 ---
 question: |
   ${get_translation('household_details',lang)}
@@ -555,7 +559,7 @@ fields:
 #  - Somewhat helpful: tool_somewhat_helpful
   - ${get_translation('as_helpful_as_court',lang)}: tool_as_helpful
 #  - As helpful as coming into court: tool_as_helpful
-  - ${get_translation('somewhat_helpful',lang)}: tool_somewhat_unhelpful
+  - ${get_translation('somewhat_unhelpful',lang)}: tool_somewhat_unhelpful
 #  - Somewhat unhelpful: tool_somewhat_unhelpful
   - ${get_translation('not_helpful',lang)}: tool_not_helpful
 #  - Not helpful at all: tool_not_helpful
