@@ -80,8 +80,24 @@ fields:
   show if: no_citation_number
 continue button field: completed_citation_form
 ---
-include:
-  - code.yml
+code: |
+  if not no_citation_number:
+    citation_data = fetch_citation_data(citation_number, county)
+    if citation_data['data']:
+        if not citation_data['eligible']:
+          log(get_translation('cant_process_online',lang), 'danger')
+          #log("We can't process this citation online. Please contact your Court for more information.", 'danger')
+          reconsider('completed_citation_form')
+        else:
+          case_information = citation_data['data']
+          violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
+          total_due = format_money(case_information['totalDueAmt'])
+          first_name = case_information['firstName']
+          last_name = case_information['lastName']
+    else:
+        log(get_translation('no_match_found',lang), 'danger')
+        #log("No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way", 'danger')
+        reconsider('completed_citation_form')
 ---
 question: |
   ${get_translation('request_to_court',lang)}
@@ -121,6 +137,22 @@ fields:
     variable: verify_citation
     is: name_lookup
 ---
+code: |
+   if no_citation_number or (defined('verify_citation') and verify_citation == "name_lookup"):
+       response = fetch_case_data(first_name, last_name, dob, license_number, county)
+       if response['data']:
+            case_lookup_results = []
+            for case in response['data']:
+                charges = case['charges']
+                c_violation_date = date_from_iso8601(charges[0]['violationDate'])
+                c_total_due = format_money(case['totalDueAmt'])
+                c_citation_number = case['citationNumber']
+                case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>Name</dt><dd>{name}</dd><dt>Citation Number</dt><dd>{citationNumber}</dd><dt>County</dt><dd>{county}</dd><dt>Violation Date</dt><dd>{violationDate}</dd><dt>Total Due</dt><dd>{totalDue}</dd></dl></div>".format(name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
+       else:
+          log(get_translation('check_information',lang), 'danger')
+          #log('Check the information you entered. Try again.', 'danger')
+          reconsider('completed_citation_form')
+---
 question: ${get_translation('which_is_your_citation',lang)}
 #question: Which of the following is your citation?
 fields:
@@ -130,6 +162,9 @@ fields:
   code: |
     case_lookup_results
 #    case_lookup_results fixme?
+---
+code: |
+  case_information = fetch_citation_data(selected_case, county)['data']
 ---
 field: how_work
 question: |
@@ -655,6 +690,21 @@ continue button label: ${get_translation('continue_button',lang)}
 #continue button label: Submit
 continue button field: ready_to_submit
 ---
+comment: |
+  Attempts to submit the interview once. If it fails, renders an error and the user can try again.
+  If it succeeds, the user can try to submit again by clicking the back button on their browser or
+  the back button on the interview page.
+code: |
+  submission_response = submit_interview(all_variables(), attachment_urls, True)
+  if submission_response['success']:
+    # Once submission_success is set, this code block will not be run again
+    # unless submission_success is forgotten (e.g. by clicking the browser back button).
+    submission_success = True
+  else:
+    log(get_translation('something_went_wrong',lang), "danger")
+    #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
+    reconsider("ready_to_submit")
+---
 sets: all_done
 question: |
   ${get_translation('thank_you',lang)}
@@ -667,3 +717,86 @@ buttons:
 - ${get_translation('restart',lang)}: restart
 #- Start Another Request: restart
 prevent going back: True
+---
+mandatory: True
+code: |
+  requires_spanish_assistance
+  county
+  citation_number
+  if not no_citation_number:
+    verify_citation
+    if verify_citation == "name_lookup":
+      selected_case
+      case_lookup_results
+  if no_citation_number:
+    selected_case
+    case_lookup_results
+  how_work
+  benefits
+
+  attachment_urls = []
+  if benefits["cal_fresh"]:
+    calfresh_proof
+    if calfresh_proof:
+      attachment_urls.append(("CalFresh", calfresh_proof.url_for()))
+  if benefits["medi_cal"]:
+    medi_cal_proof
+    if medi_cal_proof:
+      attachment_urls.append(("MediCal", medi_cal_proof.url_for()))
+  if benefits["ssi"]:
+    ssi_proof
+    if ssi_proof:
+      attachment_urls.append(("SSI", ssi_proof.url_for()))
+  # Hide WIC for now until backend supports WIC. Can enable WIC by uncommenting lines below and in above Public Benefits question.
+  #if benefits["wic"]:
+  #  wic_proof
+  #  if wic_proof:
+  #    attachment_urls.append(("wic", wic_proof.url_for()))
+  if benefits["ssp"]:
+    ssp_proof
+    if ssp_proof:
+      attachment_urls.append(("SSP", ssp_proof.url_for()))
+  if benefits["cr_ga"]:
+    cr_ga_proof
+    if cr_ga_proof:
+      attachment_urls.append(("CRGA", cr_ga_proof.url_for()))
+  if benefits["ihss"]:
+    ihss_proof
+    if ihss_proof:
+      attachment_urls.append(("IHSS", ihss_proof.url_for()))
+  if benefits["cal_works"]:
+    cal_works_proof
+    if cal_works_proof:
+      attachment_urls.append(("CalWorks", cal_works_proof.url_for()))
+  if benefits["tanf"]:
+    tanf_proof
+    if tanf_proof:
+      attachment_urls.append(("TANF", tanf_proof.url_for()))
+  if benefits["capi"]:
+    capi_proof
+    if capi_proof:
+      attachment_urls.append(("CAPI", capi_proof.url_for()))
+  if benefits['other']:
+    other_benefit_picture
+    if other_benefit_picture:
+      attachment_urls.append(("Other", other_benefit_picture.url_for()))
+  income
+  residents
+  monthly_rent
+  mortgage
+  utilities
+  phone_bill
+  food
+  insurance
+  clothing
+  child_spousal_support
+  transportation
+  additional_requests
+  if not case_information.get('adjudicated'):
+    plea
+  tool_helpful
+  email_address
+  submission_signature
+  ready_to_submit
+  submission_success
+  all_done
