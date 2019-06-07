@@ -147,7 +147,7 @@ code: |
                 c_violation_date = date_from_iso8601(charges[0]['violationDate'])
                 c_total_due = format_money(case['totalDueAmt'])
                 c_citation_number = case['citationNumber']
-                case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>Name</dt><dd>{name}</dd><dt>Citation Number</dt><dd>{citationNumber}</dd><dt>County</dt><dd>{county}</dd><dt>Violation Date</dt><dd>{violationDate}</dd><dt>Total Due</dt><dd>{totalDue}</dd></dl></div>".format(name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
+                case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>{name_label}</dt><dd>{name}</dd><dt>{citation_number_label}</dt><dd>{citationNumber}</dd><dt>{county_label}</dt><dd>{county}</dd><dt>{violation_date_label}</dt><dd>{violationDate}</dd><dt>{total_due_label}</dt><dd>{totalDue}</dd></dl></div>".format(name_label=get_translation('name',lang),citation_number_label=get_translation('citation_number',lang),county_label=get_translation('county',lang),violation_date_label=get_translation('violation_date',lang),total_due_label=get_translation('total_due',lang),name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
        else:
           log(get_translation('check_information',lang), 'danger')
           #log('Check the information you entered. Try again.', 'danger')
@@ -161,7 +161,6 @@ fields:
   input type: radio
   code: |
     case_lookup_results
-#    case_lookup_results fixme?
 ---
 code: |
   case_information = fetch_citation_data(selected_case, county)['data']
