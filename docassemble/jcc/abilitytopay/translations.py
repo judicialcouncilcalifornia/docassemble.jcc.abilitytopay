@@ -632,7 +632,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "please_estimate": {
-    "en":"### Now, please estimate what you pay _each month_ for the following expenses. If you don't spend money on an expense enter $0",
+    "en":"### Now, please estimate what you pay _each month_ for the following expenses.",
     "es":"### Ahora estime cuánto paga por mes por los siguientes gastos."
     ,"zh-s":"### 现在，请估算您每个月的以下花费是多少。"
     ,"zh-t":"### 現在，請估算您每個月的以下開支。"
@@ -646,8 +646,8 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "you_take_home_post": {
-    "en":" each month.",
-    "es":" por mes. SI no tiene este gasto, ponga $0."
+    "en":" each month. If you don't spend money on an expense, enter $0.",
+    "es":" por mes. Si no tiene este gasto, ponga $0."
     ,"zh-s":" 请输入$0。"
     ,"zh-t":"。如果您沒有此項開支，請輸入$0。 "
   },
@@ -1096,7 +1096,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
 
   "no_match_found": {
-    "en":"No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way",
+    "en":"No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way.",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
