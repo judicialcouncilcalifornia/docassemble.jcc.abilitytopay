@@ -639,10 +639,10 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "you_take_home_pre": {
-    "en":"### You said you take home",
-    "es":"### Usted dijo que se lleva a su casa "
-    ,"zh-s":"### 您说您每个月带回家${ format_money(income) }。如果您没有此项花费"
-    ,"zh-t":"### 您說每個月帶回家"
+    "en":"You said you take home",
+    "es":"Usted dijo que se lleva a su casa "
+    ,"zh-s":"您说您每个月带回家${ format_money(income) }。如果您没有此项花费"
+    ,"zh-t":"您說每個月帶回家"
   },
 
   "you_take_home_post": {
