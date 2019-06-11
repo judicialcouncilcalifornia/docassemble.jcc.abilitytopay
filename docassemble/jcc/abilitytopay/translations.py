@@ -246,8 +246,8 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "receiving_benefits": {
-    "en":'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other"',
-    "es":'¿Está recibiendo beneficios actualmente? Si no ve el beneficio público que está recibiendo actualmente, haga clic en "Otro"'
+    "en":'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other".',
+    "es":'¿Está recibiendo beneficios actualmente? Si no ve el beneficio público que está recibiendo actualmente, haga clic en "Otro".'
     ,"zh-s":'您目前是否在领取任何福利？如果您没有看到您目前登记的公共福利，点击“其他”'
     ,"zh-t":'您目前是否領取任何福利？如果您沒有看到您目前登記的公共福利，請點選「其他」'
   },
@@ -596,7 +596,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "answer_best_you_can": {
-    "en":"Answer the best you can. Be sure to include income from your job and any other sources, including payments from people in your household (such as spouse or live-in partner)?",
+    "en":"Answer the best you can. Be sure to include income from your job and any other sources, including payments from people in your household (such as spouse or live-in partner).",
     "es":"Responda a su mejor saber y entender. No se olvide de incluir los ingresos de su trabajo y de toda otra fuente, incluyendo los ingresos de otras personas que viven en su hogar (como un cónyuge o pareja de hecho)."
     ,"zh-s":"尽可能回答。务必包括您的工作及其他来源的收入，比如从家人（如配偶或同居伴侣）得到的付款？"
     ,"zh-t":"盡可能回答。務必包括您的工作及其他來源的收入，例如從家人（如配偶或同居伴侶）得到的付款？"
