@@ -8613,19 +8613,14 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.da-has-error {
-  color: #c53b00;
+span.da-has-error {
   font-family: "Lora", Georgia, Times, serif;
   font-style: italic;
   margin-top: 0.5rem;
   display: inline-block;
 }
-.da-has-error input[type=text] {
-  border-color: #c53b00;
-  box-shadow: 0 0 0 0.1rem #c53b00;
-}
 
-.form-group.has-error {
+.form-group.da-group-has-error, .form-group.has-error {
   background-color: #fdf6f5;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -8697,17 +8692,18 @@ input.labelauty + label > span.labelauty-checked {
   line-height: 1.5rem !important;
 }
 
-input.labelauty.radio-icon + label {
+fieldset.da-field-radio label, input.labelauty.radio-icon + label {
   align-items: center;
 }
-input.labelauty.radio-icon + label > span.labelauty-unchecked-image,
+fieldset.da-field-radio label > span.labelauty-unchecked-image,
+fieldset.da-field-radio label > span.labelauty-checked-image, input.labelauty.radio-icon + label > span.labelauty-unchecked-image,
 input.labelauty.radio-icon + label > span.labelauty-checked-image {
   border-radius: 50%;
   height: 1.75rem !important;
   width: 1.75rem !important;
   min-width: 1.75rem !important;
 }
-input.labelauty.radio-icon + label > span.labelauty-checked-image {
+fieldset.da-field-radio label > span.labelauty-checked-image, input.labelauty.radio-icon + label > span.labelauty-checked-image {
   background-image: none !important;
   box-shadow: 0 0 0 3px #fff, 0 0 0 5px #1b97e0;
   height: 1.25rem !important;
@@ -8716,14 +8712,14 @@ input.labelauty.radio-icon + label > span.labelauty-checked-image {
   margin-top: 2px;
   margin-left: 4px;
 }
-input.labelauty.radio-icon + label.btn-primary {
+fieldset.da-field-radio label.btn-primary, input.labelauty.radio-icon + label.btn-primary {
   min-height: 3.25rem;
 }
-input.labelauty.radio-icon + label > span.labelauty-checked {
+fieldset.da-field-radio label > span.labelauty-checked, input.labelauty.radio-icon + label > span.labelauty-checked {
   padding-left: 4px;
   padding-top: 0;
 }
-input.labelauty.radio-icon + label > span.labelauty-unchecked {
+fieldset.da-field-radio label > span.labelauty-unchecked, input.labelauty.radio-icon + label > span.labelauty-unchecked {
   padding-top: 0;
 }
 
@@ -8783,15 +8779,15 @@ select {
   color: #fff;
 }
 
-.page-header {
+.da-page-header, .page-header {
   border-bottom: 0 !important;
 }
-.page-header h3 {
+.da-page-header h3, .page-header h3 {
   font-size: 2rem;
   color: #244f73;
 }
 @media (min-width: 768px) {
-  .page-header h3 {
+  .da-page-header h3, .page-header h3 {
     font-size: 3rem;
   }
 }
@@ -8824,66 +8820,28 @@ select {
   font-style: normal;
 }
 
-.fieldpart.col-md-8 {
+.dafieldpart.col-md-8, .fieldpart.col-md-8 {
   flex: 0 0 100% !important;
   max-width: 100% !important;
 }
 
-.yesnospacing .col-md-8 {
+.dayesnospacing .col-md-8, .yesnospacing .col-md-8 {
   flex: 0 0 100% !important;
   max-width: 100% !important;
 }
-.yesnospacing .offset-md-4 {
+.dayesnospacing .offset-md-4, .yesnospacing .offset-md-4 {
   margin-left: 0 !important;
 }
 
-.form-group.required .col-form-label:after {
+.form-group.darequired .col-form-label:after, .form-group.required .col-form-label:after {
   content: "" !important;
-}
-
-.help-tip {
-  font-family: "Lora", Georgia, Times, serif;
-  font-style: italic;
-  display: block;
-  margin-bottom: 0.5em;
-}
-
-.help-widget {
-  border-bottom: 2px solid #2694f1;
-  padding-bottom: 2px;
-  text-decoration: none !important;
-  margin-left: 1.3em;
-}
-
-.help-widget::before {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  margin-left: -1.3em;
-  border: 8px solid transparent;
-  border-left-color: #1b97e0;
-  margin-top: 0.25em;
-}
-
-.help-widget.opened::before {
-  border-left-color: transparent;
-  border-top-color: #1b97e0;
-  margin-top: 0.6em;
-}
-
-.help-widget-body {
-  display: none;
-  background: #e8f0fa;
-  padding: 20px;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
 }
 
 .danavcontainer {
   position: relative;
 }
 
-#backbutton {
+#dabackbutton, #backbutton {
   background: #fff;
   position: absolute;
   bottom: -56px;
@@ -8892,7 +8850,7 @@ select {
   height: 40px;
 }
 @media (min-width: 768px) {
-  #backbutton {
+  #dabackbutton, #backbutton {
     left: 0;
     right: 0;
   }
@@ -8935,7 +8893,7 @@ select {
   border-left: 0;
 }
 
-.showif .form-group {
+.dashowif .form-group, .showif .form-group {
   margin-right: -3rem;
   margin-bottom: 0;
   margin-left: -3rem;
@@ -8944,7 +8902,7 @@ select {
   padding-left: 1.1rem;
   border-left: 4px solid #1b97e0;
 }
-.showif .form-group.has-error {
+.dashowif .form-group.da-group-has-error, .dashowif .form-group.has-error, .showif .form-group.da-group-has-error, .showif .form-group.has-error {
   border-left: 4px solid #c53b00;
 }
 
@@ -9006,7 +8964,7 @@ select {
 }
 
 /* Custom Branding */
-a#pagetitle {
+a#dapagetitle, a#pagetitle {
   background-image: url(/packagestatic/docassemble.jcc.abilitytopay/california-courts-logo.png);
   color: transparent;
   background-size: contain;
@@ -9031,7 +8989,7 @@ body.question-landing-page {
     background-size: 550px 550px;
   }
 }
-body.question-landing-page .page-header h3 {
+body.question-landing-page .da-page-header h3, body.question-landing-page .page-header h3 {
   color: #f4ac3b;
 }
 body.question-landing-page input.labelauty + label.btn-light {
