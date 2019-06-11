@@ -248,21 +248,15 @@ $table-cell-padding:         1rem .75rem;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-.da-has-error {
-  color: $red;
+span.da-has-error {
   font-family: $headings-font-family;
   font-style: italic;
   margin-top: .5rem;
   display: inline-block;
-
-  input[type="text"] {
-    border-color: $danger;
-    box-shadow: 0 0 0 .1rem $danger;
-  }
 }
 
 .form-group {
-  &.has-error {
+  &.da-group-has-error, &.has-error {
     background-color: #fdf6f5;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -349,7 +343,7 @@ input.labelauty + label > span.labelauty-checked {
   line-height: 1.5rem !important;
 }
 
-input.labelauty.radio-icon + label {
+fieldset.da-field-radio label, input.labelauty.radio-icon + label {
   align-items: center;
 
   > span.labelauty-unchecked-image,
@@ -450,7 +444,7 @@ select {
   }
 }
 
-.page-header {
+.da-page-header, .page-header {
   border-bottom: 0 !important;
 
   h3 {
@@ -498,14 +492,14 @@ select {
   }
 }
 
-.fieldpart {
+.dafieldpart, .fieldpart {
   &.col-md-8 {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }
 }
 
-.yesnospacing {
+.dayesnospacing, .yesnospacing {
   .col-md-8 {
     flex: 0 0 100% !important;
     max-width: 100% !important;
@@ -516,49 +510,15 @@ select {
   }
 }
 
-.form-group.required .col-form-label:after {
+.form-group.darequired .col-form-label:after, .form-group.required .col-form-label:after {
   content: '' !important;
-}
-
-.help-tip {
-  font-family: $headings-font-family;
-  font-style: italic;
-  display: block;
-  margin-bottom: 0.5em;
-}
-.help-widget {
-  border-bottom: 2px solid lighten($blue, 20%);
-  padding-bottom: 2px;
-  text-decoration: none !important;
-  margin-left: 1.3em;
-}
-.help-widget::before {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  margin-left: -1.3em;
-  border: 8px solid transparent;
-  border-left-color: $cyan;
-  margin-top: 0.25em;
-}
-.help-widget.opened::before {
-  border-left-color: transparent;
-  border-top-color: $cyan;
-  margin-top: 0.6em;
-}
-.help-widget-body {
-  display: none;
-  background: $blue-100;
-  padding: 20px;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
 }
 
 .danavcontainer {
   position: relative;
 }
 
-#backbutton {
+#dabackbutton, #backbutton {
   background: #fff;
   position: absolute;
   bottom: -56px;
@@ -609,7 +569,7 @@ select {
   border-left: 0;
 }
 
-.showif {
+.dashowif, .showif {
   .form-group {
     margin-right: -3rem;
     margin-bottom: 0;
@@ -619,7 +579,7 @@ select {
     padding-left: 1.1rem;
     border-left: 4px solid $cyan;
 
-    &.has-error {
+    &.da-group-has-error, &.has-error {
       border-left: 4px solid $red;
     }
   }
@@ -695,7 +655,7 @@ select {
 }
 
 /* Custom Branding */
-a#pagetitle {
+a#dapagetitle, a#pagetitle {
   background-image: url(/packagestatic/docassemble.jcc.abilitytopay/california-courts-logo.png);
   color: transparent;
   background-size: contain;
