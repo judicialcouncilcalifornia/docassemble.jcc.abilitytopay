@@ -3,10 +3,10 @@ def active_language():
 
 
 def get_language_label(localeString):
-    language_labels = dict(
+    language_labels = {
         'en': 'English',
         'es': 'Español',
         'zh-s': '简体中文',
         'zh-t': '繁体中文'
-    )
+    }
     return language_labels[localeString]
