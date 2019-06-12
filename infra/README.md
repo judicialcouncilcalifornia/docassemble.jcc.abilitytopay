@@ -171,7 +171,12 @@ List running images:
 sudo docker ps
 ```
 
-Attach:
+Stop a docker instance:
+```
+sudo docker stop -t60 <image-id>
+```
+
+Attach to the docker instance:
 ```
 sudo docker exec -t -i <image-id> /bin/bash
 ```
