@@ -171,11 +171,6 @@ List running images:
 sudo docker ps
 ```
 
-Stop a docker instance:
-```
-sudo docker stop -t60 <image-id>
-```
-
 Attach to the docker instance:
 ```
 sudo docker exec -t -i <image-id> /bin/bash
@@ -185,6 +180,14 @@ Watch everything get set up:
 ```
 sudo tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
 ```
+
+## Stopping Docker when you need to 
+
+To stop a docker instance:
+```
+sudo docker stop -t60 <image-id>
+```
+
 
 ## Set Ability To Pay config
 
