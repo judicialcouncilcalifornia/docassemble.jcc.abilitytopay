@@ -160,6 +160,7 @@ Talk to infra team about how to do this.
 
 This will take a while (~20 mins) on the first run:
 ```
+cd ~
 sudo docker run --env-file=env.list -d -p 8080:80 bennlichh/docassemble:0.4.41
 ```
 
@@ -167,17 +168,17 @@ sudo docker run --env-file=env.list -d -p 8080:80 bennlichh/docassemble:0.4.41
 
 List running images:
 ```
-docker ps
+sudo docker ps
 ```
 
 Attach:
 ```
-docker exec -t -i <image-id> /bin/bash
+sudo docker exec -t -i <image-id> /bin/bash
 ```
 
 Watch everything get set up:
 ```
-tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
+sudo tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
 ```
 
 ## Set Ability To Pay config
