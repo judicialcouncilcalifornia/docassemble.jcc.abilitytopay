@@ -9,4 +9,4 @@ docassemble/jcc/abilitytopay/data/questions/code2.yml
 tools/translations-es.xlsx
 tools/translations-zh-s.xlsx
 tools/translations-zh-t.xlsx
-docassemble/jcc/abilitytopay/__pycache__/translations.cpython-37.pyc
+*.pyc
