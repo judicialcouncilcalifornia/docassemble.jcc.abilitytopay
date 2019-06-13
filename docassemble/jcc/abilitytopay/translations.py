@@ -1,64 +1,62 @@
+# -*- coding: utf-8 -*-
+
 translations = {
   "req_fine_reduction": {
-    "en":'###Request a Fine Reduction',
+    "en":"###Request a Fine Reduction",
     "es":"###Cómo solicitar una reducción de multa"
     ,"zh-s":"###请求减少罚款",
     "zh-t":"###請求減少罰款"
   },
 
   "landing_page_description": {
-      "en":"""
-  *This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
+    "en":
+"""*This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
 
-  **Use this tool to:**
+**Use this tool to:**
 
-  * Request a reduction in your traffic fine
-  * Request a payment plan
-  * Request Community Service
-  * Request more time to pay your ticket
+* Request a reduction in your traffic fine
+* Request a payment plan
+* Request Community Service
+* Request more time to pay your ticket
 
-  **Do not use this tool:**
+**Do not use this tool:**
 
-  * If you wish to contest the ticket, contact your court instead.
-  * If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.
-        """,
-      "es":"""
-  *Este sistema en línea es una manera opcional de solicitar una reducción en su multa de tránsito debido a una necesidad económica.*
+* If you wish to contest the ticket, contact your court instead.
+* If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.""",
+    "es":
+"""*Este sistema en línea es una manera opcional de solicitar una reducción en su multa de tránsito debido a una necesidad económica.*
 
-  **Use esta herramienta para solicitar:**
+**Use esta herramienta para solicitar:**
 
-  * Una reducción de su multa de tránsito
-  * Un plan de pagos
-  * Servicio comunitario
-  * Más tiempo para pagar su multa
+* Una reducción de su multa de tránsito
+* Un plan de pagos
+* Servicio comunitario
+* Más tiempo para pagar su multa
 
-  **Do not use this tool:(missing translation)**
+**Do not use this tool:(missing translation)**
 
-  * Si quiere disputar la multa o resolver su multa en persona, comuníquese con su corte. Consulte su aviso recordatorio.
-        """
-      ,"zh-s":"""
-    *如果您有财务需要，本在线系统是请求减少交通罚单罚款的可选途径。*
+* Si quiere disputar la multa o resolver su multa en persona, comuníquese con su corte. Consulte su aviso recordatorio.""",
+    "zh-s":
+"""*如果您有财务需要，本在线系统是请求减少交通罚单罚款的可选途径。*
 
-    **使用该工具请求：**
+**使用该工具请求：**
 
-    *	减少您的交通罚款
-    *	支付计划
-    *	社区服务
-    *	延长支付罚单时间
+*	减少您的交通罚款
+*	支付计划
+*	社区服务
+*	延长支付罚单时间
 
-    *如果您想对罚单提出异议，或者亲自解决问题，请联系您的法院。请参阅您的提醒通知。*
-        """,
-      "zh-t":"""
-    *如果您有財務需求，本線上系統是請求減少交通罰單罰款的途徑之一。*
+*如果您想对罚单提出异议，或者亲自解决问题，请联系您的法院。请参阅您的提醒通知。*""",
+    "zh-t":
+"""*如果您有財務需求，本線上系統是請求減少交通罰單罰款的途徑之一。*
 
-    **使用本工具請求：**
-    *	減少您的交通罰款
-    *	付款計劃
-    *	社區服務
-    *	延長支付罰單的時間
+**使用本工具請求：**
+*	減少您的交通罰款
+*	付款計劃
+*	社區服務
+*	延長支付罰單的時間
 
-    *如果您想對罰單提出異議，或是親自解決問題，請聯繫您的法院。請參閱您的提醒通知。*
-        """
+*如果您想對罰單提出異議，或是親自解決問題，請聯繫您的法院。請參閱您的提醒通知。*"""
   },
 
   "lookup_citation": {
