@@ -18,6 +18,13 @@ mandatory: True
 code: |
   lang = 'en'
 ---
+comment: |
+  The event that is triggered when one of the language buttons is clicked.
+event: language_button_clicked
+code: |
+  lang = action_argument('language')
+  set_save_status('overwrite')
+---
 metadata:
   title: Ability to Pay
 ---
@@ -46,7 +53,11 @@ fields:
 - note: |
     LA HERRAMIENTA PARA CALCULAR LA CAPACIDAD DE PAGO SOLO ESTÁ DISPONIBLE ACTUALMENTE EN INGLÉS. SI NECESITA SERVICIOS DE AYUDA LINGÜÍSTICA, VAYA AL JUZGADO INDICADO EN SU MULTA DE TRÁNSITO PARA CONSEGUIR AYUDA.
   show if: requires_spanish_assistance
-
+continue button field: landing_page_visited
+prevent going back: True
+# uncomment below after removing requires_spanish_assistance section
+# field: landing_page_visited
+# prevent going back: True
 ---
 question: |
   ${get_translation('lookup_citation',lang)}
@@ -718,7 +729,7 @@ prevent going back: True
 ---
 mandatory: True
 code: |
-  requires_spanish_assistance
+  landing_page_visited
   county
   citation_number
   if not no_citation_number:
