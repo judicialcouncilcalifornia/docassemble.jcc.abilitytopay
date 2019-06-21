@@ -2,27 +2,33 @@
 
 [![Build Status](https://travis-ci.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay.svg?branch=master)](https://travis-ci.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay)
 
-## Local Development Installation
+## Local Development
+
+### Installation
 
 DocAssemble uses Docker for both local development and deployment. You can find the instructions to setup Docassemble using Docker here:
 
 https://docassemble.org/docs/docker.html#install
-## Configuration
 
-You can also set the following variables to enable exception emails:
+Once DocAssemble is running, visit the admin page at e.g. http://localhost:8080/updatepackage, create a user account, and install this repo as a package.
 
-    error notification email: <some email>
-    error notification variables: True
+### Building CSS from SASS
 
-This will send an email to the address specified when an error occurs.
+SASS is CSS with some extra syntax sugar that makes stylesheets easier to maintain. The stylesheets in this project are written in SASS in the [source/](source/) directory and compiled to CSS.
+
+Run
+
+    npm run build
+
+to compile the `.scss` files in [source/](source/) into `.css` files in [docassemble/jcc/abilitytopay/data/static/](docassemble/jcc/abilitytopay/data/static/).
 
 ## A2P API
 
 ### Overview
 
-The file `a2papi.py` contains all the logic to connect to the A2P backend. 
+[a2papi.py](docassemble/jcc/abilitytopay/data/a2papi.py) contains all the logic to connect to the A2P backend. 
 
-The first step is to acquire an OAuth access token - see below for configuration. We issue a request for a token in the `__do_request` method, and use that token for subsequent requests.
+The first step is to acquire an OAuth access token - see below for configuration. We issue a request for a token in each call to `__do_request`.
 
 Once we have the access token, we use one of the three main methods: 
 
@@ -42,6 +48,17 @@ The only required configuration is setting up the appropriate A2P API keys in th
       oauth_resource: <resource ID for backend>
       base_url: <API host for making requests to A2P backend>
       ad_url: <ActiveDirectory URL for getting oauth tokens>
+
+You'll also want to set the default interview:
+
+    default interview: docassemble.jcc.abilitytopay:data/questions/interview.yml
+
+You can also set the following variables to enable exception emails:
+
+    error notification email: <some email>
+    error notification variables: True
+
+This will send an email to the address specified when an error occurs.
 
 To setup email support (so that exception emails will actually send), make sure you have a properly configured SMTP server or provider like SendGrid and follow the steps here: https://docassemble.org/docs/config.html#mail
 
@@ -71,7 +88,7 @@ Log files on the container that you might wish to check include:
 
 ### Infrastructure
 
-The DA Ability to Pay instance currently runs on JCC Azure. The setup instructions are located in `infra/azure_notes.sh`.
+The DA Ability to Pay instance currently runs on JCC Azure. The setup instructions are located in [infra/README.md](infra/README.md).
 
 Since DA does not maintain tagged Docker releases, we maintain our own fork that we regularly update at `rdeshpande/docassemble`. Update the docker image by running:
 
