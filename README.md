@@ -26,7 +26,7 @@ to compile the `.scss` files in [source/](source/) into `.css` files in [docasse
 
 ### Overview
 
-[a2papi.py](docassemble/jcc/abilitytopay/data/a2papi.py) contains all the logic to connect to the A2P backend. 
+[a2papi.py](docassemble/jcc/abilitytopay/a2papi.py) contains all the logic to connect to the A2P backend. 
 
 The first step is to acquire an OAuth access token - see below for configuration. We issue a request for a token in each call to `__do_request`.
 
