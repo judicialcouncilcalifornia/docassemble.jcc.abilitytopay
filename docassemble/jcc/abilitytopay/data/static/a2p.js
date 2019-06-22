@@ -2,19 +2,29 @@ function prepareFileUpload() {
   console.log('Preparing custom file upload.');
   $('#daform').attr('enctype', 'multipart/form-data');
   $('#daform').attr('method', 'POST');
+
   let fileInputEl = $('.a2p-file-input');
   fileInputEl.on('change', function() {
     if (fileInputEl[0].files.length > 0) {
-        // Hide the file input without setting display: none
+        // Hide the upload complete message
+        $('.a2p-upload-complete').css('display', 'none');
+        
+        // Update the file upload button text
         $('.a2p-file-upload-label').text('Use a different photo');
-
-        // Show the upload complete message
-        // $('.a2p-upload-complete').css('display', 'flex');
 
         // Show the image preview
         $('.a2p-image-preview').css('display', 'block');
         $('.a2p-image-preview').attr('src', URL.createObjectURL(fileInputEl[0].files[0]));
     }
+  });
+
+  // If the image preview fails, e.g. because someone
+  // uploaded a PDF:
+  $('.a2p-image-preview').on('error', function() {
+    // Hide the image element
+    $('.a2p-image-preview').css('display', 'none');
+    // Show the upload complete message
+    $('.a2p-upload-complete').css('display', 'flex');
   });
 }
 
