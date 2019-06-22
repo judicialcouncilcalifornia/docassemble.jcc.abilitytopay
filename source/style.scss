@@ -691,7 +691,7 @@ a#dapagetitle, a#pagetitle {
 .a2p-image-preview {
   display: none;
   max-width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
 .a2p-upload-complete {
@@ -700,6 +700,7 @@ a#dapagetitle, a#pagetitle {
   font-family: Lora, serif;
   font-size: 18px;
   align-items: center;
+  margin-bottom: 1rem;
 
   .a2p-upload-complete-icon {
     font-size: 48px;
