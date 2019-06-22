@@ -1,3 +1,23 @@
+function prepareFileUpload() {
+  console.log('Preparing custom file upload.');
+  $('#daform').attr('enctype', 'multipart/form-data');
+  $('#daform').attr('method', 'POST');
+  let fileInputEl = $('.a2p-file-input');
+  fileInputEl.on('change', function() {
+    if (fileInputEl[0].files.length > 0) {
+        // Hide the file input without setting display: none
+        $('.a2p-file-upload-label').text('Use a different photo');
+
+        // Show the upload complete message
+        // $('.a2p-upload-complete').css('display', 'flex');
+
+        // Show the image preview
+        $('.a2p-image-preview').css('display', 'block');
+        $('.a2p-image-preview').attr('src', URL.createObjectURL(fileInputEl[0].files[0]));
+    }
+  });
+}
+
 // Uncomment below when we are ready to render a language dropdown in UAT.
 
 // function insertLanguageDropdown(active_lang) {

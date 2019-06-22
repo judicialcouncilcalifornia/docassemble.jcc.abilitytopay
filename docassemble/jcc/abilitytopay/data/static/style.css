@@ -8975,6 +8975,46 @@ a#dapagetitle, a#pagetitle {
   height: 40px;
 }
 
+.a2p-file-upload-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.a2p-file-upload-button input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.a2p-image-preview {
+  display: none;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.a2p-upload-complete {
+  display: none;
+  font-style: italic;
+  font-family: Lora, serif;
+  font-size: 18px;
+  align-items: center;
+}
+.a2p-upload-complete .a2p-upload-complete-icon {
+  font-size: 48px;
+  color: #2b9999;
+  margin-right: 10px;
+}
+
 .a2p-language-dropdown-container {
   position: absolute;
   right: 0px;
