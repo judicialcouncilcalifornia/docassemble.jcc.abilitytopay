@@ -8975,6 +8975,29 @@ a#dapagetitle, a#pagetitle {
   height: 40px;
 }
 
+.a2p-language-dropdown-container {
+  position: absolute;
+  right: 0px;
+  background: #B8C1CB;
+  border-radius: 4px;
+}
+.a2p-language-dropdown-container .a2p-language-dropdown-label {
+  color: black !important;
+  font-size: 14px;
+}
+.a2p-language-dropdown-container .a2p-language-dropdown-label-icon {
+  height: 22px;
+}
+.a2p-language-dropdown-container .a2p-language-dropdown-label-text {
+  display: none;
+}
+@media (min-width: 576px) {
+  .a2p-language-dropdown-container .a2p-language-dropdown-label-text {
+    display: inline;
+    margin-left: 6px;
+  }
+}
+
 body.question-landing-page {
   background-color: #13293E;
   background-size: 350px 350px;
