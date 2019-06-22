@@ -4,35 +4,31 @@
 //     var language_labels = {
 //         'en': 'English',
 //         'es': 'Español',
-//         'zh-s': '汉语',
-//         'zh-t': '漢語'
+//         'zh-s': '简体中文',
+//         'zh-t': '繁体中文'
 //     };
 //     var headerEl = $('.container.danavcontainer');
-//     var languageButtonsHTML = `
-//         <div class="a2p-dropdown-container">
-//             <div class="dropdown a2p-language-dropdown">
-//                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//                     ${language_labels[active_lang]}
-//                 </a>
-//                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-//                     <a class="dropdown-item" href="${url_action('language_button_clicked', { language: 'en'})}">${language_labels['en']}</a>
-//                     <a class="dropdown-item" href="${url_action('language_button_clicked', { language: 'es'})}">${language_labels['es']}</a>
-//                     <a class="dropdown-item" href="${url_action('language_button_clicked', { language: 'zh-s'})}">${language_labels['zh-s']}</a>
-//                     <a class="dropdown-item" href="${url_action('language_button_clicked', { language: 'zh-t'})}">${language_labels['zh-t']}</a>
-//                 </div>
-//             </div>
-//         </div>
-//     `;
+//     var languageButtonsHTML = '' +
+//         '<div class="a2p-language-dropdown-container">' +
+//             '<div class="dropdown a2p-language-dropdown">' +
+//                 '<a href="#" class="a2p-language-dropdown-label nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+//                     '<img class="a2p-language-dropdown-label-icon" src="/packagestatic/docassemble.jcc.abilitytopay/switch-language.png">' +
+//                     '<span class="a2p-language-dropdown-label-text">' + language_labels[active_lang] + '</span>' +
+//                 '</a>' +
+//                 '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">' +
+//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'en'}) + '">' + language_labels['en'] + '</a>' +
+//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'es'}) + '">' + language_labels['es'] + '</a>' +
+//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-s'}) + '">' + language_labels['zh-s'] + '</a>' +
+//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-t'}) + '">' + language_labels['zh-t'] + '</a>' +
+//                 '</div>' +
+//             '</div>' +
+//         '</div>';
 //     headerEl.append($(languageButtonsHTML));
 // }
 
 // $(document).on('daPageLoad', function() {
-//     get_interview_variables(function(data) {
-//         if (data.success) {
-//             let lang = data.variables['lang'];
-//             insertLanguageDropdown(lang);
-//         }
-//     });
+//     let lang = $('#a2p-python-var-lang').attr('data-value');
+//     insertLanguageDropdown(lang);
 // });
 
 // Temporary hack to restyle the image upload button for clarity.
