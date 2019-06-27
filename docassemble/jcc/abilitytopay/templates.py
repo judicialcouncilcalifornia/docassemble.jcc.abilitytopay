@@ -1,7 +1,7 @@
 from docassemble.base.util import encode_name
 import json
 
-def a2p_file_input_html(file_variable_name):
+def a2p_file_input(file_variable_name):
   return """
 <div class="a2p-file-upload-container">
   <div class="a2p-upload-complete"><span class="a2p-upload-complete-icon fas fa-check-circle"></span>Upload Complete</div>
