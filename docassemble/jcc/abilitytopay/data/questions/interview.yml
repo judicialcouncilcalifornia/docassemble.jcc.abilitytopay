@@ -3,6 +3,7 @@ modules:
 - docassemble.base.util
 - docassemble.jcc.abilitytopay.a2papi
 - docassemble.jcc.abilitytopay.translations
+- docassemble.jcc.abilitytopay.templates
 ---
 features:
   bootstrap theme: style.css
@@ -232,218 +233,219 @@ fields:
     variable: benefits['other']
     is: True
 ---
+sets: calfresh_proof
 question: |
   ${get_translation('proof_calfresh',lang)}
-#  ### Proof of CalFresh
+# Proof of CalFresh
 subquestion: |
-   ${get_translation('calfresh_upload',lang)}
-#   ### You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?
+  ${get_translation('calfresh_upload',lang)}
+  <p>${get_translation('calfresh_card',lang)}</p>
+  ${a2p_file_input('calfresh_proof')}
+# You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?
+# Calfresh Card
 fields:
-- ${get_translation('calfresh_card',lang)}: calfresh_proof
-#- Calfresh Card: calfresh_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: calfresh_no_proof
-#- "I don't have proof available": calfresh_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: calfresh_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": calfresh_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: calfresh_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: medi_cal_proof
 question: |
  ${get_translation('proof_of_medical',lang)}
-# ### Proof of Medi-Cal
+# Proof of Medi-Cal
 subquestion: |
  ${get_translation('upload_medical',lang)}
-# ## You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
+ <p>${get_translation('medi_cal_card',lang)}</p>
+ ${a2p_file_input('medi_cal_proof')}
+# You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
+# Medi-Cal Card
 fields:
-- ${get_translation('medi_cal_card',lang)}: medi_cal_proof
-#- Medi-Cal Card: medi_cal_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: medi_cal_no_proof
-#- "I don't have proof available": medi_cal_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: medi_cal_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": medi_cal_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: medi_cal_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: ssi_proof
 question: |
  ${get_translation('proof_of_ssi_title',lang)}
-# ### Proof of SSI
+# Proof of SSI
 subquestion: |
  ${get_translation('upload_ssi_document',lang)}
-# *You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?*
+ <p>${get_translation('proof_of_ssi',lang)}</p>
+ ${a2p_file_input('ssi_proof')}
+# You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of SSI
 fields:
-- ${get_translation('proof_of_ssi',lang)}: ssi_proof
-#- Proof of SSI: ssi_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: ssi_no_proof
-#- "I don't have proof available": ssi_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: ssi_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": ssi_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: ssi_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: ssp_proof
 question: |
   ${get_translation('proof_of_ssp',lang)}
-#  ### Proof of State Supplemental Payment
+# Proof of State Supplemental Payment
 subquestion: |
   ${get_translation('upload_ssp',lang)}
-#  *You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_ssp_abbrev',lang)}</p>
+  ${a2p_file_input('ssp_proof')}
+# You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of SSP
 fields:
-- ${get_translation('proof_of_ssp_abbrev',lang)}: ssp_proof
-#- Proof of SSP: ssp_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: ssp_no_proof
-#- "I don't have proof available": ssp_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: ssp_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": ssp_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: ssp_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: cr_ga_proof
 question: |
   ${get_translation('proof_of_gacr',lang)}
-#  ### Proof of General Assistance/County Relief
+# Proof of General Assistance/County Relief
 subquestion: |
   ${get_translation('upload_gacr',lang)}
-#  *You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_gacr_abbrev',lang)}</p>
+  ${a2p_file_input('cr_ga_proof')}
+# You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of GA/CR
 fields:
-- ${get_translation('proof_of_gacr_abbrev',lang)}: cr_ga_proof
-#- Proof of GA/CR: cr_ga_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: cr_ga_no_proof
-#- "I don't have proof available": cr_ga_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: cr_ga_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": cr_ga_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: cr_ga_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: ihss_proof
 question: |
   ${get_translation('proof_of_ihss',lang)}
-#  ### Proof of In Home Supportive Services
+# Proof of In Home Supportive Services
 subquestion: |
   ${get_translation('upload_ihss',lang)}
-#  *You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_ihss_abbrev',lang)}</p>
+  ${a2p_file_input('ihss_proof')}
+# You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of IHSS
 fields:
-- ${get_translation('proof_of_ihss_abbrev',lang)}: ihss_proof
-#- Proof of IHSS: ihss_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: ihss_no_proof
-#- "I don't have proof available": ihss_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: ihss_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": ihss_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: ihss_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: tanf_proof
 question: |
   ${get_translation('proof_of_tanf',lang)}
-#  ### Proof of TANF
+# Proof of TANF
 subquestion: |
   ${get_translation('upload_tanf',lang)}
-#  *You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_tanf_abbrev',lang)}</p>
+  ${a2p_file_input('tanf_proof')}
+# You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of TANF
 fields:
-- ${get_translation('proof_of_tanf_abbrev',lang)}: tanf_proof
-#- Proof of TANF: tanf_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: tanf_no_proof
-#- "I don't have proof available": tanf_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: tanf_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": tanf_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: tanf_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: wic_proof
 question: |
   ${get_translation('proof_of_wic',lang)}
-#  ### Proof of WIC
+# Proof of WIC
 subquestion: |
   ${get_translation('upload_wic',lang)}
-#  *You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_wic_abbrev',lang)}</p>
+  ${a2p_file_input('wic_proof')}
+# You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of WIC
 fields:
-- ${get_translation('proof_of_wic_abbrev',lang)}: wic_proof
-#- Proof of WIC: wic_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: wic_no_proof
-#- "I don't have proof available": wic_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: wic_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": wic_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: wic_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: cal_works_proof
 question: |
   ${get_translation('proof_of_calworks',lang)}
-#  ### Proof of CalWORKS
+# Proof of CalWORKS
 subquestion: |
   ${get_translation('upload_calworks',lang)}
-#  *You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_calworks_abbrev',lang)}</p>
+  ${a2p_file_input('cal_works_proof')}
+# You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of CalWORKS
 fields:
-- ${get_translation('proof_of_calworks_abbrev',lang)}: cal_works_proof
-#- Proof of CalWORKS: cal_works_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: cal_works_no_proof
-#- "I don't have proof available": cal_works_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: cal_works_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": cal_works_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: cal_works_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+sets: capi_proof
 question: |
   ${get_translation('proof_of_capi',lang)}
-#  ### Proof of CAPI
+# Proof of CAPI
 subquestion: |
   ${get_translation('upload_capi',lang)}
-#  *You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*
+  <p>${get_translation('proof_of_capi_abbrev',lang)}</p>
+  ${a2p_file_input('capi_proof')}
+# You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*
+# Proof of CAPI
 fields:
-- ${get_translation('proof_of_capi_abbrev',lang)}: capi_proof
-#- Proof of CAPI: capi_proof
-  datatype: file
-  required: false
 - ${get_translation('have_no_proof',lang)}: capi_no_proof
-#- "I don't have proof available": capi_no_proof
+# I don't have proof available
   datatype: yesno
 - ${get_translation('why_no_proof',lang)}: capi_no_proof_reason
-#- "Tell us why you can't provide documentation at this time": capi_no_proof_reason
+# Tell us why you can't provide documentation at this time
   show if: capi_no_proof
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
+field: other_benefit_screen_reached
+sets: other_benefit_picture
 question: |
   ${get_translation('proof_of',lang)} "${other_benefit_name}"
-#  ### Proof of "${other_benefit_name}"
+# Proof of "${other_benefit_name}"
 subquestion: |
   ${get_translation('said_receive',lang)} "${other_benefit_name}" ${get_translation('please_upload',lang)}
-#  ### You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
-fields:
-- ${get_translation('upload_picture',lang)}: other_benefit_picture
-#- "Upload picture": other_benefit_picture
-  datatype: file
+  <p>${get_translation('upload_picture',lang)}</p>
+  ${a2p_file_input('other_benefit_picture')}
+# You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
+# Upload picture
 script: |
-  <script>restyleImageUploadButton()</script>
+  <script>prepareFileUpload()</script>
 ---
 question: |
   ${get_translation('current_income',lang)}
