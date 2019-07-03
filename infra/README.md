@@ -67,6 +67,19 @@ On Windows, powershell needs to be installed separately.
 ssh azureuser@<public-ip-address>
 ```
 
+If you are not the installer, you may need to have the installer add your key:
+
+
+pico ~/.ssh/authorized_keys
+ 
+Add one key per line.
+
+(key example)
+https://github.com/bennlich.keys
+
+sudo systemctl restart ssh
+
+
 ### install docker
 
 See [https://docs.docker.com/install/linux/docker-ce/debian/](https://docs.docker.com/install/linux/docker-ce/debian/)
@@ -181,7 +194,7 @@ Watch everything get set up:
 sudo tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
 ```
 
-## Stopping Docker when you need to 
+## Stopping Docker when you need to
 
 To stop a docker instance:
 ```
