@@ -8975,7 +8975,12 @@ a#dapagetitle, a#pagetitle {
   height: 40px;
 }
 
+.a2p-file-upload-buttons {
+  display: flex;
+}
+
 .a2p-file-upload-button {
+  flex-grow: 1;
   position: relative;
   overflow: hidden;
 }
@@ -8994,6 +8999,11 @@ a#dapagetitle, a#pagetitle {
   background: white;
   cursor: inherit;
   display: block;
+}
+
+.a2p-file-remove-button {
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .a2p-image-preview {

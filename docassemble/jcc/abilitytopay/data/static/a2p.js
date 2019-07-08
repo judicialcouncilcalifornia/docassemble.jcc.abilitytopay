@@ -4,27 +4,70 @@ function prepareFileUpload() {
   $('#daform').attr('method', 'POST');
 
   let fileInputEl = $('.a2p-file-input');
-  fileInputEl.on('change', function() {
-    if (fileInputEl[0].files.length > 0) {
-        // Hide the upload complete message
-        $('.a2p-upload-complete').css('display', 'none');
-        
-        // Update the file upload button text
-        $('.a2p-file-upload-label').text('Use a different photo');
+  let imagePreviewFailed = false;
 
-        // Show the image preview
-        $('.a2p-image-preview').css('display', 'block');
-        $('.a2p-image-preview').attr('src', URL.createObjectURL(fileInputEl[0].files[0]));
+  var renderAll = function() {
+    var state = { files: fileInputEl[0].files, imagePreviewFailed: imagePreviewFailed };
+    renderUploadComplete(state);
+    renderImagePreview(state);
+    renderRemoveButton(state);
+    renderUploadButton(state);
+  };
+
+  var renderUploadComplete = function(state) {
+    if (state.imagePreviewFailed) {
+      $('.a2p-upload-complete').css('display', 'flex');
+    } else {
+      $('.a2p-upload-complete').css('display', 'none');
     }
+  };
+
+  var renderImagePreview = function(state) {
+    if (state.imagePreviewFailed) {
+      $('.a2p-image-preview').css('display', 'none');
+      $('.a2p-image-preview').removeAttr('src');
+    } else if (state.files.length > 0) {
+      $('.a2p-image-preview').css('display', 'block');
+      $('.a2p-image-preview').attr('src', URL.createObjectURL(state.files[0]));
+    } else {
+      $('.a2p-image-preview').css('display', 'none');
+      $('.a2p-image-preview').removeAttr('src');
+    }
+  };
+
+  var renderRemoveButton = function(state) {
+    if (state.files.length > 0) {
+      $('.a2p-file-remove-button').css('display', 'block');
+    } else {
+      $('.a2p-file-remove-button').css('display', 'none');
+    }
+  };
+
+  var renderUploadButton = function(state) {
+    if (state.files.length > 0) {
+      $('.a2p-file-upload-label').text('Use a different photo');
+    } else {
+      $('.a2p-file-upload-label').text('Add a photo');
+    }
+  };
+
+  $('.a2p-file-remove-button').on('click', function() {
+    imagePreviewFailed = false;
+    // Clear the uploaded files
+    fileInputEl[0].value = '';
+    renderAll();
+  });
+
+  fileInputEl.on('change', function() {
+    imagePreviewFailed = false;
+    renderAll();
   });
 
   // If the image preview fails, e.g. because someone
   // uploaded a PDF:
   $('.a2p-image-preview').on('error', function() {
-    // Hide the image element
-    $('.a2p-image-preview').css('display', 'none');
-    // Show the upload complete message
-    $('.a2p-upload-complete').css('display', 'flex');
+    imagePreviewFailed = true;
+    renderAll();
   });
 }
 
