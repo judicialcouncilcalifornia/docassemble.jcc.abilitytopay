@@ -1,0 +1,13 @@
+{
+  "name": "docassemble.jcc.abilitytopay",
+  "version": "0.0.0",
+  "description": "## Local Development Installation",
+  "devDependencies": {
+    "bootstrap": "4.1.3",
+    "sass": "1.17.3"
+  },
+  "scripts": {
+    "test": "yamllint docassemble/jcc/abilitytopay/data/questions",
+    "build": "npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css"
+  }
+}

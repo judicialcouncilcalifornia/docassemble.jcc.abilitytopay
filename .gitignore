@@ -1,7 +1,4 @@
 node_modules
-package-lock.json
-package.json
-yarn.lock
 .DS_Store
 tmp/
 venv
