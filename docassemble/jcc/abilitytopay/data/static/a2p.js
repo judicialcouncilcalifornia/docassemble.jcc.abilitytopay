@@ -3,8 +3,8 @@ function prepareFileUpload() {
   $('#daform').attr('enctype', 'multipart/form-data');
   $('#daform').attr('method', 'POST');
 
-  let fileInputEl = $('.a2p-file-input');
-  let imagePreviewFailed = false;
+  var fileInputEl = $('.a2p-file-input');
+  var imagePreviewFailed = false;
 
   var renderAll = function() {
     var state = { files: fileInputEl[0].files, imagePreviewFailed: imagePreviewFailed };
