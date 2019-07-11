@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-_translations = {
+translations = {
   "req_fine_reduction": {
     "en":"###Request a Fine Reduction",
     "es":"###Cómo solicitar una reducción de multa"
@@ -1237,4 +1237,4 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 }
 
 def get_translation(key, lang):
-  return _translations[key][lang]
+  return translations[key][lang]
