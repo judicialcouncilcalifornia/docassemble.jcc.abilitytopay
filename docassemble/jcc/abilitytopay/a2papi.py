@@ -12,6 +12,39 @@ from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
 
 
+def fetch_case_data_from_citation(citation_number, county):
+    try:
+        # fetch citation data
+        citation_response = fetch_citation_data(citation_number, county)
+        citation = citation_response['data']
+    except Exception as e:
+        return __error_response(e)        
+
+    try:
+        # pull info out of citation result
+        first_name = citation.get('firstName')
+        last_name = citation.get('lastName')
+        dob = date_from_iso8601(citation.get('dateOfBirth'))
+        drivers_license = citation.get('driversLicense')
+        county = citation.get('county')
+        
+        # fetch case data
+        case_data = fetch_case_data(first_name, last_name, dob, drivers_license, county)
+        return case_data
+    except Exception as e:
+        # TODO: Send e-mail notification to dev team
+        log("Error fetching case data from citation result: %s" % e)
+
+        # If unable to fetch case data from the citation,
+        # return a case containing only the original citation.
+
+        # TODO: Use CaseResult and CitationResult classes to clarify the
+        # data shapes expected by the frontend
+        case_result = citation_response
+        case_result['data'] = [citation]
+        return case_result
+
+
 def fetch_citation_data(citation_number, county):
     try:
         citation_params = {
