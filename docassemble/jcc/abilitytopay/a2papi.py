@@ -33,7 +33,7 @@ def fetch_citation_data(citation_number, county):
             citation['eligible'] = __is_citation_eligible(citation)
         return res
     except Exception as e:
-        return __default_response(e)
+        return __error_response(e)
 
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
@@ -57,7 +57,7 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
                 res['data'] = None
         return res
     except Exception as e:
-        return __default_response(e)
+        return __error_response(e)
 
 
 def submit_interview(data, attachments=[], debug=False):
@@ -70,7 +70,7 @@ def submit_interview(data, attachments=[], debug=False):
         else:
             return __format_response(res)
     except Exception as e:
-        return __default_response(e)
+        return __error_response(e)
 
 
 def date_from_iso8601(date_string):
@@ -332,7 +332,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
     return request_params
 
 
-def __default_response(exception):
+def __error_response(exception):
     log("Error trying to communicate with A2P API: %s" % exception)
     return {
         'data': None,
