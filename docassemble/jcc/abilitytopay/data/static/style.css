@@ -9029,11 +9029,8 @@ a#dapagetitle, a#pagetitle {
 .a2p-language-dropdown-container {
   position: absolute;
   right: 0px;
-  background: #B8C1CB;
-  border-radius: 4px;
 }
 .a2p-language-dropdown-container .a2p-language-dropdown-label {
-  color: black !important;
   font-size: 14px;
 }
 .a2p-language-dropdown-container .a2p-language-dropdown-label-icon {
