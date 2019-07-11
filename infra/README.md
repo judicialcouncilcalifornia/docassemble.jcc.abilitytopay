@@ -71,7 +71,7 @@ If you are not the installer, you may need to have the installer add your key:
 
 
 pico ~/.ssh/authorized_keys
- 
+
 Add one key per line.
 
 (key example)
@@ -191,7 +191,7 @@ sudo docker exec -t -i <image-id> /bin/bash
 
 Watch everything get set up:
 ```
-sudo tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
+tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
 ```
 
 ## Stopping Docker when you need to
