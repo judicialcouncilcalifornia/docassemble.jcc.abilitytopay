@@ -1,5 +1,7 @@
-from docassemble.base.util import encode_name
 import json
+from docassemble.base.util import encode_name
+from a2putil import format_money
+from translations import get_translation
 
 def a2p_file_input(file_variable_name):
   return """
@@ -18,4 +20,29 @@ def a2p_file_input(file_variable_name):
 """.format(
   encoded_variable_name=encode_name(file_variable_name),
   encoded_list=encode_name(json.dumps([encode_name(file_variable_name)]))
+)
+
+def citation_info_card(case):
+  return """
+<div class='info-card'>
+  <h4>{citationNumber}</h4>
+  <dl>
+    <dt>{name_label}</dt><dd>{name}</dd>
+    <dt>{citation_number_label}</dt><dd>{citationNumber}</dd>
+    <dt>{county_label}</dt><dd>{county}</dd>
+    <dt>{violation_date_label}</dt><dd>{violationDate}</dd>
+    <dt>{total_due_label}</dt><dd>{totalDue}</dd>
+  </dl>
+</div>
+""".format(
+  name_label=get_translation('name', lang),
+  citation_number_label=get_translation('citation_number', lang),
+  county_label=get_translation('county', lang),
+  violation_date_label=get_translation('violation_date', lang),
+  total_due_label=get_translation('total_due', lang),
+  name=case['firstName'] + " " + case['lastName'],
+  county=case['county'],
+  citationNumber=case['citationNumber'],
+  violationDate=date_from_iso8601(case['charges'][0]['violationDate']),
+  totalDue=format_money(case['totalDueAmt'])
 )
