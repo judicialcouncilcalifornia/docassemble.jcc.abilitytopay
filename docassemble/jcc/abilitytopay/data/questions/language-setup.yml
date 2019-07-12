@@ -1,0 +1,20 @@
+comment: |
+  Default value for lang. This block is only run once.
+mandatory: True
+code: |
+  lang = 'en'
+---
+comment: |
+  This is how you pass variables from python-land to javascript-land. You attach
+  the value you want to pass to an attribute on a hidden DOM element. We use this
+  to render the currently selected language in the language dropdown. See a2p.js.
+default screen parts:
+  under: |
+    <div class="d-none" id="a2p-python-var-lang" data-value="${lang}"></div>
+---
+comment: |
+  The event that is triggered when one of the language buttons is clicked.
+event: language_button_clicked
+code: |
+  lang = action_argument('language')
+  set_save_status('overwrite')
