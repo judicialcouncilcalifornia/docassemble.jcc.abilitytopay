@@ -3,48 +3,6 @@ comment: |
 objects:
   - citation_pleas: DADict.using(auto_gather=False)
 ---
-comment: |
-  This code block indicates that citation_pleas should be considered "gathered" when
-  it contains values for all unadjudicated citations. This is weird docassemble semantics.
-  Docassemble searches for a block that defines citation_pleas.gathered. It finds this one
-  and tries to execute it. In order to get all the way to the `citation_pleas.gathered = True` statement,
-  it first has to find values for citation_pleas[citation_number] for all unadjudicated citation numbers.
-code: |
-  for (citation_number, citation) in case_lookup_results.iteritems():
-    if not citation['adjudicated']:
-      citation_pleas[citation_number]
-  citation_pleas.gathered = True
----
-id: make-your-plea
-question: |
-  ${get_translation('make_plea',lang)}
-# Make your Plea
-progress: 75
-subquestion: |
-  ${citation_info_card(case_lookup_results[i])}
-
-  ${get_translation('plea_instructions',lang)}
-#
-# By pleading you will be giving up the following rights:
-#
-# * To be represented by an attorney employed by you;
-# * To have a speedy and public trial in front of a judge;
-# * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
-# * To have the witnesses against you testify under oath in court, and to question such witnesses;
-# * To remain silent and not testify and not incriminate yourself.
-fields:
-- ${get_translation('Make_plea_choice',lang)}: citation_pleas[i]
-# Make a choice between pleading Guilty or No Contest. A no contest plea is a way of saying, 'I don’t believe I did all that the officer charges, but I admit violating the law.'
-  datatype: radio
-  choices:
-  - ${get_translation('no_content_plea',lang)}: agree_no_contest
-# No Contest Plea. I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.
-  - ${get_translation('guilty_plea',lang)}: agree_guilty
-#  Guilty Plea. I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.
-under: |
-  ${get_translation('admit_responsibility',lang)}
-#  Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
----
 id: landing-page
 question: |
   ${get_translation('req_fine_reduction',lang)}
@@ -117,12 +75,13 @@ code: |
   else:
     response = fetch_case_data_from_citation(citation_number, county)
   if response['data']:
-      case_lookup_results = []
-      for case in response['data']:
-          case_lookup_results.append({ case['citationNumber']: citation_info_card(case) })
+      case_lookup_results = [
+        { case['citationNumber']: citation_info_card(case) }
+        for case in response['data']
+      ]
   else:
     log(get_translation('check_information',lang), 'danger')
-    #log('Check the information you entered. Try again.', 'danger')
+    # Check the information you entered. Try again.
     reconsider('completed_citation_form')
 ---
 # ---
@@ -144,11 +103,11 @@ code: |
 # ---
 id: choose-citation-from-list
 question: ${get_translation('which_is_your_citation',lang)}
-#question: Which of the following is your citation?
+# Which of the following is your citation?
 fields:
-- ${get_translation('select_citation',lang)}: selected_case
-#- "Select the citation from the list below.": selected_case
-  input type: radio
+- ${get_translation('select_citation',lang)}: selected_citation_numbers
+# Select the citation from the list below.
+  datatype: checkboxes
   code: |
     case_lookup_results
 ---
@@ -551,6 +510,52 @@ fields:
     ${get_translation('administrative_fees',lang)}
 #    Note: Your court may charge administrative fees for setting up a payment plan or community service work plan.
 ---
+comment: |
+  This code block indicates that citation_pleas should be considered "gathered" when
+  it contains values for all unadjudicated citations. This is weird docassemble semantics.
+  Docassemble searches for a block that defines citation_pleas.gathered. It finds this one
+  and tries to execute it. In order to get all the way to the `citation_pleas.gathered = True` statement,
+  it first has to find values for citation_pleas[citation_number] for all unadjudicated citation numbers.
+code: |
+  selected_citations = [
+    all_citations[citation_number]
+    for citation_number in selected_citation_numbers.true_values()
+  ]
+  for citation in selected_citations:
+    if not citation.get('adjudicated'):
+      citation_pleas[citation['citationNumber']]
+  citation_pleas.gathered = True
+---
+id: make-your-plea
+question: |
+  ${get_translation('make_plea',lang)}
+# Make your Plea
+progress: 75
+subquestion: |
+  ${citation_info_card(all_citations[i])}
+
+  ${get_translation('plea_instructions',lang)}
+#
+# By pleading you will be giving up the following rights:
+#
+# * To be represented by an attorney employed by you;
+# * To have a speedy and public trial in front of a judge;
+# * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
+# * To have the witnesses against you testify under oath in court, and to question such witnesses;
+# * To remain silent and not testify and not incriminate yourself.
+fields:
+- ${get_translation('Make_plea_choice',lang)}: citation_pleas[i]
+# Make a choice between pleading Guilty or No Contest. A no contest plea is a way of saying, 'I don’t believe I did all that the officer charges, but I admit violating the law.'
+  datatype: radio
+  choices:
+  - ${get_translation('no_content_plea',lang)}: agree_no_contest
+# No Contest Plea. I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.
+  - ${get_translation('guilty_plea',lang)}: agree_guilty
+#  Guilty Plea. I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.
+under: |
+  ${get_translation('admit_responsibility',lang)}
+#  Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
+---
 id: feedback-questions
 question: |
   ${get_translation('optional_questions',lang)}
@@ -695,3 +700,87 @@ subquestion: |
 buttons:
 - ${get_translation('restart',lang)}: restart
 prevent going back: True
+---
+mandatory: True
+code: |
+  landing_page_visited
+  county
+  citation_number
+  # if not no_citation_number:
+  #   verify_citation
+  #   if verify_citation == "name_lookup":
+  #     selected_case
+  #     case_lookup_results
+  # if no_citation_number:
+  #   selected_case
+  #   case_lookup_results
+  selected_citation_numbers
+  case_lookup_results
+  how_work
+  benefits
+
+  attachment_urls = []
+  if benefits["cal_fresh"]:
+    calfresh_proof
+    if calfresh_proof:
+      attachment_urls.append(("CalFresh", calfresh_proof.url_for()))
+  if benefits["medi_cal"]:
+    medi_cal_proof
+    if medi_cal_proof:
+      attachment_urls.append(("MediCal", medi_cal_proof.url_for()))
+  if benefits["ssi"]:
+    ssi_proof
+    if ssi_proof:
+      attachment_urls.append(("SSI", ssi_proof.url_for()))
+  # Hide WIC for now until backend supports WIC. Can enable WIC by uncommenting lines below and in above Public Benefits question.
+  #if benefits["wic"]:
+  #  wic_proof
+  #  if wic_proof:
+  #    attachment_urls.append(("wic", wic_proof.url_for()))
+  if benefits["ssp"]:
+    ssp_proof
+    if ssp_proof:
+      attachment_urls.append(("SSP", ssp_proof.url_for()))
+  if benefits["cr_ga"]:
+    cr_ga_proof
+    if cr_ga_proof:
+      attachment_urls.append(("CRGA", cr_ga_proof.url_for()))
+  if benefits["ihss"]:
+    ihss_proof
+    if ihss_proof:
+      attachment_urls.append(("IHSS", ihss_proof.url_for()))
+  if benefits["cal_works"]:
+    cal_works_proof
+    if cal_works_proof:
+      attachment_urls.append(("CalWorks", cal_works_proof.url_for()))
+  if benefits["tanf"]:
+    tanf_proof
+    if tanf_proof:
+      attachment_urls.append(("TANF", tanf_proof.url_for()))
+  if benefits["capi"]:
+    capi_proof
+    if capi_proof:
+      attachment_urls.append(("CAPI", capi_proof.url_for()))
+  if benefits['other']:
+    other_benefit_picture
+    if other_benefit_picture:
+      attachment_urls.append(("Other", other_benefit_picture.url_for()))
+  income
+  residents
+  monthly_rent
+  mortgage
+  utilities
+  phone_bill
+  food
+  insurance
+  clothing
+  child_spousal_support
+  transportation
+  additional_requests
+  citation_pleas
+  tool_helpful
+  email_address
+  submission_signature
+  ready_to_submit
+  submission_success
+  all_done
