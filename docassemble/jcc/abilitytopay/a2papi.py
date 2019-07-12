@@ -5,10 +5,10 @@ import json
 import re
 import time
 import requests
-from a2putil import date_from_iso8601, format_money
 from azure.storage.blob import BlockBlobService
-
 from docassemble.base.util import *
+from .a2putil import date_from_iso8601, format_money
+
 
 
 def fetch_case_data_from_citation(citation_number, county):
