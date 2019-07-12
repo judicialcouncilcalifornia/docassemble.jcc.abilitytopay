@@ -4,9 +4,8 @@ import hashlib
 import json
 import re
 import time
-
-import dateutil.parser
 import requests
+from a2putil import date_from_iso8601, format_money
 from azure.storage.blob import BlockBlobService
 
 from docassemble.base.util import *
@@ -104,14 +103,6 @@ def submit_interview(data, attachments=[], debug=False):
             return __format_response(res)
     except Exception as e:
         return __error_response(e)
-
-
-def date_from_iso8601(date_string):
-    return dateutil.parser.parse(date_string).date()
-
-
-def format_money(money_string):
-    return '${:,.2f}'.format(money_string)
 
 
 def __format_response(response, request_body=None):
