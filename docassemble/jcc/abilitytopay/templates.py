@@ -1,6 +1,6 @@
 import json
 from docassemble.base.util import encode_name
-from .a2putil import format_money
+from .a2putil import format_money, date_from_iso8601
 from .translations import get_translation
 
 def a2p_file_input(file_variable_name):

@@ -1,7 +1,6 @@
 modules:
 - docassemble.base.util
 - docassemble.jcc.abilitytopay.a2papi
-- docassemble.jcc.abilitytopay.a2putil
 - docassemble.jcc.abilitytopay.translations
 - docassemble.jcc.abilitytopay.templates
 ---
