@@ -76,7 +76,7 @@ code: |
     response = fetch_case_data_from_citation(citation_number, county)
   if response['data']:
       case_lookup_results = [
-        { case['citationNumber']: citation_info_card(case) }
+        { case['citationNumber']: citation_info_card(case, lang) }
         for case in response['data']
       ]
   else:
@@ -532,7 +532,7 @@ question: |
 # Make your Plea
 progress: 75
 subquestion: |
-  ${citation_info_card(all_citations[i])}
+  ${citation_info_card(all_citations, lang[i], lang)}
 
   ${get_translation('plea_instructions',lang)}
 #

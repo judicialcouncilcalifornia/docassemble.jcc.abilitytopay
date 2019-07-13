@@ -22,7 +22,7 @@ def a2p_file_input(file_variable_name):
   encoded_list=encode_name(json.dumps([encode_name(file_variable_name)]))
 )
 
-def citation_info_card(case):
+def citation_info_card(case, lang):
   return """
 <div class='info-card'>
   <h4>{citationNumber}</h4>
