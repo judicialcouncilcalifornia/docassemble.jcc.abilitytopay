@@ -221,10 +221,11 @@ a2p:
   blob_account_name:
 ```
 
-4) update config.yml default interview (delete existing entry):
+4) update config.yml `default interview` (delete existing entry) and add `interview delete days`:
 
 ```
 default interview: docassemble.jcc.abilitytopay:data/questions/interview.yml
+interview delete days: 1
 ```
 
 ## Verify everything works

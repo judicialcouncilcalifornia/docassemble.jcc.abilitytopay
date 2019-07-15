@@ -119,7 +119,7 @@ def __do_request(url, params):
         'client_secret': a2p_config()["client_secret"],
         'scope': 'openid ' + resource
     }
-    r = requests.post(a2p_config()["ad_url"], oauth_params)
+    r = requests.post(a2p_config()["ad_url"], oauth_params, timeout=10)
     data = r.json()
     if 'access_token' not in data:
         __log_response("could not get access token", r)
@@ -127,7 +127,7 @@ def __do_request(url, params):
     access_token = data['access_token']
 
     headers = {'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json'}
-    res = requests.post(url, data=None, json=params, headers=headers)
+    res = requests.post(url, data=None, json=params, headers=headers, timeout=30)
     __log_response("a2p api request", res)
     return res
 
