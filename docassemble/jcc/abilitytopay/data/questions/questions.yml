@@ -784,7 +784,11 @@ code: |
   child_spousal_support
   transportation
   additional_requests
-  citation_pleas
+  
+  # Trigger gathering on the citation_pleas DADict object.
+  # See: https://docassemble.org/docs/groups.html#manual
+  citation_pleas.gathered
+  
   tool_helpful
   email_address
   submission_signature
