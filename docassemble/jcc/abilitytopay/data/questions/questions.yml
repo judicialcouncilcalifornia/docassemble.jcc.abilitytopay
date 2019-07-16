@@ -75,10 +75,10 @@ code: |
   else:
     response = fetch_case_data_from_citation(citation_number, county)
   if response['data']:
-      case_lookup_results = [
-        { case['citationNumber']: citation_info_card(case, lang) }
-        for case in response['data']
-      ]
+      all_citations = {
+        case['citationNumber']: case
+        for case in response['data'] 
+      }
   else:
     log(get_translation('check_information',lang), 'danger')
     # Check the information you entered. Try again.
@@ -102,6 +102,10 @@ code: |
 #           reconsider('completed_citation_form')
 # ---
 id: choose-citation-from-list
+comment: |
+  The code block below describes a list of { key: value } pairs where
+  each key is a citation number and each value is the HTML
+  rendering of the corresponding citation.
 question: ${get_translation('which_is_your_citation',lang)}
 # Which of the following is your citation?
 fields:
@@ -109,7 +113,10 @@ fields:
 # Select the citation from the list below.
   datatype: checkboxes
   code: |
-    case_lookup_results
+    [
+      { case['citationNumber']: citation_info_card(case, lang) }
+      for case in all_citations.values()
+    ]
 ---
 code: |
   case_information = fetch_citation_data(selected_case, county)['data']
@@ -714,8 +721,8 @@ code: |
   # if no_citation_number:
   #   selected_case
   #   case_lookup_results
+  all_citations
   selected_citation_numbers
-  case_lookup_results
   how_work
   benefits
 
