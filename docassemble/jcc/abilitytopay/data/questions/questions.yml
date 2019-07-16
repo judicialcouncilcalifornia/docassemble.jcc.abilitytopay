@@ -539,7 +539,7 @@ question: |
 # Make your Plea
 progress: 75
 subquestion: |
-  ${citation_info_card(all_citations, lang[i], lang)}
+  ${citation_info_card(all_citations[i], lang)}
 
   ${get_translation('plea_instructions',lang)}
 #
