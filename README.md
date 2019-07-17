@@ -22,6 +22,27 @@ Run
 
 to compile the `.scss` files in [source/](source/) into `.css` files in [docassemble/jcc/abilitytopay/data/static/](docassemble/jcc/abilitytopay/data/static/).
 
+### Versioning
+
+See [write_version.py](write_version.py) and the version scripts in [package.json](package.json). Use the npm version commands to bump the version. E.g.:
+
+```
+npm version minor
+```
+
+This will:
+- bump the version in package.json and package-lock.json
+- write the new version to [version.js](docassemble/jcc/abilitytopay/data/static/version.js) (which gets loaded by the webapp)
+- commit the above 2 changes and tag the commit with the new version number
+
+At this point, if you made a mistake, you can `git reset HEAD~1 --hard` to undo the version commit.
+
+If you did everything right, push the version commit and tag:
+
+```
+git push && git push --tags
+```
+
 ## A2P API
 
 ### Overview
