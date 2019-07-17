@@ -235,3 +235,7 @@ Visit `<public-ip-address>`, ignore the cert warning, and you should see the abi
 Visit the domain name you set up and you should see the ability to pay intro screen with working SSL certificate.
 
 Complete an interview and you should see the petition show up in the clerk's module.
+
+## If you need to resize the VM hard disk
+
+See http://linuxonazure.azurewebsites.net/how-to-resize-linux-osdisk-partition-on-azure/
