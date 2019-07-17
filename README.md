@@ -12,6 +12,12 @@ https://docassemble.org/docs/docker.html#install
 
 Once DocAssemble is running, visit the admin page at e.g. http://localhost:8080/updatepackage, create a user account, and install this repo as a package.
 
+### Install development dependencies
+
+```
+npm install --only=dev
+```
+
 ### Building CSS from SASS
 
 SASS is CSS with some extra syntax sugar that makes stylesheets easier to maintain. The stylesheets in this project are written in SASS in the [source/](source/) directory and compiled to CSS.
