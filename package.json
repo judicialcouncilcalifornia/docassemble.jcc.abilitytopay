@@ -9,7 +9,6 @@
   "scripts": {
     "test": "yamllint docassemble/jcc/abilitytopay/data/questions",
     "build": "npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css",
-    "version": "python write_version.py $npm_package_version && git add $PWD/docassemble/jcc/abilitytopay/data/static/version.js",
-    "postversion": "git push && git push --tags"
+    "version": "python write_version.py $npm_package_version && git add $PWD/docassemble/jcc/abilitytopay/data/static/version.js"
   }
 }
