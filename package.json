@@ -1,6 +1,6 @@
 {
   "name": "docassemble.jcc.abilitytopay",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "## Local Development Installation",
   "devDependencies": {
     "bootstrap": "4.1.3",
