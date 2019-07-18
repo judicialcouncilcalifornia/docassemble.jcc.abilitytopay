@@ -24,7 +24,9 @@ SASS is CSS with some extra syntax sugar that makes stylesheets easier to mainta
 
 Run
 
-    npm run build
+```
+npm run build
+```
 
 to compile the `.scss` files in [source/](source/) into `.css` files in [docassemble/jcc/abilitytopay/data/static/](docassemble/jcc/abilitytopay/data/static/).
 
@@ -41,7 +43,7 @@ This will:
 - write the new version to [version.js](docassemble/jcc/abilitytopay/data/static/version.js) (which gets loaded by the webapp)
 - commit the above 2 changes and tag the commit with the new version number
 
-At this point, if you made a mistake, you can `git reset HEAD~1 --hard` to undo the version commit.
+At this point, if you made a mistake, you can `git tag -d <version-number-goes-here>` (e.g. `git tag -d v1.0.2`) to delete the version tag and `git reset HEAD~1 --hard` to undo the version commit.
 
 If you did everything right, push the version commit and tag:
 
