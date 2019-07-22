@@ -5,14 +5,11 @@
   "devDependencies": {
     "bootstrap": "4.1.3",
     "cross-var": "^1.1.0",
-    "npm-run-all": "^4.1.5",
     "sass": "1.17.3"
   },
   "scripts": {
     "test": "yamllint docassemble/jcc/abilitytopay/data/questions",
     "build": "npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css",
-    "version": "npm-run-all version:write version:add",
-    "version:write": "cross-var python write_version.py $npm_package_version",
-    "version:add": "cross-var git add $PWD/docassemble/jcc/abilitytopay/data/static/version.js"
+    "version": "cross-var python write_version.py $npm_package_version && git add docassemble/jcc/abilitytopay/data/static/version.js"
   }
 }
