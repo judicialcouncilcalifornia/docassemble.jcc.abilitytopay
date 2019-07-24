@@ -15,9 +15,19 @@ def fetch_case_data_from_citation(citation_number, county):
     try:
         # fetch citation data
         citation_response = fetch_citation_data(citation_number, county)
-        citation = citation_response['data']
+        num_citations = len(citation_response.data)
+        if num_citations == 1:
+            # Perfect. We received exactly one citation.
+            citation = citation_response.data[0]
+        if num_citations > 1:
+            # No good. We received multiple citations, but we only wanted one. Need to
+            # direct user to provide more info to disambiguate.
+            return ErrorResult('too-many-results')
+        elif num_citations == 0:
+            # No citations matched this citation number.
+            return SuccessResult(None)
     except Exception as e:
-        return __error_response(e)        
+        return ErrorResult(e)        
 
     try:
         # pull info out of citation result
@@ -34,14 +44,18 @@ def fetch_case_data_from_citation(citation_number, county):
         # TODO: Send e-mail notification to dev team
         log("Error fetching case data from citation result: %s" % e)
 
-        # If unable to fetch case data from the citation,
-        # return a case containing only the original citation.
+        try:
+            # If unable to fetch case data from the citation,
+            # return a case containing only the original citation (if eligible).
+            if __is_citation_eligible(citation):
+                return SuccessResult([citation])
+            else:
+                return SuccessResult(None)
 
-        # TODO: Use CaseResult and CitationResult classes to clarify the
-        # data shapes expected by the frontend
-        case_result = citation_response
-        case_result['data'] = [citation]
-        return case_result
+            # TODO: Use CaseResult and CitationResult classes to clarify the
+            # data shapes expected by the frontend
+        except Exception as e:
+            return ErrorResult(e)
 
 
 def fetch_citation_data(citation_number, county):
@@ -51,21 +65,21 @@ def fetch_citation_data(citation_number, county):
             'county': county
         }
         res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
-        res = __format_response(res)
+        res = APIResult.from_http_response(res)
 
-        if res['data'] is None:
+        if res.data is None:
             return res
 
         # Old API returns a single dict. Wrap it in a list to make it
         # look like the new API. Delete this hunk once new API is deployed and tested.
-        if type(res['data']) is dict:
-            res['data'] = [res['data']]
+        if type(res.data) is dict:
+            res.data = [res.data]
 
-        for citation in res['data']:
+        for citation in res.data:
             citation['eligible'] = __is_citation_eligible(citation)
         return res
     except Exception as e:
-        return __error_response(e)
+        return ErrorResult(e)
 
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
@@ -78,54 +92,77 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
             'county': county
         }
         res = __do_request(a2p_config()['case_lookup_url'], case_params)
-        res = __format_response(res)
+        res = APIResult.from_http_response(res)
 
         # Only return eligible citations. TODO: Move this logic somewhere else.
-        if res['data'] is not None:
-            eligible_citations = [citation for citation in res['data'] if __is_citation_eligible(citation)]
+        if res.data is not None:
+            eligible_citations = [citation for citation in res.data if __is_citation_eligible(citation)]
             if len(eligible_citations) > 0:
-                res['data'] = eligible_citations
+                res.data = eligible_citations
             else:
-                res['data'] = None
+                res.data = None
         return res
     except Exception as e:
-        return __error_response(e)
+        return ErrorResult(e)
 
 
-def submit_interview(data, attachments=[], debug=False):
+def submit_all_citations(data, attachments=[]):
+    try:
+        # Upload all attachments to blob storage
+        benefit_files_data = __upload_images(attachments)
+        
+        # Submit petition requests one at a time
+        submission_results = {}
+        for citation in data['selected_citations']:
+            petitioner_payload = __complete_payload(data, benefit_files_data, citation)
+            try:
+                submission_results[citation_number] = __do_request(a2p_config()['submit_url'], petitioner_payload)
+            except Exception as e:
+                submission_results[citation_number] = ErrorResult(e)
+        return SuccessResult(submission_results)
+    except Exception as e:
+        return ErrorResult(e)
+
+
+def submit_interview(data, attachments=[]):
     try:
         params = __build_submit_payload_and_upload_images(data, attachments)
         res = __do_request(a2p_config()['submit_url'], params)
-
-        if debug:
-            return __format_response(res, params)
-        else:
-            return __format_response(res)
+        return APIResult.from_http_response(res)
     except Exception as e:
-        return __error_response(e)
+        return ErrorResult(e)
 
 
-def __format_response(response, request_body=None):
-    response_data = {}
-    response_data['response_code'] = response.status_code
-    response_data['data'] = response.json()
+class APIResult():
+    def __init__(self, success, data, error):
+        self.success = success
+        self.data = data
+        self.error = error
 
-    # Protect against server response of empty hash
-    if response_data['data'] == [{}] or response_data['data'] == {}:
-        response_data['data'] = None
+    def from_api_response(response):
+        data = response.json()
 
-    if response.ok:
-        response_data['success'] = True
-        response_data['error'] = None
+        # The API responds with an empty dict instead of null or None
+        if (data == [{}]) or (data == {}):
+            data = None
 
-        if request_body:
-            response_data['request_body'] = request_body
-    else:
-        response_data['data'] = None
-        response_data['success'] = False
-        response_data['error'] = response.text
+        if response.ok:
+            return SuccessResult(data)
+        else:
+            return ErrorResult(response.text)
 
-    return response_data
+class SuccessResult(APIResult):
+    def __init__(self, data):
+        self.success = True
+        self.error = None
+        self.data = data
+
+class ErrorResult(APIResult):
+    def __init__(self, error):
+        log("Error trying to communicate with A2P API: %s" % error)
+        self.success = False
+        self.error = error
+        self.data = None
 
 
 def __log_response(msg, response):
@@ -176,6 +213,10 @@ def a2p_config():
 
 
 def __submit_image_from_url(proof_type, url):
+    """Uploads an image to an azure blob storage instance that is also accessible by
+    the clerk's module. Seems like a strange architectural decision--the A2P API should
+    accept the image data as part of the user's submission."""
+    
     # TODO: Find a better way to get original filename from DA.
     filename = "ProofOf%s" % proof_type
     try:
@@ -195,14 +236,22 @@ def __submit_image_from_url(proof_type, url):
     }
 
 
-def __build_submit_payload_and_upload_images(data, attachments):
+def __upload_images(attachments):
     benefit_files_data = []
-
     for proof_type, url in attachments:
         log("Uploading file: %s" % url)
         image_meta = __submit_image_from_url(proof_type, url)
         benefit_files_data.append(image_meta)
+    return benefit_files_data
 
+
+def __complete_payload(data, benefit_files_data, citation_data):
+    payload = __petitioner_payload_without_case_info(data, benefit_files_data)
+    payload['caseInformation'] = __serialized_case_information(citation_data)
+    return payload
+
+
+def __petitioner_payload_without_case_info(data, benefit_files_data):
     proof_fields = [
         'calfresh',
         'medi_cal',
@@ -238,17 +287,6 @@ def __build_submit_payload_and_upload_images(data, attachments):
         other_benefits_desc = data.get('other_benefit_name')
         no_benefits = False
 
-    violDescriptions = []
-    idx = 0
-    for charge in case_information.get('charges', {}):
-        descr = []
-        idx += 1
-        descr.append("Count %s" % idx)
-        if charge.get('chargeCode'):
-            descr.append(charge.get('chargeCode'))
-        descr.append(charge.get('violationDescription'))
-        violDescriptions.append("-".join(descr))
-
     additional_requests = data.get('additional_requests', {}).get('elements', {})
 
     difficultyToVisitCourtDueTo = data.get("difficult_open_text", "")
@@ -269,9 +307,7 @@ def __build_submit_payload_and_upload_images(data, attachments):
             'otherExpensesAmt': hardship_amt,
         })
 
-    hasCivilAssessFee = case_information.get('civilAssessFee', 0) > 0
-
-    request_params = {
+    request_params_without_case_info = {
         "requestStatus": "Submitted",
         "petition": {
             "noBenefits": no_benefits,
@@ -320,18 +356,6 @@ def __build_submit_payload_and_upload_images(data, attachments):
             "onOtherBenefits": on_other_benefits,
             "onOtherBenefitsDesc": other_benefits_desc,
         },
-        "caseInformation": {
-            "caseNumber": case_information.get('caseNumber'),
-            "citationDocumentId": case_information.get('documentid'),
-            "citationNumber": case_information.get('citationNumber'),
-            "civilAssessFee": hasCivilAssessFee,
-            "county": data.get('county'),
-            "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
-            "totalDueAmt": case_information.get('totalDueAmt'),
-            "violationDate": case_information.get('charges', [])[0].get('violationDate'),
-            "violationDescription": "\n".join(violDescriptions),
-
-        },
         "benefitsStatus": not no_benefits,
         "defendantInformation": {
             "incomeAmount": data.get('income'),
@@ -353,15 +377,31 @@ def __build_submit_payload_and_upload_images(data, attachments):
         "auditInformation": [],
         "__v": 0
     }
-    return request_params
+    return request_params_without_case_info
 
 
-def __error_response(exception):
-    log("Error trying to communicate with A2P API: %s" % exception)
+def __serialized_case_information(case_information):
+    violDescriptions = []
+    idx = 0
+    for charge in case_information.get('charges', {}):
+        descr = []
+        idx += 1
+        descr.append("Count %s" % idx)
+        if charge.get('chargeCode'):
+            descr.append(charge.get('chargeCode'))
+        descr.append(charge.get('violationDescription'))
+        violDescriptions.append("-".join(descr))
+
     return {
-        'data': None,
-        'error': exception,
-        'success': False,
+        "caseNumber": case_information.get('caseNumber'),
+        "citationDocumentId": case_information.get('documentid'),
+        "citationNumber": case_information.get('citationNumber'),
+        "civilAssessFee": case_information.get('civilAssessFee', 0) > 0,
+        "county": case_information.get('county'),
+        "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
+        "totalDueAmt": case_information.get('totalDueAmt'),
+        "violationDate": case_information.get('charges', [])[0].get('violationDate'),
+        "violationDescription": "\n".join(violDescriptions),
     }
 
 

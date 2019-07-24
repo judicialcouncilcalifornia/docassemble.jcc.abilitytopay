@@ -685,8 +685,8 @@ comment: |
   If it succeeds, the user can try to submit again by clicking the back button on their browser or
   the back button on the interview page.
 code: |
-  submission_response = submit_interview(all_variables(), attachment_urls, True)
-  if submission_response['success']:
+  submission_results = submit_all_citations(all_variables(), attachment_urls)
+  if submission_results['success']:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
@@ -699,6 +699,8 @@ id: submission-complete
 sets: all_done
 question: |
   ${get_translation('thank_you',lang)}
+  We received your request to reduce the fine amounts for the following citations:
+  ${submission_results['data']}
 #  ### Thank you!
 progress: 100
 subquestion: |
