@@ -68,6 +68,7 @@ prevent going back: True
 # field: landing_page_visited
 # prevent going back: True
 ---
+id: citation-lookup
 question: |
   ${get_translation('lookup_citation',lang)}
 #  ### Look Up Your Citation
@@ -119,6 +120,7 @@ code: |
         #log("No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way", 'danger')
         reconsider('completed_citation_form')
 ---
+id: verify-citation
 question: |
   ${get_translation('request_to_court',lang)}
 #  ### Request to Court
@@ -173,6 +175,7 @@ code: |
           #log('Check the information you entered. Try again.', 'danger')
           reconsider('completed_citation_form')
 ---
+id: choose-citation-from-list
 question: ${get_translation('which_is_your_citation',lang)}
 #question: Which of the following is your citation?
 fields:
@@ -185,6 +188,7 @@ fields:
 code: |
   case_information = fetch_citation_data(selected_case, county)['data']
 ---
+id: how-this-works
 field: how_work
 question: |
   ${get_translation('how_this_works',lang)}
@@ -195,6 +199,7 @@ subquestion: |
 #
 # Be prepared to share information about your income, monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
 ---
+id: select-benefits
 question: |
   ${get_translation('public_benefits',lang)}
 #  ### Public Benefits
@@ -234,6 +239,7 @@ fields:
     variable: benefits['other']
     is: True
 ---
+id: calfresh-proof
 sets: calfresh_proof
 question: |
   ${get_translation('proof_calfresh',lang)}
@@ -254,6 +260,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: medical-proof
 sets: medi_cal_proof
 question: |
  ${get_translation('proof_of_medical',lang)}
@@ -274,6 +281,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: ssi-proof
 sets: ssi_proof
 question: |
  ${get_translation('proof_of_ssi_title',lang)}
@@ -294,6 +302,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: ssp-proof
 sets: ssp_proof
 question: |
   ${get_translation('proof_of_ssp',lang)}
@@ -314,6 +323,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: cr-ga-proof
 sets: cr_ga_proof
 question: |
   ${get_translation('proof_of_gacr',lang)}
@@ -334,6 +344,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: ihss-proof
 sets: ihss_proof
 question: |
   ${get_translation('proof_of_ihss',lang)}
@@ -354,6 +365,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: tanf-proof
 sets: tanf_proof
 question: |
   ${get_translation('proof_of_tanf',lang)}
@@ -374,6 +386,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: wic-proof
 sets: wic_proof
 question: |
   ${get_translation('proof_of_wic',lang)}
@@ -394,6 +407,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: cal-works-proof
 sets: cal_works_proof
 question: |
   ${get_translation('proof_of_calworks',lang)}
@@ -414,6 +428,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: capi-proof
 sets: capi_proof
 question: |
   ${get_translation('proof_of_capi',lang)}
@@ -434,6 +449,7 @@ fields:
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: other-benefits-proof
 field: other_benefit_screen_reached
 sets: other_benefit_picture
 question: |
@@ -448,6 +464,7 @@ subquestion: |
 script: |
   <script>prepareFileUpload()</script>
 ---
+id: current-income
 question: |
   ${get_translation('current_income',lang)}
 #  ### Current Income
@@ -466,6 +483,7 @@ fields:
   max: 75000
   required: true
 ---
+id: household-details
 question: |
   ${get_translation('household_details',lang)}
 #  ### Household Details
@@ -477,6 +495,7 @@ fields:
   min: 0
   max: 15
 ---
+id: monthly-expenses
 question: |
   ${get_translation('monthly_expenses',lang)}
 #  ### Monthly Expenses
@@ -547,6 +566,7 @@ fields:
 
 
 ---
+id: additional-requests
 question: |
   ${get_translation('additional_requests',lang)}
 #  ### Additional Requests
@@ -568,6 +588,7 @@ fields:
 
 
 ---
+id: make-your-plea
 question: |
   ${get_translation('make_plea',lang)}
 #  ### Make your Plea
@@ -595,6 +616,7 @@ under: |
   ${get_translation('admit_responsibility',lang)}
 #  Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
 ---
+id: feedback-questions
 question: |
   ${get_translation('optional_questions',lang)}
 #  ### Optional Questions
@@ -671,6 +693,7 @@ fields:
     variable: why_difficult['difficult_other']
     is: True
 ---
+id: submission-signature
 question: |
   ${get_translation('final_step',lang)}
 #  ### Final Step
@@ -725,6 +748,7 @@ code: |
     #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
     reconsider("ready_to_submit")
 ---
+id: submission-complete
 sets: all_done
 question: |
   ${get_translation('thank_you',lang)}
