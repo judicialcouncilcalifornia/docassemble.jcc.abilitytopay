@@ -64,6 +64,8 @@ fields:
   show if: requires_spanish_assistance
 continue button field: landing_page_visited
 prevent going back: True
+script: |
+  <script>sendGtagEventOnClick('label[for="${encode_name('requires_spanish_assistance')}"][role="checkbox"]', 'click_spanish_assistance')</script>
 # uncomment below after removing requires_spanish_assistance section
 # field: landing_page_visited
 # prevent going back: True

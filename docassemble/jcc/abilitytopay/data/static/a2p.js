@@ -1,3 +1,25 @@
+//
+// Gtag event helper
+//
+
+function sendGtagEventOnClick(selector, event) {
+  $(document).ready(function() {
+    var element = document.querySelector(selector);
+    if (!element) {
+      console.warn('Could not find element for selector ' + selector);
+      return;
+    }
+
+    element.addEventListener('click', function() {
+      gtag('event', event);
+    });
+  });
+}
+
+//
+// Custom file upload helper
+//
+
 function prepareFileUpload() {
   console.log('Preparing custom file upload.');
   $('#daform').attr('enctype', 'multipart/form-data');
