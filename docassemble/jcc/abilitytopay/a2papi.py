@@ -329,7 +329,7 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
             "phone": data.get('phone_bill'),
             "food": data.get('food'),
             "insurance": data.get('insurance'),
-            "isBenefitsProof": len(attachments) == 0,
+            "isBenefitsProof": len(benefit_files_data) == 0,
             "isCivilAssessWaiver": False,
             "clothes": data.get('clothing'),
             "childSpousalSupp": data.get('child_spousal_support'),
