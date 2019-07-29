@@ -115,21 +115,20 @@ code: |
         # More than one citation result
         log(get_translation('need_more_info', lang), 'danger')
         # We need more info to look up this citation. Please select "I don't have my citation number" below and enter your details.
-        return
       elif len(raw_citation_results['data']) == 1:
         # Exactly one citation result
         citation_data = raw_citation_results['data'][0]
       
-      if not citation_data['eligible']:
-        log(get_translation('cant_process_online',lang), 'danger')
-        # We can't process this citation online. Please contact your Court for more information.
-        reconsider('completed_citation_form')
-      else:
-        case_information = citation_data['data']
-        violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
-        total_due = format_money(case_information['totalDueAmt'])
-        first_name = case_information['firstName']
-        last_name = case_information['lastName']
+        if not citation_data['eligible']:
+          log(get_translation('cant_process_online',lang), 'danger')
+          # We can't process this citation online. Please contact your Court for more information.
+          reconsider('completed_citation_form')
+        else:
+          case_information = citation_data['data']
+          violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
+          total_due = format_money(case_information['totalDueAmt'])
+          first_name = case_information['firstName']
+          last_name = case_information['lastName']
         
 ---
 id: verify-citation
