@@ -140,7 +140,7 @@ class APIResult():
         self.error = error
 
     @staticmethod
-    def from_api_response(response):
+    def from_http_response(response):
         data = response.json()
 
         # The API responds with an empty dict instead of null or None
