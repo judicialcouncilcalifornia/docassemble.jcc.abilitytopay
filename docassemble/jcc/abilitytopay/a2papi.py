@@ -139,6 +139,7 @@ class APIResult():
         self.data = data
         self.error = error
 
+    @staticmethod
     def from_api_response(response):
         data = response.json()
 
