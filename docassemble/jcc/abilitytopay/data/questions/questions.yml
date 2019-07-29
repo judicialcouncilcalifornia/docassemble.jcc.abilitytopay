@@ -118,9 +118,6 @@ fields:
       for case in all_citations.values()
     ]
 ---
-code: |
-  case_information = fetch_citation_data(selected_case, county)['data']
----
 id: how-this-works
 field: how_work
 question: |
