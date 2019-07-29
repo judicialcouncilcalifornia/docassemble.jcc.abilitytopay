@@ -74,13 +74,13 @@ code: |
     response = fetch_case_data(first_name, last_name, dob, license_number, county)
   else:
     response = fetch_case_data_from_citation(citation_number, county)
-  if response['data']:
+  if response.data:
       all_citations = {
         case['citationNumber']: case
-        for case in response['data'] 
+        for case in response.data 
       }
   else:
-    log(get_translation('check_information',lang), 'danger')
+    log(get_translation('check_information', lang), 'danger')
     # Check the information you entered. Try again.
     reconsider('completed_citation_form')
 ---
@@ -683,7 +683,7 @@ comment: |
   the back button on the interview page.
 code: |
   submission_results = submit_all_citations(all_variables(), attachment_urls)
-  if submission_results['success']:
+  if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
@@ -697,7 +697,7 @@ sets: all_done
 question: |
   ${get_translation('thank_you',lang)}
   We received your request to reduce the fine amounts for the following citations:
-  ${submission_results['data']}
+  ${submission_results.data}
 #  ### Thank you!
 progress: 100
 subquestion: |
