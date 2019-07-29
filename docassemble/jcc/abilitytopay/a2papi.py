@@ -20,7 +20,17 @@ def fetch_citation_data(citation_number, county):
         }
         res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
         res = __format_response(res)
-        res['eligible'] = __is_citation_eligible(res['data'])
+
+        if res['data'] is None:
+            return res
+
+        # Old API returns a single dict. Wrap it in a list to make it
+        # look like the new API. Delete this hunk once new API is deployed and tested.
+        if type(res['data']) is dict:
+            res['data'] = [res['data']]
+
+        for citation in res['data']:
+            citation['eligible'] = __is_citation_eligible(citation)
         return res
     except Exception as e:
         return __default_response(e)

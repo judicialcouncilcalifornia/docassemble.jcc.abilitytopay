@@ -105,22 +105,32 @@ continue button field: completed_citation_form
 ---
 code: |
   if not no_citation_number:
-    citation_data = fetch_citation_data(citation_number, county)
-    if citation_data['data']:
-        if not citation_data['eligible']:
-          log(get_translation('cant_process_online',lang), 'danger')
-          #log("We can't process this citation online. Please contact your Court for more information.", 'danger')
-          reconsider('completed_citation_form')
-        else:
-          case_information = citation_data['data']
-          violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
-          total_due = format_money(case_information['totalDueAmt'])
-          first_name = case_information['firstName']
-          last_name = case_information['lastName']
+    raw_citation_results = fetch_citation_data(citation_number, county)
+    if (raw_citation_results['data'] is None) or (len(raw_citation_results['data']) == 0):
+      log(get_translation('no_match_found',lang), 'danger')
+      # No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way
+      reconsider('completed_citation_form')
     else:
-        log(get_translation('no_match_found',lang), 'danger')
-        #log("No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way", 'danger')
+      if len(raw_citation_results['data']) > 1:
+        # More than one citation result
+        log(get_translation('need_more_info', lang), 'danger')
+        # We need more info to look up this citation. Please select "I don't have my citation number" below and enter your details.
+        return
+      elif len(raw_citation_results['data']) == 1:
+        # Exactly one citation result
+        citation_data = raw_citation_results['data'][0]
+      
+      if not citation_data['eligible']:
+        log(get_translation('cant_process_online',lang), 'danger')
+        # We can't process this citation online. Please contact your Court for more information.
         reconsider('completed_citation_form')
+      else:
+        case_information = citation_data['data']
+        violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
+        total_due = format_money(case_information['totalDueAmt'])
+        first_name = case_information['firstName']
+        last_name = case_information['lastName']
+        
 ---
 id: verify-citation
 question: |

@@ -1092,6 +1092,12 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     ,"zh-t":""
   },
 
+  "need_more_info": {
+    "en":"We need more info to look up this citation. Please select \"I don't have my citation number\" below and enter your details.",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
 
   "no_match_found": {
     "en":"No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way.",
