@@ -124,7 +124,7 @@ code: |
           # We can't process this citation online. Please contact your Court for more information.
           reconsider('completed_citation_form')
         else:
-          case_information = citation_data['data']
+          case_information = citation_data
           violation_date = date_from_iso8601(case_information['charges'][0]['violationDate'])
           total_due = format_money(case_information['totalDueAmt'])
           first_name = case_information['firstName']
