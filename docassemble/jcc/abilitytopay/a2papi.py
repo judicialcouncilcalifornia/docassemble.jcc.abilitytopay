@@ -87,7 +87,7 @@ def __format_response(response, request_body=None):
     response_data['data'] = response.json()
 
     # Protect against server response of empty hash
-    if response_data['data'] == [{}]:
+    if response_data['data'] == [{}] or response_data['data'] == {}:
         response_data['data'] = None
 
     if response.ok:
