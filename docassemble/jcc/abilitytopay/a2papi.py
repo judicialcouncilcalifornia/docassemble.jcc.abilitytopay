@@ -279,8 +279,19 @@ def __upload_images(attachments):
 
 
 def __complete_payload(data, benefit_files_data, citation_data):
+    # Gather petition information
     payload = __petitioner_payload_without_case_info(data, benefit_files_data)
+    
+    # Add case information
     payload['caseInformation'] = __serialized_case_information(citation_data)
+    
+    # Add plea information
+    citation_number = citation_data['citationNumber']
+    plea_value = data['citation_pleas'][citation_number]
+    payload['petition'].update(dict(
+        isPleadGuilty=(plea_value == "agree_guilty"),
+        isPleadNoContest=(plea_value == "agree_no_contest")
+    ))
     return payload
 
 
@@ -380,8 +391,6 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
             "presentEvidenceRight": True,
             "testifyUnderOathRight": True,
             "remainSilentRight": True,
-            "isPleadGuilty": data.get('plea', '') == "agree_guilty",
-            "isPleadNoContest": data.get('plea', '') == "agree_no_contest",
             "supportingFiles": [],
             "noDocsToUploadReason": "See comments",
             "noDocsToUploadComments": "\n".join(no_docs_upload_comments),
