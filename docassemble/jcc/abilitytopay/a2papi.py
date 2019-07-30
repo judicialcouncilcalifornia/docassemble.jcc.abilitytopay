@@ -1,3 +1,4 @@
+import traceback
 import calendar
 import datetime
 import hashlib
@@ -27,7 +28,7 @@ def fetch_case_data_from_citation(citation_number, county):
             # No citations matched this citation number.
             return SuccessResult(None)
     except Exception as e:
-        return ErrorResult(e)        
+        return ErrorResult(traceback.format_exc())
 
     try:
         # pull info out of citation result
@@ -55,7 +56,7 @@ def fetch_case_data_from_citation(citation_number, county):
             # TODO: Use CaseResult and CitationResult classes to clarify the
             # data shapes expected by the frontend
         except Exception as e:
-            return ErrorResult(e)
+            return ErrorResult(traceback.format_exc())
 
 
 def fetch_citation_data(citation_number, county):
@@ -79,7 +80,7 @@ def fetch_citation_data(citation_number, county):
             citation['eligible'] = __is_citation_eligible(citation)
         return res
     except Exception as e:
-        return ErrorResult(e)
+        return ErrorResult(traceback.format_exc())
 
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
@@ -103,7 +104,7 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
                 res.data = None
         return res
     except Exception as e:
-        return ErrorResult(e)
+        return ErrorResult(traceback.format_exc())
 
 
 def submit_all_citations(data, attachments=[]):
@@ -114,14 +115,15 @@ def submit_all_citations(data, attachments=[]):
         # Submit petition requests one at a time
         submission_results = {}
         for citation in data['selected_citations']:
+            citation_number = citation['citation_number']
             petitioner_payload = __complete_payload(data, benefit_files_data, citation)
             try:
                 submission_results[citation_number] = __do_request(a2p_config()['submit_url'], petitioner_payload)
             except Exception as e:
-                submission_results[citation_number] = ErrorResult(e)
+                submission_results[citation_number] = ErrorResult(traceback.format_exc())
         return SuccessResult(submission_results)
     except Exception as e:
-        return ErrorResult(e)
+        return ErrorResult(traceback.format_exc())
 
 
 def submit_interview(data, attachments=[]):
@@ -130,7 +132,7 @@ def submit_interview(data, attachments=[]):
         res = __do_request(a2p_config()['submit_url'], params)
         return APIResult.from_http_response(res)
     except Exception as e:
-        return ErrorResult(e)
+        return ErrorResult(traceback.format_exc())
 
 
 class APIResult():
