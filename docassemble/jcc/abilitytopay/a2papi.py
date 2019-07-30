@@ -287,6 +287,9 @@ def __complete_payload(data, benefit_files_data, citation_data):
     
     # Add plea information
     citation_number = citation_data['citationNumber']
+    log(data['citation_pleas'])
+    log(**data['citation_pleas'])
+    log(data['citation_pleas'].keys())
     plea_value = data['citation_pleas'][citation_number]
     payload['petition'].update(dict(
         isPleadGuilty=(plea_value == "agree_guilty"),
