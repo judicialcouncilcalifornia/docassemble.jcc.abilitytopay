@@ -112,6 +112,7 @@ fields:
 - ${get_translation('select_citation', lang)}: selected_citation_numbers
 # Select the citation from the list below.
   datatype: checkboxes
+  minlength: 1
   code: |
     [
       { case['citationNumber']: citation_info_card(case, lang) }
