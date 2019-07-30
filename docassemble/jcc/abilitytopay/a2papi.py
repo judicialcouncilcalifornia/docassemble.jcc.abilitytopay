@@ -8,8 +8,16 @@ import time
 import requests
 from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
+import docassemble.base.logger
 from .a2putil import date_from_iso8601, format_money
 
+
+def log_message_with_timestamp(message):
+    return time.strftime("%Y-%m-%d %H:%M:%S") + " " + message
+
+
+# Override the default docassemble logger, which annoyingly strips newlines.
+docassemble.base.logger.set_logmessage(log_message_with_timestamp)
 
 
 def fetch_case_data_from_citation(citation_number, county):
