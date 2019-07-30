@@ -683,6 +683,7 @@ comment: |
   the back button on the interview page.
 code: |
   submission_results = submit_all_citations(all_variables(), attachment_urls)
+  log(submission_results)
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
@@ -695,16 +696,18 @@ code: |
 id: submission-complete
 sets: all_done
 question: |
-  ${get_translation('thank_you',lang)}
+  ${get_translation('thank_you', lang)}
+  
   We received your request to reduce the fine amounts for the following citations:
+  
   ${submission_results.data}
 #  ### Thank you!
 progress: 100
 subquestion: |
-  ${get_translation('expect_response',lang)}
+  ${get_translation('expect_response', lang)}
 #  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 buttons:
-- ${get_translation('restart',lang)}: restart
+- ${get_translation('restart', lang)}: restart
 prevent going back: True
 ---
 mandatory: True
