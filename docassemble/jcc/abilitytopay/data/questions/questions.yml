@@ -106,11 +106,11 @@ comment: |
   The code block below describes a list of { key: value } pairs where
   each key is a citation number and each value is the HTML
   rendering of the corresponding citation.
-question: ${get_translation('which_is_your_citation', lang)}
-# Which of the following is your citation?
+question: ${get_translation('we_found_x_citations', lang, num_citations=len(all_citations))}
+# We found {num_citations} citation(s) in your name.
 fields:
 - ${get_translation('select_citation', lang)}: selected_citation_numbers
-# Select the citation from the list below.
+# Please select all citations for which you want to reduce your fines:
   datatype: checkboxes
   minlength: 1
   code: |
@@ -526,19 +526,28 @@ code: |
     all_citations[citation_number]
     for citation_number in selected_citation_numbers.true_values()
   ]
-  for citation in selected_citations:
-    if not citation.get('adjudicated'):
-      citation_pleas[citation['citationNumber']]
+  unadjudicated_citations = [
+    c for c in selected_citations
+    if not c.get('adjudicated')
+  ]
+  for citation in unadjudicated_citations:
+    citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
 ---
 id: make-your-plea
 question: |
-  ${get_translation('make_plea', lang)}
+  ${
+    get_translation(
+      'make_plea', lang,
+      current_num=1 + unadjudicated_citations.index(all_citations[i]),
+      total_num=len(unadjudicated_citations)
+    )
+  }
 # Make your Plea
 progress: 75
 subquestion: |
   ${citation_info_card(all_citations[i], lang)}
-
+  <br>
   ${get_translation('plea_instructions', lang)}
 #
 # By pleading you will be giving up the following rights:
@@ -684,7 +693,6 @@ comment: |
   the back button on the interview page.
 code: |
   submission_results = submit_all_citations(all_variables(), attachment_urls)
-  log(submission_results)
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
@@ -698,10 +706,6 @@ id: submission-complete
 sets: all_done
 question: |
   ${get_translation('thank_you', lang)}
-  
-  We received your request to reduce the fine amounts for the following citations:
-  
-  ${submission_results.data}
 #  ### Thank you!
 progress: 100
 subquestion: |

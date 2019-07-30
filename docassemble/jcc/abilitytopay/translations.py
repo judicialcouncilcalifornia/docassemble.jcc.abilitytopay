@@ -185,15 +185,15 @@ _translations = {
     ,"zh-t":"不是這張罰單！"
   },
 
-  "which_is_your_citation": {
-    "en":"Which of the following is your citation?",
+  "we_found_x_citations": {
+    "en":"We found {num_citations} citation(s) in your name.",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "select_citation": {
-    "en":"Select the citation from the list below.",
+    "en":"Please select all citations for which you want to reduce your fines:",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
@@ -778,10 +778,10 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "make_plea": {
-    "en":"### Make your Plea",
-    "es":"### Haga su declaración"
-    ,"zh-s":"### 进行答辩"
-    ,"zh-t":"### 進行答辯"
+    "en":"### Make your Plea ({current_num}/{total_num})",
+    "es":"### Haga su declaración ({current_num}/{total_num})"
+    ,"zh-s":"### 进行答辩 ({current_num}/{total_num})"
+    ,"zh-t":"### 進行答辯 ({current_num}/{total_num})"
   },
 
   "plea_instructions": {
@@ -1242,5 +1242,5 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
 }
 
-def get_translation(key, lang):
-  return _translations[key][lang]
+def get_translation(key, lang, **kwargs):
+  return _translations[key][lang].format(**kwargs)
