@@ -209,8 +209,7 @@ def __log_response(msg, response):
     lines.append("Response Headers: %s" % response.headers)
     lines.append("Response Code: %s" % response.status_code)
     lines.append("-----------")
-    for line in lines:
-        log(line)
+    log('\n'.join(lines))
 
 
 def __do_request(url, params):
