@@ -115,7 +115,7 @@ def submit_all_citations(data, attachments=[]):
         # Submit petition requests one at a time
         submission_results = {}
         for citation in data['selected_citations']:
-            citation_number = citation['citation_number']
+            citation_number = citation['citationNumber']
             petitioner_payload = __complete_payload(data, benefit_files_data, citation)
             try:
                 submission_results[citation_number] = __do_request(a2p_config()['submit_url'], petitioner_payload)
