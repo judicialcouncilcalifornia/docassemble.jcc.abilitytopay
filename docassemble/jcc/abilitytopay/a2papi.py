@@ -4,21 +4,36 @@ import datetime
 import hashlib
 import json
 import re
-import time
 import requests
 from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
-import docassemble.base.logger
 from .a2putil import date_from_iso8601, format_money
 
+# 
+# Logging
+# 
+
+import os
+import time
+import logging
+import docassemble.base.logger
+from docassemble.base.config import daconfig
+
+LOG_DIRECTORY = daconfig.get('log', '/usr/share/docassemble/log')
+sys_logger = logging.getLogger('docassemble')
+sys_logger.setLevel(logging.DEBUG)
+docassemble_log_handler = logging.FileHandler(filename=os.path.join(LOG_DIRECTORY, 'docassemble.log'))
+sys_logger.addHandler(docassemble_log_handler)
 
 def log_message_with_timestamp(message):
-    return time.strftime("%Y-%m-%d %H:%M:%S") + " " + message
-
+    sys_logger.debug(time.strftime("%Y-%m-%d %H:%M:%S") + " " + message)
 
 # Override the default docassemble logger, which annoyingly strips newlines.
 docassemble.base.logger.set_logmessage(log_message_with_timestamp)
 
+# 
+# API
+# 
 
 def fetch_case_data_from_citation(citation_number, county):
     try:
