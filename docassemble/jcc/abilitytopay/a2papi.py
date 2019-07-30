@@ -147,9 +147,11 @@ def submit_all_citations(data, attachments=[]):
             citation_number = citation['citationNumber']
             petitioner_payload = __complete_payload(data, benefit_files_data, citation)
             try:
-                submission_results[citation_number] = __do_request(a2p_config()['submit_url'], petitioner_payload)
+                response = __do_request(a2p_config()['submit_url'], petitioner_payload)
+                submission_results[citation_number] = APIResult.from_http_response(response)
             except Exception as e:
                 submission_results[citation_number] = ErrorResult(traceback.format_exc())
+        log(submission_results)
         return SuccessResult(submission_results)
     except Exception as e:
         return ErrorResult(traceback.format_exc())
