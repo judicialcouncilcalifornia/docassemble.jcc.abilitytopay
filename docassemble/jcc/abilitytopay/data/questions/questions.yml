@@ -536,18 +536,10 @@ code: |
 ---
 id: make-your-plea
 question: |
-  ${
-    get_translation(
-      'make_plea', lang,
-      current_num=1 + unadjudicated_citations.index(all_citations[i]),
-      total_num=len(unadjudicated_citations)
-    )
-  }
+  ${get_translation('make_plea', lang, citation_number=all_citations[i]['citationNumber'])}
 # Make your Plea
 progress: 75
 subquestion: |
-  ${citation_info_card(all_citations[i], lang)}
-  <br>
   ${get_translation('plea_instructions', lang)}
 #
 # By pleading you will be giving up the following rights:

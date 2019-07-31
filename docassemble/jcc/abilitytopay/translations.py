@@ -778,10 +778,10 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "make_plea": {
-    "en":"### Make your Plea ({current_num}/{total_num})",
-    "es":"### Haga su declaración ({current_num}/{total_num})"
-    ,"zh-s":"### 进行答辩 ({current_num}/{total_num})"
-    ,"zh-t":"### 進行答辯 ({current_num}/{total_num})"
+    "en":"### Make a Plea for {citation_number}",
+    "es":"### Haga su declaración {citation_number}"
+    ,"zh-s":"### 进行答辩 {citation_number}"
+    ,"zh-t":"### 進行答辯 {citation_number}"
   },
 
   "plea_instructions": {
