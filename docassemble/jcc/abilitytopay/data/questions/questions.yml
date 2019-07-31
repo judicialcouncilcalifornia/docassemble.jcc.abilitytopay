@@ -79,6 +79,10 @@ code: |
         case['citationNumber']: case
         for case in response.data
       }
+  elif response.error == 'too-many-results':
+    log(get_translation('need_more_info', lang), 'danger')
+    # We need more info to look up this citation. Please select "I don't have my citation number" below and enter your details.
+    reconsider('completed_citation_form')
   else:
     log(get_translation('check_information', lang), 'danger')
     # Check the information you entered. Try again.
