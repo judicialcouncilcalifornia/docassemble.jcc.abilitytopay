@@ -81,6 +81,7 @@ fields:
   choices:
   - "Shasta": Shasta
   - "Tulare": Tulare
+  - "Ventura": Ventura
 - ${get_translation('what_citation_number',lang)}: citation_number
 #- "What's the citation number?": citation_number
   required: false
