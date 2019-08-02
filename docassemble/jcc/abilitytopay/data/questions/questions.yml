@@ -111,11 +111,11 @@ comment: |
   The code block below describes a list of { key: value } pairs where
   each key is a citation number and each value is the HTML
   rendering of the corresponding citation.
-question: ${get_translation('we_found_x_citations', lang, num_citations=len(all_citations))}
-# We found {num_citations} citation(s) in your name.
+question: ${get_translation('we_found_x_citations', lang, county=county)}
+# We checked for all the citations in your name in {county} County. Here's what we found.
 fields:
 - ${get_translation('select_citation', lang)}: selected_citation_numbers
-# Please select all citations for which you want to reduce your fines:
+# Select each ticket for which you want to request a reduction:
   datatype: checkboxes
   minlength: 1
   code: |

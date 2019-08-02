@@ -186,14 +186,14 @@ _translations = {
   },
 
   "we_found_x_citations": {
-    "en":"We found {num_citations} citation(s) in your name.",
+    "en":"We checked for all the citations in your name in {county} County. Here's what we found.",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "select_citation": {
-    "en":"Please select all citations for which you want to reduce your fines:",
+    "en":"Select each ticket for which you want to request a reduction:",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
