@@ -798,6 +798,11 @@ buttons:
 - ${get_translation('restart',lang)}: restart
 prevent going back: True
 ---
+comment: Initialize flags
+mandatory: True
+code: |
+  received_multiple_citations_for_one_citation_number = False
+---
 mandatory: True
 code: |
   landing_page_visited
