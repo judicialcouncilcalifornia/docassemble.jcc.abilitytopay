@@ -66,6 +66,13 @@ _translations = {
     ,"zh-t":"### 查看您的罰單"
   },
 
+  "need_more_info": {
+    "en":"We need some more information to find your citation:",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
+
   "what_county": {
     "en":'What California county did you get the citation in?',
     "es":"¿En qué condado de California recibió la citación?"
@@ -1087,13 +1094,6 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
   ###########################################
   "cant_process_online": {
     "en":"We can't process this citation online. Please contact your Court for more information.",
-    "es":""
-    ,"zh-s":""
-    ,"zh-t":""
-  },
-
-  "need_more_info": {
-    "en":"We need more info to look up this citation. Please select \"I don't have my citation number\" below and enter your details.",
     "es":""
     ,"zh-s":""
     ,"zh-t":""

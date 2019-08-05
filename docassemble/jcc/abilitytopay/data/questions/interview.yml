@@ -113,9 +113,8 @@ code: |
       reconsider('completed_citation_form')
     else:
       if len(raw_citation_results['data']) > 1:
-        # More than one citation result
-        log(get_translation('need_more_info', lang), 'danger')
-        # We need more info to look up this citation. Please select "I don't have my citation number" below and enter your details.
+        # More than one citation result. Set a flag to show disambiguation form next.
+        received_multiple_citations_for_one_citation_number = True
       elif len(raw_citation_results['data']) == 1:
         # Exactly one citation result
         citation_data = raw_citation_results['data'][0]
@@ -131,6 +130,21 @@ code: |
           first_name = case_information['firstName']
           last_name = case_information['lastName']
         
+---
+id: disambiguate-multiple-results
+progress: 15
+question: ${get_translation('need_more_info', lang)}
+fields:
+- ${get_translation('what_first_name',lang)}: first_name
+# What is your first name?
+- ${get_translation('what_last_name',lang)}: last_name
+# What is your last name?
+- ${get_translation('what_dob',lang)}: dob
+# What's your date of birth?
+  datatype: date
+- ${get_translation('what_license_number',lang)}: license_number
+# What is your Driver's License Number?
+continue button field: completed_disambiguation_form
 ---
 id: verify-citation
 question: |
@@ -171,21 +185,32 @@ fields:
     variable: verify_citation
     is: name_lookup
 ---
+only sets: case_lookup_results
 code: |
-   if no_citation_number or (defined('verify_citation') and verify_citation == "name_lookup"):
-       response = fetch_case_data(first_name, last_name, dob, license_number, county)
-       if response['data']:
-            case_lookup_results = []
-            for case in response['data']:
-                charges = case['charges']
-                c_violation_date = date_from_iso8601(charges[0]['violationDate'])
-                c_total_due = format_money(case['totalDueAmt'])
-                c_citation_number = case['citationNumber']
-                case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>{name_label}</dt><dd>{name}</dd><dt>{citation_number_label}</dt><dd>{citationNumber}</dd><dt>{county_label}</dt><dd>{county}</dd><dt>{violation_date_label}</dt><dd>{violationDate}</dd><dt>{total_due_label}</dt><dd>{totalDue}</dd></dl></div>".format(name_label=get_translation('name',lang),citation_number_label=get_translation('citation_number',lang),county_label=get_translation('county',lang),violation_date_label=get_translation('violation_date',lang),total_due_label=get_translation('total_due',lang),name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
-       else:
-          log(get_translation('check_information',lang), 'danger')
-          #log('Check the information you entered. Try again.', 'danger')
-          reconsider('completed_citation_form')
+  if (
+    no_citation_number or
+    (defined('verify_citation') and verify_citation == "name_lookup") or
+    received_multiple_citations_for_one_citation_number
+  ):
+    response = fetch_case_data(first_name, last_name, dob, license_number, county)
+    if response['data']:
+        case_lookup_results = []
+        for case in response['data']:
+            charges = case['charges']
+            c_violation_date = date_from_iso8601(charges[0]['violationDate'])
+            c_total_due = format_money(case['totalDueAmt'])
+            c_citation_number = case['citationNumber']
+            case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>{name_label}</dt><dd>{name}</dd><dt>{citation_number_label}</dt><dd>{citationNumber}</dd><dt>{county_label}</dt><dd>{county}</dd><dt>{violation_date_label}</dt><dd>{violationDate}</dd><dt>{total_due_label}</dt><dd>{totalDue}</dd></dl></div>".format(name_label=get_translation('name',lang),citation_number_label=get_translation('citation_number',lang),county_label=get_translation('county',lang),violation_date_label=get_translation('violation_date',lang),total_due_label=get_translation('total_due',lang),name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
+    else:
+      log(get_translation('check_information',lang), 'danger')
+      #log('Check the information you entered. Try again.', 'danger')
+      
+      # Watch out: tracking where we came from to get into this code block, and thus
+      # what variable to reconsider, will become a mess. Should refactor.
+      if received_multiple_citations_for_one_citation_number:
+        reconsider('completed_disambiguation_form')
+      else:
+        reconsider('completed_citation_form')
 ---
 id: choose-citation-from-list
 question: ${get_translation('which_is_your_citation',lang)}
@@ -778,14 +803,18 @@ code: |
   landing_page_visited
   county
   citation_number
-  if not no_citation_number:
+  if received_multiple_citations_for_one_citation_number:
+    completed_disambiguation_form
+    selected_case
+    case_lookup_results
+  if no_citation_number:
+    selected_case
+    case_lookup_results
+  if (not no_citation_number) and (not received_multiple_citations_for_one_citation_number):
     verify_citation
     if verify_citation == "name_lookup":
       selected_case
       case_lookup_results
-  if no_citation_number:
-    selected_case
-    case_lookup_results
   how_work
   benefits
 
