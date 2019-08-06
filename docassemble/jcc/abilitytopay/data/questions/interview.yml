@@ -117,6 +117,7 @@ code: |
         received_multiple_citations_for_one_citation_number = True
       elif len(raw_citation_results['data']) == 1:
         # Exactly one citation result
+        received_multiple_citations_for_one_citation_number = False
         citation_data = raw_citation_results['data'][0]
       
         if not citation_data['eligible']:
@@ -131,6 +132,7 @@ code: |
           last_name = case_information['lastName']
         
 ---
+only sets: completed_disambiguation_form
 id: disambiguate-multiple-results
 progress: 15
 question: ${get_translation('need_more_info', lang)}
@@ -798,28 +800,24 @@ buttons:
 - ${get_translation('restart',lang)}: restart
 prevent going back: True
 ---
-comment: Initialize flags
-mandatory: True
-code: |
-  received_multiple_citations_for_one_citation_number = False
----
 mandatory: True
 code: |
   landing_page_visited
   county
   citation_number
-  if received_multiple_citations_for_one_citation_number:
-    completed_disambiguation_form
-    selected_case
-    case_lookup_results
   if no_citation_number:
     selected_case
     case_lookup_results
-  if (not no_citation_number) and (not received_multiple_citations_for_one_citation_number):
-    verify_citation
-    if verify_citation == "name_lookup":
+  else:
+    if received_multiple_citations_for_one_citation_number:
+      completed_disambiguation_form
       selected_case
       case_lookup_results
+    else:
+      verify_citation
+      if verify_citation == "name_lookup":
+        selected_case
+        case_lookup_results
   how_work
   benefits
 
