@@ -192,7 +192,7 @@ code: |
   if (
     no_citation_number or
     (defined('verify_citation') and verify_citation == "name_lookup") or
-    received_multiple_citations_for_one_citation_number
+    (defined('received_multiple_citations_for_one_citation_number') and received_multiple_citations_for_one_citation_number)
   ):
     response = fetch_case_data(first_name, last_name, dob, license_number, county)
     if response['data']:
@@ -209,7 +209,7 @@ code: |
       
       # Watch out: tracking where we came from to get into this code block, and thus
       # what variable to reconsider, will become a mess. Should refactor.
-      if received_multiple_citations_for_one_citation_number:
+      if defined('received_multiple_citations_for_one_citation_number'):
         reconsider('completed_disambiguation_form')
       else:
         reconsider('completed_citation_form')
