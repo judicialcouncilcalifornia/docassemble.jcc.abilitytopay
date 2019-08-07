@@ -8975,6 +8975,10 @@ a#dapagetitle, a#pagetitle {
   height: 40px;
 }
 
+select.a2p-month-selector {
+  padding-right: 2rem;
+}
+
 .a2p-file-upload-buttons {
   display: flex;
 }

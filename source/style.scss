@@ -666,6 +666,11 @@ a#dapagetitle, a#pagetitle {
   height: 40px;  // 80
 }
 
+// Custom date selector
+select.a2p-month-selector {
+  padding-right: 2rem;
+}
+
 // Custom file upload button
 // See https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button/21842275#21842275
 .a2p-file-upload-buttons {
