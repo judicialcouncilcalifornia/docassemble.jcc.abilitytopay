@@ -267,14 +267,11 @@ def _send_internal_error_email(error, stacktrace, local_vars):
     email_subject = 'A2P Internal Error'
     email_body = '''
 Stacktrace:
-{stacktrace}'''.format(
-    stacktrace=stacktrace
-)
+{stacktrace}'''.format(stacktrace=stacktrace)
     local_vars_text = '''
 
 Local Variables:
-{local_vars}
-'''.format(local_vars)
+{local_vars}'''.format(local_vars=local_vars)
     
     if local_vars is not None:
         email_body += local_vars_text
