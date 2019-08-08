@@ -7,6 +7,7 @@ import re
 import requests
 from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
+from flask import session
 from .a2putil import date_from_iso8601, format_money
 
 # 
@@ -32,7 +33,11 @@ import docassemble.base.logger
 sys_logger = logging.getLogger('docassemble')
 
 def log_message_with_timestamp(message):
-    sys_logger.debug(time.strftime("%Y-%m-%d %H:%M:%S") + " " + message)
+    sys_logger.debug('{timestamp} {session_id} {message}'.format(
+        timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
+        session_id=session.get('uid', 'na'),
+        message=message
+    ))
 
 # Override the default docassemble logger, which annoyingly strips newlines.
 docassemble.base.logger.set_logmessage(log_message_with_timestamp)
