@@ -81,7 +81,7 @@ def fetch_case_data_from_citation(citation_number, county):
     except CitationNumberCollisionError as e:
         return ErrorResult('too-many-results')
     except Exception as e:
-        return ErrorResult.from_generic_error(e, local_vars=locals())
+        return ErrorResult.from_generic_error(e)
 
     try:
         # pull info out of citation result
@@ -109,7 +109,7 @@ def fetch_case_data_from_citation(citation_number, county):
             # TODO: Use CaseResult and CitationResult classes to clarify the
             # data shapes expected by the frontend
         except Exception as e:
-            return ErrorResult.from_generic_error(e, local_vars=locals())
+            return ErrorResult.from_generic_error(e)
 
 
 def _fetch_citation_data(citation_number, county):
@@ -227,40 +227,48 @@ class ErrorResult(APIResult):
         self.data = None
 
     @staticmethod
-    def from_api_error(api_error):
+    def from_api_error(api_error, extra_info=None):
         log("Error trying to communicate with A2P API: {}".format(error))
-        _send_api_error_email(api_error.response, traceback.format_exc())
+        _send_api_error_email(api_error.response, traceback.format_exc(), extra_info)
         return ErrorResult(str(api_error))
 
     @staticmethod
-    def from_generic_error(error, local_vars=None):
+    def from_generic_error(error, extra_info=None):
         log("Internal error: {}".format(error))
-        _send_internal_error_email(error, traceback.format_exc(), local_vars)
+        _send_internal_error_email(error, traceback.format_exc(), extra_info)
         return ErrorResult('internal-error')
 
 
-def _send_api_error_email(response, stacktrace):
+def _send_api_error_email(response, stacktrace, extra_info):
     request = response.request
     email_subject = 'A2P API {} Error'.format(response.status_code)
     email_body = '''
 API replied with status code {status_code}
 
-Response:
-{response_body}
-
 Request URL:
 {request_url}
 
-Request Body:
-{request_body}
+Response:
+{response_body}
 
 Stacktrace:
-{stacktrace}'''.format(
+{stacktrace}
+
+Timestamp:
+{timestamp}
+
+Session ID:
+{session_id}
+
+Extra info:
+{extra_info}'''.format(
     status_code=response.status_code,
-    response_body=response.text,
     request_url=request.url,
-    request_body=request.body,
-    stacktrace=stacktrace
+    response_body=response.text,
+    stacktrace=stacktrace,
+    timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
+    session_id=session.get('uid', 'na'),
+    extra_info=extra_info
 )
     support_team = Individual()
     support_team.email = get_config('a2p')['error_email']
@@ -268,18 +276,25 @@ Stacktrace:
     return send_email(to=[support_team], subject=email_subject, body=email_body)
 
 
-def _send_internal_error_email(error, stacktrace, local_vars):
+def _send_internal_error_email(error, stacktrace, extra_info):
     email_subject = 'A2P Internal Error'
     email_body = '''
 Stacktrace:
-{stacktrace}'''.format(stacktrace=stacktrace)
-    local_vars_text = '''
+{stacktrace}
 
-Local Variables:
-{local_vars}'''.format(local_vars=local_vars)
-    
-    if local_vars is not None:
-        email_body += local_vars_text
+Timestamp:
+{timestamp}
+
+Session ID:
+{session_id}
+
+Extra info:
+{extra_info}'''.format(
+    stacktrace=stacktrace,
+    timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
+    session_id=session.get('uid', 'na'),
+    extra_info=extra_info
+)
     support_team = Individual()
     support_team.email = get_config('a2p')['error_email']
     log("Sending error email to {}".format(support_team.email))
