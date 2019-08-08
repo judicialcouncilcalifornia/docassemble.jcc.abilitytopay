@@ -234,7 +234,7 @@ class ErrorResult(APIResult):
 
     @staticmethod
     def from_api_error(api_error, extra_info=None):
-        log("Error trying to communicate with A2P API: {}".format(error))
+        log("Error response from A2P API: {}".format(api_error))
         _send_api_error_email(api_error.response, traceback.format_exc(), extra_info)
         return ErrorResult(str(api_error))
 
