@@ -121,6 +121,7 @@ def _fetch_citation_data(citation_number, county):
     res = APIResult.from_http_response(res)
 
     if res.data is None:
+        res.data = []
         return res
 
     # Old API returns a single dict. Wrap it in a list to make it
@@ -153,13 +154,16 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
     res = __do_request(a2p_config()['case_lookup_url'], case_params)
     res = APIResult.from_http_response(res)
 
+    if res.data is None:
+        res.data = []
+        return res
+    
     # Only return eligible citations. TODO: Move this logic somewhere else.
-    if res.data is not None:
-        eligible_citations = [citation for citation in res.data if __is_citation_eligible(citation)]
-        if len(eligible_citations) > 0:
-            res.data = eligible_citations
-        else:
-            res.data = None
+    eligible_citations = [citation for citation in res.data if __is_citation_eligible(citation)]
+    if len(eligible_citations) > 0:
+        res.data = eligible_citations
+    else:
+        res.data = []
     return res
 
 

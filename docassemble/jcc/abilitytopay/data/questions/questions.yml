@@ -75,15 +75,16 @@ code: |
     response = fetch_case_data(first_name, last_name, dob, license_number, county)
   else:
     response = fetch_case_data_from_citation(citation_number, county)
-  if response.data:
+  if response.data is not None:
+    if len(response.data) > 0:
       all_citations = {
         case['citationNumber']: case
         for case in response.data
       }
-  elif response.error is None:
-    log(get_translation('check_information', lang), 'danger')
-    # Check the information you entered. Try again.
-    reconsider('completed_citation_form')
+    else:
+      log(get_translation('check_information', lang), 'danger')
+      # Check the information you entered. Try again.
+      reconsider('completed_citation_form')
   elif response.error == 'too-many-results':
     log(get_translation('need_more_info', lang), 'danger')
     # We need more info to look up this citation. Please select "I don't have my citation number" below and enter your details.
