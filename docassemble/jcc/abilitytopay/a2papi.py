@@ -75,7 +75,7 @@ def fetch_case_data_from_citation(citation_number, county):
             raise CitationNumberCollisionError()
         elif num_citations == 0:
             # No citations matched this citation number.
-            return SuccessResult(None)
+            return SuccessResult([])
     except APIError as e:
         return ErrorResult.from_api_error(e)
     except CitationNumberCollisionError as e:
@@ -104,7 +104,7 @@ def fetch_case_data_from_citation(citation_number, county):
             if __is_citation_eligible(citation):
                 return SuccessResult([citation])
             else:
-                return SuccessResult(None)
+                return SuccessResult([])
 
             # TODO: Use CaseResult and CitationResult classes to clarify the
             # data shapes expected by the frontend
