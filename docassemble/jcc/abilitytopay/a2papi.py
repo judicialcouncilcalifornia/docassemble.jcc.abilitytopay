@@ -37,6 +37,21 @@ def log_message_with_timestamp(message):
 # Override the default docassemble logger, which annoyingly strips newlines.
 docassemble.base.logger.set_logmessage(log_message_with_timestamp)
 
+#
+# Errors
+#
+
+class APIError(Exception):
+    '''Raised when the API returns a non-200 response.'''
+    def __init__(self, response):
+        self.response = response
+        self.request = response.request
+    def __str__(self):
+        return 'API Error: replied with {} for request to {} with body {}'.format(response.text, request.url, request.body)
+
+class CitationNumberCollisionError(Exception):
+    '''Raised when the API returns more than one citation with the same citation number.'''
+
 # 
 # API
 # 
@@ -44,7 +59,7 @@ docassemble.base.logger.set_logmessage(log_message_with_timestamp)
 def fetch_case_data_from_citation(citation_number, county):
     try:
         # fetch citation data
-        citation_response = fetch_citation_data(citation_number, county)
+        citation_response = _fetch_citation_data(citation_number, county)
         num_citations = len(citation_response.data)
         if num_citations == 1:
             # Perfect. We received exactly one citation.
@@ -52,12 +67,16 @@ def fetch_case_data_from_citation(citation_number, county):
         if num_citations > 1:
             # No good. We received multiple citations, but we only wanted one. Need to
             # direct user to provide more info to disambiguate.
-            return ErrorResult('too-many-results')
+            raise CitationNumberCollisionError()
         elif num_citations == 0:
             # No citations matched this citation number.
             return SuccessResult(None)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
+    except CitationNumberCollisionError as e:
+        return ErrorResult('too-many-results')
     except Exception as e:
-        return ErrorResult(traceback.format_exc())
+        return ErrorResult.from_generic_error(e)
 
     try:
         # pull info out of citation result
@@ -68,12 +87,12 @@ def fetch_case_data_from_citation(citation_number, county):
         county = citation.get('county')
         
         # fetch case data
-        case_data = fetch_case_data(first_name, last_name, dob, drivers_license, county)
-        return case_data
+        return _fetch_case_data(first_name, last_name, dob, drivers_license, county)
+    except APIError as e:
+        log("Error fetching case data from citation result: {}".format(e))
+        return ErrorResult.from_api_error(e)
     except Exception as e:
-        # TODO: Send e-mail notification to dev team
-        log("Error fetching case data from citation result: %s" % e)
-
+        log("Error fetching case data from citation result: {}".format(e))
         try:
             # If unable to fetch case data from the citation,
             # return a case containing only the original citation (if eligible).
@@ -85,55 +104,67 @@ def fetch_case_data_from_citation(citation_number, county):
             # TODO: Use CaseResult and CitationResult classes to clarify the
             # data shapes expected by the frontend
         except Exception as e:
-            return ErrorResult(traceback.format_exc())
+            return ErrorResult.from_generic_error(e)
+
+
+def _fetch_citation_data(citation_number, county):
+    citation_params = {
+        'num': citation_number,
+        'county': county
+    }
+    res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
+    res = APIResult.from_http_response(res)
+
+    if res.data is None:
+        return res
+
+    # Old API returns a single dict. Wrap it in a list to make it
+    # look like the new API. Delete this hunk once new API is deployed and tested.
+    if type(res.data) is dict:
+        res.data = [res.data]
+
+    for citation in res.data:
+        citation['eligible'] = __is_citation_eligible(citation)
+    return res
 
 
 def fetch_citation_data(citation_number, county):
     try:
-        citation_params = {
-            'num': citation_number,
-            'county': county
-        }
-        res = __do_request(a2p_config()['citation_lookup_url'], citation_params)
-        res = APIResult.from_http_response(res)
-
-        if res.data is None:
-            return res
-
-        # Old API returns a single dict. Wrap it in a list to make it
-        # look like the new API. Delete this hunk once new API is deployed and tested.
-        if type(res.data) is dict:
-            res.data = [res.data]
-
-        for citation in res.data:
-            citation['eligible'] = __is_citation_eligible(citation)
-        return res
+        return _fetch_citation_data(citation_number, county)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
     except Exception as e:
-        return ErrorResult(traceback.format_exc())
+        return ErrorResult.from_generic_error(e)
+
+
+def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
+    case_params = {
+        'firstName': first_name,
+        'lastName': last_name,
+        'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
+        'driversLicense': drivers_license,
+        'county': county
+    }
+    res = __do_request(a2p_config()['case_lookup_url'], case_params)
+    res = APIResult.from_http_response(res)
+
+    # Only return eligible citations. TODO: Move this logic somewhere else.
+    if res.data is not None:
+        eligible_citations = [citation for citation in res.data if __is_citation_eligible(citation)]
+        if len(eligible_citations) > 0:
+            res.data = eligible_citations
+        else:
+            res.data = None
+    return res
 
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
     try:
-        case_params = {
-            'firstName': first_name,
-            'lastName': last_name,
-            'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
-            'driversLicense': drivers_license,
-            'county': county
-        }
-        res = __do_request(a2p_config()['case_lookup_url'], case_params)
-        res = APIResult.from_http_response(res)
-
-        # Only return eligible citations. TODO: Move this logic somewhere else.
-        if res.data is not None:
-            eligible_citations = [citation for citation in res.data if __is_citation_eligible(citation)]
-            if len(eligible_citations) > 0:
-                res.data = eligible_citations
-            else:
-                res.data = None
-        return res
+        return _fetch_case_data(first_name, last_name, dob, drivers_license, county)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
     except Exception as e:
-        return ErrorResult(traceback.format_exc())
+        return ErrorResult.from_generic_error(e)
 
 
 def submit_all_citations(data, attachments=[]):
@@ -149,21 +180,14 @@ def submit_all_citations(data, attachments=[]):
             try:
                 response = __do_request(a2p_config()['submit_url'], petitioner_payload)
                 submission_results[citation_number] = APIResult.from_http_response(response)
+            except APIError as e:
+                submission_results[citation_number] = ErrorResult.from_api_error(e)
             except Exception as e:
-                submission_results[citation_number] = ErrorResult(traceback.format_exc())
+                submission_results[citation_number] = ErrorResult.from_generic_error(e)
         log(submission_results)
         return SuccessResult(submission_results)
     except Exception as e:
-        return ErrorResult(traceback.format_exc())
-
-
-def submit_interview(data, attachments=[]):
-    try:
-        params = __build_submit_payload_and_upload_images(data, attachments)
-        res = __do_request(a2p_config()['submit_url'], params)
-        return APIResult.from_http_response(res)
-    except Exception as e:
-        return ErrorResult(traceback.format_exc())
+        return ErrorResult.from_generic_error(e)
 
 
 class APIResult():
@@ -183,7 +207,7 @@ class APIResult():
         if response.ok:
             return SuccessResult(data)
         else:
-            return ErrorResult(response.text)
+            raise APIError(response)
 
 class SuccessResult(APIResult):
     def __init__(self, data):
@@ -193,14 +217,63 @@ class SuccessResult(APIResult):
 
 class ErrorResult(APIResult):
     def __init__(self, error):
-        log("Error trying to communicate with A2P API: %s" % error)
-        support_team = Individual()
-        support_team.email = get_config('a2p')['error_email']
-        log("Sending error email to {}".format(support_team.email))
-        send_email(to=[support_team], subject='A2P Error', body=error)
         self.success = False
         self.error = error
         self.data = None
+
+    @staticmethod
+    def from_api_error(api_error):
+        log("Error trying to communicate with A2P API: {}".format(error))
+        _send_api_error_email(api_error.response, traceback.format_exc())
+        return ErrorResult(str(api_error))
+
+    @staticmethod
+    def from_generic_error(error):
+        log("Internal error: {}".format(error))
+        _send_internal_error_email(error, traceback.format_exc())
+        return ErrorResult('internal-error')
+
+
+def _send_api_error_email(response, stacktrace):
+    request = response.request
+    email_subject = 'A2P API {} Error'.format(response.status_code)
+    email_body = '''
+API replied with status code {status_code}
+
+Response:
+{response_body}
+
+Request URL:
+{request_url}
+
+Request Body:
+{request_body}
+
+Stacktrace:
+{stacktrace}'''.format(
+    status_code=response.status_code,
+    response_body=response.text,
+    request_url=request.url,
+    request_body=request.body,
+    stacktrace=stacktrace
+)
+    support_team = Individual()
+    support_team.email = get_config('a2p')['error_email']
+    log("Sending error email to {}".format(support_team.email))
+    return send_email(to=[support_team], subject=email_subject, body=email_body)
+
+
+def _send_internal_error_email(error, stacktrace):
+    email_subject = 'A2P Internal Error'
+    email_body = '''
+Stacktrace:
+{stacktrace}'''.format(
+    stacktrace=stacktrace
+)
+    support_team = Individual()
+    support_team.email = get_config('a2p')['error_email']
+    log("Sending error email to {}".format(support_team.email))
+    return send_email(to=[support_team], subject=email_subject, body=email_body)
 
 
 def __log_response(msg, response):
