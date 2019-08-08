@@ -194,6 +194,10 @@ class SuccessResult(APIResult):
 class ErrorResult(APIResult):
     def __init__(self, error):
         log("Error trying to communicate with A2P API: %s" % error)
+        support_team = Individual()
+        support_team.email = get_config('a2p')['error_email']
+        log("Sending error email to {}".format(support_team.email))
+        send_email(to=[support_team], subject='A2P Error', body=error)
         self.success = False
         self.error = error
         self.data = None
