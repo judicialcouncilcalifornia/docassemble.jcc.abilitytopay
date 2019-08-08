@@ -76,7 +76,7 @@ def fetch_case_data_from_citation(citation_number, county):
     except CitationNumberCollisionError as e:
         return ErrorResult('too-many-results')
     except Exception as e:
-        return ErrorResult.from_generic_error(e)
+        return ErrorResult.from_generic_error(e, local_vars=locals())
 
     try:
         # pull info out of citation result
@@ -104,7 +104,7 @@ def fetch_case_data_from_citation(citation_number, county):
             # TODO: Use CaseResult and CitationResult classes to clarify the
             # data shapes expected by the frontend
         except Exception as e:
-            return ErrorResult.from_generic_error(e)
+            return ErrorResult.from_generic_error(e, local_vars=locals())
 
 
 def _fetch_citation_data(citation_number, county):
@@ -228,9 +228,9 @@ class ErrorResult(APIResult):
         return ErrorResult(str(api_error))
 
     @staticmethod
-    def from_generic_error(error):
+    def from_generic_error(error, local_vars=None):
         log("Internal error: {}".format(error))
-        _send_internal_error_email(error, traceback.format_exc())
+        _send_internal_error_email(error, traceback.format_exc(), local_vars)
         return ErrorResult('internal-error')
 
 
@@ -263,13 +263,21 @@ Stacktrace:
     return send_email(to=[support_team], subject=email_subject, body=email_body)
 
 
-def _send_internal_error_email(error, stacktrace):
+def _send_internal_error_email(error, stacktrace, local_vars):
     email_subject = 'A2P Internal Error'
     email_body = '''
 Stacktrace:
 {stacktrace}'''.format(
     stacktrace=stacktrace
 )
+    local_vars_text = '''
+
+Local Variables:
+{local_vars}
+'''.format(local_vars)
+    
+    if local_vars is not None:
+        email_body += local_vars_text
     support_team = Individual()
     support_team.email = get_config('a2p')['error_email']
     log("Sending error email to {}".format(support_team.email))
