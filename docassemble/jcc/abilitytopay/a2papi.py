@@ -52,7 +52,9 @@ class APIError(Exception):
         self.response = response
         self.request = response.request
     def __str__(self):
-        return 'API Error: replied with {} for request to {} with body {}'.format(response.text, request.url, request.body)
+        return 'API Error: replied with {} for request to {} with body {}'.format(
+            self.response.text, self.request.url, self.request.body
+        )
 
 class CitationNumberCollisionError(Exception):
     '''Raised when the API returns more than one citation with the same citation number.'''
