@@ -10,11 +10,11 @@ from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
 
-# 
+#
 # Exports
 # - This is the public interface exported by this module.
 # - Only the names listed in __all__ are available to the interview code.
-# 
+#
 
 __all__ = [
     'fetch_case_data_from_citation',
@@ -22,15 +22,16 @@ __all__ = [
     'submit_all_citations'
 ]
 
-# 
+#
 # Logging
-# 
+#
 
 import time
 import logging
 import docassemble.base.logger
 
 sys_logger = logging.getLogger('docassemble')
+
 
 def log_message_with_timestamp(message):
     sys_logger.debug('{timestamp} {session_id} {message}'.format(
@@ -39,6 +40,7 @@ def log_message_with_timestamp(message):
         message=message
     ))
 
+
 # Override the default docassemble logger, which annoyingly strips newlines.
 docassemble.base.logger.set_logmessage(log_message_with_timestamp)
 
@@ -46,22 +48,28 @@ docassemble.base.logger.set_logmessage(log_message_with_timestamp)
 # Errors
 #
 
+
 class APIError(Exception):
     '''Raised when the API returns a non-200 response.'''
     def __init__(self, response):
         self.response = response
         self.request = response.request
+
     def __str__(self):
-        return 'API Error: replied with {} for request to {} with body {}'.format(
+        templ = 'API Error: replied with {} for request to {} with body {}'
+        return templ.format(
             self.response.text, self.request.url, self.request.body
         )
 
-class CitationNumberCollisionError(Exception):
-    '''Raised when the API returns more than one citation with the same citation number.'''
 
-# 
+class CitationNumberCollisionError(Exception):
+    '''Raised when the API returns more than one citation with the same
+    citation number.'''
+
+#
 # API
-# 
+#
+
 
 def fetch_case_data_from_citation(citation_number, county):
     try:
@@ -72,8 +80,8 @@ def fetch_case_data_from_citation(citation_number, county):
             # Perfect. We received exactly one citation.
             citation = citation_response.data[0]
         if num_citations > 1:
-            # No good. We received multiple citations, but we only wanted one. Need to
-            # direct user to provide more info to disambiguate.
+            # No good. We received multiple citations, but we only wanted one.
+            # Need to direct user to provide more info to disambiguate.
             raise CitationNumberCollisionError()
         elif num_citations == 0:
             # No citations matched this citation number.
@@ -92,17 +100,18 @@ def fetch_case_data_from_citation(citation_number, county):
         dob = date_from_iso8601(citation.get('dateOfBirth'))
         drivers_license = citation.get('driversLicense')
         county = citation.get('county')
-        
+
         # fetch case data
-        return _fetch_case_data(first_name, last_name, dob, drivers_license, county)
+        return _fetch_case_data(first_name, last_name, dob, drivers_license,
+                                county)
     except APIError as e:
         log("Error fetching case data from citation result: {}".format(e))
         return ErrorResult.from_api_error(e)
     except Exception as e:
         log("Error fetching case data from citation result: {}".format(e))
         try:
-            # If unable to fetch case data from the citation,
-            # return a case containing only the original citation (if eligible).
+            # If unable to fetch case data from the citation, return
+            # a case containing only the original citation (if eligible).
             if __is_citation_eligible(citation):
                 return SuccessResult([citation])
             else:
@@ -126,8 +135,8 @@ def _fetch_citation_data(citation_number, county):
         res.data = []
         return res
 
-    # Old API returns a single dict. Wrap it in a list to make it
-    # look like the new API. Delete this hunk once new API is deployed and tested.
+    # Old API returns a single dict. Wrap it in a list to make it look
+    # like the new API. Delete this hunk once new API is deployed and tested.
     if type(res.data) is dict:
         res.data = [res.data]
 
@@ -159,9 +168,12 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
     if res.data is None:
         res.data = []
         return res
-    
+
     # Only return eligible citations. TODO: Move this logic somewhere else.
-    eligible_citations = [citation for citation in res.data if __is_citation_eligible(citation)]
+    eligible_citations = [
+        citation for citation in res.data
+        if __is_citation_eligible(citation)
+    ]
     if len(eligible_citations) > 0:
         res.data = eligible_citations
     else:
@@ -171,7 +183,8 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
 
 def fetch_case_data(first_name, last_name, dob, drivers_license, county):
     try:
-        return _fetch_case_data(first_name, last_name, dob, drivers_license, county)
+        return _fetch_case_data(first_name, last_name, dob, drivers_license,
+                                county)
     except APIError as e:
         return ErrorResult.from_api_error(e)
     except Exception as e:
@@ -182,20 +195,24 @@ def submit_all_citations(data, attachments=[]):
     try:
         # Upload all attachments to blob storage
         benefit_files_data = __upload_images(attachments)
-        
+
         # Submit petition requests one at a time
         submission_results = {}
         for citation in data['selected_citations']:
             citation_number = citation['citationNumber']
-            petitioner_payload = __complete_payload(data, benefit_files_data, citation)
+            petitioner_payload = __complete_payload(
+                data, benefit_files_data, citation
+            )
             try:
-                response = __do_request(a2p_config()['submit_url'], petitioner_payload)
-                submission_results[citation_number] = APIResult.from_http_response(response)
+                submit_url = a2p_config()['submit_url']
+                response = __do_request(submit_url, petitioner_payload)
+                result = APIResult.from_http_response(response)
             except APIError as e:
-                submission_results[citation_number] = ErrorResult.from_api_error(e)
+                result = ErrorResult.from_api_error(e)
             except Exception as e:
-                submission_results[citation_number] = ErrorResult.from_generic_error(e)
-        log(submission_results)
+                result = ErrorResult.from_generic_error(e)
+            finally:
+                submission_results[citation_number] = result
         return SuccessResult(submission_results)
     except Exception as e:
         return ErrorResult.from_generic_error(e)
@@ -220,11 +237,13 @@ class APIResult():
         else:
             raise APIError(response)
 
+
 class SuccessResult(APIResult):
     def __init__(self, data):
         self.success = True
         self.error = None
         self.data = data
+
 
 class ErrorResult(APIResult):
     def __init__(self, error):
@@ -235,20 +254,24 @@ class ErrorResult(APIResult):
     @staticmethod
     def from_api_error(api_error, extra_info=None):
         log("Error response from A2P API: {}".format(api_error))
-        _send_api_error_email(api_error.response, traceback.format_exc(), extra_info)
+        _send_api_error_email(
+            api_error.response, traceback.format_exc(), extra_info
+        )
         return ErrorResult(str(api_error))
 
     @staticmethod
     def from_generic_error(error, extra_info=None):
         log("Internal error: {}".format(error))
-        _send_internal_error_email(error, traceback.format_exc(), extra_info)
+        _send_internal_error_email(
+            error, traceback.format_exc(), extra_info
+        )
         return ErrorResult('internal-error')
 
 
 def _send_api_error_email(response, stacktrace, extra_info):
     request = response.request
     email_subject = 'A2P API {} Error'.format(response.status_code)
-    email_body = '''
+    api_error_email_template = '''
 API replied with status code {status_code}
 
 Request URL:
@@ -267,24 +290,26 @@ Session ID:
 {session_id}
 
 Extra info:
-{extra_info}'''.format(
-    status_code=response.status_code,
-    request_url=request.url,
-    response_body=response.text,
-    stacktrace=stacktrace,
-    timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
-    session_id=session.get('uid', 'na'),
-    extra_info=extra_info
-)
+{extra_info}'''
+    email_body = api_error_email_template.format(
+        status_code=response.status_code,
+        request_url=request.url,
+        response_body=response.text,
+        stacktrace=stacktrace,
+        timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
+        session_id=session.get('uid', 'na'),
+        extra_info=extra_info
+    )
     support_team = Individual()
     support_team.email = get_config('a2p')['error_email']
     log("Sending error email to {}".format(support_team.email))
-    return send_email(to=[support_team], subject=email_subject, body=email_body)
+    return send_email(to=[support_team], subject=email_subject,
+                      body=email_body)
 
 
 def _send_internal_error_email(error, stacktrace, extra_info):
     email_subject = 'A2P Internal Error'
-    email_body = '''
+    internal_error_email_template = '''
 Stacktrace:
 {stacktrace}
 
@@ -295,16 +320,18 @@ Session ID:
 {session_id}
 
 Extra info:
-{extra_info}'''.format(
-    stacktrace=stacktrace,
-    timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
-    session_id=session.get('uid', 'na'),
-    extra_info=extra_info
-)
+{extra_info}'''
+    email_body = internal_error_email_template.format(
+        stacktrace=stacktrace,
+        timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
+        session_id=session.get('uid', 'na'),
+        extra_info=extra_info
+    )
     support_team = Individual()
     support_team.email = get_config('a2p')['error_email']
     log("Sending error email to {}".format(support_team.email))
-    return send_email(to=[support_team], subject=email_subject, body=email_body)
+    return send_email(to=[support_team], subject=email_subject,
+                      body=email_body)
 
 
 def __log_response(msg, response):
@@ -338,8 +365,12 @@ def __do_request(url, params):
 
     access_token = data['access_token']
 
-    headers = {'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json'}
-    res = requests.post(url, data=None, json=params, headers=headers, timeout=30)
+    headers = {
+        'Authorization': 'Bearer ' + access_token,
+        'Content-Type': 'application/json'
+    }
+    res = requests.post(url, data=None, json=params, headers=headers,
+                        timeout=30)
     __log_response("a2p api request", res)
     return res
 
@@ -354,19 +385,23 @@ def a2p_config():
 
 
 def __submit_image_from_url(proof_type, url):
-    """Uploads an image to an azure blob storage instance that is also accessible by
-    the clerk's module. Seems like a strange architectural decision--the A2P API should
-    accept the image data as part of the user's submission."""
-    
+    """Uploads an image to an azure blob storage instance that is also
+    accessible by the clerk's module. Seems like a strange architectural
+    decision--the A2P API should accept the image data as part of
+    the user's submission."""
+
     # TODO: Find a better way to get original filename from DA.
     filename = "ProofOf%s" % proof_type
     try:
         orig_filename = re.findall(r"filename%3D(.*?)(&|$)", url)[0][0]
         filename += "_%s" % orig_filename
-    except:
+    except Exception:
         pass
 
-    blob_service = BlockBlobService(account_name=a2p_config()['blob_account_name'], account_key=a2p_config()['blob_account_key'])
+    blob_service = BlockBlobService(
+        account_name=a2p_config()['blob_account_name'],
+        account_key=a2p_config()['blob_account_key']
+    )
     image_body = requests.get(url).content
     blob_service.create_blob_from_bytes('attachments', filename, image_body)
 
@@ -389,10 +424,10 @@ def __upload_images(attachments):
 def __complete_payload(data, benefit_files_data, citation_data):
     # Gather petition information
     payload = __petitioner_payload_without_case_info(data, benefit_files_data)
-    
+
     # Add case information
     payload['caseInformation'] = __serialized_case_information(citation_data)
-    
+
     # Add plea information
     citation_number = citation_data['citationNumber']
     plea_value = data['citation_pleas']['elements'][citation_number]
@@ -427,7 +462,8 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
 
     benefits = data.get('benefits', {}).get('elements', {})
     no_benefits = True
-    for benefit_name in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga', 'ihss', 'cal_works', 'wic', 'tanf', 'capi', 'other']:
+    for benefit_name in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga',
+                         'ihss', 'cal_works', 'wic', 'tanf', 'capi', 'other']:
         if benefits.get(benefit_name):
             no_benefits = False
 
@@ -439,7 +475,8 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
         other_benefits_desc = data.get('other_benefit_name')
         no_benefits = False
 
-    additional_requests = data.get('additional_requests', {}).get('elements', {})
+    additional_requests = \
+        data.get('additional_requests', {}).get('elements', {})
 
     difficultyToVisitCourtDueTo = data.get("difficult_open_text", "")
     for k, v in data.get('why_difficult', {}).get('elements', {}).items():
@@ -490,7 +527,9 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
             "isMoreTimeToPay": additional_requests.get('extension', False),
             "isPaymentPlan": additional_requests.get('payment_plan', False),
             "isReductionOfPayment": True,
-            "isCommunityService": additional_requests.get('community_service', False),
+            "isCommunityService": additional_requests.get(
+                'community_service', False
+            ),
             "isOtherRequest": False,
             "otherRequestDesc": data.get('other_hardship'),
             "selectAllRights": True,
@@ -513,7 +552,9 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
             "totalFamilyMembers": data.get('residents'),
         },
         "survey": {
-            "isAddressedTrafficMatter": data.get('tool_helpful', '') + ',' + data.get('tool_difficult', ''),
+            "isAddressedTrafficMatter": '{},{}'.format(
+                data.get('tool_helpful', ''), data.get('tool_difficult', '')
+            ),
             "willYouVisitCourt": data.get('prefer'),
             "difficultyToVisitCourtDueTo": difficultyToVisitCourtDueTo,
         },
@@ -548,9 +589,12 @@ def __serialized_case_information(case_information):
         "citationNumber": case_information.get('citationNumber'),
         "civilAssessFee": case_information.get('civilAssessFee', 0) > 0,
         "county": case_information.get('county'),
-        "fullName": case_information.get('firstName', '') + ' ' + case_information.get('lastName', ''),
+        "fullName": '{} {}'.format(
+            case_information.get('firstName', ''),
+            case_information.get('lastName', '')
+        ),
         "totalDueAmt": case_information.get('totalDueAmt'),
-        "violationDate": case_information.get('charges', [])[0].get('violationDate'),
+        "violationDate": case_information['charges'][0].get('violationDate'),
         "violationDescription": "\n".join(violDescriptions),
     }
 
