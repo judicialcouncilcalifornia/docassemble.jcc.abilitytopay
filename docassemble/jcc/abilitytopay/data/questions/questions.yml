@@ -51,57 +51,59 @@ fields:
 - ${get_translation('what_citation_number', lang)}: citation_number
 #- "What's the citation number?": citation_number
   required: false
-- ${get_translation('dont_have_citation_number', lang)}: no_citation_number
-#- "I don't have my citation number": no_citation_number
+- ${get_translation('dont_have_citation_number', lang)}: citation_number_absent
+#- "I don't have my citation number": citation_number_absent
   datatype: yesno
 #########################################################
 - ${get_translation('what_first_name', lang)}: first_name
 #- What is your first name?: first_name
-  show if: no_citation_number
+  show if: citation_number_absent
 - ${get_translation('what_last_name', lang)}: last_name
 #- What is your last name?: last_name
-  show if: no_citation_number
+  show if: citation_number_absent
 - ${get_translation('what_dob', lang)}: dob
 #- What's your date of birth?: dob
   datatype: date
-  show if: no_citation_number
+  show if: citation_number_absent
 - ${get_translation('what_license_number', lang)}: license_number
 #- What is your Driver's License Number?: license_number
-  show if: no_citation_number
+  show if: citation_number_absent
 continue button field: completed_citation_form
 ---
+only sets: fetched_citations_from_citation_number
 code: |
-  if no_citation_number:
-    response = fetch_case_data(first_name, last_name, dob, license_number, county)
-  else:
-    response = fetch_case_data_from_citation(citation_number, county)
+  response = fetch_case_data_from_citation(citation_number, county)
   if response.data is not None:
     if len(response.data) > 0:
       received_multiple_citations_for_one_citation_number = False
-      all_citations = {
-        case['citationNumber']: case
-        for case in response.data
-      }
+      all_citations = { case['citationNumber']: case for case in response.data }
     else:
       log(get_translation('check_information', lang), 'danger')
       # Check the information you entered. Try again.
-
-      # Watch out: tracking where we came from to get into this code block, and thus
-      # what variable to reconsider, will become a mess. Should refactor.
-      if defined('received_multiple_citations_for_one_citation_number') and received_multiple_citations_for_one_citation_number:
-        reconsider('completed_disambiguation_form')
-      else:
-        reconsider('completed_citation_form')
+      reconsider('completed_citation_form')
   elif response.error == 'too-many-results':
     # More than one citation result. Set a flag to show disambiguation form next.
     received_multiple_citations_for_one_citation_number = True
   else:
     log(get_translation('something_went_wrong', lang), 'danger')
     # Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.
-    if defined('received_multiple_citations_for_one_citation_number') and received_multiple_citations_for_one_citation_number:
-      reconsider('completed_disambiguation_form')
-    else:
-      reconsider('completed_citation_form')
+    reconsider('completed_citation_form')
+  fetched_citations_from_citation_number = True
+---
+only sets: fetched_citations_from_user_info
+code: |
+  fetch_case_data_or_reconsider('completed_citation_form')
+  fetched_citations_from_user_info = True
+---
+only sets: fetched_citations_from_user_info_disambiguation_form
+code: |
+  fetch_case_data_or_reconsider('completed_disambiguation_form')
+  fetched_citations_from_user_info_disambiguation_form = True
+---
+only sets: fetched_citations_from_user_info_wrong_citations_form
+code: |
+  fetch_case_data_or_reconsider('verify_citations_form')
+  fetched_citations_from_user_info_wrong_citations_form = True
 ---
 only sets: completed_disambiguation_form
 id: disambiguate-multiple-results
@@ -729,8 +731,15 @@ mandatory: True
 code: |
   landing_page_visited
   completed_citation_form
-  if received_multiple_citations_for_one_citation_number:
-    completed_disambiguation_form
+  if citation_number_absent:
+    fetched_citations_from_user_info
+  if not citation_number_absent:
+    fetched_citations_from_citation_number
+    if received_multiple_citations_for_one_citation_number:
+      completed_disambiguation_form
+      fetched_citations_from_user_info_disambiguation_form
+  # if wrong_citations:
+  #   citations_from_user_info_wrong_citations_form
   all_citations
   selected_citation_numbers
   how_work
