@@ -135,7 +135,10 @@ fields:
   minlength: 1
   code: |
     [
-      { case['citationNumber']: citation_info_card(case, lang) }
+      {
+        case['citationNumber']: citation_info_card(case, lang),
+        'default': defined('citation_number') and case['citationNumber'] == citation_number
+      }
       for case in all_citations.values()
     ]
 ---
