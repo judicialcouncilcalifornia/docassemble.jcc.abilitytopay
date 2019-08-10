@@ -9,6 +9,7 @@ from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
+from .translations import get_translation
 
 #
 # Exports
@@ -69,6 +70,33 @@ class CitationNumberCollisionError(Exception):
 #
 # API
 #
+
+
+def fetch_citations_helper(fallback_variable):
+    '''This is a helper function used in questions.yml. It tries to fetch
+    citations and store the results in the all_citations variable, or render
+    an error and reconsider the fallback_variable otherwise. This is useful
+    because we try to fetch citations from several different screens in the
+    interview.'''
+    response = fetch_case_data(value('first_name'), value('last_name'),
+                               value('dob'), value('license_number'),
+                               value('county'))
+    if (response.data is not None) and (len(response.data) > 0):
+        define('all_citations', {
+            case['citationNumber']: case
+            for case in response.data
+        })
+    else:
+        lang = value('lang')
+        if response.data == []:
+            log(get_translation('check_information', lang), 'danger')
+            # Check the information you entered. Try again.
+        else:
+            log(get_translation('something_went_wrong', lang), 'danger')
+            # Sorry! Something went wrong with your submission. Our support
+            # team has been notified. Please try again in 24 hours, or contact
+            # your court.
+        reconsider(fallback_variable)
 
 
 def fetch_case_data_from_citation(citation_number, county):
