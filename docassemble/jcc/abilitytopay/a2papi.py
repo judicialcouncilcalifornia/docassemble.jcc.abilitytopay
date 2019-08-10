@@ -20,6 +20,7 @@ from .translations import get_translation
 __all__ = [
     'fetch_case_data_from_citation',
     'fetch_case_data',
+    'fetch_case_data_helper',
     'submit_all_citations'
 ]
 
@@ -72,7 +73,7 @@ class CitationNumberCollisionError(Exception):
 #
 
 
-def fetch_citations_helper(fallback_variable):
+def fetch_case_data_helper(fallback_variable):
     '''This is a helper function used in questions.yml. It tries to fetch
     citations and store the results in the all_citations variable, or render
     an error and reconsider the fallback_variable otherwise. This is useful
