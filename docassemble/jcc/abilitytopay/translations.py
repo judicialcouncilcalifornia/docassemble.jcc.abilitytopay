@@ -1093,7 +1093,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
   },
 
   "need_more_info": {
-    "en":"We need more info to look up this citation. Please select \"I don't have my citation number\" below and enter your details.",
+    "en":"We need some more information to find your citation:",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
