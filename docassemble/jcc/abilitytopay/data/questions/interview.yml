@@ -197,6 +197,7 @@ code: |
     response = fetch_case_data(first_name, last_name, dob, license_number, county)
     if response['data']:
         case_lookup_results = []
+        cases_by_citation_number = { case['citationNumber']: case for case in response['data'] }
         for case in response['data']:
             charges = case['charges']
             c_violation_date = date_from_iso8601(charges[0]['violationDate'])
@@ -225,7 +226,7 @@ fields:
     case_lookup_results
 ---
 code: |
-  case_information = fetch_citation_data(selected_case, county)['data']
+  case_information = cases_by_citation_number[selected_case]
 ---
 id: how-this-works
 field: how_work
