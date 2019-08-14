@@ -76,6 +76,8 @@ code: |
   if response.data is not None:
     if len(response.data) > 0:
       received_multiple_citations_for_one_citation_number = False
+      # reset the not_my_citations flag
+      not_my_citations = False
       all_citations = { case['citationNumber']: case for case in response.data }
     else:
       log(get_translation('check_information', lang), 'danger')
@@ -102,7 +104,7 @@ code: |
 ---
 only sets: fetched_citations_from_user_info_wrong_citations_form
 code: |
-  fetch_case_data_or_reconsider('verify_citations_form')
+  fetch_case_data_or_reconsider('completed_verify_citations_form')
   fetched_citations_from_user_info_wrong_citations_form = True
 ---
 only sets: completed_disambiguation_form
@@ -127,6 +129,8 @@ comment: |
   each key is a citation number and each value is the HTML
   rendering of the corresponding citation.
 question: ${get_translation('found_multiple_citations', lang, county=county)}
+under: |
+  ${action_button_html(url_action('wrong_citations_event'), color="warning", label="These are not the right citations!", block=True)}
 # Multiple Results
 # We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
 fields:
@@ -143,6 +147,12 @@ fields:
       for case in sorted(all_citations.values(), key=lambda case: defined('citation_number') and case['citationNumber'] != citation_number)
       # Sort the list so that if the user entered a citation number, it occurs first.
     ]
+---
+event: wrong_citations_event
+code: |
+  # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
+  not_my_citations = True
+  reconsider('completed_verify_citations_form')
 ---
 id: how-this-works
 field: how_work
@@ -740,11 +750,9 @@ code: |
     fetched_citations_from_user_info
   if not citation_number_absent:
     fetched_citations_from_citation_number
-    if received_multiple_citations_for_one_citation_number:
+    if received_multiple_citations_for_one_citation_number or not_my_citations:
       completed_disambiguation_form
       fetched_citations_from_user_info_disambiguation_form
-  # if wrong_citations:
-  #   citations_from_user_info_wrong_citations_form
   all_citations
   selected_citation_numbers
   how_work

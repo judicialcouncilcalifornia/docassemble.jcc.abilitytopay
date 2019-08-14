@@ -87,6 +87,8 @@ def fetch_case_data_or_reconsider(fallback_variable):
             case['citationNumber']: case
             for case in response.data
         })
+        # Reset the not_my_citations flag
+        define('not_my_citations', False)
     else:
         lang = value('lang')
         if response.data == []:
