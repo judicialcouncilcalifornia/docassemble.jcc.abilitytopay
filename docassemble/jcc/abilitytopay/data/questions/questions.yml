@@ -140,7 +140,8 @@ fields:
         case['citationNumber']: citation_info_card(case, lang),
         'default': defined('citation_number') and case['citationNumber'] == citation_number
       }
-      for case in all_citations.values()
+      for case in sorted(all_citations.values(), key=lambda case: defined('citation_number') and case['citationNumber'] != citation_number)
+      # Sort the list so that if the user entered a citation number, it occurs first.
     ]
 ---
 id: how-this-works
