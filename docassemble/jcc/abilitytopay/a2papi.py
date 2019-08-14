@@ -487,8 +487,6 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
         if reason:
             no_docs_upload_comments.append("%s: %s" % (field, reason))
 
-    case_information = data.get('case_information')
-
     benefits = data.get('benefits', {}).get('elements', {})
     no_benefits = True
     for benefit_name in ['cal_fresh', 'ssi', 'ssp', 'medi_cal', 'cr_ga',
