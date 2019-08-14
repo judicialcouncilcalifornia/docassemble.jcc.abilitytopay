@@ -185,12 +185,15 @@ _translations = {
     ,"zh-t":"不是這張罰單！"
   },
 
-  "found_multiple_citations": {
-    "en":"""
-### Multiple Results
+  "multiple_results": {
+    "en":"### Multiple Results",
+    "es":""
+    ,"zh-s":""
+    ,"zh-t":""
+  },
 
-We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
-""",
+  "found_multiple_citations": {
+    "en":"We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
