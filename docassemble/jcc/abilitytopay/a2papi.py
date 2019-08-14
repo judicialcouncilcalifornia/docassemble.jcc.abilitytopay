@@ -623,6 +623,8 @@ def __serialized_case_information(case_information):
         "totalDueAmt": case_information.get('totalDueAmt'),
         "violationDate": case_information['charges'][0].get('violationDate'),
         "violationDescription": "\n".join(violDescriptions),
+        "race": case_information.get('race'),
+        "zipCode": case_information.get('zipCode'),
     }
 
 
