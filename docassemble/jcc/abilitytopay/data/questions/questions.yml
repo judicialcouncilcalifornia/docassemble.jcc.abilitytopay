@@ -152,7 +152,7 @@ event: wrong_citations_event
 code: |
   # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
   not_my_citations = True
-  reconsider('completed_verify_citations_form')
+  reconsider('completed_disambiguation_form')
 ---
 id: how-this-works
 field: how_work
