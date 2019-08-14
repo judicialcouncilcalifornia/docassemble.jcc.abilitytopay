@@ -185,15 +185,19 @@ _translations = {
     ,"zh-t":"不是這張罰單！"
   },
 
-  "we_found_x_citations": {
-    "en":"We checked for all the citations in your name in {county} County. Here's what we found.",
+  "found_multiple_citations": {
+    "en":"""
+### Multiple Results
+
+We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
+""",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
 
   "select_citation": {
-    "en":"Select each ticket for which you want to request a reduction:",
+    "en":"Select each of the tickets for which you want to request a reduction.",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
