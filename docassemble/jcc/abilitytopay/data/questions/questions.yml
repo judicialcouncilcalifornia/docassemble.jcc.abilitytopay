@@ -432,7 +432,7 @@ subquestion: |
 # You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
 # Upload picture
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: current-income
 question: |

@@ -20,7 +20,32 @@ function sendGtagEventOnClick(selector, event) {
 // Custom file upload helper
 //
 
-function prepareFileUpload() {
+var texts = {
+  'Use a different photo': {
+    'en': 'Use a different photo',
+    'es': ''
+  },
+  'Add a photo': {
+    'en': 'Add a photo',
+    'es': 'Subir foto'
+  }
+};
+
+function getText(key, lang) {
+  var translations = texts[key];
+  if (translations) {
+    if (lang in translations)
+      return translations[lang];
+    else {
+      console.warn('Could not find translation for ' + key + ' in ' + lang);
+      return translations['en'];
+    }
+  } else {
+    console.error('Could not find translation for ' + key);
+  }
+}
+
+function prepareFileUpload(lang) {
   console.log('Preparing custom file upload.');
   $('#daform').attr('enctype', 'multipart/form-data');
   $('#daform').attr('method', 'POST');
@@ -67,9 +92,9 @@ function prepareFileUpload() {
 
   var renderUploadButton = function(state) {
     if (state.files.length > 0) {
-      $('.a2p-file-upload-label').text('Use a different photo');
+      $('.a2p-file-upload-label').text(getText('Use a different photo', lang));
     } else {
-      $('.a2p-file-upload-label').text('Add a photo');
+      $('.a2p-file-upload-label').text(getText('Add a photo', lang));
     }
   };
 
