@@ -26,16 +26,17 @@ _translations = {
     "es":
 """*Este sistema en línea es una manera opcional de solicitar una reducción en su multa de tránsito debido a una necesidad económica.*
 
-**Use esta herramienta para solicitar:**
+**Use este servicio para solicitar:**
 
 * Una reducción de su multa de tránsito
 * Un plan de pagos
 * Servicio comunitario
 * Más tiempo para pagar su multa
 
-**Do not use this tool:(missing translation)**
+**No use este servicio:**
 
-* Si quiere disputar la multa o resolver su multa en persona, comuníquese con su corte. Consulte su aviso recordatorio.""",
+* Si quiere disputar la multa o resolver su multa en persona, comuníquese con su corte.
+* Si tiene una corrección, consulte su aviso de cortesía o lleve un comprobante al secretario de la corte para desestimar o reducir los cargos.""",
     "zh-s":
 """*如果您有财务需要，本在线系统是请求减少交通罚单罚款的可选途径。*
 
@@ -61,7 +62,7 @@ _translations = {
 
   "lookup_citation": {
     "en": "### Look Up Your Citation",
-    "es": "### Consultar su citación",
+    "es": "### Busque su citación",
     "zh-s": "### 查看您的罚单",
     "zh-t": "### 查看您的罰單"
   },
@@ -115,9 +116,10 @@ _translations = {
     "zh-t": "您的駕照號碼是多少？"
   },
 
+  # Can be deleted once multiple-citations branch gets merged
   "request_to_court": {
     "en": "### Request to Court",
-    "es": "### Solicitar a la corte",
+    "es": "### Solicitud a la corte",
     "zh-s": "### 给法院的请求",
     "zh-t": "### 給法院的請求"
   },
@@ -145,14 +147,14 @@ _translations = {
 
   "violation_date": {
     "en": "Violation Date",
-    "es": "Fecha de la contravención",
+    "es": "Fecha de la infracción",
     "zh-s": "违规日期",
     "zh-t": "違規日期"
   },
 
   "total_due": {
     "en": "Total Due",
-    "es": "Total adeudado",
+    "es": "Monto que se debe",
     "zh-s": "应付总额",
     "zh-t": "應付總額"
   },
@@ -206,9 +208,16 @@ _translations = {
     "zh-t": ""
   },
 
+  "none_of_these_are_right": {
+    "en": "None of these are right",
+    "es": "",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
   "how_this_works": {
     "en": "### How this works",
-    "es": "### Cómo funciona",
+    "es": "### Cómo funciona este servicio",
     "zh-s": "### 如何运作",
     "zh-t": "### 如何運作"
   },
@@ -229,7 +238,7 @@ Be prepared to share information about your income, monthly expenses and any pub
     "es": """
 *Le haremos algunas preguntas para que la corte pueda comprender mejor su necesidad de reducir la multa.*
 
-Esté preparado para compartir información sobre sus ingresos, gastos mensuales y cualquier beneficio público que recibe actualmente. Igualmente, sus respuestas serán revisadas por un funcionario judicial como ocurriría si viniera a la corte en persona.
+Esté preparado para compartir información sobre sus ingresos, gastos mensuales y cualquier beneficio público que recibe actualmente. Sus respuestas serán revisadas por un funcionario judicial como si fuera a la corte en persona.
     """,
     "zh-s": """
 *我们将通过几个问题帮助法院更好地了解您要减少罚款的需求。*
@@ -329,7 +338,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "other_benefit_name": {
     "en": "What's the other public benefit you receive?",
-    "es": "",
+    "es": "¿Cómo se llama el beneficio público que recibe?",
     "zh-s": "",
     "zh-t": ""
   },
@@ -342,15 +351,15 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "calfresh_upload": {
-    "en": "### You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?",
-    "es": "### Usted dijo que recibe CalFresh. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de CalFresh?",
+    "en": "### You said you receive CalFresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?",
+    "es": "### Usted dijo que recibe CalFresh. ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de CalFresh?",
     "zh-s": "",
     "zh-t": ""
   },
 
   "calfresh_card": {
-    "en": "Calfresh Card",
-    "es": "",
+    "en": "CalFresh Card",
+    "es": "Tarjeta de CalFresh",
     "zh-s": "",
     "zh-t": ""
   },
@@ -364,7 +373,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "why_no_proof": {
     "en": "Tell us why you can't provide documentation at this time",
-    "es": "Díganos por qué no puede proporcionar documentación en este momento",
+    "es": "Explique por qué no puede darnos documentación en este momento",
     "zh-s": "告诉我们您为何现在不能提供文件",
     "zh-t": "告訴我們您為何現在不能提供文件"
   },
@@ -378,14 +387,14 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_medical": {
     "en": "### You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?",
-    "es": "### Usted dijo que recibe Medi-Cal. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de Medi-Cal?",
+    "es": "### Usted dijo que recibe Medi-Cal. ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de Medi-Cal?",
     "zh-s": "",
     "zh-t": ""
   },
 
   "medi_cal_card": {
     "en": "Medi-Cal Card",
-    "es": "",
+    "es": "Tarjeta de Medi-Cal",
     "zh-s": "",
     "zh-t": ""
   },
@@ -399,7 +408,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_ssi_document": {
     "en": "*You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe Seguridad de ingreso suplementario. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de Seguridad de ingreso suplementario?*",
+    "es": "*Usted dijo que recibe Seguridad de ingreso suplementario. ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de Seguridad de ingreso suplementario?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -420,7 +429,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_ssp": {
     "en": "*You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe pagos suplementarios del estado. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de pagos suplementarios del estado?*",
+    "es": "*Usted dijo que recibe beneficios de SSP (pagos suplementarios del estado). ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de pagos suplementarios del estado?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -441,7 +450,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_gacr": {
     "en": "*You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe ayuda general/ayuda del condado. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de ayuda general/ayuda del condado?*",
+    "es": "*Usted dijo que recibe ayuda general/ayuda del condado. ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de ayuda general/ayuda del condado?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -462,7 +471,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_ihss": {
     "en": "*You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe servicios de apoyo en el hogar. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de servicios de apoyo en el hogar?*",
+    "es": "*Usted dijo que recibe beneficios de IHSS (servicios de apoyo en el hogar). ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de servicios de apoyo en el hogar?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -483,7 +492,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_tanf": {
     "en": "*You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe ayuda temporal para familias necesitadas. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de ayuda temporal para familias necesitadas?*",
+    "es": "*Usted dijo que recibe beneficios de TANF (ayuda temporal para familias necesitadas). ¿Puede subir un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de ayuda temporal para familias necesitadas?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -504,7 +513,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_wic": {
     "en": "*You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe nutrición suplementaria especial para mujeres, bebés y niños. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de nutrición suplementaria especial para mujeres, bebés y niños?*",
+    "es": "*Usted dijo que recibe beneficios de WIC (programa de Nutrición suplementaria especial para mujeres, bebés y niños). ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de nutrición suplementaria especial para mujeres, bebés y niños?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -525,7 +534,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_calworks": {
     "en": "*You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe oportunidades de trabajo y responsabilidades hacia los niños de California. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de oportunidades de trabajo y responsabilidades hacia los niños de California?*",
+    "es": "*Usted dijo que recibe beneficios de CalWORKs (asistencia monetaria del Programa de Oportunidades de Trabajo y Responsabilidad hacia los Niños). ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de oportunidades de trabajo y responsabilidades hacia los niños de California?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -546,7 +555,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "upload_capi": {
     "en": "*You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*",
-    "es": "*Usted dijo que recibe programa de ayuda en efectivo para inmigrantes legales ancianos, no videntes o discapacitados. ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de programa de ayuda en efectivo para inmigrantes legales ancianos, no videntes o discapacitados?*",
+    "es": "*Usted dijo que recibe beneficios de CAPI (ayuda en efectivo para inmigrantes legales ancianos, no videntes o discapacitados). ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio, como por ejemplo una tarjeta de programa de ayuda en efectivo para inmigrantes legales ancianos, no videntes o discapacitados?*",
     "zh-s": "",
     "zh-t": ""
   },
@@ -574,13 +583,28 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "please_upload": {
     "en": ". Please upload any document that proves you are currently receiving this benefit.",
-    "es": ". ¿Puede cargar un documento que demuestre que está recibiendo actualmente este beneficio?",
+    "es": ". Suba un documento que demuestre que está recibiendo actualmente este beneficio.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "upload_picture": {
     "en": "Upload picture",
+    "es": "",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
+  # TODO: Shim these into prepareFileUpload() so we don't store translations
+  # directly in a2p.js
+  "Use a different photo": {
+    "en": "Use a different photo",
+    "es": "",
+    "zh-s": "",
+    "zh-t": ""
+  },
+  "Add a photo": {
+    "en": "Add a photo",
     "es": "",
     "zh-s": "",
     "zh-t": ""
@@ -595,7 +619,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "money_each_month": {
     "en": "### How much money do you take home each month?",
-    "es": "### ¿Cuánto dinero se lleva a su casa todos los meses después de descontar los impuestos?",
+    "es": "### ¿Cuánto dinero gana por mes después de descontar los impuestos?",
     "zh-s": "### 您每个月带回家多少税后收入？",
     "zh-t": "### 您每個月帶回家多少稅後收入？"
   },
@@ -631,7 +655,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "monthly_expenses": {
     "en": "### Monthly Expenses",
-    "es": "### Monthly Expenses",
+    "es": "### Gastos mensuales",
     "zh-s": "### 每月花费",
     "zh-t": "### 每月開支"
   },
@@ -645,18 +669,17 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "you_take_home_pre": {
     "en": "You said you take home",
-    "es": "Usted dijo que se lleva a su casa ",
+    "es": "Usted dijo que gana ",
     "zh-s": "您说您每个月带回家${ format_money(income) }。如果您没有此项花费",
     "zh-t": "您說每個月帶回家"
   },
 
   "you_take_home_post": {
     "en": " each month. If you don't spend money on an expense, enter $0.",
-    "es": " por mes. Si no tiene este gasto, ponga $0.",
+    "es": " por mes, después de deducir impuestos. Si no tiene este gasto, ponga $0.",
     "zh-s": " 请输入$0。",
     "zh-t": "。如果您沒有此項開支，請輸入$0。 "
   },
-
 
   "rent": {
     "en": "Rent",
@@ -723,7 +746,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "would_other_hardship": {
     "en": "Would you like to report other expenses or reasons for financial hardship?",
-    "es": "¿Quiere reportar otros gastos o razones para explicar su problema económico?",
+    "es": "¿Quiere reportar otros gastos o razones para explicar sus dificultades económicas?",
     "zh-s": "您是否想要报告其他花费或财务困难的原因？",
     "zh-t": "您是否願意報告其他開支或財務困難的原因？"
   },
@@ -737,7 +760,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "total_additional_expenses": {
     "en": "What is the total monthly cost of these additional expenses?",
-    "es": "",
+    "es": "¿Cuánto es el costo total mensual de estos gastos adicionales?",
     "zh-s": "",
     "zh-t": ""
   },
@@ -751,7 +774,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "would_like_additional": {
     "en": "In addition to a fine reduction, would you like to add any of the following requests to the current or reduced amount?",
-    "es": "¿Quiere agregar cualquiera de las siguientes solicitudes al monto actual o reducido de su multa?",
+    "es": "Además de solicitar una multa reducida, ¿desea pedir una de las siguientes opciones a la corte?",
     "zh-s": "",
     "zh-t": "您是否想在目前或減低的金額之外增加以下請求："
   },
@@ -772,14 +795,14 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "extension": {
     "en": "Extension",
-    "es": "Extensión",
+    "es": "Aplazamiento de pago de la multa",
     "zh-s": "延期",
     "zh-t": "延期"
   },
 
   "administrative_fees": {
     "en": "Note: Your court may charge administrative fees for setting up a payment plan or community service work plan.",
-    "es": "Note: Your court may charge administrative fees for setting up a payment plan or community service work plan. (missing translation)",
+    "es": "Nota: Su corte puede cobrar una cuota para establecer un plan de pagos o un plan de servicio comunitario.",
     "zh-s": "备注：您的法院可就设定支付计划或者社区服务工作计划收取管理费。",
     "zh-t": "備註：您的法院可能會收取設定付款計劃或社區服務工作計劃的管理費。"
   },
@@ -805,14 +828,14 @@ By pleading you will be giving up the following rights:
 * To remain silent and not testify and not incriminate yourself.
     """,
     "es": """
-Para poder presentar su solicitud de reducción de multa, tiene que admitir su responsabilidad por la citación y declararse culpable o sin disputa. Si no quiere admitir responsabilidad o no comprende estos derechos, deje de usar este programa y comuníquese con la corte para programar una comparecencia en persona.
+Para presentar su solicitud de reducción de multa, tiene que admitir su responsabilidad por la citación y declararse culpable o sin disputa. Si no quiere admitir responsabilidad o no comprende estos derechos, deje de usar este programa y comuníquese con la corte para programar una comparecencia en persona.
 Al declararse culpable o sin disputa, estará renunciando a los siguientes derechos:
 
-* a ser representado por un abogado contratado por usted;
-* a tener un juicio rápido y público delante de un juez;
-* a atestiguar, presentar pruebas, y usar órdenes de la corte sin costo para obligar la asistencia de testigos y la presentación de pruebas en su nombre;
-* a que testigos en su contra presten testimonio bajo juramento en la corte, y a interrogar dichos testigos;
-* a guardar silencio y no atestiguar ni incriminarse.
+* representación por un abogado contratado por usted;
+* un juicio público y sin demora delante de un juez;
+* dar testimonio, presentar pruebas, y usar órdenes de la corte sin costo para obligar la asistencia de testigos y la presentación de pruebas en su nombre;
+* el testimonio bajo juramento en la corte de testigos en su contra, y la interrogación de dichos testigos;
+* guardar silencio y no testificar ni incriminarse.
     """,
     "zh-s": """
 为提交您的减少罚款请求，您需要通过有罪或无异议答辩承认对罚单的责任。如果您不想承认责任，或者您不理解这些权利，请退出系统，联系法院安排亲自出庭。
@@ -846,21 +869,21 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "no_content_plea": {
     "en": "**No Contest Plea.** I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.",
-    "es": "**Sin disputa.** He leído, comprendo y renuncio a los derechos anteriores; hay hechos que justifican mi declaración. Hago esta declaración en forma libre y voluntaria, y acepto declararme ‘sin disputa’. Comprendo que, a los fines de este caso, una declaración de sin disputa se interpretará de la misma manera que una declaración de culpable, y que si me declaro sin disputa la corte me declarará culpable.",
+    "es": "**Sin disputa.** He leído, comprendo y renuncio a los derechos descritos arriba; hay hechos que justifican mi declaración. Hago esta declaración en forma libre y voluntaria, y acepto hacer una declaración de ‘sin disputa’. Comprendo que una declaración de sin disputa en este caso se interpretará de la misma manera que una declaración de culpable, y que si me declaro sin disputa la corte me declarará culpable.",
     "zh-s": "**无异议答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩，我的答辩是自由、自愿做出的，并且我同意“无异议”答辩。我理解，就本案而言，无异议答辩将被视同有罪答辩，并且如果我进行无异议答辩，法院将认定我有罪。",
     "zh-t": "**無異議答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯，我的答辯是自由、自願做出的，而且我同意「無異議」答辯。我理解，就本案而言，無異議答辯將被視同有罪答辯，如果我進行無異議答辯，法院將認定我有罪。"
   },
 
   "guilty_plea": {
     "en": "**Guilty Plea.** I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.",
-    "es": "**Declaración de culpable.** He leído, comprendo y renuncio a los derechos anteriores; hay hechos que justifican mi declaración. Hago esta declaración en forma libre y voluntaria, y acepto declararme culpable.",
+    "es": "**Declaración de culpable.** He leído, comprendo y renuncio a los derechos descritos arriba; hay hechos que justifican mi declaración. Hago esta declaración en forma libre y voluntaria, y acepto hacer una declaración de culpable.",
     "zh-s": "**有罪答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩。我的答辩是自由、自愿做出的，并且我同意有罪答辩。",
     "zh-t": "**有罪答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯。我的答辯是自由、自願做出的，而且我同意有罪答辯。"
   },
 
   "admit_responsibility": {
     "en": "Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).",
-    "es": "Nota: Una vez que admita responsabilidad, lo condenarán por esta infracción de tránsito y esta será reportada al Departamento de Vehículos Motorizados (DMV).",
+    "es": "Nota: Una vez que admita responsabilidad, lo condenarán por esta infracción de tránsito y la condena será reportada al Departamento de Vehículos Motorizados (DMV).",
     "zh-s": "备注：一旦您承认责任，您将被认定实施了该交通犯罪，这将被报告给机动车管理局（DMV）。",
     "zh-t": "備註：一旦您承認責任，您將被認定實施了該交通犯罪，這會報告給機動車輛管理局（DMV）。"
   },
@@ -881,7 +904,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "how_helpful": {
     "en": "How helpful was this tool in addressing your traffic ticket?",
-    "es": "¿Qué tan útil fue esta herramienta para resolver su multa de tránsito?",
+    "es": "¿Qué tan útil fue este servicio para resolver su multa de tránsito?",
     "zh-s": "该工具对解决您的交通罚单有多大帮助？",
     "zh-t": "本工具對解決您的交通罰單有多大幫助？"
   },
@@ -909,7 +932,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "somewhat_unhelpful": {
     "en": "Somewhat unhelpful",
-    "es": "Más bien inútil",
+    "es": "No muy útil",
     "zh-s": "不大有帮助",
     "zh-t": "不太有幫助"
   },
@@ -923,7 +946,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "say_more_about_difficulty": {
     "en": "Can you say more about what difficulty you encountered with the tool?",
-    "es": "¿Nos puede contar más sobre la dificultad que tuvo con la herramienta?",
+    "es": "¿Nos puede contar más sobre la dificultad que tuvo con este servicio?",
     "zh-s": "您能否详细说明您使用该工具面临的困难？",
     "zh-t": "您能否詳細說說使用本工具面臨的困難？"
   },
@@ -937,7 +960,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "use_this_tool": {
     "en": "Use this online tool",
-    "es": "Con esta herramienta en línea",
+    "es": "Con este servicio en línea",
     "zh-s": "使用该在线工具",
     "zh-t": "使用本線上工具"
   },
@@ -958,14 +981,14 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "would_have_been_difficult": {
     "en": "Would it have been difficult to come to court in person?",
-    "es": "¿Le hubiera sido difícil venir a la corte en persona?",
+    "es": "¿Es díficil para usted ir a la corte en persona?",
     "zh-s": "是否难以亲自去法院？",
     "zh-t": "是否難以親自去法院？"
   },
 
   "why_difficult": {
     "en": "Tell us why it's difficult for you to come to court in person (check all that apply)",
-    "es": "Díganos por qué le cuesta venir a la corte en persona ",
+    "es": "¿Por qué le cuesta ir a la corte en persona? (marque todo lo que corresponde)",
     "zh-s": "告诉我们您为何难以亲自去法院（勾选所有适用项目）",
     "zh-t": "告訴我們您為何難以親自去法院（勾選所有適用項目）"
   },
@@ -986,7 +1009,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "cant_take_off_work": {
     "en": "Can't take time off work",
-    "es": "No puedo ausentarme del trabajo",
+    "es": "No puedo faltar al trabajo",
     "zh-s": "不能从工作中抽出时间",
     "zh-t": "不能從工作中抽出時間"
   },
@@ -1000,42 +1023,42 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "share_why_difficult": {
     "en": "Share why it's difficult for you to come to court in person",
-    "es": "Díganos por qué le cuesta venir a la corte en persona ",
+    "es": "Explique por qué le cuesta ir a la corte en persona",
     "zh-s": "告诉我们您为何难以亲自去法院",
     "zh-t": "語言服務"
   },
 
   "final_step": {
     "en": "### Final Step",
-    "es": "",
+    "es": "### Paso final",
     "zh-s": "",
     "zh-t": ""
   },
 
   "what_email_can_court_use": {
     "en": "What email address can the Court use to communicate about your request?",
-    "es": "",
+    "es": "Su dirección de email donde la corte puede comunicarse con usted acerca de su solicitud",
     "zh-s": "",
     "zh-t": ""
   },
 
   "email_again": {
     "en": "Please enter your email address again.",
-    "es": "",
+    "es": "Ingrese su dirección de email otra vez",
     "zh-s": "",
     "zh-t": ""
   },
 
   "make_sure_emails_match": {
     "en": "Make sure the e-mail addresses match.",
-    "es": "",
+    "es": "Asegure que las dos direcciones sean idénticas",
     "zh-s": "",
     "zh-t": ""
   },
 
   "emails_match": {
     "en": '<span class="text-success">E-mail addresses match!</span>',
-    "es": '<span class="text-success"></span>',
+    "es": '<span class="text-success">¡Las dos direcciones sean idénticas!</span>',
     "zh-s": '<span class="text-success"></span>',
     "zh-t": '<span class="text-success"></span>'
   },
@@ -1043,49 +1066,49 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "penalty_of_perjury": {
     "en": "By checking this box, I declare under penalty of perjury that what I have reported is true.",
-    "es": "",
+    "es": "Al marcar esta casilla, declaro bajo pena de perjurio que lo que he reportado es verdadero.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "cant_continue_email": {
     "en": "You cannot continue until you confirm your e-mail address.",
-    "es": "",
+    "es": "No puede continuar hasta confirmar su dirección de email.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "cant_continue_sign": {
     "en": "You cannot continue until you electronically sign under penalty of perjury.",
-    "es": "",
+    "es": "No puede continuar hasta firmar electrónicamente bajo pena de perjurio.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "continue_button": {
     "en": "Submit",
-    "es": "",
+    "es": "Ingresar",
     "zh-s": "",
     "zh-t": ""
   },
 
   "thank_you": {
     "en": "### Thank you!",
-    "es": "",
+    "es": "### ¡Gracias!",
     "zh-s": "",
     "zh-t": ""
   },
 
   "expect_response": {
     "en": "*Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*",
-    "es": "",
+    "es": "*Puede esperar una respuesta de la corte por email en 10 días hábiles. Si no recibe una notificación, comuníquese con la corte.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "restart": {
     "en": "Start Another Request",
-    "es": "",
+    "es": "Comenzar otra solicitud",
     "zh-s": "",
     "zh-t": ""
   },
@@ -1125,60 +1148,6 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "es": "",
     "zh-s": "",
     "zh-t": ""
-  },
-
-
-
-  #Not in use (currently)
-  ###########################################
-
-  "loan_repayment": {
-    "en": "Loan repayment",
-    "es": "",
-    "zh-s": "偿还贷款",
-    "zh-t": "償還貸款"
-  },
-
-  "medical_bills_not_covered": {
-    "en": "Medical bills not covered by insurance",
-    "es": "",
-    "zh-s": "保险不支付的医疗账单",
-    "zh-t": "保險不承保的醫療帳單"
-  },
-
-  "family_emergency": {
-    "en": "Family Emergency",
-    "es": "",
-    "zh-s": "家庭紧急情况",
-    "zh-t": "家庭緊急情況"
-  },
-
-  "spousal_support": {
-    "en": "Spousal Support",
-    "es": "",
-    "zh-s": "配偶扶养费",
-    "zh-t": "配偶扶養費"
-  },
-
-  "child_support": {
-    "en": "Child Support",
-    "es": "",
-    "zh-s": "子女扶养费",
-    "zh-t": "子女扶養費"
-  },
-
-  "language_access": {
-    "en": "Language Access",
-    "es": "",
-    "zh-s": "语言服务",
-    "zh-t": ""
-  },
-
-  "wic": {
-    "en": "WIC: Special Supplemental Nutrition for Women, Infants and Children",
-    "es": "",
-    "zh-s": "WIC：妇女、婴儿及儿童特殊营养补助",
-    "zh-t": "WIC：婦女、嬰兒及兒童特殊營養補助"
   },
 
   # system words section
@@ -1228,21 +1197,21 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "None_of_the_above": {
     "en": "None of the above",
-    "es": "",
+    "es": "Ninguno",
     "zh-s": "以上都不是",
     "zh-t": "以上都不是"
   },
 
   "this_field_required": {
     "en": "This field is required.",
-    "es": "Tiene que poner esta información",
+    "es": "Tiene que poner esta información.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "complete_email": {
     "en": "You need to enter a complete e-mail address.",
-    "es": "",
+    "es": "Tiene que ingresar una dirección de email completa.",
     "zh-s": "",
     "zh-t": ""
   }
