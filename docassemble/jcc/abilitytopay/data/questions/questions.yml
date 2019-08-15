@@ -134,7 +134,7 @@ subquestion: ${get_translation('found_multiple_citations', lang, county=county)}
 # We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
 under: |
   % if not defined('fetched_citations_from_user_info') and not defined('fetched_citations_from_user_info_disambiguation_form'):
-  ${action_button_html(url_action('wrong_citations_event'), color="light", label=get_translation("None of these are right", lang))}
+  ${action_button_html(url_action('wrong_citations_event'), color="light", label=get_translation('none_of_these_are_right', lang))}
   % endif
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
