@@ -118,38 +118,36 @@ function prepareFileUpload(lang) {
   });
 }
 
-// Uncomment below when we are ready to render a language dropdown in UAT.
+//
+// Language selector
+//
 
-// function insertLanguageDropdown(active_lang) {
-//     var language_labels = {
-//         'en': 'English',
-//         'es': 'Español',
-//         'zh-s': '简体中文',
-//         'zh-t': '繁体中文'
-//     };
-//     var headerEl = $('.container.danavcontainer');
-//     var languageButtonsHTML = '' +
-//         '<div class="a2p-language-dropdown-container">' +
-//             '<div class="dropdown a2p-language-dropdown">' +
-//                 '<a href="#" class="a2p-language-dropdown-label nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-//                     '<img class="a2p-language-dropdown-label-icon" src="/packagestatic/docassemble.jcc.abilitytopay/switch-language.png">' +
-//                     '<span class="a2p-language-dropdown-label-text">' + language_labels[active_lang] + '</span>' +
-//                 '</a>' +
-//                 '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">' +
-//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'en'}) + '">' + language_labels['en'] + '</a>' +
-//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'es'}) + '">' + language_labels['es'] + '</a>' +
-//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-s'}) + '">' + language_labels['zh-s'] + '</a>' +
-//                     '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-t'}) + '">' + language_labels['zh-t'] + '</a>' +
-//                 '</div>' +
-//             '</div>' +
-//         '</div>';
-//     headerEl.append($(languageButtonsHTML));
-// }
-
-// $(document).on('daPageLoad', function() {
-//     let lang = $('#a2p-python-var-lang').attr('data-value');
-//     insertLanguageDropdown(lang);
-// });
+function insertLanguageDropdown(active_lang) {
+    var language_labels = {
+        'en': 'English',
+        'es': 'Español',
+        'zh-s': '简体中文',
+        'zh-t': '繁体中文'
+    };
+    var headerEl = $('.container.danavcontainer');
+    var languageButtonsHTML = '' +
+        '<div class="a2p-language-dropdown-container">' +
+            '<div class="dropdown a2p-language-dropdown">' +
+                '<a href="#" class="a2p-language-dropdown-label nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                    '<img class="a2p-language-dropdown-label-icon" src="/packagestatic/docassemble.jcc.abilitytopay/switch-language.png">' +
+                    '<span class="a2p-language-dropdown-label-text">' + language_labels[active_lang] + '</span>' +
+                '</a>' +
+                '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">' +
+                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'en'}) + '">' + language_labels['en'] + '</a>' +
+                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'es'}) + '">' + language_labels['es'] + '</a>' +
+                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-s'}) + '">' + language_labels['zh-s'] + '</a>' +
+                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-t'}) + '">' + language_labels['zh-t'] + '</a>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+    $('.a2p-language-dropdown-container').remove();
+    headerEl.append($(languageButtonsHTML));
+}
 
 /* Manually redirect the user to clear cookies
  * after an idle timeout of 60 minutes. */
