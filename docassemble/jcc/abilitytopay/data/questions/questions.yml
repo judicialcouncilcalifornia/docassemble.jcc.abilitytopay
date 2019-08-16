@@ -74,11 +74,12 @@ only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
   if response.data is not None:
-    if len(response.data) > 0:
+    if len(response.data['all_citations']) > 0:
       received_multiple_citations_for_one_citation_number = False
       # reset the not_my_citations flag
       not_my_citations = False
-      all_citations = { case['citationNumber']: case for case in response.data }
+      source_citation = response.data['source_citation']
+      all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
     else:
       log(get_translation('check_information', lang), 'danger')
       # Check the information you entered. Try again.
@@ -146,9 +147,10 @@ fields:
     [
       {
         case['citationNumber']: citation_info_card(case, lang),
-        'default': defined('citation_number') and case['citationNumber'] == citation_number
+        'default': defined('source_citation') and case['citationNumber'] == source_citation['citation_number']
       }
-      for case in sorted(all_citations.values(), key=lambda case: defined('citation_number') and case['citationNumber'] != citation_number)
+      for case in sorted(all_citations.values(),
+                         key=lambda case: defined('source_citation') and case['citationNumber'] != source_citation['citation_number'])
       # Sort the list so that if the user entered a citation number, it occurs first.
     ]
 ---

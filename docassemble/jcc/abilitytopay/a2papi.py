@@ -109,14 +109,17 @@ def fetch_case_data_from_citation(citation_number, county):
         num_citations = len(citation_response.data)
         if num_citations == 1:
             # Perfect. We received exactly one citation.
-            citation = citation_response.data[0]
+            source_citation = citation_response.data[0]
         if num_citations > 1:
             # No good. We received multiple citations, but we only wanted one.
             # Need to direct user to provide more info to disambiguate.
             raise CitationNumberCollisionError()
         elif num_citations == 0:
             # No citations matched this citation number.
-            return SuccessResult([])
+            return SuccessResult(dict(
+                all_citations=[],
+                source_citation=None
+            ))
     except APIError as e:
         return ErrorResult.from_api_error(e)
     except CitationNumberCollisionError as e:
@@ -126,15 +129,19 @@ def fetch_case_data_from_citation(citation_number, county):
 
     try:
         # pull info out of citation result
-        first_name = citation.get('firstName')
-        last_name = citation.get('lastName')
-        dob = date_from_iso8601(citation.get('dateOfBirth'))
-        drivers_license = citation.get('driversLicense')
-        county = citation.get('county')
+        first_name = source_citation.get('firstName')
+        last_name = source_citation.get('lastName')
+        dob = date_from_iso8601(source_citation.get('dateOfBirth'))
+        drivers_license = source_citation.get('driversLicense')
+        county = source_citation.get('county')
 
         # fetch case data
-        return _fetch_case_data(first_name, last_name, dob, drivers_license,
-                                county)
+        all_citations = _fetch_case_data(first_name, last_name, dob,
+                                         drivers_license, county)
+        return SuccessResult(dict(
+            all_citations=all_citations.data,
+            source_citation=source_citation
+        ))
     except APIError as e:
         log("Error fetching case data from citation result: {}".format(e))
         return ErrorResult.from_api_error(e)
@@ -143,10 +150,16 @@ def fetch_case_data_from_citation(citation_number, county):
         try:
             # If unable to fetch case data from the citation, return
             # a case containing only the original citation (if eligible).
-            if __is_citation_eligible(citation):
-                return SuccessResult([citation])
+            if __is_citation_eligible(source_citation):
+                return SuccessResult(dict(
+                    all_citations=[source_citation],
+                    source_citation=source_citation
+                ))
             else:
-                return SuccessResult([])
+                return SuccessResult(dict(
+                    all_citations=[],
+                    source_citation=None
+                ))
 
             # TODO: Use CaseResult and CitationResult classes to clarify the
             # data shapes expected by the frontend
