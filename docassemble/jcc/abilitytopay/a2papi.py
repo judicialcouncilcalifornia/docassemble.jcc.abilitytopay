@@ -474,7 +474,7 @@ def __complete_payload(data, benefit_files_data, citation_data):
 
     # Add plea information
     citation_number = citation_data['citationNumber']
-    plea_value = data['citation_pleas']['elements'][citation_number]
+    plea_value = data['citation_pleas']['elements'].get(citation_number)
     payload['petition'].update(dict(
         isPleadGuilty=(plea_value == "agree_guilty"),
         isPleadNoContest=(plea_value == "agree_no_contest")
