@@ -187,30 +187,34 @@ _translations = {
     "zh-t": "不是這張罰單！"
   },
 
+  # waiting-for-better-translation
   "multiple_results": {
     "en": "### Multiple Results",
-    "es": "",
+    "es": "### Sus Citaciónes",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "found_multiple_citations": {
     "en": "We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.",
-    "es": "",
+    "es": "Encontramos tu citación. También buscamos otras citaciónes a su nombre en el condado de {county}. Puede solicitar reducciones para todas las citaciónes enumeradas a continuación.",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "select_citation": {
     "en": "Select each of the tickets for which you want to request a reduction.",
-    "es": "",
+    "es": "Seleccione cada una de las entradas para las que desea solicitar una reducción.",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "none_of_these_are_right": {
     "en": "None of these are right",
-    "es": "",
+    "es": "Ninguno de estos es correcto",
     "zh-s": "",
     "zh-t": ""
   },
@@ -588,9 +592,10 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "upload_picture": {
     "en": "Upload picture",
-    "es": "",
+    "es": "Subir foto",
     "zh-s": "",
     "zh-t": ""
   },
@@ -1115,37 +1120,42 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   #Error messages
   ###########################################
+  # waiting-for-better-translation
   "cant_process_online": {
     "en": "We can't process this citation online. Please contact your Court for more information.",
-    "es": "",
+    "es": "No podemos procesar esta citación en línea. Póngase en contacto con su tribunal para obtener más información.",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "need_more_info": {
     "en": "We need some more information to find your citation: ",
-    "es": "",
+    "es": "Necesitamos más información para encontrar su cita:",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "no_match_found": {
     "en": "No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way.",
-    "es": "",
+    "es": "No se encontraron coincidencias. Por favor verifique el condado y el número de la citación. Inténtalo de nuevo. O haga clic en \"No tengo mi cita\" para buscar de otra manera.",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "check_information": {
     "en": "Check the information you entered. Try again.",
-    "es": "",
+    "es": "Verifique la información que ingresó. Inténtalo de nuevo.",
     "zh-s": "",
     "zh-t": ""
   },
 
+  # waiting-for-better-translation
   "something_went_wrong": {
     "en": "Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.",
-    "es": "",
+    "es": "¡Lo siento! Algo salió mal con tu presentación. Nuestro equipo de soporte ha sido notificado. Inténtelo nuevamente en 24 horas o comuníquese con su corte.",
     "zh-s": "",
     "zh-t": ""
   },
