@@ -188,8 +188,8 @@ _translations = {
   },
 
   # waiting-for-better-translation
-  "multiple_results": {
-    "en": "### Multiple Results",
+  "your_citations": {
+    "en": "### Your Citations",
     "es": "### Sus Citaciónes",
     "zh-s": "",
     "zh-t": ""
@@ -197,7 +197,7 @@ _translations = {
 
   # waiting-for-better-translation
   "found_multiple_citations": {
-    "en": "We found your citation. We also found other citations in your name in {county} County. You can request fine reductions for all the citations listed below.",
+    "en": "We found your citation. We also looked for other citations in your name in {county} County. You can request fine reductions for all the citations listed below.",
     "es": "Encontramos tu citación. También buscamos otras citaciónes a su nombre en el condado de {county}. Puede solicitar reducciones para todas las citaciónes enumeradas a continuación.",
     "zh-s": "",
     "zh-t": ""
