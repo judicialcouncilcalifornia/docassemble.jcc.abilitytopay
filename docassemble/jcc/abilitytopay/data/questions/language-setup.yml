@@ -12,6 +12,7 @@ code: |
   log("window._lang = '{}';".format(lang), "javascript")
 # uncomment below when ready to render language dropdown
 # log("insertLanguageDropdown(_lang);", "javascript")
+  process_action()
 ---
 comment: |
   The event that is triggered when one of the language buttons is clicked.
