@@ -18,3 +18,11 @@ for key, translation_dict in _translations.items():
     if translation_dict[lang] == '':
         print('No {} translation for {}'.format(lang, key))
         print('en: {}\n'.format(translation_dict['en']))
+
+all_missing_translations = [
+    translation_dict['en']
+    for key, translation_dict in _translations.items()
+    if (lang not in translation_dict) or (translation_dict[lang] == '')
+]
+
+print('A total of {} missing translations'.format(len(all_missing_translations)))
