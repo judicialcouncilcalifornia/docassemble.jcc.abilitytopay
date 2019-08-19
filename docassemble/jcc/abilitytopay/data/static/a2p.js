@@ -23,7 +23,7 @@ function sendGtagEventOnClick(selector, event) {
 var texts = {
   'Use a different photo': {
     'en': 'Use a different photo',
-    'es': ''
+    'es': 'Subir foto diferente'
   },
   'Add a photo': {
     'en': 'Add a photo',
@@ -46,7 +46,7 @@ function getText(key, lang) {
 }
 
 function prepareFileUpload(lang) {
-  console.log('Preparing custom file upload.');
+  console.log('Preparing custom file upload in language: ' + lang);
   $('#daform').attr('enctype', 'multipart/form-data');
   $('#daform').attr('method', 'POST');
 
@@ -116,6 +116,8 @@ function prepareFileUpload(lang) {
     imagePreviewFailed = true;
     renderAll();
   });
+
+  renderAll();
 }
 
 //

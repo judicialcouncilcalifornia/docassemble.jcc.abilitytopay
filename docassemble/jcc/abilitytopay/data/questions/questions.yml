@@ -230,7 +230,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: calfresh_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: medical-proof
 sets: medi_cal_proof
@@ -251,7 +251,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: medi_cal_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: ssi-proof
 sets: ssi_proof
@@ -272,7 +272,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: ssi_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: ssp-proof
 sets: ssp_proof
@@ -293,7 +293,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: ssp_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: cr-ga-proof
 sets: cr_ga_proof
@@ -314,7 +314,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: cr_ga_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: ihss-proof
 sets: ihss_proof
@@ -335,7 +335,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: ihss_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: tanf-proof
 sets: tanf_proof
@@ -356,7 +356,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: tanf_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: wic-proof
 sets: wic_proof
@@ -377,7 +377,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: wic_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: cal-works-proof
 sets: cal_works_proof
@@ -398,7 +398,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: cal_works_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: capi-proof
 sets: capi_proof
@@ -419,7 +419,7 @@ fields:
 # Tell us why you can't provide documentation at this time
   show if: capi_no_proof
 script: |
-  <script>prepareFileUpload()</script>
+  <script>prepareFileUpload('${lang}')</script>
 ---
 id: other-benefits-proof
 field: other_benefit_screen_reached
