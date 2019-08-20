@@ -1198,13 +1198,6 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-t": "您需要在給法院的請求中填寫"
   },
 
-  "checkboxes": {
-    "en": "Checkboxes: ",
-    "es": "",
-    "zh-s": "勾选框：",
-    "zh-t": "勾選方格："
-  },
-
   "None_of_the_above": {
     "en": "None of the above",
     "es": "Ninguno",
