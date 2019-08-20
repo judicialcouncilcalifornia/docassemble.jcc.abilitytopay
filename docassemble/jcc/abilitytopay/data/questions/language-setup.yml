@@ -8,10 +8,10 @@ comment: |
   This is how you pass variables from python-land to javascript-land. We use this
   to render the currently selected language in the language dropdown. See a2p.js.
 initial: True
+# add commented line below to code block when ready to render language dropdown
+# log("insertLanguageDropdown(_lang);", "javascript")
 code: |
   log("window._lang = '{}';".format(lang), "javascript")
-# uncomment below when ready to render language dropdown
-# log("insertLanguageDropdown(_lang);", "javascript")
   process_action()
 ---
 comment: |
