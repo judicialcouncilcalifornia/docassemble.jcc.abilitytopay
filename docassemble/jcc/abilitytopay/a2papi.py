@@ -306,6 +306,8 @@ def __build_submit_payload_and_upload_images(data, attachments):
             "totalDueAmt": case_information.get('totalDueAmt'),
             "violationDate": case_information.get('charges', [])[0].get('violationDate'),
             "violationDescription": "\n".join(violDescriptions),
+        },
+        "miscellaneous": {
             "race": case_information.get('race'),
             "zipCode": case_information.get('zipCode'),
         },
