@@ -108,12 +108,14 @@ code: |
   if not no_citation_number:
     raw_citation_results = fetch_citation_data(citation_number, county)
     if (raw_citation_results['data'] is None) or (len(raw_citation_results['data']) == 0):
+      log("citationNoResultsEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
       log(get_translation('no_match_found',lang), 'danger')
       # No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way
       reconsider('completed_citation_form')
     else:
       if len(raw_citation_results['data']) > 1:
         # More than one citation result. Set a flag to show disambiguation form next.
+        log("citationNumberReusedEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
         received_multiple_citations_for_one_citation_number = True
       elif len(raw_citation_results['data']) == 1:
         # Exactly one citation result
@@ -121,6 +123,7 @@ code: |
         citation_data = raw_citation_results['data'][0]
       
         if not citation_data['eligible']:
+          log("citationIneligibleEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
           log(get_translation('cant_process_online',lang), 'danger')
           # We can't process this citation online. Please contact your Court for more information.
           reconsider('completed_citation_form')
@@ -205,6 +208,7 @@ code: |
             c_citation_number = case['citationNumber']
             case_lookup_results.append({ case['citationNumber']: "<div class='info-card'><h4>{citationNumber}</h4><dl><dt>{name_label}</dt><dd>{name}</dd><dt>{citation_number_label}</dt><dd>{citationNumber}</dd><dt>{county_label}</dt><dd>{county}</dd><dt>{violation_date_label}</dt><dd>{violationDate}</dd><dt>{total_due_label}</dt><dd>{totalDue}</dd></dl></div>".format(name_label=get_translation('name',lang),citation_number_label=get_translation('citation_number',lang),county_label=get_translation('county',lang),violation_date_label=get_translation('violation_date',lang),total_due_label=get_translation('total_due',lang),name=case['firstName'] + " " + case['lastName'], county=county, citationNumber=c_citation_number, violationDate=c_violation_date, totalDue=c_total_due) })
     else:
+      log("nameSearchNoResultsEvent({{ 'session_id': '{}' }})".format(user_info().session), "javascript")
       log(get_translation('check_information',lang), 'danger')
       #log('Check the information you entered. Try again.', 'danger')
       
