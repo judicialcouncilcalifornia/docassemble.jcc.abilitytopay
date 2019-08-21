@@ -479,6 +479,12 @@ def __complete_payload(data, benefit_files_data, citation_data):
         isPleadGuilty=(plea_value == "agree_guilty"),
         isPleadNoContest=(plea_value == "agree_no_contest")
     ))
+
+    # Add race and zip code
+    payload['miscellaneous'] = {
+        "race": citation_data.get('race'),
+        "zipCode": citation_data.get('zipCode'),
+    }
     return payload
 
 
@@ -638,8 +644,6 @@ def __serialized_case_information(case_information):
         "totalDueAmt": case_information.get('totalDueAmt'),
         "violationDate": case_information['charges'][0].get('violationDate'),
         "violationDescription": "\n".join(violDescriptions),
-        "race": case_information.get('race'),
-        "zipCode": case_information.get('zipCode'),
     }
 
 
