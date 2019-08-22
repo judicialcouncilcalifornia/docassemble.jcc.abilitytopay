@@ -2,29 +2,6 @@
 // Gtag event helper
 //
 
-function nameSearchNoResultsEvent(params) {
-  sendGtagEvent('name-search-no-results', params);
-}
-
-function citationIneligibleEvent(params) {
-  sendGtagEvent('citation-ineligible', params);
-}
-
-function citationNumberReusedEvent(params) {
-  sendGtagEvent('citation-number-reused', params);
-}
-
-function citationNoResultsEvent(params) {
-  sendGtagEvent('citation-number-no-results', params);
-}
-
-function sendGtagEvent(event, params) {
-  if (params)
-    gtag('event', event, params);
-  else
-    gtag('event', event);
-}
-
 function sendGtagEventOnClick(selector, event) {
   $(document).ready(function() {
     var element = document.querySelector(selector);
