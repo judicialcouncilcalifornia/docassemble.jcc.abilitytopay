@@ -140,15 +140,20 @@ function insertLanguageDropdown(active_lang) {
                     '<span class="a2p-language-dropdown-label-text">' + language_labels[active_lang] + '</span>' +
                 '</a>' +
                 '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">' +
-                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'en'}) + '">' + language_labels['en'] + '</a>' +
-                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'es'}) + '">' + language_labels['es'] + '</a>' +
-                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-s'}) + '">' + language_labels['zh-s'] + '</a>' +
-                    '<a class="dropdown-item" href="' + url_action('language_button_clicked', { language: 'zh-t'}) + '">' + language_labels['zh-t'] + '</a>' +
+                    '<a class="dropdown-item" data-lang="en" href="#">' + language_labels['en'] + '</a>' +
+                    '<a class="dropdown-item" data-lang="es" href="#">' + language_labels['es'] + '</a>' +
+                    '<a class="dropdown-item" data-lang="zh-s" href="#">' + language_labels['zh-s'] + '</a>' +
+                    '<a class="dropdown-item" data-lang="zh-t" href="#">' + language_labels['zh-t'] + '</a>' +
                 '</div>' +
             '</div>' +
         '</div>';
     $('.a2p-language-dropdown-container').remove();
     headerEl.append($(languageButtonsHTML));
+    $('.a2p-language-dropdown-container .dropdown-item').on('click', function() {
+      var language = $(this).data('lang');
+      console.log(language);
+      url_action_perform('language_button_clicked', { language: language })
+    });
 }
 
 /* Manually redirect the user to clear cookies
