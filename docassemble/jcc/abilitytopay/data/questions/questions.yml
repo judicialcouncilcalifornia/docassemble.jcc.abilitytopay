@@ -22,19 +22,8 @@ subquestion: |
 #
 # * If you wish to contest the ticket, contact your court instead.
 # * If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.
-fields:
-- "**Necesita español?**": requires_spanish_assistance
-  datatype: yesno
-- note: |
-    LA HERRAMIENTA PARA CALCULAR LA CAPACIDAD DE PAGO SOLO ESTÁ DISPONIBLE ACTUALMENTE EN INGLÉS. SI NECESITA SERVICIOS DE AYUDA LINGÜÍSTICA, VAYA AL JUZGADO INDICADO EN SU MULTA DE TRÁNSITO PARA CONSEGUIR AYUDA.
-  show if: requires_spanish_assistance
-continue button field: landing_page_visited
+field: landing_page_visited
 prevent going back: True
-script: |
-  <script>sendGtagEventOnClick('label[for="${encode_name('requires_spanish_assistance')}"][role="checkbox"]', 'click_spanish_assistance')</script>
-# uncomment below after removing requires_spanish_assistance section
-# field: landing_page_visited
-# prevent going back: True
 ---
 id: citation-lookup
 question: |
