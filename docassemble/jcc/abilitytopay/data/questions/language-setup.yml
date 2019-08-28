@@ -4,6 +4,10 @@ mandatory: True
 code: |
   lang = 'en'
 ---
+initial: True
+code: |
+  set_language(lang)
+---
 comment: |
   This is how you pass variables from python-land to javascript-land. We use this
   to render the currently selected language in the language dropdown. See a2p.js.
