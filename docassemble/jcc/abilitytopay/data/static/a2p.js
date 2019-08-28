@@ -142,8 +142,9 @@ function insertLanguageDropdown(active_lang) {
                 '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">' +
                     '<a class="dropdown-item" data-lang="en" href="#">' + language_labels['en'] + '</a>' +
                     '<a class="dropdown-item" data-lang="es" href="#">' + language_labels['es'] + '</a>' +
-                    '<a class="dropdown-item" data-lang="zh-s" href="#">' + language_labels['zh-s'] + '</a>' +
-                    '<a class="dropdown-item" data-lang="zh-t" href="#">' + language_labels['zh-t'] + '</a>' +
+                    // uncomment below when chinese translations are ready
+                    // '<a class="dropdown-item" data-lang="zh-s" href="#">' + language_labels['zh-s'] + '</a>' +
+                    // '<a class="dropdown-item" data-lang="zh-t" href="#">' + language_labels['zh-t'] + '</a>' +
                 '</div>' +
             '</div>' +
         '</div>';
@@ -151,7 +152,6 @@ function insertLanguageDropdown(active_lang) {
     headerEl.append($(languageButtonsHTML));
     $('.a2p-language-dropdown-container .dropdown-item').on('click', function() {
       var language = $(this).data('lang');
-      console.log(language);
       url_action_perform('language_button_clicked', { language: language })
     });
 }
