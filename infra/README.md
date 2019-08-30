@@ -219,6 +219,7 @@ a2p:
   base_url:
   ad_url:
   blob_account_name:
+  error_email: ATPSupport@jud.ca.gov
 ```
 
 4) update config.yml `default interview` (delete existing entry) and add `interview delete days`:
