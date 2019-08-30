@@ -187,34 +187,37 @@ _translations = {
     "zh-t": "不是這張罰單！"
   },
 
-  # waiting-for-better-translation
   "your_citations": {
     "en": "### Your Citations",
-    "es": "### Sus Citaciónes",
+    "es": "### Sus citaciones",
     "zh-s": "",
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
+  "need_more_info": {
+    "en": "We need some more information to find your citation: ",
+    "es": "Necesitamos más información para encontrar su citación:",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
   "found_multiple_citations": {
     "en": "We found your citation. We also looked for other citations in your name in {county} County. You can request fine reductions for all the citations listed below.",
-    "es": "Encontramos tu citación. También buscamos otras citaciónes a su nombre en el condado de {county}. Puede solicitar reducciones para todas las citaciónes enumeradas a continuación.",
+    "es": "Encontramos su citación. También buscamos otras citaciones bajo su nombre en el condado de {county}. Puede solicitar una reducción en las multas para todas las citaciones que aparecen abajo.",
     "zh-s": "",
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
   "select_citation": {
     "en": "Select each of the tickets for which you want to request a reduction.",
-    "es": "Seleccione cada una de las entradas para las que desea solicitar una reducción.",
+    "es": "Seleccione las citaciones para las que desea solicitar una reducción.",
     "zh-s": "",
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
   "none_of_these_are_right": {
     "en": "None of these are right",
-    "es": "Ninguno de estos es correcto",
+    "es": "Ninguna de estas es mía",
     "zh-s": "",
     "zh-t": ""
   },
@@ -592,7 +595,6 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
   "upload_picture": {
     "en": "Upload picture",
     "es": "Subir foto",
@@ -604,13 +606,13 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   # directly in a2p.js
   "Use a different photo": {
     "en": "Use a different photo",
-    "es": "",
+    "es": "Subir foto diferente",
     "zh-s": "",
     "zh-t": ""
   },
   "Add a photo": {
     "en": "Add a photo",
-    "es": "",
+    "es": "Subir foto",
     "zh-s": "",
     "zh-t": ""
   },
@@ -1120,104 +1122,33 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   #Error messages
   ###########################################
-  # waiting-for-better-translation
   "cant_process_online": {
     "en": "We can't process this citation online. Please contact your Court for more information.",
-    "es": "No podemos procesar esta citación en línea. Póngase en contacto con su tribunal para obtener más información.",
+    "es": "No podemos procesar esta citación en línea. Favor de contactarse con su Corte para más información.",
     "zh-s": "",
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
-  "need_more_info": {
-    "en": "We need some more information to find your citation: ",
-    "es": "Necesitamos más información para encontrar su cita:",
-    "zh-s": "",
-    "zh-t": ""
-  },
-
-  # waiting-for-better-translation
   "no_match_found": {
-    "en": "No match was found. Please check the county and citation number. Try again. Or click 'I don't have my citation' to search another way.",
-    "es": "No se encontraron coincidencias. Por favor verifique el condado y el número de la citación. Inténtalo de nuevo. O haga clic en \"No tengo mi cita\" para buscar de otra manera.",
+    "en": "No match was found. Please check the county and citation number. Try again. Or click \"I don't have my citation\" to search another way.",
+    "es": "No se encontró una citación. Favor de verificar el condado y el número de citación. Intente de nuevo. O haga clic en \"No tengo mi citación\" para buscar de otra manera.",
     "zh-s": "",
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
   "check_information": {
     "en": "Check the information you entered. Try again.",
-    "es": "Verifique la información que ingresó. Inténtalo de nuevo.",
+    "es": "Verifique la información que ingresó. Intente de nuevo.",
     "zh-s": "",
     "zh-t": ""
   },
 
-  # waiting-for-better-translation
   "something_went_wrong": {
     "en": "Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.",
-    "es": "¡Lo siento! Algo salió mal con tu presentación. Nuestro equipo de soporte ha sido notificado. Inténtelo nuevamente en 24 horas o comuníquese con su corte.",
+    "es": "¡Lo sentimos! Hubo un error con su submisión. Nuestro equipo de apoyo ha sido notificado. Intente nuevamente en 24 horas, o contáctese con su corte.",
     "zh-s": "",
     "zh-t": ""
   },
-
-  # system words section
-  ###########################################
-
-  "continue": {
-    "en": "Continue",
-    "es": "Continuar",
-    "zh-s": "继续",
-    "zh-t": "繼續"
-  },
-
-  "Select_one": {
-    "en": "Select...",
-    "es": "Seleccionar...",
-    "zh-s": "",
-    "zh-t": "選擇..."
-  },
-
-  "check_if_applicable": {
-    "en": "Check if applicable",
-    "es": "Marque si corresponde",
-    "zh-s": "如果适用，请勾选",
-    "zh-t": "如果適用，請勾選"
-  },
-
-  "Choices": {
-    "en": "Choices: ",
-    "es": "Opciones: ",
-    "zh-s": "选择：",
-    "zh-t": "選擇："
-  },
-
-  "need_to_fill_this_in": {
-    "en": "You need to fill this in",
-    "es": "Tiene que poner esta información",
-    "zh-s": "您需要在给法院的请求中填写此项",
-    "zh-t": "您需要在給法院的請求中填寫"
-  },
-
-  "None_of_the_above": {
-    "en": "None of the above",
-    "es": "Ninguno",
-    "zh-s": "以上都不是",
-    "zh-t": "以上都不是"
-  },
-
-  "this_field_required": {
-    "en": "This field is required.",
-    "es": "Tiene que poner esta información.",
-    "zh-s": "",
-    "zh-t": ""
-  },
-
-  "complete_email": {
-    "en": "You need to enter a complete e-mail address.",
-    "es": "Tiene que ingresar una dirección de email completa.",
-    "zh-s": "",
-    "zh-t": ""
-  }
 
 }
 
