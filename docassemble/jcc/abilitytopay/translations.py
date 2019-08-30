@@ -116,14 +116,6 @@ _translations = {
     "zh-t": "您的駕照號碼是多少？"
   },
 
-  # Can be deleted once multiple-citations branch gets merged
-  "request_to_court": {
-    "en": "### Request to Court",
-    "es": "### Solicitud a la corte",
-    "zh-s": "### 给法院的请求",
-    "zh-t": "### 給法院的請求"
-  },
-
   "name": {
     "en": "Name",
     "es": "Nombre",
@@ -159,13 +151,6 @@ _translations = {
     "zh-t": "應付總額"
   },
 
-  "would_like_reduction": {
-    "en": "Would you like to request a reduction in your fine for this citation?",
-    "es": "¿Quiere pedir una reducción en su multa para esta citación?",
-    "zh-s": "您是否想请求减少这张罚单的罚款？",
-    "zh-t": "您是否想請求減少這張罰單的罰款？"
-  },
-
   "yes": {
     "en": "Yes",
     "es": "Sí",
@@ -178,13 +163,6 @@ _translations = {
     "es": "No",
     "zh-s": "没有",
     "zh-t": "否"
-  },
-
-  "not_right_citation": {
-    "en": "That's not the right citation!",
-    "es": "¡Esta no es la citación correcta!",
-    "zh-s": "不是这张罚单！",
-    "zh-t": "不是這張罰單！"
   },
 
   "your_citations": {
