@@ -50,16 +50,16 @@ sudo docker pull jcccontainerregistry.azurecr.io/a2p/docassemble:$VERSION_NUMBER
 
 Keep in mind that the public website will be inaccessible during this process (i.e. this part involves some downtime)
 
-0) Find the image id of the running container
+0) Find the container id of the running container
 
 ```
 sudo docker ps
 ```
 
-1) Kill the running container. Replace $IMAGE_ID with the id you just looked up.
+1) Kill the running container. Replace $CONTAINER_ID with the id you just looked up.
 
 ```
-sudo docker stop -t60 $IMAGE_ID
+sudo docker stop -t60 $CONTAINER_ID
 ```
 
 2) Boot the new container. Replace $VERSION_NUMBER as before.
@@ -69,10 +69,10 @@ cd ~
 sudo docker run --env-file=env.list -d -p 8080:80 jcccontainerregistry.azurecr.io/a2p/docassemble:$VERSION_NUMBER
 ```
 
-3) Watch it spin up. Replace $IMAGE_ID with the output of the `run` command in the previous step.
+3) Watch it spin up. Replace $CONTAINER_ID with the output of the `run` command in the previous step.
 
 ```
-sudo docker exec -t -i $IMAGE_ID /bin/bash
+sudo docker exec -t -i $CONTAINER_ID /bin/bash
 tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
 ```
 
