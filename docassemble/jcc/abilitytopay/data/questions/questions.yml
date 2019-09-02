@@ -75,6 +75,7 @@ code: |
       log("citationNoResultsEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
       reconsider('completed_citation_form')
   elif response.error == 'too-many-results':
+    log("citationNumberReusedEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
     # More than one citation result. Set a flag to show disambiguation form next.
     received_multiple_citations_for_one_citation_number = True
   else:
