@@ -1,0 +1,824 @@
+comment: |
+  We gather pleas for unadjudicated citations into the citation_pleas object.
+objects:
+  - citation_pleas: DADict.using(auto_gather=False)
+---
+id: landing-page
+question: |
+  ${get_translation('req_fine_reduction', lang)}
+#  ### Request a Fine Reduction
+subquestion: |
+  ${get_translation('landing_page_description', lang)}
+# *This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
+#
+# **Use this tool to:**
+#
+# * Request a reduction in your traffic fine
+# * Request a payment plan
+# * Request Community Service
+# * Request more time to pay your ticket
+#
+# **Do not use this tool:**
+#
+# * If you wish to contest the ticket, contact your court instead.
+# * If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.
+field: landing_page_visited
+prevent going back: True
+---
+id: citation-lookup
+question: |
+  ${get_translation('lookup_citation', lang)}
+#  ### Look Up Your Citation
+progress: 15
+fields:
+- ${get_translation('what_county', lang)}: county
+#- "What California county did you get the citation in?": county
+  choices:
+  - "Shasta": Shasta
+  - "Tulare": Tulare
+  - "Ventura": Ventura
+- ${get_translation('what_citation_number', lang)}: citation_number
+#- "What's the citation number?": citation_number
+  required: false
+- ${get_translation('dont_have_citation_number', lang)}: citation_number_absent
+#- "I don't have my citation number": citation_number_absent
+  datatype: yesno
+#########################################################
+- ${get_translation('what_first_name', lang)}: first_name
+#- What is your first name?: first_name
+  show if: citation_number_absent
+- ${get_translation('what_last_name', lang)}: last_name
+#- What is your last name?: last_name
+  show if: citation_number_absent
+- ${get_translation('what_dob', lang)}: dob
+#- What's your date of birth?: dob
+  datatype: date
+  show if: citation_number_absent
+- ${get_translation('what_license_number', lang)}: license_number
+#- What is your Driver's License Number?: license_number
+  show if: citation_number_absent
+continue button field: completed_citation_form
+---
+only sets: fetched_citations_from_citation_number
+code: |
+  response = fetch_case_data_from_citation(citation_number, county)
+  if response.data is not None:
+    if len(response.data['all_citations']) > 0:
+      received_multiple_citations_for_one_citation_number = False
+      # reset the not_my_citations flag
+      not_my_citations = False
+      source_citation = response.data['source_citation']
+      all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
+    else:
+      log(get_translation('check_information', lang), 'danger')
+      # Check the information you entered. Try again.
+      reconsider('completed_citation_form')
+  elif response.error == 'too-many-results':
+    # More than one citation result. Set a flag to show disambiguation form next.
+    received_multiple_citations_for_one_citation_number = True
+  else:
+    log(get_translation('something_went_wrong', lang), 'danger')
+    # Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.
+    reconsider('completed_citation_form')
+  fetched_citations_from_citation_number = True
+---
+only sets: fetched_citations_from_user_info
+code: |
+  fetch_case_data_or_reconsider('completed_citation_form')
+  fetched_citations_from_user_info = True
+---
+only sets: fetched_citations_from_user_info_disambiguation_form
+code: |
+  fetch_case_data_or_reconsider('completed_disambiguation_form')
+  fetched_citations_from_user_info_disambiguation_form = True
+---
+only sets: fetched_citations_from_user_info_wrong_citations_form
+code: |
+  fetch_case_data_or_reconsider('completed_verify_citations_form')
+  fetched_citations_from_user_info_wrong_citations_form = True
+---
+only sets: completed_disambiguation_form
+id: disambiguate-multiple-results
+progress: 15
+question: ${get_translation('need_more_info', lang)}
+fields:
+- ${get_translation('what_first_name',lang)}: first_name
+# What is your first name?
+- ${get_translation('what_last_name',lang)}: last_name
+# What is your last name?
+- ${get_translation('what_dob',lang)}: dob
+# What's your date of birth?
+  datatype: date
+- ${get_translation('what_license_number',lang)}: license_number
+# What is your Driver's License Number?
+continue button field: completed_disambiguation_form
+---
+id: choose-citation-from-list
+comment: |
+  The code block below describes a list of { key: value } pairs where
+  each key is a citation number and each value is the HTML
+  rendering of the corresponding citation.
+question: ${get_translation('your_citations', lang)}
+# Your Citations
+subquestion: ${get_translation('found_multiple_citations', lang, county=county)}
+# We found your citation. We also looked for other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
+under: |
+  % if not defined('fetched_citations_from_user_info') and not defined('fetched_citations_from_user_info_disambiguation_form'):
+  ${action_button_html(url_action('wrong_citations_event'), color="light", label=get_translation('none_of_these_are_right', lang))}
+  % endif
+# Only render "None of these are right" button if coming directly from citation lookup
+fields:
+- ${get_translation('select_citation', lang)}: selected_citation_numbers
+# Select each of the tickets for which you want to request a reduction.
+  datatype: checkboxes
+  minlength: 1
+  code: |
+    [
+      {
+        case['citationNumber']: citation_info_card(case, lang),
+        'default': defined('source_citation') and case['citationNumber'] == source_citation['citationNumber']
+      }
+      for case in sorted(all_citations.values(),
+                         key=lambda case: defined('source_citation') and case['citationNumber'] != source_citation['citationNumber'])
+      # Sort the list so that if the user entered a citation number, it occurs first.
+    ]
+---
+event: wrong_citations_event
+code: |
+  # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
+  not_my_citations = True
+  reconsider('completed_disambiguation_form')
+---
+id: how-this-works
+field: how_work
+question: |
+  ${get_translation('how_this_works', lang)}
+#  ### How this works
+subquestion: |
+  ${get_translation('how_works_instructions', lang)}
+# *We will walk you through a few questions to help the Court better understand your need for a reduction.*
+#
+# Be prepared to share information about your income, monthly expenses and any public benefits you currently receive. A court official will still review your answers as they would if you came to court in person.
+---
+id: select-benefits
+question: |
+  ${get_translation('public_benefits', lang)}
+#  ### Public Benefits
+progress: 35
+fields:
+- ${get_translation('receiving_benefits', lang)}: benefits
+#- 'Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click "Other"': benefits
+  datatype: checkboxes
+  choices:
+  - ${get_translation('cal_fresh', lang)}: cal_fresh
+#  - "CalFresh (Food Stamps)": cal_fresh
+  - ${get_translation('medi_cal', lang)}: medi_cal
+#  - "Medi-Cal": medi_cal
+  - ${get_translation('cr_ga', lang)}: cr_ga
+#  - "General Assistance / County Relief": cr_ga
+  - ${get_translation('ssi', lang)}: ssi
+#  - "SSI: Supplemental Security Income": ssi
+# Hide WIC for now until backend supports WIC. Can enable WIC by uncommenting line below and in mandatory block.
+# - {get_translation('wic', lang)}: wic
+# - "WIC: Special Supplemental Nutrition for Women, Infants and Children": wic
+  - ${get_translation('ssp', lang)}: ssp
+#  - "SSP: State Supplemental Payment": ssp
+  - ${get_translation('ihss', lang)}: ihss
+#  - "IHSS: In Home Supportive Services": ihss
+  - ${get_translation('cal_works', lang)}: cal_works
+#  - "CalWORKS: California Work Opportunity and Responsibility to Kids Act": cal_works
+  - ${get_translation('tanf', lang)}: tanf
+#  - "TANF: Temporary Assistance for Needy Families": tanf
+  - ${get_translation('capi', lang)}: capi
+#  - "CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants": capi
+  - ${get_translation('other', lang)}: other
+#  - "Other": other
+
+- ${get_translation('other_benefit_name', lang)}: other_benefit_name
+#- "What's the other public benefit you receive?": other_benefit_name
+  show if:
+    variable: benefits['other']
+    is: True
+---
+id: calfresh-proof
+sets: calfresh_proof
+question: |
+  ${get_translation('proof_calfresh', lang)}
+# Proof of CalFresh
+subquestion: |
+  ${get_translation('calfresh_upload', lang)}
+  <p>${get_translation('calfresh_card', lang)}</p>
+  ${a2p_file_input('calfresh_proof')}
+# You said you receive Calfresh. Can you please upload any document that proves you are currently receiving this benefit - like a CalFresh card?
+# Calfresh Card
+fields:
+- ${get_translation('have_no_proof', lang)}: calfresh_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: calfresh_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: calfresh_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: medical-proof
+sets: medi_cal_proof
+question: |
+ ${get_translation('proof_of_medical', lang)}
+# Proof of Medi-Cal
+subquestion: |
+ ${get_translation('upload_medical', lang)}
+ <p>${get_translation('medi_cal_card', lang)}</p>
+ ${a2p_file_input('medi_cal_proof')}
+# You said you receive Medi-Cal. Can you please upload any document that proves you are currently receiving this benefit - like a MediCal card?
+# Medi-Cal Card
+fields:
+- ${get_translation('have_no_proof', lang)}: medi_cal_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: medi_cal_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: medi_cal_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: ssi-proof
+sets: ssi_proof
+question: |
+ ${get_translation('proof_of_ssi_title', lang)}
+# Proof of SSI
+subquestion: |
+ ${get_translation('upload_ssi_document', lang)}
+ <p>${get_translation('proof_of_ssi', lang)}</p>
+ ${a2p_file_input('ssi_proof')}
+# You said you receive Supplemental Security Income. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of SSI
+fields:
+- ${get_translation('have_no_proof', lang)}: ssi_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: ssi_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: ssi_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: ssp-proof
+sets: ssp_proof
+question: |
+  ${get_translation('proof_of_ssp', lang)}
+# Proof of State Supplemental Payment
+subquestion: |
+  ${get_translation('upload_ssp', lang)}
+  <p>${get_translation('proof_of_ssp_abbrev', lang)}</p>
+  ${a2p_file_input('ssp_proof')}
+# You said you receive State Supplemental Payment (SSP). Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of SSP
+fields:
+- ${get_translation('have_no_proof', lang)}: ssp_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: ssp_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: ssp_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: cr-ga-proof
+sets: cr_ga_proof
+question: |
+  ${get_translation('proof_of_gacr', lang)}
+# Proof of General Assistance/County Relief
+subquestion: |
+  ${get_translation('upload_gacr', lang)}
+  <p>${get_translation('proof_of_gacr_abbrev', lang)}</p>
+  ${a2p_file_input('cr_ga_proof')}
+# You said you receive General Assistance/County Relief. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of GA/CR
+fields:
+- ${get_translation('have_no_proof', lang)}: cr_ga_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: cr_ga_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: cr_ga_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: ihss-proof
+sets: ihss_proof
+question: |
+  ${get_translation('proof_of_ihss', lang)}
+# Proof of In Home Supportive Services
+subquestion: |
+  ${get_translation('upload_ihss', lang)}
+  <p>${get_translation('proof_of_ihss_abbrev', lang)}</p>
+  ${a2p_file_input('ihss_proof')}
+# You said you receive In Home Supportive Services (IHSS). Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of IHSS
+fields:
+- ${get_translation('have_no_proof', lang)}: ihss_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: ihss_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: ihss_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: tanf-proof
+sets: tanf_proof
+question: |
+  ${get_translation('proof_of_tanf', lang)}
+# Proof of TANF
+subquestion: |
+  ${get_translation('upload_tanf', lang)}
+  <p>${get_translation('proof_of_tanf_abbrev', lang)}</p>
+  ${a2p_file_input('tanf_proof')}
+# You said you receive Temporary Assistance for Needy Families. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of TANF
+fields:
+- ${get_translation('have_no_proof', lang)}: tanf_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: tanf_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: tanf_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: wic-proof
+sets: wic_proof
+question: |
+  ${get_translation('proof_of_wic', lang)}
+# Proof of WIC
+subquestion: |
+  ${get_translation('upload_wic', lang)}
+  <p>${get_translation('proof_of_wic_abbrev', lang)}</p>
+  ${a2p_file_input('wic_proof')}
+# You said you are enrolled in WIC. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of WIC
+fields:
+- ${get_translation('have_no_proof', lang)}: wic_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: wic_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: wic_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: cal-works-proof
+sets: cal_works_proof
+question: |
+  ${get_translation('proof_of_calworks', lang)}
+# Proof of CalWORKS
+subquestion: |
+  ${get_translation('upload_calworks', lang)}
+  <p>${get_translation('proof_of_calworks_abbrev', lang)}</p>
+  ${a2p_file_input('cal_works_proof')}
+# You said you are enrolled in CalWORKS. Can you please upload any document that proves you are currently receiving this benefit?
+# Proof of CalWORKS
+fields:
+- ${get_translation('have_no_proof', lang)}: cal_works_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: cal_works_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: cal_works_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: capi-proof
+sets: capi_proof
+question: |
+  ${get_translation('proof_of_capi', lang)}
+# Proof of CAPI
+subquestion: |
+  ${get_translation('upload_capi', lang)}
+  <p>${get_translation('proof_of_capi_abbrev', lang)}</p>
+  ${a2p_file_input('capi_proof')}
+# You said you are enrolled in the Cash Assistance Program for Aged, Blind, or Disabled Legal Immigrants (CAPI). Can you please upload any document that proves you are currently receiving this benefit?*
+# Proof of CAPI
+fields:
+- ${get_translation('have_no_proof', lang)}: capi_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: capi_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: capi_no_proof
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: other-benefits-proof
+field: other_benefit_screen_reached
+sets: other_benefit_picture
+question: |
+  ${get_translation('proof_of', lang)} "${other_benefit_name}"
+# Proof of "${other_benefit_name}"
+subquestion: |
+  ${get_translation('said_receive', lang)} "${other_benefit_name}" ${get_translation('please_upload', lang)}
+  <p>${get_translation('upload_picture', lang)}</p>
+  ${a2p_file_input('other_benefit_picture')}
+# You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
+# Upload picture
+script: |
+  <script>prepareFileUpload('${lang}')</script>
+---
+id: current-income
+question: |
+  ${get_translation('current_income', lang)}
+#  ### Current Income
+progress: 45
+subquestion: |
+  ${get_translation('money_each_month', lang)}
+  ${get_translation('answer_best_you_can', lang)}
+# ### How much money do you take home each month?
+#
+# Answer the best you can. Be sure to include income from your job and any other sources, including payments from people in your household (such as spouse or live-in partner)?
+fields:
+- ${get_translation('amount_of_income', lang)}: income
+#- Amount of Income: income
+  datatype: currency
+  min: 0
+  max: 75000
+  required: true
+---
+id: household-details
+question: |
+  ${get_translation('household_details', lang)}
+#  ### Household Details
+progress: 50
+fields:
+- ${get_translation('how_many_household', lang)}: residents
+#- "How many people live in your household?": residents
+  datatype: number
+  min: 0
+  max: 15
+---
+id: monthly-expenses
+question: |
+  ${get_translation('monthly_expenses', lang)}
+#  ### Monthly Expenses
+progress: 55
+subquestion: |
+  ${get_translation('please_estimate', lang)}
+  ${get_translation('you_take_home_pre', lang)} ${format_money(income)} ${get_translation('you_take_home_post', lang)}
+#  ### Now, please estimate what you pay _each month_ for the following expenses.
+#  ### You said you take home ${ format_money(income) } each month.
+#fixme - line above (or test that it works)
+fields:
+- ${get_translation('rent', lang)}: monthly_rent
+#- Rent: monthly_rent
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('mortgage', lang)}: mortgage
+#- Mortgage: mortgage
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('utilities', lang)}: utilities
+#- Utilities: utilities
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('phone_bill', lang)}: phone_bill
+#- Phone Bill: phone_bill
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('food_groceries_restaurants', lang)}: food
+#- Food (Groceries & Restaurants): food
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('insurance', lang)}: insurance
+#- Insurance: insurance
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('clothing', lang)}: clothing
+#- Clothing: clothing
+  datatype: currency
+  min: 0
+  max: 10000
+- ${get_translation('child_spousal_support', lang)}: child_spousal_support
+#- Child or Spousal Support: child_spousal_support
+  datatype: currency
+  min: 0
+- ${get_translation('transportation_gas_etc', lang)}: transportation
+#- Transportation (Gas, Car Payments, Transit): transportation
+  datatype: currency
+  min: 0
+  max: 10000
+
+- ${get_translation('would_other_hardship', lang)}: other_hardship
+#- "Would you like to report other expenses or reasons for financial hardship?": other_hardship
+  datatype: yesnoradio
+- ${get_translation('what_hardship', lang)}: hardship
+#- "What other financial hardship would you like the Court to consider?": hardship
+  show if: other_hardship
+  datatype: area
+- ${get_translation('total_additional_expenses', lang)}: hardship_amt
+#- "What is the total monthly cost of these additional expenses?": hardship_amt
+  datatype: currency
+  show if: other_hardship
+---
+id: additional-requests
+question: |
+  ${get_translation('additional_requests', lang)}
+#  ### Additional Requests
+progress: 65
+fields:
+- ${get_translation('would_like_additional', lang)}: additional_requests
+#- "Would you like to add any of the following requests to the current or reduced amount?": additional_requests
+  datatype: checkboxes
+  choices:
+  - ${get_translation('payment_plan', lang)}: payment_plan
+#  - "Payment Plan": payment_plan
+  - ${get_translation('community_service', lang)}: community_service
+#  - "Community Service": community_service
+  - ${get_translation('extension', lang)}: extension
+#  - "Extension": extension
+- note: |
+    ${get_translation('administrative_fees', lang)}
+#    Note: Your court may charge administrative fees for setting up a payment plan or community service work plan.
+---
+comment: |
+  This code block indicates that citation_pleas should be considered "gathered" when
+  it contains values for all unadjudicated citations. This is weird docassemble semantics.
+  Docassemble searches for a block that defines citation_pleas.gathered. It finds this one
+  and tries to execute it. In order to get all the way to the `citation_pleas.gathered = True` statement,
+  it first has to find values for citation_pleas[citation_number] for all unadjudicated citation numbers.
+code: |
+  selected_citations = [
+    all_citations[citation_number]
+    for citation_number in selected_citation_numbers.true_values()
+  ]
+  unadjudicated_citations = [
+    c for c in selected_citations
+    if not c.get('adjudicated')
+  ]
+  for citation in unadjudicated_citations:
+    citation_pleas[citation['citationNumber']]
+  citation_pleas.gathered = True
+---
+id: make-your-plea
+question: |
+  ${get_translation('make_plea', lang, citation_number=all_citations[i]['citationNumber'])}
+# Make your Plea
+progress: 75
+subquestion: |
+  ${get_translation('plea_instructions', lang)}
+#
+# By pleading you will be giving up the following rights:
+#
+# * To be represented by an attorney employed by you;
+# * To have a speedy and public trial in front of a judge;
+# * To testify, to present evidence, and to use court orders without cost to compel the attendance of witnesses and the production of evidence on your behalf;
+# * To have the witnesses against you testify under oath in court, and to question such witnesses;
+# * To remain silent and not testify and not incriminate yourself.
+fields:
+- ${get_translation('Make_plea_choice', lang)}: citation_pleas[i]
+# Make a choice between pleading Guilty or No Contest. A no contest plea is a way of saying, 'I don’t believe I did all that the officer charges, but I admit violating the law.'
+  datatype: radio
+  choices:
+  - ${get_translation('no_content_plea', lang)}: agree_no_contest
+# No Contest Plea. I have read, understand, and waive the rights above, there are facts to support my plea, I am entering my plea freely and voluntarily, and I agree to plead “no contest”. I understand that, for purposes of this case, a plea of no contest will be considered the same as a plea of guilty and that if I plead no contest the court will find me guilty.
+  - ${get_translation('guilty_plea', lang)}: agree_guilty
+#  Guilty Plea. I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.
+under: |
+  ${get_translation('admit_responsibility', lang)}
+#  Note: Once you admit responsibility, you will have a conviction for this traffic offense that will be reported the Department of Motor Vehicles (DMV).
+---
+id: feedback-questions
+question: |
+  ${get_translation('optional_questions', lang)}
+#  ### Optional Questions
+progress: 85
+subquestion: |
+  ${get_translation('info_confidential', lang)}
+#  ## Your information will be kept confidential and may be used for research conducted to improve court services.
+fields:
+- ${get_translation('how_helpful', lang)}: tool_helpful
+#- "How helpful was this tool in addressing your traffic ticket?": tool_helpful
+  required: false
+  datatype: radio
+  choices:
+  - ${get_translation('very_helpful', lang)}: tool_very_helpful
+#  - Very helpful: tool_very_helpful
+  - ${get_translation('somewhat_helpful', lang)}: tool_somewhat_helpful
+#  - Somewhat helpful: tool_somewhat_helpful
+  - ${get_translation('as_helpful_as_court', lang)}: tool_as_helpful
+#  - As helpful as coming into court: tool_as_helpful
+  - ${get_translation('somewhat_unhelpful', lang)}: tool_somewhat_unhelpful
+#  - Somewhat unhelpful: tool_somewhat_unhelpful
+  - ${get_translation('not_helpful', lang)}: tool_not_helpful
+#  - Not helpful at all: tool_not_helpful
+- ${get_translation('say_more_about_difficulty', lang)}: tool_difficult
+#- "Can you say more about what difficulty you encountered with the tool?": tool_difficult
+  datatype: area
+  show if:
+    variable: tool_helpful
+    is: tool_not_helpful
+- ${get_translation('how_to_resolve_again', lang)}: prefer
+#- "If you get another traffic ticket, how would you prefer to resolve it?": prefer
+  required: false
+  datatype: radio
+  choices:
+  - ${get_translation('use_this_tool', lang)}: prefer_online
+  #  - Use this online tool: prefer_online
+  - ${get_translation('in_person', lang)}: prefer_court
+  #  - In-person at court: prefer_court
+  - ${get_translation('unsure', lang)}: prefer_unsure
+  #  - Unsure: prefer_unsure
+- ${get_translation('would_have_been_difficult', lang)}: difficult
+#- "Would it have been difficult to come to court in person?": difficult
+  required: false
+  datatype: radio
+  choices:
+  - ${get_translation('yes', lang)}: difficult_yes
+#  - Yes: difficult_yes
+  - ${get_translation('no', lang)}: difficult_no
+#  - No: difficult_no
+- ${get_translation('why_difficult', lang)}: why_difficult
+#- "Tell us why it's difficult for you to come to court in person (check all that apply)": why_difficult
+  required: false
+  datatype: checkboxes
+  show if:
+    variable: difficult
+    is: difficult_yes
+  choices:
+  - ${get_translation('physical_disability', lang)}: difficult_disability
+#  - "Physical Disability": difficult_disability
+  - ${get_translation('transportation', lang)}: difficult_transportation
+#  - "Transportation": difficult_transportation
+  - ${get_translation('cant_take_off_work', lang)}: difficult_work
+#  - "Can't take time off work": difficult_work
+  - ${get_translation('childcare', lang)}: difficult_childcare
+#  - "Childcare": difficult_childcare
+  - ${get_translation('other', lang)}: difficult_other
+#  - "Other": difficult_other
+  none of the above: False
+#NOTE: none of the above is translated in the "words" section of the config which references a custom yaml file
+
+- ${get_translation('share_why_difficult', lang)}: difficult_open_text
+#- "Share why it's difficult for you to come to court in person": difficult_open_text
+  show if:
+    variable: why_difficult['difficult_other']
+    is: True
+---
+id: submission-signature
+question: |
+  ${get_translation('final_step', lang)}
+#  ### Final Step
+progress: 95
+fields:
+- ${get_translation('what_email_can_court_use', lang)}: email_address_first
+#- What email address can the Court use to communicate about your request?: email_address_first
+  datatype: email
+- ${get_translation('email_again', lang)}: email_address
+#- Please enter your email address again.: email_address
+  datatype: email
+- note: |
+    ${get_translation('make_sure_emails_match', lang)}
+#    Make sure the e-mail addresses match.
+  js hide if: |
+    val('email_address') != '' && val('email_address_first') == val('email_address')
+- note: |
+    <span class="text-success">${get_translation('emails_match', lang)}</span>
+#    <span class="text-success">E-mail addresses match!</span>
+  js show if: |
+    val('email_address') != '' && val('email_address_first') == val('email_address')
+- ${get_translation('penalty_of_perjury', lang)}: submission_signature
+#- "By checking this box, I declare under penalty of perjury that what I have reported is true.": submission_signature
+  datatype: yesnowide
+validation code: |
+  if email_address_first != email_address:
+    validation_error(get_translation('cant_continue_email', lang))
+  if not submission_signature:
+    validation_error(get_translation('cant_continue_sign', lang))
+comment: |
+# originally (below)
+#  if email_address_first != email_address:
+#    validation_error("You cannot continue until you confirm your e-mail address")
+#  if not submission_signature:
+#    validation_error("You cannot continue until you electronically sign under penalty of perjury.")
+continue button label: ${get_translation('continue_button', lang)}
+#continue button label: Submit
+continue button field: ready_to_submit
+---
+comment: |
+  Attempts to submit the interview once. If it fails, renders an error and the user can try again.
+  If it succeeds, the user can try to submit again by clicking the back button on their browser or
+  the back button on the interview page.
+code: |
+  submission_results = submit_all_citations(all_variables(), attachment_urls)
+  if submission_results.success:
+    # Once submission_success is set, this code block will not be run again
+    # unless submission_success is forgotten (e.g. by clicking the browser back button).
+    submission_success = True
+  else:
+    log(get_translation('something_went_wrong', lang), "danger")
+    #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
+    reconsider("ready_to_submit")
+---
+id: submission-complete
+sets: all_done
+question: |
+  ${get_translation('thank_you', lang)}
+#  ### Thank you!
+progress: 100
+subquestion: |
+  ${get_translation('expect_response', lang)}
+#  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
+buttons:
+- ${get_translation('restart', lang)}: restart
+prevent going back: True
+---
+mandatory: True
+code: |
+  landing_page_visited
+  completed_citation_form
+  if citation_number_absent:
+    fetched_citations_from_user_info
+  if not citation_number_absent:
+    fetched_citations_from_citation_number
+    if received_multiple_citations_for_one_citation_number or not_my_citations:
+      completed_disambiguation_form
+      fetched_citations_from_user_info_disambiguation_form
+  all_citations
+  selected_citation_numbers
+  how_work
+  benefits
+
+  attachment_urls = []
+  if benefits["cal_fresh"]:
+    calfresh_proof
+    if calfresh_proof:
+      attachment_urls.append(("CalFresh", calfresh_proof.url_for()))
+  if benefits["medi_cal"]:
+    medi_cal_proof
+    if medi_cal_proof:
+      attachment_urls.append(("MediCal", medi_cal_proof.url_for()))
+  if benefits["ssi"]:
+    ssi_proof
+    if ssi_proof:
+      attachment_urls.append(("SSI", ssi_proof.url_for()))
+  # Hide WIC for now until backend supports WIC. Can enable WIC by uncommenting lines below and in above Public Benefits question.
+  #if benefits["wic"]:
+  #  wic_proof
+  #  if wic_proof:
+  #    attachment_urls.append(("wic", wic_proof.url_for()))
+  if benefits["ssp"]:
+    ssp_proof
+    if ssp_proof:
+      attachment_urls.append(("SSP", ssp_proof.url_for()))
+  if benefits["cr_ga"]:
+    cr_ga_proof
+    if cr_ga_proof:
+      attachment_urls.append(("CRGA", cr_ga_proof.url_for()))
+  if benefits["ihss"]:
+    ihss_proof
+    if ihss_proof:
+      attachment_urls.append(("IHSS", ihss_proof.url_for()))
+  if benefits["cal_works"]:
+    cal_works_proof
+    if cal_works_proof:
+      attachment_urls.append(("CalWorks", cal_works_proof.url_for()))
+  if benefits["tanf"]:
+    tanf_proof
+    if tanf_proof:
+      attachment_urls.append(("TANF", tanf_proof.url_for()))
+  if benefits["capi"]:
+    capi_proof
+    if capi_proof:
+      attachment_urls.append(("CAPI", capi_proof.url_for()))
+  if benefits['other']:
+    other_benefit_picture
+    if other_benefit_picture:
+      attachment_urls.append(("Other", other_benefit_picture.url_for()))
+  income
+  residents
+  monthly_rent
+  mortgage
+  utilities
+  phone_bill
+  food
+  insurance
+  clothing
+  child_spousal_support
+  transportation
+  additional_requests
+  
+  # Trigger gathering on the citation_pleas DADict object.
+  # See: https://docassemble.org/docs/groups.html#manual
+  citation_pleas.gathered
+  
+  tool_helpful
+  email_address
+  submission_signature
+  ready_to_submit
+  submission_success
+  all_done
