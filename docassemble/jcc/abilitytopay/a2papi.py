@@ -94,6 +94,8 @@ def fetch_case_data_or_reconsider(fallback_variable):
         if response.data == []:
             log(get_translation('check_information', lang), 'danger')
             # Check the information you entered. Try again.
+            log("nameSearchNoResultsEvent({{ 'session_id': '{}' }})"
+                .format(user_info().session), "javascript")
         else:
             log(get_translation('something_went_wrong', lang), 'danger')
             # Sorry! Something went wrong with your submission. Our support

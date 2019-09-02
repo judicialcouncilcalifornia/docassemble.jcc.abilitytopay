@@ -72,6 +72,7 @@ code: |
     else:
       log(get_translation('check_information', lang), 'danger')
       # Check the information you entered. Try again.
+      log("citationNoResultsEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
       reconsider('completed_citation_form')
   elif response.error == 'too-many-results':
     # More than one citation result. Set a flag to show disambiguation form next.
