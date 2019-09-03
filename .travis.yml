@@ -5,7 +5,7 @@ python:
 if: type = push
 script:
 - pip3 install --upgrade setuptools pip
-- pip3 install yamllint
-- yamllint docassemble/jcc/abilitytopay/data/questions
+- pip3 install nose
+- nosetests -v tests
 - npm install bootstrap sass
 - npx sass source/style.scss docassemble/jcc/abilitytopay/data/static/style.css
