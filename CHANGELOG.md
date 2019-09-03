@@ -1,6 +1,6 @@
 # Changelog
 
-## (unreleased)
+## v1.2.0 (unreleased)
 
 ### User-facing changes
 
