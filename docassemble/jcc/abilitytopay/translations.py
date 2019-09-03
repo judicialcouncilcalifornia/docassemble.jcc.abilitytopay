@@ -286,6 +286,13 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-t": "SSI：社會安全補助金"
   },
 
+  "wic": {
+    "en": "WIC: Special Supplemental Nutrition for Women, Infants and Children",
+    "es": "WIC: Programa de Nutrición y Alimentos para Mujeres, Bebés y Niños",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
   "ssp": {
     "en": "SSP: State Supplemental Payment",
     "es": "SSP: Pagos suplementarios del estado",
