@@ -60,6 +60,7 @@ sudo docker ps
 
 ```
 sudo docker stop -t60 $CONTAINER_ID
+sudo docker rm $CONTAINER_ID
 ```
 
 2) Boot the new container. Replace $VERSION_NUMBER as before.
