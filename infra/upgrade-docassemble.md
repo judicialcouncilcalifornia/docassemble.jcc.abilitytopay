@@ -80,7 +80,7 @@ tail -f -n 100 /var/log/supervisor/initialize-stderr---supervisor-*.log
 
 5) Do a test-run through the entire interview to make sure nothing broke in the upgrade.
 
-6) Remove the current working container: ($CONTAINER_ID is the same ID from 1. - "docker stop") 
+6) Remove the previous container: ($CONTAINER_ID is the same ID from 1. - "docker stop") 
 ```
 sudo docker rm $CONTAINER_ID
 ```
