@@ -8900,12 +8900,20 @@ select {
 
 .dashowif .form-group, .showif .form-group {
   margin-right: -3rem;
-  margin-bottom: 0;
   margin-left: -3rem;
   padding-right: 1.5rem;
-  padding-bottom: 1rem;
   padding-left: 1.1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 0;
   border-left: 4px solid #1b97e0;
+}
+@media (max-width: 767.98px) {
+  .dashowif .form-group, .showif .form-group {
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    padding-left: 0.6rem;
+    padding-right: 0;
+  }
 }
 .dashowif .form-group.da-group-has-error, .dashowif .form-group.has-error, .showif .form-group.da-group-has-error, .showif .form-group.has-error {
   border-left: 4px solid #c53b00;
