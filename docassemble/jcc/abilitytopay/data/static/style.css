@@ -8795,6 +8795,11 @@ select {
 .btn {
   letter-spacing: 1px;
 }
+@media (max-width: 767.98px) {
+  .btn {
+    width: 100%;
+  }
+}
 
 .form-actions {
   margin-top: 4rem;
