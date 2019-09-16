@@ -129,6 +129,9 @@ function prepareFileUpload(lang) {
   });
 
   fileInputEl.on('change', function() {
+    if (fileInputEl[0].files.length > 0) {
+      hideA2PValidationError();
+    }
     imagePreviewFailed = false;
     renderAll();
   });
@@ -141,6 +144,54 @@ function prepareFileUpload(lang) {
   });
 
   renderAll();
+
+  prepareCustomValidation(function() {
+    // Extremeley sloppy to register this event listener here, but at least we know the element has been
+    // added to the DOM. Ugh.
+    $('[aria-label="I don\’t have proof available"]').on('click', hideA2PValidationError);
+
+    var hasFiles = $('.a2p-file-input')[0].files.length > 0;
+    var checkedNoProof = $('[aria-label="I don\’t have proof available"]').attr('aria-checked') === 'true';
+    return hasFiles || checkedNoProof;
+  }, 'Please click the "Add a photo" button or select "I don\'t have proof available".');
+}
+
+//
+// Custom form validation
+//
+
+function hideA2PValidationError() {
+  $('.a2p-validation-error').remove();
+}
+
+function showA2PValidationError(message) {
+  $('.a2p-validation-error').remove();
+  var errorEl = $('<div class="a2p-validation-error">' + message + '</div>');
+  $('.da-field-buttons').prepend(errorEl);
+}
+
+function prepareCustomValidation(formIsValidFn, errorMessage) {
+  // wrapped in a setTimeout because daValidator does not exist on page load. Ugh.
+  setTimeout(function() {
+    // save the current validation rules
+    var oldRules = daValidator.settings.rules;
+
+    // destroy existing event listeners
+    daValidator.destroy();
+    
+    // re-initialize with old validation rules + custom handler
+    $('#daform').validate({
+      rules: oldRules,
+      submitHandler: (form) => {
+        var formIsValid = formIsValidFn();
+        if (formIsValid) {
+          daValidationHandler(form);
+        } else {
+          showA2PValidationError(errorMessage);
+        }
+      }
+    });
+  });
 }
 
 //

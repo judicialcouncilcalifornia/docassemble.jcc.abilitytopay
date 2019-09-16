@@ -734,6 +734,21 @@ select.a2p-month-selector {
   }
 }
 
+// Custom validation message
+
+.a2p-validation-error {
+  border-left: 4px solid #c53b00;
+  margin-bottom: 0;
+  padding-right: 1.5rem;
+  padding-bottom: 1rem;
+  padding-left: 1.1rem;
+  background-color: #fdf6f5;
+  padding-top: 1rem;
+  color: #c53b00;
+  font-family: "Lora", Georgia, Times, serif;
+  font-style: italic;
+}
+
 // Custom language dropdown
 
 .a2p-language-dropdown-container {
