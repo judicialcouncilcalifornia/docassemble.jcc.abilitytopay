@@ -1,5 +1,12 @@
 # Changelog
 
+## (unreleased)
+
+### User-facing changes
+
+- Changed: Improved mobile layout (full-width buttons, no horizontal scroll).
+- Added: The proof of benefits questions now have form validation.
+
 ## v1.2.0 (unreleased)
 
 ### User-facing changes
