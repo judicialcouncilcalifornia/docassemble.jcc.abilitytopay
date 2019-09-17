@@ -182,7 +182,7 @@ function prepareCustomValidation(formIsValidFn, errorMessage) {
     // re-initialize with old validation rules + custom handler
     $('#daform').validate({
       rules: oldRules,
-      submitHandler: (form) => {
+      submitHandler: function(form) {
         var formIsValid = formIsValidFn();
         if (formIsValid) {
           daValidationHandler(form);
