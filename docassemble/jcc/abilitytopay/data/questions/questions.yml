@@ -522,6 +522,7 @@ fields:
 #- "What other financial hardship would you like the Court to consider?": hardship
   show if: other_hardship
   datatype: area
+  maxlength: 300
 - ${get_translation('total_additional_expenses', lang)}: hardship_amt
 #- "What is the total monthly cost of these additional expenses?": hardship_amt
   datatype: currency
