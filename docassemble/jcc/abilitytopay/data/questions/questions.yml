@@ -34,7 +34,6 @@ fields:
 - ${get_translation('what_county', lang)}: county
 #- "What California county did you get the citation in?": county
   choices:
-  - "San Francisco": San Francisco
   - "Shasta": Shasta
   - "Tulare": Tulare
   - "Ventura": Ventura
