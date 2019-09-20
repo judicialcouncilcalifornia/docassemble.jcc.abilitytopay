@@ -51,6 +51,10 @@ var texts = {
   'Add a photo': {
     'en': 'Add a photo',
     'es': 'Subir foto'
+  },
+  'benefit_proof_validation_error': {
+    'en': 'Please click the "Add a photo" button or select "I don\'t have proof available".',
+    'es': 'Favor de hacer clic en "Subir foto" o seleccionar "No tengo un comprobante en este momento".'
   }
 };
 
@@ -145,15 +149,18 @@ function prepareFileUpload(lang) {
 
   renderAll();
 
-  prepareCustomValidation(function() {
-    // Extremeley sloppy to register this event listener here, but at least we know the element has been
-    // added to the DOM. Ugh.
-    $('[aria-label="I don\’t have proof available"]').on('click', hideA2PValidationError);
+  prepareCustomValidation({
+    formIsValidFn: function() {
+      // Extremeley sloppy to register this event listener here, but at least we know the element has been
+      // added to the DOM. Ugh.
+      $('[aria-label="I don\’t have proof available"]').on('click', hideA2PValidationError);
 
-    var hasFiles = $('.a2p-file-input')[0].files.length > 0;
-    var checkedNoProof = $('[aria-label="I don\’t have proof available"]').attr('aria-checked') === 'true';
-    return hasFiles || checkedNoProof;
-  }, 'Please click the "Add a photo" button or select "I don\'t have proof available".');
+      var hasFiles = $('.a2p-file-input')[0].files.length > 0;
+      var checkedNoProof = $('[aria-label="I don\’t have proof available"]').attr('aria-checked') === 'true';
+      return hasFiles || checkedNoProof;
+    },
+    errorMessage: getText('benefit_proof_validation_error', lang)
+  });
 }
 
 //
@@ -170,7 +177,9 @@ function showA2PValidationError(message) {
   $('.da-field-buttons').prepend(errorEl);
 }
 
-function prepareCustomValidation(formIsValidFn, errorMessage) {
+function prepareCustomValidation(validationOpts) {
+  var errorMessage = validationOpts.errorMessage;
+  var formIsValidFn = validationOpts.formIsValidFn;
   // wrapped in a setTimeout because daValidator does not exist on page load. Ugh.
   setTimeout(function() {
     // save the current validation rules
