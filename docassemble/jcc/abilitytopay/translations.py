@@ -1103,8 +1103,8 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
   },
 
   "expect_response": {
-    "en": "*Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*",
-    "es": "*Puede esperar una respuesta de la corte por email en 10 días hábiles. Si no recibe una notificación, comuníquese con la corte.",
+    "en": "*Expect a response from the court by email in 30 business days. If you don't get a notification please contact the Court.*",
+    "es": "*Puede esperar una respuesta de la corte por email en 30 días hábiles. Si no recibe una notificación, comuníquese con la corte.",
     "zh-s": "",
     "zh-t": ""
   },
