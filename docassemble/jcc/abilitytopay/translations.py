@@ -337,7 +337,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "other_benefit_name": {
     "en": "What's the other public benefit you receive?",
-    "es": "¿Cómo se llama el beneficio público que recibe?",
+    "es": "¿Cómo se llama el beneficio público que recibe? Nota: debe responder esta pregunta en inglés.",
     "zh-s": "",
     "zh-t": ""
   },
@@ -372,7 +372,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "why_no_proof": {
     "en": "Tell us why you can't provide documentation at this time",
-    "es": "Explique por qué no puede darnos documentación en este momento",
+    "es": "Explique por qué no puede darnos documentación en este momento. Nota: debe responder esta pregunta en inglés.",
     "zh-s": "告诉我们您为何现在不能提供文件",
     "zh-t": "告訴我們您為何現在不能提供文件"
   },
@@ -752,7 +752,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
   "what_hardship": {
     "en": "What other financial hardship would you like the Court to consider?",
-    "es": "¿Qué otro tipo de problema económico quiere que considere la corte?",
+    "es": "¿Qué otro tipo de problema económico quiere que considere la corte? Nota: debe responder esta pregunta en inglés.",
     "zh-s": "您希望法院考虑哪些其他种类的财务困难？",
     "zh-t": "您希望法院考慮其他哪一種財務困難？"
   },
