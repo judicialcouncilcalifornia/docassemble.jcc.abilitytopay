@@ -21,8 +21,12 @@ _translations = {
 
 **Do not use this tool:**
 
-* If you wish to contest the ticket, contact your court instead.
-* If you have a correction, please refer to your courtesy notice or bring proof to clerk's office for dismissal or reduction of those charges.""",
+* If you wish to contest the ticket
+* If your offense is a misdemeanor violation
+* If you would like to attend traffic school
+* If you have proof of correction and would like a dismissal or reduction of those charges
+
+Please refer to your courtesy notice or contact your court instead.""",
     "es":
 """*Este sistema en línea es una manera opcional de solicitar una reducción en su multa de tránsito debido a una necesidad económica.*
 
