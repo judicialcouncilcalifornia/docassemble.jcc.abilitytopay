@@ -6,6 +6,10 @@
 
 - Changed: Improved mobile layout (full-width buttons, no horizontal scroll).
 - Added: The proof of benefits questions now have form validation.
+- Added: Maximum 300 character limit on answer to other financial hardship question.
+- Added: Text for free-response questions in Spanish indicating that answers must be in English.
+- Changed: Intro page text.
+- Changed: Expect a response from the court by email in **30** business days (instead of 10).
 
 ## v1.2.0 (unreleased)
 
