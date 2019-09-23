@@ -153,10 +153,10 @@ function prepareFileUpload(lang) {
     formIsValidFn: function() {
       // Extremeley sloppy to register this event listener here, but at least we know the element has been
       // added to the DOM. Ugh.
-      $('[aria-label="I don\’t have proof available"]').on('click', hideA2PValidationError);
+      $('[aria-checked]').on('click', hideA2PValidationError);
 
       var hasFiles = $('.a2p-file-input')[0].files.length > 0;
-      var checkedNoProof = $('[aria-label="I don\’t have proof available"]').attr('aria-checked') === 'true';
+      var checkedNoProof = $('[aria-checked]').attr('aria-checked') === 'true';
       return hasFiles || checkedNoProof;
     },
     errorMessage: getText('benefit_proof_validation_error', lang)
