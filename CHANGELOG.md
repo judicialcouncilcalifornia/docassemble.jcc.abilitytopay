@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.4 (unreleased)
+
+- Changed: higher-resolution translation icon (for high-res screens)
+
 ## v1.2.3 (unreleased)
 
 ### User-facing changes
