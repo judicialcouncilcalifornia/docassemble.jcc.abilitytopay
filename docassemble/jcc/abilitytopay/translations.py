@@ -39,8 +39,13 @@ Please refer to your courtesy notice or contact your court instead.""",
 
 **No use este servicio:**
 
-* Si quiere disputar la multa o resolver su multa en persona, comuníquese con su corte.
-* Si tiene una corrección, consulte su aviso de cortesía o lleve un comprobante al secretario de la corte para desestimar o reducir los cargos.""",
+* Si quiere disputar la multa
+* Si su ofensa es una violación por delito menor
+* Si desea asistir a la escuela de tránsito
+* Si tiene un comprobante de corrección y quiere desestimar o reducir los cargos
+
+Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
+""",
     "zh-s":
 """*如果您有财务需要，本在线系统是请求减少交通罚单罚款的可选途径。*
 
