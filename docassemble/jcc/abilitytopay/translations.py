@@ -42,7 +42,7 @@ Please refer to your courtesy notice or contact your court instead.""",
 * Si quiere disputar la multa
 * Si su ofensa es una violación por delito menor
 * Si desea asistir a la escuela de tránsito
-* Si tiene un comprobante de corrección y quiere desestimar o reducir los cargos
+* Si tiene un comprobante de corrección y desea reducir la multa
 
 Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
 """,
