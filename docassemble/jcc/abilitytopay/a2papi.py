@@ -415,9 +415,10 @@ def __do_request(url, params):
         'Authorization': 'Bearer ' + access_token,
         'Content-Type': 'application/json'
     }
+    log("making a2p api request to {} with payload {}".format(url, params))
     res = requests.post(url, data=None, json=params, headers=headers,
                         timeout=30)
-    __log_response("a2p api request", res)
+    __log_response("a2p api response", res)
     return res
 
 
