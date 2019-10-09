@@ -18,6 +18,14 @@ function citationNoResultsEvent(params) {
   sendGtagEvent('citation-number-no-results', params);
 }
 
+function languageSelectEvent(language) {
+  sendGtagEvent('selected-language-' + language);
+}
+
+function languageSelectorClickedEvent() {
+  sendGtagEvent('clicked-language-selector');
+}
+
 function sendGtagEvent(event, params) {
   if (params)
     gtag('event', event, params);
@@ -233,8 +241,12 @@ function insertLanguageDropdown(active_lang) {
         '</div>';
     $('.a2p-language-dropdown-container').remove();
     headerEl.append($(languageButtonsHTML));
+    $('.a2p-language-dropdown-container .a2p-language-dropdown-label').on('click', function() {
+      languageSelectorClickedEvent();
+    });
     $('.a2p-language-dropdown-container .dropdown-item').on('click', function() {
       var language = $(this).data('lang');
+      languageSelectEvent(language);
       url_action_perform('language_button_clicked', { language: language })
     });
 }
