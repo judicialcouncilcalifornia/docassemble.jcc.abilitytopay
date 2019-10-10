@@ -1145,8 +1145,8 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
   },
 
   "something_went_wrong": {
-    "en": "Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.",
-    "es": "¡Lo sentimos! Hubo un error con su submisión. Nuestro equipo de apoyo ha sido notificado. Intente nuevamente en 24 horas, o contáctese con su corte.",
+    "en": "Sorry! Something went wrong with your submission. Our support team has been notified. Please try again later, or contact your court.",
+    "es": "¡Lo sentimos! Hubo un error con su submisión. Nuestro equipo de apoyo ha sido notificado. Intente nuevamente más tarde, o contáctese con su corte.",
     "zh-s": "",
     "zh-t": ""
   },
