@@ -1,10 +1,21 @@
 # Changelog
 
-## v1.2.4 (unreleased)
+## v1.2.6 (unreleased)
+
+- Changed: Spanish translation of intro page text
+- Changed: Log API request info even if the request fails
+- Added: Track clicks on language select dropdown in GA
+- Changed: "Try again in 24 hours" -> "Try again later" during an error
+
+## v1.2.5 ([2019-10-01](7d1e45ad0e4b58f6a155e37a1d31126ff1ca46ab))
+
+- Changed: Spanish translation of intro page text
+
+## v1.2.4 ([2019-09-25](9a17fc4078f6e4be26a9049822e7ad0de7b17b69))
 
 - Changed: higher-resolution translation icon (for high-res screens)
 
-## v1.2.3 (unreleased)
+## v1.2.3 ([2019-09-24](9a17fc4078f6e4be26a9049822e7ad0de7b17b69))
 
 ### User-facing changes
 
