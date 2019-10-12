@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.6 (unreleased)
+## v1.2.6 ([2019-10-11](d05dc98d6d8458889e808531943ae7ae8d71fe3c))
 
 - Changed: Spanish translation of intro page text
 - Changed: Log API request info even if the request fails
