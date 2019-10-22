@@ -204,7 +204,7 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
     case_params = {
         'firstName': first_name,
         'lastName': last_name,
-        'dateOfBirth': "%s/%s/%s" % (dob.month, dob.day, dob.year),
+        'dateOfBirth': dob.isoformat(),
         'driversLicense': drivers_license,
         'county': county
     }
