@@ -222,14 +222,15 @@ a2p:
   error_email: ATPSupport@jud.ca.gov
 ```
 
-4) update config.yml `default interview` (delete existing entry), `words`, and `interview delete days`. Copy over the `mail` config from an existing deployment. Optionally add a google analytics id:
+4) update config.yml `default interview` (delete existing entry), `words`, `interview delete days`, and `allow registration`. Copy over the `mail` config from an existing deployment. Optionally add a google analytics id:
 
 ```
 default interview: docassemble.jcc.abilitytopay:data/questions/interview.yml
-interview delete days: 1
 words:
   - docassemble.base:data/sources/us-words.yml
   - docassemble.jcc.abilitytopay:data/es-words.yml
+interview delete days: 1
+allow registration: False
 mail:
   default sender:
   username:
