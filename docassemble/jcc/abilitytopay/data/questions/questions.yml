@@ -419,7 +419,6 @@ script: |
   <script>prepareFileUpload('${lang}')</script>
 ---
 id: other-benefits-proof
-field: other_benefit_screen_reached
 sets: other_benefit_picture
 question: |
   ${get_translation('proof_of', lang)} "${other_benefit_name}"
