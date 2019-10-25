@@ -1,4 +1,26 @@
 //
+// Chatbot helpers
+//
+
+function postStateToChatbot(language, county) {
+  var chatbotIframe = $('#botDiv iframe');
+  if (chatbotIframe.length === 0) {
+    console.warn('Could not post message to chatbot. Element does not exist yet.')
+    return;
+  }
+
+  var message = {
+    type: 'state', // the message type
+    language: language,
+    county: county,
+    questionId: $(document.body).attr('class').split(' ').find(function(s) { return s.includes('question'); })
+  };
+
+  // None of the data is private, so we don't care about the origin of the iframe.
+  chatbotIframe[0].contentWindow.postMessage(message, '*');
+}
+
+//
 // Gtag event helper
 //
 
