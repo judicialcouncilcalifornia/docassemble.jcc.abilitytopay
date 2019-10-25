@@ -668,6 +668,9 @@ def __is_citation_eligible(data):
     if 'totalDueAmt' not in data:
         return False
 
+    if data['totalDueAmt'] is None:
+        return False
+
     if not __is_number(data['totalDueAmt']):
         return False
 
