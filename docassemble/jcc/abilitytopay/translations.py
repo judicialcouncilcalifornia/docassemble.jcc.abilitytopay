@@ -1123,6 +1123,13 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   #Error messages
   ###########################################
+  "citation_number_required": {
+    "en": "Please enter a citation number",
+    "es": "Favor de poner el número de citación",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
   "cant_process_online": {
     "en": "We can't process this citation online. Please contact your Court for more information.",
     "es": "No podemos procesar esta citación en línea. Favor de contactarse con su Corte para más información.",

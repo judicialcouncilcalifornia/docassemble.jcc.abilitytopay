@@ -79,6 +79,11 @@ code: |
     log("citationNumberReusedEvent({{ 'county': '{}', 'citation_number': '{}' }})".format(county, citation_number), "javascript")
     # More than one citation result. Set a flag to show disambiguation form next.
     received_multiple_citations_for_one_citation_number = True
+  elif response.error == 'empty-citation-number':
+    # User tried to do a search without entering a citation number
+    log(get_translation('citation_number_required', lang), 'danger')
+    # Please enter a citation number
+    reconsider('completed_citation_form')
   else:
     log(get_translation('something_went_wrong', lang), 'danger')
     # Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.

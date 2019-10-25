@@ -105,6 +105,12 @@ def fetch_case_data_or_reconsider(fallback_variable):
 
 
 def fetch_case_data_from_citation(citation_number, county):
+    # This validation would make more sense in the front-end, but implementing
+    # custom front-end validation in docassemble is a mess (see a2p.js),
+    # so I'm doing it here.
+    if citation_number == '':
+        return ErrorResult('empty-citation-number')
+
     try:
         # fetch citation data
         citation_response = _fetch_citation_data(citation_number, county)
