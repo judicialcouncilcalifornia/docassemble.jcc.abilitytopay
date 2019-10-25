@@ -80,7 +80,7 @@ def fetch_case_data_or_reconsider(fallback_variable):
     because we try to fetch citations from several different screens in the
     interview.'''
     response = fetch_case_data(value('first_name'), value('last_name'),
-                               value('dob'), value('license_number'),
+                               value('dob').date(), value('license_number'),
                                value('county'))
     if (response.data is not None) and (len(response.data) > 0):
         define('all_citations', {
