@@ -509,6 +509,7 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
         'cal_works',
         'wic',
         'capi',
+        'other_benefit'
     ]
 
     no_docs_upload_comments = []

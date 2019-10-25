@@ -430,6 +430,13 @@ subquestion: |
   ${a2p_file_input('other_benefit_picture')}
 # You said you receive "${other_benefit_name}". Please upload any document that proves you are currently receiving this benefit.
 # Upload picture
+fields:
+- ${get_translation('have_no_proof', lang)}: other_benefit_no_proof
+# I don't have proof available
+  datatype: yesno
+- ${get_translation('why_no_proof', lang)}: other_benefit_no_proof_reason
+# Tell us why you can't provide documentation at this time
+  show if: other_benefit_no_proof
 script: |
   <script>prepareFileUpload('${lang}')</script>
 ---
