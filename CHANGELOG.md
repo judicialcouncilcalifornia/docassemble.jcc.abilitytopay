@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.2.8 (in progress)
+
+- Added: Queries that are missing a citation number now show a friendly error message instead of causing a JSON parse failure in the backend.
+- Added: Citations with a null totalDueAmt are now gracefully treated as ineligible instead of raising an internal error.
+- Both of the above changes will result in fewer error e-mails going to the support address.
+- Fixed bug introduced with name search in v1.2.7
+
+## v1.2.7 ([2019-10-22](d7215a9b150a7a992df15f0ae0dc44a45ceefeec))
+
+- Changed: queries to ATP API now send the date in YYYY-MM-DD format. This fixes a bug when querying the San Francisco API.
+
 ## v1.2.6 ([2019-10-11](d05dc98d6d8458889e808531943ae7ae8d71fe3c))
 
 - Changed: Spanish translation of intro page text
