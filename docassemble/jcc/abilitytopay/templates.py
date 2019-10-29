@@ -3,8 +3,9 @@ from docassemble.base.util import encode_name
 from .a2putil import format_money, date_from_iso8601
 from .translations import get_translation
 
+
 def a2p_file_input(file_variable_name):
-  return """
+    return """
 <div class="a2p-file-upload-container">
   <div class="a2p-upload-complete"><span class="a2p-upload-complete-icon fas fa-check-circle"></span>Upload Complete</div>
   <img class="a2p-image-preview" />
@@ -18,12 +19,13 @@ def a2p_file_input(file_variable_name):
   </div>
 </div>
 """.format(
-  encoded_variable_name=encode_name(file_variable_name),
-  encoded_list=encode_name(json.dumps([encode_name(file_variable_name)]))
-)
+        encoded_variable_name=encode_name(file_variable_name),
+        encoded_list=encode_name(json.dumps([encode_name(file_variable_name)]))
+    )
+
 
 def citation_info_card(case, lang):
-  return """
+    return """
 <div class='info-card'>
   <h4>{citationNumber}</h4>
   <dl>
@@ -35,14 +37,14 @@ def citation_info_card(case, lang):
   </dl>
 </div>
 """.format(
-  name_label=get_translation('name', lang),
-  citation_number_label=get_translation('citation_number', lang),
-  county_label=get_translation('county', lang),
-  violation_date_label=get_translation('violation_date', lang),
-  total_due_label=get_translation('total_due', lang),
-  name=case['firstName'] + " " + case['lastName'],
-  county=case['county'],
-  citationNumber=case['citationNumber'],
-  violationDate=date_from_iso8601(case['charges'][0]['violationDate']),
-  totalDue=format_money(case['totalDueAmt'])
-)
+        name_label=get_translation('name', lang),
+        citation_number_label=get_translation('citation_number', lang),
+        county_label=get_translation('county', lang),
+        violation_date_label=get_translation('violation_date', lang),
+        total_due_label=get_translation('total_due', lang),
+        name=case['firstName'] + " " + case['lastName'],
+        county=case['county'],
+        citationNumber=case['citationNumber'],
+        violationDate=date_from_iso8601(case['charges'][0]['violationDate']),
+        totalDue=format_money(case['totalDueAmt'])
+    )
