@@ -679,10 +679,3 @@ def __is_citation_eligible(data):
         return False
 
     return True
-
-# NOTE: Testing the below functions on local may not work
-# due to firewall restrictions.
-#
-# print(fetch_citation_data('MCRDINTR180000001001', 'Shasta'))
-# print(fetch_case_data('john', 'doe', '11/26/1985', '12345', 'Santa Clara'))
-# print(submit_interview({ 'citationNumber': 1234 }))
