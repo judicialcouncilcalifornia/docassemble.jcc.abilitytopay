@@ -2,15 +2,34 @@
 
 [![Build Status](https://travis-ci.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay.svg?branch=master)](https://travis-ci.com/JudicialCouncilOfCalifornia/docassemble.jcc.abilitytopay)
 
-## Local Development
+Ability to Pay is a web application for requesting fine reductions for traffic violations in California counties. It is built with the open source [DocAssemble](https://docassemble.org/) framework.
 
-### Installation
+## Directory Structure
 
-DocAssemble uses Docker for both local development and deployment. You can find the instructions to setup Docassemble using Docker here:
+```
+- docassemble
+-- jcc
+--- abilitytopay
 
-https://docassemble.org/docs/docker.html#install
+---- a2papi.py (core python module for interacting with ATP API, error-handling, etc.)
+---- a2putil.py
+---- templates.py (HTML snippets)
+---- translations.py (all interview text lives here in both English + Spanish)
 
-Once DocAssemble is running, visit the admin page at e.g. http://localhost:8080/updatepackage, create a user account, and install this repo as a package.
+---- data (python source code)
+----- es-words.yml (Spanish translations for "system" words)
+----- questions (ymls that describe each interview question, with some embedded python logic)
+----- static (static assets)
+
+- infra (READMEs for maintaining + deploying new instances of the webapp)
+- source (sass stylesheets that get built into css)
+- tests
+- tools
+```
+
+## Development
+
+The development environment is deployed to https://mycitations.dev.courts.ca.gov. Since Docassemble runs in a container, developing locally is not any easier than developing in the dev environment. However, if you want to develop locally, see [Developing on a local machine](#Developing-on-a-local-machine).
 
 ### Install development dependencies
 
@@ -29,6 +48,8 @@ npm run build
 ```
 
 to compile the `.scss` files in [source/](source/) into `.css` files in [docassemble/jcc/abilitytopay/data/static/](docassemble/jcc/abilitytopay/data/static/).
+
+This is the only build step--all other source files are edited in-place in the [docassemble/jcc/abilitytopay](docassemble/jcc/abilitytopay) package directory.
 
 ### Versioning
 
@@ -50,6 +71,14 @@ If you did everything right, push the version commit and tag:
 ```
 git push && git push --tags
 ```
+
+### Developing on a local machine
+
+DocAssemble uses Docker for both local development and deployment. You can find the instructions to setup Docassemble using Docker here:
+
+https://docassemble.org/docs/docker.html#install
+
+Once DocAssemble is running, visit the admin page at e.g. http://localhost:8080/updatepackage, create a user account, and install this repo as a package.
 
 ## A2P API
 
