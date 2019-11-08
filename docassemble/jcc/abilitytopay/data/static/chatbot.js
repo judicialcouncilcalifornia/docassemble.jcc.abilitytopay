@@ -10,7 +10,7 @@ $(document).ready(function() {
 
         var div = document.createElement("div");
         document.getElementsByTagName('body')[0].appendChild(div);
-        div.outerHTML = "<div id='botDiv' style='border-radius: 20px; height: 60px; position: fixed; bottom: 0; right: 10px;  background: rgb(36, 79, 114, 0.95);'>" +
+        div.outerHTML = "<div id='botDiv' style='z-index: 2000; border-radius: 20px; height: 60px; position: fixed; bottom: 0; right: 10px;  background: rgb(36, 79, 114, 0.95);'>" +
             "<div id='botTitleBar' style='height: 60px; width: " + frameWidth + "px; position:fixed; cursor: pointer;'></div>" +
             "<iframe id='iframeBot' width='" + frameWidth + "px' height='" + frameHeight + "px' src='https://jccatpchatbotwebprod.azurewebsites.net/chat.html'></iframe></div>";
 
