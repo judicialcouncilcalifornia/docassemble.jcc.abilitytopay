@@ -493,6 +493,8 @@ def __complete_payload(data, benefit_files_data, citation_data):
     payload['miscellaneous'] = {
         "race": citation_data.get('race'),
         "zipCode": citation_data.get('zipCode'),
+        "adjudicated": citation_data.get('adjudicated'),
+        "collections": citation_data.get('collections'),
     }
     return payload
 
