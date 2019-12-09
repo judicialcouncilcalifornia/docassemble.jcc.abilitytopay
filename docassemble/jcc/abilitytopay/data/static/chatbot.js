@@ -10,7 +10,7 @@ $(document).ready(function() {
 
         var div = document.createElement("div");
         document.getElementsByTagName('body')[0].appendChild(div);
-        div.outerHTML = "<iframe class='iframeBot' id='iframeBot' width='"+frameWidth+"px' height='"+frameHeight+"px' style='position:fixed; bottom: 0; right: 10px; border-radius: 20px; border: 0; background: unset;' src='https://jccatpchatbotwebprod.azurewebsites.net/chat.html'></iframe>";
+        div.outerHTML = "<iframe class='iframeBot' id='iframeBot' width='"+frameWidth+"px' height='"+frameHeight+"px' style='position:fixed; bottom: 0; right: 10px; border-radius: 20px; border: 0; background: unset; z-index: 2000;' src='https://jccatpchatbotwebprod.azurewebsites.net/chat.html'></iframe>";
     }());
 
     function changeLanguageSelected(e) {
