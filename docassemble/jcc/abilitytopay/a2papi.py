@@ -668,6 +668,10 @@ def __is_number(s):
 
 
 def __is_citation_eligible(data):
+    if data['citationNumber'] == '':
+        log("Skipping citation with no citation number: {}".format(data))
+        return False
+
     if 'totalDueAmt' not in data:
         return False
 
