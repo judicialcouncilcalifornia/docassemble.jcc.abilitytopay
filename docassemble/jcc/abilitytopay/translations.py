@@ -619,7 +619,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "current_income": {
-    "en": "### Monthly Income",
+    "en": "### Current Income",
     "es": "### Ingreso mensual",
     "zh-s": "### 当前收入",
     "zh-t": "### 目前收入"
@@ -641,8 +641,8 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
 
   "amount_of_income": {
-    "en": "Amount of Income",
-    "es": "Monto de ingresos",
+    "en": "Monthly Income",
+    "es": "Ingreso mensual",
     "zh-s": "收入金额",
     "zh-t": "收入金額"
   },
