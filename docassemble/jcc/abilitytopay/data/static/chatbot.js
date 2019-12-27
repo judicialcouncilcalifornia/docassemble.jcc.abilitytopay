@@ -1,10 +1,11 @@
 // JCC ATP CHATBOT CODE
-$(document).ready(function() {
     var frame = null;
     var deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
     var deviceHeight = (window.innerHeight > 0) ? window.innerHeight : screen.height;
     var frameWidth = (deviceWidth < 420) ? (deviceWidth - 20) : 440;
     var frameHeight = (deviceHeight < 830) ? (deviceHeight - 50) : 750;
+
+$(document).ready(function() {
     
     (function () {
         var div = document.createElement("div");
@@ -23,4 +24,22 @@ $(document).ready(function() {
             frame.postMessage(JSON.stringify(postMessageData), window.location.href);
         }
     }
+    
+    var eventMethod = window.addEventListener
+            ? "addEventListener"
+            : "attachEvent";
+        var eventer = window[eventMethod];
+        var messageEvent = eventMethod === "attachEvent"
+            ? "onmessage"
+            : "message";
+        eventer(messageEvent, function (e) {
+            if (e.data === "open" || e.message === "open") {
+                document.getElementById('iframeBot').style.height=frameHeight+'px';
+                document.getElementById('iframeBot').style.width=frameWidth+'px';
+            }
+
+            if (e.data === "close" || e.message === "close") {
+                document.getElementById('iframeBot').style.height=60+'px';
+                document.getElementById('iframeBot').style.width=140+'px';
+            }
 });
