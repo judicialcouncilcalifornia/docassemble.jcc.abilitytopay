@@ -10,3 +10,6 @@ tools/translations-zh-t.xlsx
 tools/translations-es.old.xlsx
 tools/translations-zh-t.old.xlsx
 tools/translations-zh-s.old.xlsx
+test_a2p_api_config.py
+*.log
+
