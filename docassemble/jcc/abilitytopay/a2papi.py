@@ -668,7 +668,7 @@ def __is_number(s):
 
 
 def __is_citation_eligible(data):
-    if data['citationNumber'] == '':
+    if data['citationNumber'] is None or data['citationNumber'] == '':
         log("Skipping citation with no citation number: {}".format(data))
         return False
 
