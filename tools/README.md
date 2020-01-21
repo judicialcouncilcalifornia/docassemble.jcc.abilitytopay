@@ -9,3 +9,7 @@
 
 ./cat_log.sh mycitations.dev.courts.ca.gov docassemble.log
 ```
+
+## Note
+
+The current docassemble log may not be docassemble.log.  DocAssemble may be writing to docassemble.log.1 or even docassemble.log.2 or higher.
