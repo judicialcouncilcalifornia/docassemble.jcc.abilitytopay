@@ -246,7 +246,15 @@ def fetch_case_data(first_name, last_name, dob, drivers_license, county):
 def submit_all_citations(data, attachments=[]):
     try:
         # Upload all attachments to blob storage
-        benefit_files_data = __upload_images(attachments)
+
+        # debug
+        # log(json.dumps(data))
+
+        first_name = data['selected_citations'][0]['firstName']
+        last_name = data['selected_citations'][0]['lastName']
+        county = data['selected_citations'][0]['county']
+
+        benefit_files_data = __upload_images(attachments, first_name, last_name, county)
 
         # Submit petition requests one at a time
         submission_results = {}
@@ -306,6 +314,7 @@ class ErrorResult(APIResult):
     @staticmethod
     def from_api_error(api_error, extra_info=None):
         log("Error response from A2P API: {}".format(api_error))
+        log(traceback.format_exc())
         _send_api_error_email(
             api_error.response, traceback.format_exc(), extra_info
         )
@@ -314,6 +323,7 @@ class ErrorResult(APIResult):
     @staticmethod
     def from_generic_error(error, extra_info=None):
         log("Internal error: {}".format(error))
+        log(traceback.format_exc())
         _send_internal_error_email(
             error, traceback.format_exc(), extra_info
         )
@@ -437,19 +447,11 @@ def a2p_config():
     return cfg
 
 
-def __submit_image_from_url(proof_type, url):
+def __submit_image_from_url(filename, url):
     """Uploads an image to an azure blob storage instance that is also
     accessible by the clerk's module. Seems like a strange architectural
     decision--the A2P API should accept the image data as part of
     the user's submission."""
-
-    # TODO: Find a better way to get original filename from DA.
-    filename = "ProofOf%s" % proof_type
-    try:
-        orig_filename = re.findall(r"filename%3D(.*?)(&|$)", url)[0][0]
-        filename += "_%s" % orig_filename
-    except Exception:
-        pass
 
     blob_service = BlockBlobService(
         account_name=a2p_config()['blob_account_name'],
@@ -465,13 +467,35 @@ def __submit_image_from_url(proof_type, url):
     }
 
 
-def __upload_images(attachments):
+def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
     for proof_type, url in attachments:
         log("Uploading file: %s" % url)
-        image_meta = __submit_image_from_url(proof_type, url)
+        log("proof_type : %s" % proof_type)
+        filename = __create_filename(proof_type, first_name, last_name, county)
+        image_meta = __submit_image_from_url(filename, url)
         benefit_files_data.append(image_meta)
     return benefit_files_data
+
+
+def __create_filename(proof_type, first_name, last_name, county):
+    # Validate first and last name
+    if first_name is None or len(first_name) == 0:
+        first_name = 'NoFirstName'
+    else:
+        first_name = first_name[:1]
+    if last_name is None:
+        last_name = 'NoLastName'
+    if county is None:
+        county = 'NoCounty'
+
+    # Construct string
+    filename = "ProofOf%s" % proof_type
+    timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+    finalfilename = first_name + last_name + filename + county + timestamp
+    strippedfilename = finalfilename.replace(" ","")
+    log("file name stored in the Azure blob is: %s" % strippedfilename)
+    return strippedfilename
 
 
 def __complete_payload(data, benefit_files_data, citation_data):
