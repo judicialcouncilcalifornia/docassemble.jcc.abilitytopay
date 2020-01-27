@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import requests
+import os
 from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
 from flask import session
@@ -469,16 +470,16 @@ def __submit_image_from_url(filename, url):
 
 def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
-    for proof_type, url in attachments:
+    for proof_type, url, original_filename in attachments:
         log("Uploading file: %s" % url)
         log("proof_type : %s" % proof_type)
-        filename = __create_filename(proof_type, first_name, last_name, county)
+        filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
         image_meta = __submit_image_from_url(filename, url)
         benefit_files_data.append(image_meta)
     return benefit_files_data
 
 
-def __create_filename(proof_type, first_name, last_name, county):
+def __create_filename(original_filename, proof_type, first_name, last_name, county):
     # Validate first and last name
     if first_name is None or len(first_name) == 0:
         first_name = 'NoFirstName'
@@ -489,10 +490,13 @@ def __create_filename(proof_type, first_name, last_name, county):
     if county is None:
         county = 'NoCounty'
 
+    # Get extension
+    _, extension = os.path.splitext(original_filename)
+
     # Construct string
     filename = "ProofOf%s" % proof_type
     timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
-    finalfilename = first_name + last_name + filename + county + timestamp
+    finalfilename = first_name + last_name + filename + county + timestamp + extension
     strippedfilename = finalfilename.replace(" ","")
     log("file name stored in the Azure blob is: %s" % strippedfilename)
     return strippedfilename
