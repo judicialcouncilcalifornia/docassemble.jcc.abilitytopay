@@ -772,48 +772,48 @@ code: |
   if benefits["cal_fresh"]:
     calfresh_proof
     if calfresh_proof:
-      attachment_urls.append(("CalFresh", calfresh_proof.url_for()))
+      attachment_urls.append(("CalFresh", calfresh_proof.url_for(), calfresh_proof.path()))
   if benefits["medi_cal"]:
     medi_cal_proof
     if medi_cal_proof:
-      attachment_urls.append(("MediCal", medi_cal_proof.url_for()))
+      attachment_urls.append(("MediCal", medi_cal_proof.url_for(), medi_cal_proof.path()))
   if benefits["ssi"]:
     ssi_proof
     if ssi_proof:
-      attachment_urls.append(("SSI", ssi_proof.url_for()))
+      attachment_urls.append(("SSI", ssi_proof.url_for(), ssi_proof.path()))
   # Hide WIC for now until backend supports WIC. Can enable WIC by uncommenting lines below and in above Public Benefits question.
   #if benefits["wic"]:
   #  wic_proof
   #  if wic_proof:
-  #    attachment_urls.append(("wic", wic_proof.url_for()))
+  #    attachment_urls.append(("wic", wic_proof.url_for(), wic_proof.path()))
   if benefits["ssp"]:
     ssp_proof
     if ssp_proof:
-      attachment_urls.append(("SSP", ssp_proof.url_for()))
+      attachment_urls.append(("SSP", ssp_proof.url_for(), ssp_proof.path()))
   if benefits["cr_ga"]:
     cr_ga_proof
     if cr_ga_proof:
-      attachment_urls.append(("CRGA", cr_ga_proof.url_for()))
+      attachment_urls.append(("CRGA", cr_ga_proof.url_for(), cr_ga_proof.path()))
   if benefits["ihss"]:
     ihss_proof
     if ihss_proof:
-      attachment_urls.append(("IHSS", ihss_proof.url_for()))
+      attachment_urls.append(("IHSS", ihss_proof.url_for(), ihss_proof.path()))
   if benefits["cal_works"]:
     cal_works_proof
     if cal_works_proof:
-      attachment_urls.append(("CalWorks", cal_works_proof.url_for()))
+      attachment_urls.append(("CalWorks", cal_works_proof.url_for(), cal_works_proof.path()))
   if benefits["tanf"]:
     tanf_proof
     if tanf_proof:
-      attachment_urls.append(("TANF", tanf_proof.url_for()))
+      attachment_urls.append(("TANF", tanf_proof.url_for(), tanf_proof.path()))
   if benefits["capi"]:
     capi_proof
     if capi_proof:
-      attachment_urls.append(("CAPI", capi_proof.url_for()))
+      attachment_urls.append(("CAPI", capi_proof.url_for(), capi_proof.path()))
   if benefits['other']:
     other_benefit_picture
     if other_benefit_picture:
-      attachment_urls.append(("Other", other_benefit_picture.url_for()))
+      attachment_urls.append(("Other", other_benefit_picture.url_for(), other_benefit_picture.path()))
   income
   residents
   monthly_rent
@@ -826,11 +826,11 @@ code: |
   child_spousal_support
   transportation
   additional_requests
-  
+
   # Trigger gathering on the citation_pleas DADict object.
   # See: https://docassemble.org/docs/groups.html#manual
   citation_pleas.gathered
-  
+
   tool_helpful
   email_address
   submission_signature

@@ -1,0 +1,15 @@
+comment: |
+  Send the state of the interview to the chatbot after every state change.
+initial: True
+code: |
+  if defined('county'):
+    log(
+      "postStateToChatbot('{lang}', '{county}')".format(lang=lang, county=county),
+      "javascript"
+    )
+  else:
+    log(
+      "postStateToChatbot('{lang}', null)".format(lang=lang),
+      "javascript"
+    )
+---

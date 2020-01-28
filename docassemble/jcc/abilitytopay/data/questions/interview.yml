@@ -11,10 +11,12 @@ features:
     - includes-prototype.js
     - a2p.js
     - version.js
+    - chatbot.js
 ---
 metadata:
   title: Ability to Pay
 ---
 include:
+  - chatbot.yml
   - language-setup.yml
   - questions.yml
