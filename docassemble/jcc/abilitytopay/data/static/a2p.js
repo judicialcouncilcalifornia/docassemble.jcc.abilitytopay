@@ -7,7 +7,7 @@ function postStateToChatbot(language, county) {
 
 // var chatbotIframe = $('#botDiv iframe');
 
-var chatbotIframe=$(‘#iframeBot’);
+  var chatbotIframe=$('#iframeBot');
 
   if (chatbotIframe.length === 0) {
     console.warn('Could not post message to chatbot. Element does not exist yet.')
