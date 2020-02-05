@@ -3,7 +3,9 @@
 //
 
 function postStateToChatbot(language, county) {
-  var chatbotIframe = $('#botDiv iframe');
+
+  var chatbotIframe=$('#iframeBot');
+
   if (chatbotIframe.length === 0) {
     console.warn('Could not post message to chatbot. Element does not exist yet.')
     return;
@@ -217,7 +219,7 @@ function prepareCustomValidation(validationOpts) {
 
     // destroy existing event listeners
     daValidator.destroy();
-    
+
     // re-initialize with old validation rules + custom handler
     $('#daform').validate({
       rules: oldRules,

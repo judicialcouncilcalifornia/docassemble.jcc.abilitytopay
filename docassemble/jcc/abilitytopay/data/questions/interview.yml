@@ -17,6 +17,6 @@ metadata:
   title: Ability to Pay
 ---
 include:
-  - chatbot.yml
   - language-setup.yml
+  - chatbot.yml
   - questions.yml
