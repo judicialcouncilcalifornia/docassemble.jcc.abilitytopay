@@ -3,9 +3,6 @@
 //
 
 function postStateToChatbot(language, county) {
-//  var chatbotIframe = $('#botDiv iframe');
-
-// var chatbotIframe = $('#botDiv iframe');
 
   var chatbotIframe=$('#iframeBot');
 
