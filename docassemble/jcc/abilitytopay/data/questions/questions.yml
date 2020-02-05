@@ -10,8 +10,9 @@ question: |
 subquestion: |
   ${get_translation('landing_page_description', lang)}
 
-under: |
-  Read our [Privacy Policy](http://www.courts.ca.gov/11530.htm)
+#  add the privacy statement later
+#  under: |
+#  Read our [Privacy Policy](http://www.courts.ca.gov/11530.htm)
 # *This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
 #
 # **Use this tool to:**
