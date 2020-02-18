@@ -12,29 +12,7 @@ features:
     - a2p.js
     - version.js
     - chatbot.js
-    - polyfillalt.jsmodules:
-    - docassemble.base.util
-    - docassemble.jcc.abilitytopay.a2papi
-    - docassemble.jcc.abilitytopay.translations
-    - docassemble.jcc.abilitytopay.templates
-    ---
-    features:
-      bootstrap theme: style.css
-      progress bar: True
-      javascript:
-        - includes-prototype.js
-        - a2p.js
-        - version.js
-        - chatbot.js
-        - polyfillalt.js
-    ---
-    metadata:
-      title: Ability to Pay
-    ---
-    include:
-      - language-setup.yml
-      - chatbot.yml
-      - questions.yml
+    - polyfillalt.js
 
 ---
 metadata:
