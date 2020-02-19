@@ -12,6 +12,8 @@ features:
     - a2p.js
     - version.js
     - chatbot.js
+    - polyfillalt.js
+
 ---
 metadata:
   title: Ability to Pay
