@@ -141,7 +141,6 @@ AZUREACCOUNTKEY=<put the storage account key here>
 
 ### Convert a .pfx file into .crt and .key files
 
-See https://gist.github.com/ericharth/8334664.
 
 ```
 openssl pkcs12 -in [yourfile.pfx] -nocerts -out cert-encrypted.key
