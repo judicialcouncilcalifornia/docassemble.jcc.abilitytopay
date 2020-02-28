@@ -1,5 +1,5 @@
 modules:
-  - docassemble.base.util
+  - .a2putil
   - .a2papi
   - .translations
   - .templates
