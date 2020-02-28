@@ -11,9 +11,7 @@ subquestion: |
   ${get_translation('landing_page_description', lang)}
 
 #  add the privacy statement later
-under: |
-  Read our [Privacy Policy](${"interview?i="+interview_in_package('privacy_policy.yml')})
-
+#  under: |
 #  Read our [Privacy Policy](http://www.courts.ca.gov/11530.htm)
 # *This online system is an optional way to request a fine reduction for your traffic ticket in cases of financial need.*
 #
