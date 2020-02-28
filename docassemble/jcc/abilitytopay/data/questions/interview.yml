@@ -22,3 +22,4 @@ include:
   - language-setup.yml
   - chatbot.yml
   - questions.yml
+  - privacy_policy.yml

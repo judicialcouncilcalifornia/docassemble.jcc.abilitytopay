@@ -76,6 +76,16 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
     "zh-t": "### 查看您的罰單"
   },
 
+"Read_our": {
+   "en": "Read our",
+   "es": "Read Our"
+ },
+
+"Privacy_policy": {
+    "en": "Privacy policy",
+    "es": "privacy policy"
+},
+
   "need_more_info": {
     "en":"We need some more information to find your citation:",
     "es":""
