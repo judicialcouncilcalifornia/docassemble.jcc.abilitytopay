@@ -1,6 +1,7 @@
 modules:
-  - .a2putil
+  - docassemble.base.util
   - .a2papi
+  - .a2pdisplayutil
   - .translations
   - .templates
 ---
