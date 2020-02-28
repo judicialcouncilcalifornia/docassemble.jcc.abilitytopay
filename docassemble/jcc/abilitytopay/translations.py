@@ -26,6 +26,10 @@ _translations = {
 * If you would like to attend traffic school
 * If you have proof of correction and would like a dismissal or reduction of those charges
 
+
+
+
+
 Please refer to your courtesy notice or contact your court instead.""",
     "es":
 """*Este sistema en línea es una manera opcional de solicitar una reducción en su multa de tránsito debido a una necesidad económica.*
@@ -76,12 +80,32 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
     "zh-t": "### 查看您的罰單"
   },
 
+<<<<<<< Updated upstream
   "need_more_info": {
     "en":"We need some more information to find your citation:",
     "es":""
     ,"zh-s":""
     ,"zh-t":""
   },
+=======
+ "privacy_statement": {
+    "en": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> ",
+    "es": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> ",
+    "zh-s": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> ",
+    "zh-t": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> "
+
+ },
+
+"Read_our": {
+   "en": "Read our",
+   "es": "Read Our"
+ },
+
+"Privacy_policy": {
+    "en": "Privacy policy",
+    "es": "privacy policy"
+},
+>>>>>>> Stashed changes
 
   "what_county": {
     "en": "What California county did you get the citation in?",

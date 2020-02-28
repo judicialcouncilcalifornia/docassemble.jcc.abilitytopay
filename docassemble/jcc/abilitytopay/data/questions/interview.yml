@@ -1,8 +1,15 @@
 modules:
+<<<<<<< Updated upstream
   - docassemble.base.util
   - .a2papi
   - .translations
   - .templates
+=======
+- docassemble.base.util
+- .a2papi
+- .translations
+- .templates
+>>>>>>> Stashed changes
 ---
 features:
   bootstrap theme: style.css
@@ -22,3 +29,4 @@ include:
   - language-setup.yml
   - chatbot.yml
   - questions.yml
+  - privacy_policy.yml
