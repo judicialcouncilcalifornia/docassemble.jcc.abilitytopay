@@ -76,6 +76,15 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
     "zh-t": "### 查看您的罰單"
   },
 
+"privacy_statement": {
+    "en": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> ",
+    "es": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> ",
+    "zh-s": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> ",
+    "zh-t": "<a href='http://www.courts.ca.gov/11530.htm'> Privacy Policy</a> "
+
+ },
+
+
 "Read_our": {
    "en": "Read our",
    "es": "Read Our"
