@@ -8,7 +8,6 @@ features:
     - includes-prototype.js
     - a2p.js
     - version.js
-    - chatbot.js
     - polyfillalt.js
 
 ---
@@ -17,41 +16,51 @@ metadata:
 ---
 include:
   - language-setup.yml
-  - chatbot.yml
 
----
+
 ---
 mandatory: True
 question: |
- ### Privacy Policy
+ Privacy Policy
+ ============
+ <p> The Judicial Council of California (“Judicial Council,”) the California Courts (the “Court”), (collectively, “we,” “us,” and “our”) respect your privacy and are committed to protecting it by adhering to the following practices.This policy describes the types of information we may collect when you use the My Citations: Ability to Pay Online Tool, found at [https://mycitations.courts.ca.gov](https://mycitations.courts.ca.gov) (the “My Citations System”). This policy also describes our practices for using, maintaining, protecting, and disclosing this information. </p>
+ <p> This policy applies only to information we collect in the My Citations System.  This policy does not apply to information 1) that we collect offline or on any other Judicial Council or Court web pages or systems, 2) that is provided to us by any third parties. Our web pages and other third parties have their own privacy policies, which we encourage you to read before providing information on or through them. </p>
+ <p> By using the My Citations System, you agree to this privacy policy.  This policy may change from time to time (see Changes to Our Privacy Policy).  Your continued use of the My Citations System after we revise this policy means that you accept those changes, so please check this policy periodically for updates  </p>
 
-    The Judicial Council of California (“Judicial Council,”) the California Courts (the “Court”), (collectively, “we,” “us,” and “our”) respect your privacy and are committed to protecting it by adhering to the following practices.This policy describes the types of information we may collect when you use the My Citations: Ability to Pay Online Tool, found at [https://mycitations.courts.ca.gov](https://mycitations.courts.ca.gov) (the “My Citations System”). This policy also describes our practices for using, maintaining, protecting, and disclosing this information.
-
-    <p> This policy applies only to information we collect in the My Citations System.  This policy does not apply to information 1) that we collect offline or on any other Judicial Council or Court web pages or systems, 2) that is provided to us by any third parties. Our web pages and other third parties have their own privacy policies, which we encourage you to read before providing information on or through them. </p>
-
-    <p> By using the My Citations System, you agree to this privacy policy.  This policy may change from time to time (see Changes to Our Privacy Policy).  Your continued use of the My Citations System after we revise this policy means that you accept those changes, so please check this policy periodically for updates </p>
-
- #### Children Under the Age of 18
+ Children Under the Age of 18
+ ----------------------------
 
  The My Citations System is not intended for children under the age of 18 and we do not knowingly collect personal information from children under 18.  If we learn we have collected or received personal information from a child under 18without verified parental consent, we will delete that information.  If you believe we might have any information from or about a child under 18, please contact the California Superior Court where you received your citation.
- #### Information We Collect
-  <p> We collect information from and about users of our My Citations System in the following ways: </p>
-  <p> •	Directly from you when you provide it to us. </p>
-  <p> •	Automatically when you use the My Citations System. </p>
 
-   <p> When you use the My Citations System, we request information from you for the purpose of determining whether you qualify for a reduction in your traffic fine, more time to pay your traffic ticket, a payment plan, or community service in lieu of a fine.  </p>
-   <p> The personal information may include: your name, address, telephone number, email address, date of birth, drivers license number, case information (citation data, payment reduction relief being made, court orders, and judgments) income information (monthly income, public benefits received, electronic benefit transfer cards, pay stubs, tax returns), and expense information (number of people in household, list of household expenses, other hardship information). </P>
-   <p> The My Citations System also collects aggerated information about its users.  The aggregated information may include: total number of user requests by county and time, total approved, denied or pending requests, total number of fines and fees originally due, and total number of reductions approved. </P>
-   <p> If you do not want us to collect this information, do not use the My Citations System. </p>
- #### Use of Your Personal Information<br>
+ Information We Collect
+ -----------------------
+ <p> We collect information from and about users of our My Citations System in the following ways: </p>
+ <p> •	Directly from you when you provide it to us. </p>
+ <p> •	Automatically when you use the My Citations System. </p>
+
+ <p> When you use the My Citations System, we request information from you for the purpose of determining whether you qualify for a reduction in your traffic fine, more time to pay your traffic ticket, a payment plan, or community service in lieu of a fine.  </p>
+ <p> The personal information may include: your name, address, telephone number, email address, date of birth, drivers license number, case information (citation data, payment reduction relief being made, court orders, and judgments) income information (monthly income, public benefits received, electronic benefit transfer cards, pay stubs, tax returns), and expense information (number of people in household, list of household expenses, other hardship information). </P>
+ <p> The My Citations System also collects aggerated information about its users.  The aggregated information may include: total number of user requests by county and time, total approved, denied or pending requests, total number of fines and fees originally due, and total number of reductions approved. </P>
+ <p> If you do not want us to collect this information, do not use the My Citations System. </p>
+
+ Use of Your Personal Information
+ --------------------------------
  <p>We protect your personal information that may be submitted to us online. We do not sell your information to anyone and it will not be used by us for commercial marketing purposes. We use the information submitted to us on the My Citations System to help determine whether users should qualify for a reduction in court ordered fees and fines. We may also use your personal information to notify you when the My Citations System has updates. The information may also be used or shared in response to a legal process (such as a court order or subpoena); to take action regarding illegal or unauthorized activities; in accordance with the law (including but not limited to public records laws); or if you consent.  </p>
 
  <p> Statistical, aggregated, and anonymous information collected by the My Citations System may be shared with third parties, including the State of California’s Department of Finance. This information is not linked to any personal information that can identify any individual person. </p>
- #### Cookies
-   <p> Cookies are simple text files stored on your computer by your web browser. Cookies created on your computer by using the My Citations System do not contain personally identifiable information. The cookie feature may also be used to store a randomly generated identifying temporary tag on your computer. You may refuse the cookie or delete it through any of the widely available methods. However, if you turn your cookie option off, you may not be able to access some portions of the My Citations System. </p>
- #### How to Contact us About This Notice or to Comment About our Privacy Practices
-   <p> If you have any questions about this notice, or want to comment about our privacy practices, please contact us at Judicial Council of California, 455 Golden Gate Avenue, San Francisco, CA 94102-3660 (415) 865-4200. </p>
- #### Changes to this Notice
-   <p> We may update this notice and our privacy practices from time to time. If we make material changes to how we treat our users’ information, we will post the new privacy policy on this page. Except for changes required by law, we will not implement an important change to our privacy practices before we revise this notice. </p>
- #### Updates to this Notice
-   <p> This notice was updated on February 26, 2020. </p>
+
+ Cookies
+ -------
+ <p> Cookies are simple text files stored on your computer by your web browser. Cookies created on your computer by using the My Citations System do not contain personally identifiable information. The cookie feature may also be used to store a randomly generated identifying temporary tag on your computer. You may refuse the cookie or delete it through any of the widely available methods. However, if you turn your cookie option off, you may not be able to access some portions of the My Citations System. </p>
+
+ How to Contact us About This Notice or to Comment About our Privacy Practices
+ -----------------------------------------------------------------------------
+ <p> If you have any questions about this notice, or want to comment about our privacy practices, please contact us at Judicial Council of California, 455 Golden Gate Avenue, San Francisco, CA 94102-3660 (415) 865-4200. </p>
+
+ Changes to this Notice
+ -----------------------
+ <p> We may update this notice and our privacy practices from time to time. If we make material changes to how we treat our users’ information, we will post the new privacy policy on this page. Except for changes required by law, we will not implement an important change to our privacy practices before we revise this notice. </p>
+
+  Updates to this Notice
+  -----------------------
+ <p> This notice was updated on February 26, 2020. </p>
