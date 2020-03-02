@@ -1,6 +1,6 @@
 modules:
 - .translations
-- .docassemble.jcc.abilitytopay.a2pdisplayutil
+- .a2pdisplayutil
 
 ---
 features:
