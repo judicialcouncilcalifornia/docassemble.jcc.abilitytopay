@@ -11,7 +11,7 @@ subquestion: |
   ${get_translation('landing_page_description', lang)}
 
 under: |
-   Read our [Privacy Policy](${"interview?i="+interview_in_package('privacy_policy.yml')})
+ <a self href="${'interview?i='+interview_in_package('privacy_policy.yml')}">Read Our Privacy Policy</a>
 
 #  add the privacy statement later
 #  under: |
