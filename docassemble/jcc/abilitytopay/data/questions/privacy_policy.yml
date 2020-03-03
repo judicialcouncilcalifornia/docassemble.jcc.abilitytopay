@@ -64,7 +64,8 @@ question: |
 
   Updates to this Notice
   -----------------------
- <p> This notice was updated on February 26, 2020. </p>
+ <p> This notice was updated on February 26, 2020. </p> <br />
 
- subquestion: |
+
+subquestion: |
    ${ action_button_html("interview?i="+interview_in_package('interview.yml'), label="Continue", color="primary", new_window=False,size="md") }
