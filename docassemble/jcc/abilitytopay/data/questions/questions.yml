@@ -10,6 +10,13 @@ question: |
 subquestion: |
   ${get_translation('landing_page_description', lang)}
 
+under: |
+  </br>
+  </br>
+  </br>
+  <a self href="${'interview?i='+interview_in_package('privacy_policy.yml')}">Read Our Privacy Policy</a>
+
+
 #  add the privacy statement later
 #  under: |
 #  Read our [Privacy Policy](http://www.courts.ca.gov/11530.htm)
