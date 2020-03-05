@@ -68,4 +68,4 @@ question: |
 
 
 subquestion: |
-   ${ action_button_html("interview?i="+interview_in_package('interview.yml'), label="Continue", color="primary", new_window=False,size="md") }
+   ${ action_button_html("interview?i="+interview_in_package('interview.yml') +"&from_list=1", label="Continue", color="primary", new_window=False,size="md") }

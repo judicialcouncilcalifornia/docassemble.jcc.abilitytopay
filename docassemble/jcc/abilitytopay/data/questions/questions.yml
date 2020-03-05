@@ -14,7 +14,7 @@ under: |
   </br>
   </br>
   </br>
-  <a self href="${'interview?i='+interview_in_package('privacy_policy.yml')}">Read Our Privacy Policy</a>
+  <a self href="${'interview?i='+interview_in_package('privacy_policy.yml')}&from_list=1">Read Our Privacy Policy</a>
 
 
 #  add the privacy statement later
