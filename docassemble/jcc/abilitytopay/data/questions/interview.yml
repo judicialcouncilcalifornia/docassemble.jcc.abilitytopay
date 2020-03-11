@@ -1,9 +1,9 @@
 modules:
   - docassemble.base.util
-  - docassemble.jcc.abilitytopay.a2papi
-  - docassemble.jcc.abilitytopay.a2pdisplayutil
-  - docassemble.jcc.abilitytopay.translations
-  - docassemble.jcc.abilitytopay.templates
+  - .a2papi
+  - .a2pdisplayutil
+  - .translations
+  - .templates
 ---
 features:
   bootstrap theme: style.css
