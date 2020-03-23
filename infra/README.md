@@ -1,5 +1,9 @@
 # How to deploy AbilityToPay to an Azure Linux VM from scratch
 
+### Useful Links
+
+https://docassemble.org/docs/docker.html
+
 ### Prerequisites
 
 [Install the azure CLI tool](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
