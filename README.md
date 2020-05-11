@@ -165,9 +165,7 @@ abc123
 
 The DA Ability to Pay instance currently runs on JCC Azure. The setup instructions are located in [infra/README.md](infra/README.md).
 
-Since DA does not maintain tagged Docker releases, we maintain our own fork that we regularly update at `rdeshpande/docassemble`. Update the docker image by running:
-
-    ./rebuild_docker_image.sh
+See [infra/upgrade-docassemble.md](infra/upgrade-docassemble.md) for instructions on how to freeze and upgrade to a specific version of docassemble.
 
 ### Deployment
 
