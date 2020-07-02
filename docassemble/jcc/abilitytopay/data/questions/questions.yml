@@ -49,6 +49,7 @@ fields:
   - "Shasta": Shasta
   - "Tulare": Tulare
   - "Ventura": Ventura
+  - "Santa Clara": Santa Clara
 - ${get_translation('what_citation_number', lang)}: citation_number
 #- "What's the citation number?": citation_number
   required: false
