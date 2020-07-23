@@ -481,7 +481,7 @@ fields:
 - ${get_translation('how_many_household', lang)}: residents
 #- "How many people live in your household?": residents
   datatype: number
-  min: 0
+  min: 1
   max: 15
 ---
 id: monthly-expenses
