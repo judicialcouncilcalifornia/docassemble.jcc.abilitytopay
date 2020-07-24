@@ -556,8 +556,14 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
             no_benefits = False
 
     # submitted_on = datetime.datetime.now().isoformat()
+    # submitted_on = datetime.datetime.utcnow()
 
-    submitted_on = datetime.datetime.utcnow()
+    # adding UTC time as per requirement for release ATP Public UI 1.2.2
+
+    datenow = datetime.datetime.utcnow()
+
+    submitted_on = datenow.strftime('%Y-%m-%dT%H:%M:%S') + datenow.strftime('.%f')[:4] + 'Z'
+
 
     on_other_benefits = benefits.get('other', False)
     other_benefits_desc = None
