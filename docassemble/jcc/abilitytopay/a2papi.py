@@ -555,7 +555,9 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
         if benefits.get(benefit_name):
             no_benefits = False
 
-    submitted_on = datetime.datetime.now().isoformat()
+    # submitted_on = datetime.datetime.now().isoformat()
+
+    submitted_on = datetime.datetime.utcnow()
 
     on_other_benefits = benefits.get('other', False)
     other_benefits_desc = None
