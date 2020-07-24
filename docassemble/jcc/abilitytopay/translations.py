@@ -648,7 +648,7 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
   },
 
   "how_many_household": {
-    "en": "How many people live in your household?",
+    "en": "Including yourself, how many people live in your household?",
     "es": "¿Cuántas personas viven en su hogar?",
     "zh-s": "您家里有几口人？",
     "zh-t": "您家裡有幾口人？"
