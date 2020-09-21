@@ -132,7 +132,7 @@ def fetch_case_data_from_citation(citation_number, county):
     except APIError as e:
         return ErrorResult.from_api_error(e)
     except CitationNumberCollisionError as e:
-        return ErrorResult('We found more than one citation with that number. Please try again using the name search option.')
+        return ErrorResult('too-many-results')
 
     except Exception as e:
         return ErrorResult.from_generic_error(e)
