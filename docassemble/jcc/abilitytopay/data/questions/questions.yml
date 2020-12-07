@@ -750,7 +750,9 @@ code: |
   else:
     log(get_translation('something_went_wrong', lang), "danger")
     #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
+    submission_success = False
     reconsider("ready_to_submit")
+
 
 ---
 id: submission-complete
