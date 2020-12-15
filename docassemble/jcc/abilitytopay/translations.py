@@ -1144,6 +1144,24 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-t": ""
   },
 
+
+  "already_submitted": {
+    "en": "A request for this citation has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",
+    "es": "Ya se ha enviado una solicitud para esta cita. Si su situación de ingresos ha cambiado y necesita volver a enviarla, espere 24 horas antes de volver a enviarla..",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
+ "can_submit_now": {
+    "en": "You can submit now..",
+    "es": "You can submit now....",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
+
+
+
   "something_went_wrong": {
     "en": "Sorry! Something went wrong with your submission. Our support team has been notified. Please try again later, or contact your court.",
     "es": "¡Lo sentimos! Hubo un error con su submisión. Nuestro equipo de apoyo ha sido notificado. Intente nuevamente más tarde, o contáctese con su corte.",

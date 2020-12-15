@@ -11,9 +11,9 @@ subquestion: |
   ${get_translation('landing_page_description', lang)}
 
 under: |
-  <br>
-  <br>
-  <br>
+  </br>
+  </br>
+  </br>
   <a self href="${'interview?i='+interview_in_package('privacy_policy.yml')}&from_list=1">Read Our Privacy Policy</a>
 
 
@@ -74,19 +74,19 @@ fields:
   show if: citation_number_absent
 continue button field: completed_citation_form
 ---
-#only sets: fetch_citation_check_status
-#code: |
-#  log(county,'danger')
-#  log(citation_number,'danger')
-#  response1 = fetch_citation_check_status(citation_number, county)
-#  log('we are here - 199','danger')
-#  log(response1[0]["submissionWithin24Hours"],'danger')
-#  if (response1[0]["submissionWithin24Hours"]) == True:
-#    log(get_translation('already_submitted', lang), 'danger')
-#  else:
-#    log(get_translation('can_submit_now',lang),'danger')
-#mandatory: True
-#---
+only sets: fetch_citation_check_status
+code: |
+  #  log(county,'danger')
+  #  log(citation_number,'danger')
+  response1 = fetch_citation_check_status(citation_number, county)
+  #  log('we are here - 199','danger')
+  #  log(response1[0]["submissionWithin24Hours"],'danger')
+  if (response1[0]["submissionWithin24Hours"]) == True:
+    log(get_translation('already_submitted', lang), 'danger')
+  else:
+    log(get_translation('can_submit_now',lang),'danger')
+mandatory: True
+---
 
 only sets: fetched_citations_from_citation_number
 code: |
@@ -174,37 +174,12 @@ fields:
       {
         case['citationNumber']: citation_info_card(case, lang),
         'default': defined('source_citation') and case['citationNumber'] == source_citation['citationNumber']
-
-     }
+      }
       for case in sorted(all_citations.values(),
                          key=lambda case: defined('source_citation') and case['citationNumber'] != source_citation['citationNumber'])
-
       # Sort the list so that if the user entered a citation number, it occurs first.
     ]
-
-  #response1 = fetch_citation_check_status(citation_number, county)
-  log('we are here - 199','danger')
-  #log(response1[0]["submissionWithin24Hours"],'danger')
-  #if (response1[0]["submissionWithin24Hours"]) == True:
-  #log(get_translation('already_submitted', lang), 'danger')
-  #else:
-  #log(get_translation('can_submit_now',lang),'danger')
-
-
-
-
 ---
-
-
-
-
-
-
-
-
-
-
-
 event: wrong_citations_event
 code: |
   # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.

@@ -117,7 +117,6 @@ def fetch_case_data_from_citation(citation_number, county):
         # fetch citation data
         citation_response = _fetch_citation_data(citation_number, county)
         num_citations = len(citation_response.data)
-        log("num_citations: %s" % num_citations)
         if num_citations == 1:
             # Perfect. We received exactly one citation.
             source_citation = citation_response.data[0]
@@ -213,24 +212,20 @@ def fetch_citation_data(citation_number, county):
 
 #adding the status check code here
 
-def fetch_citation_check_status(statusArray):
-
+def fetch_citation_check_status(citation_number, county):
     try:
-        return _fetch_citation_check_status(statusArray)
+        return _fetch_citation_check_status(citation_number, county)
     except APIError as e:
         return ErrorResult.from_api_error(e)
     except Exception as e:
         return ErrorResult.from_generic_error(e)
 
-def _fetch_citation_check_status(statusArray):
+def _fetch_citation_check_status(citation_number, county):
     citation_params = []
-    for i in statusArray:
-        citation_params.append({
-            'citationNumber': i['citationNumber'],
-            'county': i['county']
-        })
-    # log("888 - i am here" )
-    # log(json.dumps(citation_params))
+    citation_params.append({
+        'citationNumber': citation_number,
+        'county': county
+    })
 
     utility_url = a2p_config()['utility_url']
     log("utility_url_new: %s" % utility_url)
@@ -241,12 +236,10 @@ def _fetch_citation_check_status(statusArray):
 
     res = __do_request(status_url, citation_params)
 
-    # log("results from status check %s" % res)
+    # res = APIResult.from_http_response(res)
 
-    res = APIResult.from_http_response(res)
-
-    # log("results from status check %s" % res)
-    # log("data results from status check %s" res.data)
+    log("results from status check" % res)
+    log("data results from status check", res.data)
     return res.data
 
 #adding the status check code here
@@ -276,23 +269,6 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
         res.data = eligible_citations
     else:
         res.data = []
-
-    #log("I am here: 999")
-    #log(json.dumps(res.data))
-
-    returnedstatus = fetch_citation_check_status(res.data)
-    log("returned status 777")
-    log(json.dumps(returnedstatus))
-    for x in res.data:
-        foundIt = False
-        for i in returnedstatus:
-            if (i['citationNumber'] == x['citationNumber']):
-                x['submissionWithin24Hours'] = i['submissionWithin24Hours']
-                foundIt = True
-        if (foundIt == False):
-            x['submissionWithin24Hours'] = False
-    log("returned status 555")
-    log(json.dumps(res.data))
     return res
 
 
@@ -311,7 +287,7 @@ def submit_all_citations(data, attachments=[]):
         # Upload all attachments to blob storage
 
         # debug
-        log(json.dumps(data))
+        # log(json.dumps(data))
 
         first_name = data['selected_citations'][0]['firstName']
         last_name = data['selected_citations'][0]['lastName']
