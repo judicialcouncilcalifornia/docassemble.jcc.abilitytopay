@@ -202,6 +202,14 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
     "zh-t": ""
   },
 
+"submitted_citation": {
+  "en": "Already Submitted.",
+  "es": "Seleccione .",
+  "zh-s": "",
+  "zh-t": ""
+},
+
+
   "none_of_these_are_right": {
     "en": "None of these are right",
     "es": "Ninguna de estas es mía",
@@ -1146,8 +1154,8 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
 
   "already_submitted": {
-    "en": "A request for this citation has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",
-    "es": "Ya se ha enviado una solicitud para esta cita. Si su situación de ingresos ha cambiado y necesita volver a enviarla, espere 24 horas antes de volver a enviarla..",
+    "en": "A request for the following citation(s) has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",
+    "es": "Ya se ha enviado solicitud(es) para esta cita. Si su situación de ingresos ha cambiado y necesita volver a enviarla, espere 24 horas antes de volver a enviarla..",
     "zh-s": "",
     "zh-t": ""
   },
