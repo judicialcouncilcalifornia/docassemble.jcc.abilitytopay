@@ -88,10 +88,9 @@ code: |
       source_citation = response.data['source_citation']
       all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
       filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
-        # if len(response.data['filtered_citations']) > 0:
-        #  duplicate_submissions = False
-      #else:
-      #    duplicate_submissions = True
+      # newlength = len(response.data['filtered_citations'])
+      # log(newlength,'danger')
+
     else:
       log(get_translation('check_information', lang), 'danger')
       # Check the information you entered. Try again.
@@ -192,18 +191,17 @@ fields:
       % endfor
     % endif
 
-validation code: |
-  not_my_citations = True
-  log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..", 'danger')
+# validation code: |
+#  nocitationstosubmit = True
+#  log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..", 'danger')
 
 ---
 event: duplicate_citations_event
 code: |
   # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
   not_my_citations = True
-  reconsider('completed_disambiguation_form')
----
 
+---
 
 
 event: wrong_citations_event
