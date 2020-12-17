@@ -159,6 +159,9 @@ under: |
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
 - ${get_translation('select_citation', lang)}: selected_citation_numbers
+
+
+
 # Select each of the tickets for which you want to request a reduction.
   datatype: checkboxes
   minlength: 1
@@ -173,7 +176,8 @@ fields:
 
       # Sort the list so that if the user entered a citation number, it occurs first.
     ]
-    #newlength = len(selected_citations_numbers)
+
+    # newlength = len(selected_citations_numbers)
 
 - note: |
     <% hasAtLeastOneCitation24 = False %>
@@ -192,9 +196,12 @@ fields:
     % endif
 
 validation code: |
-      validation_error("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..")
-      validation_error(get_translation('already_aubmitted', lang))
-      log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",'primary')
+
+      if len(selected_citation_numbers) == 0:
+        validation_error("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..")
+
+        validation_error(get_translation('already_aubmitted', lang))
+        log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",'primary')
 ---
 event: duplicate_citations_event
 code: |
