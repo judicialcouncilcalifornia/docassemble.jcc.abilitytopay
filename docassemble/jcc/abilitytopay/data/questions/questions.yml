@@ -155,6 +155,20 @@ under: |
   % endif
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
+- ${get_translation('select_citation', lang)}: selected_citation_numbers
+# Select each of the tickets for which you want to request a reduction.
+  datatype: checkboxes
+  minlength: 1
+  code: |
+    [
+      {
+        case['citationNumber']: citation_info_card(case, lang),
+        'default': defined('source_citation') and case['citationNumber'] == source_citation['citationNumber']
+      }
+      for case in sorted(filtered_citations.values(),
+                         key=lambda case: defined('source_citation') and case['citationNumber'] != source_citation['citationNumber'])
+      # Sort the list so that if the user entered a citation number, it occurs first.
+    ]
 - note: |
     <% hasAtLeastOneCitation24 = False %>
     % for index in all_citations.values():
