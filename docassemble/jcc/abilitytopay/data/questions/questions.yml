@@ -186,6 +186,7 @@ fields:
     % endif
 
 ---
+
 event: wrong_citations_event
 code: |
   # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
