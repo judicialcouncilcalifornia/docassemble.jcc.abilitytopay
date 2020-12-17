@@ -192,7 +192,7 @@ fields:
     % endif
 
 validation code: |
-      #validation_error(A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..)
+      validation_error("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..")
       validation_error(get_translation('already_aubmitted', lang))
       log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",'primary')
 ---
