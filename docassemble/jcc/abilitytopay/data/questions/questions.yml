@@ -173,7 +173,7 @@ fields:
 
       # Sort the list so that if the user entered a citation number, it occurs first.
     ]
-
+    #newlength = len(selected_citations_numbers)
 
 - note: |
     <% hasAtLeastOneCitation24 = False %>
@@ -191,10 +191,10 @@ fields:
       % endfor
     % endif
 
-# validation code: |
-#  nocitationstosubmit = True
-#  log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..", 'danger')
-
+validation code: |
+      #validation_error(A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..)
+      validation_error(get_translation('already_aubmitted', lang))
+      log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting..",'primary')
 ---
 event: duplicate_citations_event
 code: |
