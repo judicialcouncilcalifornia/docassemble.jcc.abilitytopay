@@ -196,8 +196,8 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
   },
 
   "select_citation": {
-    "en": "Select each of the tickets for which you want to request a reduction. You can request fine reductions for all the citations listed below.",
-    "es": "Seleccione las citaciones para las que desea solicitar una reducción.",
+    "en": "**Select each of the tickets for which you want to request a reduction. You can request fine reductions for all the citations listed below.**",
+    "es": "**Seleccione las citaciones para las que desea solicitar una reducción.**",
     "zh-s": "",
     "zh-t": ""
   },

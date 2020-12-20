@@ -158,6 +158,27 @@ under: |
   % endif
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
+
+
+- note: |
+    <% hasAtLeastOneCitation24 = False %>
+    % for index in all_citations.values():
+       % if index['submissionWithin24Hours'] == True:
+         <% hasAtLeastOneCitation24 = True %>
+       % endif
+    % endfor
+    % if hasAtLeastOneCitation24 == True:
+      ${get_translation('already_submitted', lang)}
+      % for index in all_citations.values():
+         % if index['submissionWithin24Hours'] == True:
+           ${citation_info_card(index, lang)}
+         % endif
+      % endfor
+    % endif
+
+
+
+
 - ${get_translation('select_citation', lang)}: selected_citation_numbers
 
 
@@ -179,21 +200,6 @@ fields:
 
     # newlength = len(selected_citations_numbers)
 
-- note: |
-    <% hasAtLeastOneCitation24 = False %>
-    % for index in all_citations.values():
-       % if index['submissionWithin24Hours'] == True:
-         <% hasAtLeastOneCitation24 = True %>
-       % endif
-    % endfor
-    % if hasAtLeastOneCitation24 == True:
-      ${get_translation('already_submitted', lang)}
-      % for index in all_citations.values():
-         % if index['submissionWithin24Hours'] == True:
-           ${citation_info_card(index, lang)}
-         % endif
-      % endfor
-    % endif
 
 validation code: |
 
@@ -202,6 +208,11 @@ validation code: |
 
         validation_error(get_translation('already_aubmitted', lang))
         log("A A request for the following citations(s) below has already been submitted, please select a different citation for submission",'primary')
+
+
+
+
+
 ---
 event: duplicate_citations_event
 code: |
