@@ -189,15 +189,15 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
   },
 
   "found_multiple_citations": {
-    "en": "We found your citation. We also looked for other citations in your name in {county} County. ",
-    "es": "Encontramos su citación. También buscamos otras citaciones bajo su nombre en el condado de {county}. Puede solicitar una reducción en las multas para todas las citaciones que aparecen abajo.",
+    "en": "We found your citation.  ",
+    "es": "Encontramos su citación. ",
     "zh-s": "",
     "zh-t": ""
   },
 
   "select_citation": {
-    "en": "**Select each of the tickets for which you want to request a reduction. You can request fine reductions for all the citations listed below.**",
-    "es": "**Seleccione las citaciones para las que desea solicitar una reducción.**",
+    "en": "We also looked for other citations in your name in {county} County. Select each of the citations for which you want to request a reduction. You can request fine reductions for all the citations listed below.",
+    "es": "También buscamos otras citaciones bajo su nombre en el condado de {county}. Puede solicitar una reducción en las multas para todas las citaciones que aparecen abajo. Seleccione las citaciones para las que desea solicitar una reducción.",
     "zh-s": "",
     "zh-t": ""
   },

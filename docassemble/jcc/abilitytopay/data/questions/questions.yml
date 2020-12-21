@@ -150,7 +150,7 @@ comment: |
   rendering of the corresponding citation.
 question: ${get_translation('your_citations', lang)}
 # Your Citations
-subquestion: ${get_translation('found_multiple_citations', lang, county=county)}
+subquestion: ${get_translation('found_multiple_citations', lang)}
 # We found your citation. We also looked for other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
 under: |
   % if not defined('fetched_citations_from_user_info') and not defined('fetched_citations_from_user_info_disambiguation_form'):
@@ -175,7 +175,7 @@ fields:
       % endfor
     % endif
 
-- ${get_translation('select_citation', lang)}: selected_citation_numbers
+- ${get_translation('select_citation', lang, county=county)}: selected_citation_numbers
 
 # Select each of the tickets for which you want to request a reduction.
   datatype: checkboxes
