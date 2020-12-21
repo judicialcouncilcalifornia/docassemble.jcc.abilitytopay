@@ -159,6 +159,9 @@ under: |
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
 
+- html: |
+
+
 - note: |
     <% hasAtLeastOneCitation24 = False %>
     % for index in all_citations.values():
@@ -167,13 +170,15 @@ fields:
        % endif
     % endfor
     % if hasAtLeastOneCitation24 == True:
-      ${get_translation('already_submitted', lang)}
+    <span style="color: #0b5fa5;">${get_translation('already_submitted', lang)}   </span>
+
       % for index in all_citations.values():
          % if index['submissionWithin24Hours'] == True:
            ${citation_info_card(index, lang)}
          % endif
       % endfor
     % endif
+
 
 - ${get_translation('select_citation', lang, county=county)}: selected_citation_numbers
 
