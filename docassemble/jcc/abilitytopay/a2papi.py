@@ -81,14 +81,34 @@ def fetch_case_data_or_reconsider(fallback_variable):
     an error and reconsider the fallback_variable otherwise. This is useful
     because we try to fetch citations from several different screens in the
     interview.'''
+
+
+
     response = fetch_case_data(value('first_name'), value('last_name'),
                                value('dob').date(), value('license_number'),
                                value('county'))
 
+    if (response.data is not None) and (len(response.data) > 0):
 
-    all_citations = _fetch_case_data(value('first_name'), value('last_name'),
+        all_citations = _fetch_case_data(value('first_name'), value('last_name'),
                                value('dob').date(), value('license_number'),
                                value('county'))
+
+    else:
+        lang = value('lang')
+        if response.data == []:
+            log(get_translation('check_information', lang), 'danger')
+            # Check the information you entered. Try again.
+            log("nameSearchNoResultsEvent({{ 'session_id': '{}' }})"
+                .format(user_info().session), "javascript")
+        else:
+            log(get_translation('something_went_wrong', lang), 'danger')
+            # Sorry! Something went wrong with your submission. Our support
+            # team has been notified. Please try again in 24 hours, or contact
+            # your court.
+        reconsider(fallback_variable)
+
+
     return SuccessResult(dict(
         all_citations=all_citations.data
     ))
@@ -269,7 +289,7 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
 
     returnedstatus = fetch_citation_check_status(res.data)
     log("returned status 777")
-    log(json.dumps(returnedstatus))
+    #log(json.dumps(returnedstatus))
     for x in res.data:
         foundIt = False
         for i in returnedstatus:
@@ -279,7 +299,7 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
         if (foundIt == False):
             x['submissionWithin24Hours'] = False
     log("returned status 555")
-    log(json.dumps(res.data))
+    #log(json.dumps(res.data))
     return res
 
 
@@ -298,7 +318,7 @@ def submit_all_citations(data, attachments=[]):
         # Upload all attachments to blob storage
 
         # debug
-        log(json.dumps(data))
+        #log(json.dumps(data))
 
         first_name = data['selected_citations'][0]['firstName']
         last_name = data['selected_citations'][0]['lastName']
