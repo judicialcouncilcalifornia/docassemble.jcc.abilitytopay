@@ -80,7 +80,7 @@ continue button field: completed_citation_form
 only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
-  log(response.data,'primary')
+  #log(response.data,'primary')
   if response.data is not None:
     if len(response.data['all_citations']) > 0:
       received_multiple_citations_for_one_citation_number = False
@@ -116,7 +116,7 @@ code: |
 only sets: fetched_citations_from_user_info
 code: |
     response = fetch_case_data_or_reconsider('completed_citation_form')
-    log(response.data,'primary')
+    #log(response.data,'primary')
     fetched_citations_from_user_info = True
     if response.data is not None:
       if len(response.data['all_citations']) > 0:
@@ -127,7 +127,7 @@ code: |
         #source_citation = response.data['citationNumber']
         all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
         filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
-        log('filtered_citations','primary')
+
         # newlength = len(response.data['filtered_citations'])
         # log(newlength,'danger')
 
