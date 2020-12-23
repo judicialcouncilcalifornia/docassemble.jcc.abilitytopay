@@ -84,14 +84,27 @@ def fetch_case_data_or_reconsider(fallback_variable):
     response = fetch_case_data(value('first_name'), value('last_name'),
                                value('dob').date(), value('license_number'),
                                value('county'))
+    if (response.data is not None) and (len(response.data) > 0):
+        define('all_citations', {
+            case['citationNumber']: case
+            for case in response.data
+        })
+        # Reset the not_my_citations flag
+        define('not_my_citations', False)
+    else:
+        lang = value('lang')
+        if response.data == []:
+            log(get_translation('check_information', lang), 'danger')
+            # Check the information you entered. Try again.
+            log("nameSearchNoResultsEvent({{ 'session_id': '{}' }})"
+                .format(user_info().session), "javascript")
+        else:
+            log(get_translation('something_went_wrong', lang), 'danger')
+            # Sorry! Something went wrong with your submission. Our support
+            # team has been notified. Please try again in 24 hours, or contact
+            # your court.
+        reconsider(fallback_variable)
 
-
-    all_citations = _fetch_case_data(value('first_name'), value('last_name'),
-                               value('dob').date(), value('license_number'),
-                               value('county'))
-    return SuccessResult(dict(
-        all_citations=all_citations.data
-    ))
 
 def fetch_case_data_from_citation(citation_number, county):
     # This validation would make more sense in the front-end, but implementing

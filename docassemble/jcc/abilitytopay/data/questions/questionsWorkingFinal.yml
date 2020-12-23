@@ -80,7 +80,6 @@ continue button field: completed_citation_form
 only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
-  log(response.data,'primary')
   if response.data is not None:
     if len(response.data['all_citations']) > 0:
       received_multiple_citations_for_one_citation_number = False
@@ -115,26 +114,8 @@ code: |
 
 only sets: fetched_citations_from_user_info
 code: |
-    response = fetch_case_data_or_reconsider('completed_citation_form')
-    log(response.data,'primary')
-    fetched_citations_from_user_info = True
-    if response.data is not None:
-      if len(response.data['all_citations']) > 0:
-        received_multiple_citations_for_one_citation_number = False
-        # reset the not_my_citations flag
-        not_my_citations = False
-        #source_citation = response.data['source_citation']
-        #source_citation = response.data['citationNumber']
-        all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
-        filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
-        log('filtered_citations','primary')
-        # newlength = len(response.data['filtered_citations'])
-        # log(newlength,'danger')
-
-    else:
-      log(get_translation('check_information', lang), 'danger')
-
-
+  fetch_case_data_or_reconsider('completed_citation_form')
+  fetched_citations_from_user_info = True
 ---
 only sets: fetched_citations_from_user_info_disambiguation_form
 code: |
@@ -210,7 +191,6 @@ fields:
         case['citationNumber']: citation_info_card(case, lang),
         'default': defined('source_citation') and case['citationNumber'] == source_citation['citationNumber']
       }
-
       for case in sorted(filtered_citations.values(),
                          key=lambda case: defined('source_citation') and case['citationNumber'] != source_citation['citationNumber'])
 
@@ -229,6 +209,13 @@ validation code: |
         log("A request for the following citation(s) below has already been submitted. If your income situation has changed and need to resubmit, please wait 24 hours before resubmitting.",'danger')
 
 ---
+event: duplicate_citations_event
+code: |
+  # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
+  not_my_citations = True
+
+---
+
 
 event: wrong_citations_event
 code: |
