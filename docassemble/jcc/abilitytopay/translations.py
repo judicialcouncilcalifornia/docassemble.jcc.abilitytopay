@@ -189,8 +189,8 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
   },
 
   "found_multiple_citations": {
-    "en": "We found your citation.  ",
-    "es": "Encontramos su citación. ",
+    "en": "We found your citation.",
+    "es": "Encontramos su citación.",
     "zh-s": "",
     "zh-t": ""
   },

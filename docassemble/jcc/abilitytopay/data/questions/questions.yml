@@ -178,9 +178,6 @@ under: |
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
 
-- html: |
-
-
 - note: |
     <% hasAtLeastOneCitation24 = False %>
     % for index in all_citations.values():
