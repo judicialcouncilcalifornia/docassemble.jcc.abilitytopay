@@ -220,10 +220,7 @@ fields:
 validation code: |
 
       if len(selected_citation_numbers) == 0:
-        validation_error("A request for the following citation(s) below has already been submitted. If your financial circumstances have changed and you need to resubmit, please wait 24 hours before resubmitting.")
-
-        validation_error(get_translation('already_aubmitted', lang))
-        log("A request for the following citation(s) below has already been submitted. If your financial circumstances have changed and you need to resubmit, please wait 24 hours before resubmitting.",'danger')
+        validation_error(get_translation('top_already_submitted', lang))
 
 ---
 
