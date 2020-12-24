@@ -281,25 +281,28 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
     ]
     if len(eligible_citations) > 0:
         res.data = eligible_citations
+
+        returnedstatus = fetch_citation_check_status(res.data)
+        log("returned status 777")
+        log(json.dumps(returnedstatus))
+        for x in res.data:
+            foundIt = False
+            for i in returnedstatus:
+                if (i['citationNumber'] == x['citationNumber']):
+                    x['submissionWithin24Hours'] = i['submissionWithin24Hours']
+                    foundIt = True
+            if (foundIt == False):
+                x['submissionWithin24Hours'] = False
+        log("returned status 555")
+        log(json.dumps(res.data))
+
     else:
         res.data = []
 
-    #log("I am here: 999")
+    log("I am here: 115599977")
+    #log(json.dumps(res.data))
     #log(json.dumps(res.data))
 
-    returnedstatus = fetch_citation_check_status(res.data)
-    log("returned status 777")
-    #log(json.dumps(returnedstatus))
-    for x in res.data:
-        foundIt = False
-        for i in returnedstatus:
-            if (i['citationNumber'] == x['citationNumber']):
-                x['submissionWithin24Hours'] = i['submissionWithin24Hours']
-                foundIt = True
-        if (foundIt == False):
-            x['submissionWithin24Hours'] = False
-    log("returned status 555")
-    #log(json.dumps(res.data))
     return res
 
 
