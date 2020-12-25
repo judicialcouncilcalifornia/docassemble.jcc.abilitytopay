@@ -177,7 +177,6 @@ under: |
   % endif
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
-
 - note: |
     <% hasAtLeastOneCitation24 = False %>
     % for index in all_citations.values():
@@ -194,7 +193,6 @@ fields:
          % endif
       % endfor
     % endif
-
 
 - ${get_translation('select_citation', lang, county=county)}: selected_citation_numbers
 
