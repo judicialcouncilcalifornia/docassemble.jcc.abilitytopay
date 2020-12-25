@@ -189,18 +189,26 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
   },
 
   "found_multiple_citations": {
-    "en": "We found your citation. We also looked for other citations in your name in {county} County. You can request fine reductions for all the citations listed below.",
-    "es": "Encontramos su citación. También buscamos otras citaciones bajo su nombre en el condado de {county}. Puede solicitar una reducción en las multas para todas las citaciones que aparecen abajo.",
+    "en": "We found your citation.",
+    "es": "Encontramos su citación.",
     "zh-s": "",
     "zh-t": ""
   },
 
   "select_citation": {
-    "en": "Select each of the tickets for which you want to request a reduction.",
-    "es": "Seleccione las citaciones para las que desea solicitar una reducción.",
+    "en": "We also looked for other citations in your name in {county} County. Select each of the citations for which you want to request a reduction. You can request fine reductions for all the citations listed below.",
+    "es": "También buscamos otras citaciones bajo su nombre en el condado de {county}. Puede solicitar una reducción en las multas para todas las citaciones que aparecen abajo. Seleccione las citaciones para las que desea solicitar una reducción.",
     "zh-s": "",
     "zh-t": ""
   },
+
+"submitted_citation": {
+  "en": "Already Submitted.",
+  "es": "Seleccione .",
+  "zh-s": "",
+  "zh-t": ""
+},
+
 
   "none_of_these_are_right": {
     "en": "None of these are right",
@@ -1143,6 +1151,31 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-s": "",
     "zh-t": ""
   },
+
+
+  "already_submitted": {
+    "en": "**A request for the following citation(s) below has already been submitted. If your financial circumstances have changed and you need to resubmit, please wait 24 hours before resubmitting.**",
+    "es": "**Ya se ha enviado una solicitud para las siguientes citas a continuación. Si sus circunstancias financieras han cambiado y necesita volver a enviarlo, espere 24 horas antes de volver a enviarlo.**",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
+  "top_already_submitted": {
+    "en": "A request for the following citation(s) below has already been submitted. If your financial circumstances have changed and you need to resubmit, please wait 24 hours before resubmitting.",
+    "es": "Ya se ha enviado una solicitud para las siguientes citas a continuación. Si sus circunstancias financieras han cambiado y necesita volver a enviarlo, espere 24 horas antes de volver a enviarlo.",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
+ "can_submit_now": {
+    "en": "You can submit now..",
+    "es": "You can submit now....",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
+
+
 
   "something_went_wrong": {
     "en": "Sorry! Something went wrong with your submission. Our support team has been notified. Please try again later, or contact your court.",
