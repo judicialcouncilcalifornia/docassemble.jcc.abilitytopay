@@ -74,9 +74,13 @@ fields:
   show if: citation_number_absent
 continue button field: completed_citation_form
 ---
+
+
+
 only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
+  #log(response.data,'primary')
   if response.data is not None:
     if len(response.data['all_citations']) > 0:
       received_multiple_citations_for_one_citation_number = False
@@ -84,6 +88,10 @@ code: |
       not_my_citations = False
       source_citation = response.data['source_citation']
       all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
+      filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
+      # newlength = len(response.data['filtered_citations'])
+      # log(newlength,'danger')
+
     else:
       log(get_translation('check_information', lang), 'danger')
       # Check the information you entered. Try again.
@@ -104,10 +112,29 @@ code: |
     reconsider('completed_citation_form')
   fetched_citations_from_citation_number = True
 ---
+
 only sets: fetched_citations_from_user_info
 code: |
-  fetch_case_data_or_reconsider('completed_citation_form')
-  fetched_citations_from_user_info = True
+    response = fetch_case_data_or_reconsider('completed_citation_form')
+    #log(response.data,'primary')
+    fetched_citations_from_user_info = True
+    if response.data is not None:
+      if len(response.data['all_citations']) > 0:
+        received_multiple_citations_for_one_citation_number = False
+        # reset the not_my_citations flag
+        not_my_citations = False
+        #source_citation = response.data['source_citation']
+        #source_citation = response.data['citationNumber']
+        all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
+        filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
+
+        # newlength = len(response.data['filtered_citations'])
+        # log(newlength,'danger')
+
+    else:
+      log(get_translation('check_information', lang), 'danger')
+
+
 ---
 only sets: fetched_citations_from_user_info_disambiguation_form
 code: |
@@ -142,7 +169,7 @@ comment: |
   rendering of the corresponding citation.
 question: ${get_translation('your_citations', lang)}
 # Your Citations
-subquestion: ${get_translation('found_multiple_citations', lang, county=county)}
+subquestion: ${get_translation('found_multiple_citations', lang)}
 # We found your citation. We also looked for other citations in your name in {county} County. You can request fine reductions for all the citations listed below.
 under: |
   % if not defined('fetched_citations_from_user_info') and not defined('fetched_citations_from_user_info_disambiguation_form'):
@@ -150,7 +177,25 @@ under: |
   % endif
 # Only render "None of these are right" button if coming directly from citation lookup
 fields:
-- ${get_translation('select_citation', lang)}: selected_citation_numbers
+- note: |
+    <% hasAtLeastOneCitation24 = False %>
+    % for index in all_citations.values():
+       % if index['submissionWithin24Hours'] == True:
+         <% hasAtLeastOneCitation24 = True %>
+       % endif
+    % endfor
+    % if hasAtLeastOneCitation24 == True:
+    <span style="color: #0b5fa5;">${get_translation('already_submitted', lang)}   </span>
+
+      % for index in all_citations.values():
+         % if index['submissionWithin24Hours'] == True:
+           ${citation_info_card(index, lang)}
+         % endif
+      % endfor
+    % endif
+
+- ${get_translation('select_citation', lang, county=county)}: selected_citation_numbers
+
 # Select each of the tickets for which you want to request a reduction.
   datatype: checkboxes
   minlength: 1
@@ -160,11 +205,23 @@ fields:
         case['citationNumber']: citation_info_card(case, lang),
         'default': defined('source_citation') and case['citationNumber'] == source_citation['citationNumber']
       }
-      for case in sorted(all_citations.values(),
+
+      for case in sorted(filtered_citations.values(),
                          key=lambda case: defined('source_citation') and case['citationNumber'] != source_citation['citationNumber'])
+
       # Sort the list so that if the user entered a citation number, it occurs first.
     ]
+
+    # newlength = len(selected_citations_numbers)
+
+
+validation code: |
+
+      if len(selected_citation_numbers) == 0:
+        validation_error(get_translation('top_already_submitted', lang))
+
 ---
+
 event: wrong_citations_event
 code: |
   # Set the not_my_citations flag. This will lock the user into the name search screen until it is completed.
@@ -779,6 +836,7 @@ code: |
       fetched_citations_from_user_info_disambiguation_form
   all_citations
   selected_citation_numbers
+  filtered_citations
   how_work
   benefits
 
