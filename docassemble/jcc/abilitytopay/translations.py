@@ -1154,14 +1154,14 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
 
   "already_submitted": {
-    "en": "**A request for the following citation(s) below has already been submitted. If your financial circumstances have changed and you need to resubmit, please wait 24 hours before resubmitting.**",
+    "en": "**A request for the following citation(s) below has already been submitted.  If your financial circumstances have changed,  please wait at least 24 hours to resubmit.**",
     "es": "**Ya se ha enviado una solicitud para las siguientes citas a continuación. Si sus circunstancias financieras han cambiado y necesita volver a enviarlo, espere 24 horas antes de volver a enviarlo.**",
     "zh-s": "",
     "zh-t": ""
   },
 
   "top_already_submitted": {
-    "en": "A request for the following citation(s) below has already been submitted. If your financial circumstances have changed and you need to resubmit, please wait 24 hours before resubmitting.",
+    "en": "A request for the following citation(s) below has already been submitted.  If your financial circumstances have changed,  please wait at least 24 hours to resubmit.",
     "es": "Ya se ha enviado una solicitud para las siguientes citas a continuación. Si sus circunstancias financieras han cambiado y necesita volver a enviarlo, espere 24 horas antes de volver a enviarlo.",
     "zh-s": "",
     "zh-t": ""
