@@ -22,9 +22,10 @@ __all__ = [
     'fetch_case_data_from_citation',
     'fetch_case_data',
     'fetch_case_data_or_reconsider',
-    'submit_all_citations'
-]
+    'submit_all_citations',
+    'fetch_citation_check_status'
 
+]
 #
 # Logging
 #
@@ -80,16 +81,19 @@ def fetch_case_data_or_reconsider(fallback_variable):
     an error and reconsider the fallback_variable otherwise. This is useful
     because we try to fetch citations from several different screens in the
     interview.'''
+
+
+
     response = fetch_case_data(value('first_name'), value('last_name'),
                                value('dob').date(), value('license_number'),
                                value('county'))
+
     if (response.data is not None) and (len(response.data) > 0):
-        define('all_citations', {
-            case['citationNumber']: case
-            for case in response.data
-        })
-        # Reset the not_my_citations flag
-        define('not_my_citations', False)
+
+        all_citations = _fetch_case_data(value('first_name'), value('last_name'),
+                               value('dob').date(), value('license_number'),
+                               value('county'))
+
     else:
         lang = value('lang')
         if response.data == []:
@@ -105,6 +109,10 @@ def fetch_case_data_or_reconsider(fallback_variable):
         reconsider(fallback_variable)
 
 
+    return SuccessResult(dict(
+        all_citations=all_citations.data
+    ))
+
 def fetch_case_data_from_citation(citation_number, county):
     # This validation would make more sense in the front-end, but implementing
     # custom front-end validation in docassemble is a mess (see a2p.js),
@@ -116,6 +124,7 @@ def fetch_case_data_from_citation(citation_number, county):
         # fetch citation data
         citation_response = _fetch_citation_data(citation_number, county)
         num_citations = len(citation_response.data)
+        log("num_citations: %s" % num_citations)
         if num_citations == 1:
             # Perfect. We received exactly one citation.
             source_citation = citation_response.data[0]
@@ -133,6 +142,7 @@ def fetch_case_data_from_citation(citation_number, county):
         return ErrorResult.from_api_error(e)
     except CitationNumberCollisionError as e:
         return ErrorResult('too-many-results')
+
     except Exception as e:
         return ErrorResult.from_generic_error(e)
 
@@ -207,6 +217,48 @@ def fetch_citation_data(citation_number, county):
         return ErrorResult.from_generic_error(e)
 
 
+
+#adding the status check code here
+
+def fetch_citation_check_status(statusArray):
+
+    try:
+        return _fetch_citation_check_status(statusArray)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
+    except Exception as e:
+        return ErrorResult.from_generic_error(e)
+
+def _fetch_citation_check_status(statusArray):
+    citation_params = []
+    for i in statusArray:
+        citation_params.append({
+            'citationNumber': i['citationNumber'],
+            'county': i['county']
+        })
+    # log("888 - i am here" )
+    # log(json.dumps(citation_params))
+
+    utility_url = a2p_config()['utility_url']
+    log("utility_url_new: %s" % utility_url)
+
+    status_url = a2p_config()['status_url']
+
+    log("status_url: %s" % status_url)
+
+    res = __do_request(status_url, citation_params)
+
+    # log("results from status check %s" % res)
+
+    res = APIResult.from_http_response(res)
+
+    # log("results from status check %s" % res)
+    # log("data results from status check %s" res.data)
+    return res.data
+
+#adding the status check code here
+
+
 def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
     case_params = {
         'firstName': first_name,
@@ -229,8 +281,28 @@ def _fetch_case_data(first_name, last_name, dob, drivers_license, county):
     ]
     if len(eligible_citations) > 0:
         res.data = eligible_citations
+
+        returnedstatus = fetch_citation_check_status(res.data)
+        log("returned status 777")
+        log(json.dumps(returnedstatus))
+        for x in res.data:
+            foundIt = False
+            for i in returnedstatus:
+                if (i['citationNumber'] == x['citationNumber']):
+                    x['submissionWithin24Hours'] = i['submissionWithin24Hours']
+                    foundIt = True
+            if (foundIt == False):
+                x['submissionWithin24Hours'] = False
+        log("returned status 555")
+        log(json.dumps(res.data))
+
     else:
         res.data = []
+
+    log("I am here: 115599977")
+    #log(json.dumps(res.data))
+    #log(json.dumps(res.data))
+
     return res
 
 
@@ -249,7 +321,7 @@ def submit_all_citations(data, attachments=[]):
         # Upload all attachments to blob storage
 
         # debug
-        # log(json.dumps(data))
+        #log(json.dumps(data))
 
         first_name = data['selected_citations'][0]['firstName']
         last_name = data['selected_citations'][0]['lastName']
@@ -442,9 +514,11 @@ def __do_request(url, params):
 def a2p_config():
     cfg = get_config('a2p')
     base_url = cfg['base_url']
+    utility_url = cfg['utility_url']
     cfg['citation_lookup_url'] = base_url + '/case/citation'
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
+    cfg['status_url'] = utility_url + '/CitationStatusCheck'
     return cfg
 
 

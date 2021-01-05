@@ -47,4 +47,5 @@ def citation_info_card(case, lang):
         citationNumber=case['citationNumber'],
         violationDate=date_from_iso8601(case['charges'][0]['violationDate']),
         totalDue=format_money(case['totalDueAmt'])
+
     )
