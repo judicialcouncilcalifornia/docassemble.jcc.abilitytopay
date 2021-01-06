@@ -138,8 +138,26 @@ code: |
 ---
 only sets: fetched_citations_from_user_info_disambiguation_form
 code: |
-  fetch_case_data_or_reconsider('completed_disambiguation_form')
+  response =fetch_case_data_or_reconsider('completed_disambiguation_form')
   fetched_citations_from_user_info_disambiguation_form = True
+  #log(response.data,'primary')
+
+  if response.data is not None:
+    if len(response.data['all_citations']) > 0:
+      received_multiple_citations_for_one_citation_number = False
+      # reset the not_my_citations flag
+      not_my_citations = False
+      #source_citation = response.data['source_citation']
+      #source_citation = response.data['citationNumber']
+      all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
+      filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
+
+      # newlength = len(response.data['filtered_citations'])
+      # log(newlength,'danger')
+
+  else:
+    log(get_translation('check_information', lang), 'danger')
+
 ---
 only sets: fetched_citations_from_user_info_wrong_citations_form
 code: |
