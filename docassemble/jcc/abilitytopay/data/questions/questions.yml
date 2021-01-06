@@ -140,7 +140,7 @@ only sets: fetched_citations_from_user_info_disambiguation_form
 code: |
   response =fetch_case_data_or_reconsider('completed_disambiguation_form')
   fetched_citations_from_user_info_disambiguation_form = True
-  log(response.data,'primary')
+  #log(response.data,'primary')
 
   if response.data is not None:
     if len(response.data['all_citations']) > 0:
