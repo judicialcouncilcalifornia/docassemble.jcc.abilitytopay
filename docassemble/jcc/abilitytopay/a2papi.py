@@ -6,7 +6,7 @@ import json
 import re
 import requests
 import os
-from azure.storage.blob import BlockBlobService
+from azure.storage.blob.blockblobservice import BlockBlobService
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
@@ -23,7 +23,8 @@ __all__ = [
     'fetch_case_data',
     'fetch_case_data_or_reconsider',
     'submit_all_citations',
-    'fetch_citation_check_status'
+    'fetch_citation_check_status',
+    'fetch_settings_data'
 
 ]
 #
@@ -184,6 +185,56 @@ def fetch_case_data_from_citation(citation_number, county):
             # data shapes expected by the frontend
         except Exception as e:
             return ErrorResult.from_generic_error(e)
+
+
+# adding fetching courts address and phone number settings data
+# Adding court address and Court phone number here
+
+def fetch_settings_data(county):
+
+    try:
+        return _fetch_settings_data(county)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
+    except Exception as e:
+        return ErrorResult.from_generic_error(e)
+
+
+def _fetch_settings_data(county):
+    settings_params = {
+        'county': county
+    }
+
+    log("settings_url: %s" % settings_url)
+
+    res = __do_request(a2p_config()['settings_url'], settings_params)
+    res = APIResult.from_http_response(res)
+
+    log("Here you go settings data")
+    log(json.dumps(res.data))
+
+    log("court address %s " res.data[court[address]]
+    log("court phone number %s " res.data[court[phoneNumber]]
+
+# Above code for adding fetching courts address and phone number settings data
+# Above code for adding court address and Court phone number here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def _fetch_citation_data(citation_number, county):
@@ -519,6 +570,7 @@ def a2p_config():
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
     cfg['status_url'] = utility_url + '/CitationStatusCheck'
+    cfg['settings_url'] = base_url + '/settings/county'
     return cfg
 
 
