@@ -213,8 +213,8 @@ def _fetch_settings_data(county):
     log("Here you go settings data")
     log(json.dumps(res.data))
 
-    log("court address %s " res.data[court[address]]
-    log("court phone number %s " res.data[court[phoneNumber]]
+#    log("court address %s " res.data[court[address]]
+#    log("court phone number %s " res.data[court[phoneNumber]]
 
 # Above code for adding fetching courts address and phone number settings data
 # Above code for adding court address and Court phone number here
