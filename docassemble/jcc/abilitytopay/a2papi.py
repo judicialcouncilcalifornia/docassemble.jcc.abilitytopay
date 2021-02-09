@@ -543,11 +543,17 @@ def __submit_image_from_url(filename, url):
 
 def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
-    for proof_type, url, original_filename in attachments:
-        log("Uploading file: %s" % url)
+    for proof_type, path, url, original_filename in attachments:
+        log("Debug1 Uploading file url: %s" % url)
+        log("Debug2 Uploading file path: %s" % path)
+
         log("proof_type : %s" % proof_type)
         filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
-        image_meta = __submit_image_from_url(filename, url)
+        log("Commenting the url for now %s" % url)
+        #image_meta = __submit_image_from_url(filename, url)
+        log("Adding the path for now %s" % path)
+        image_meta = __submit_image_from_url(filename, path)
+        log("Image_meta %s" % image_meta)
         benefit_files_data.append(image_meta)
     return benefit_files_data
 
@@ -571,7 +577,7 @@ def __create_filename(original_filename, proof_type, first_name, last_name, coun
     timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
     finalfilename = first_name + last_name + filename + county + timestamp + extension
     strippedfilename = finalfilename.replace(" ","")
-    log("file name stored in the Azure blob is: %s" % strippedfilename)
+    log("file name that will be stored in the Azure blob is: %s" % strippedfilename)
     return strippedfilename
 
 
