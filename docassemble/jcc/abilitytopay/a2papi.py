@@ -7,7 +7,8 @@ import re
 import requests
 import os
 
-from azure.storage.blob import BlobServiceClient
+
+from azure.storage.blob import BlobClient
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
