@@ -546,7 +546,8 @@ def __upload_images(attachments, first_name, last_name, county):
     for proof_type, url, original_filename in attachments:
         log("Debug1 Uploading file url: %s" % url)
         #log("Debug2 Uploading file path: %s" % original_filename)
-
+        url = url.replace("https://","http://")
+        log("Debug9 Uploading file url: %s" % url)
         log("proof_type : %s" % proof_type)
         filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
         image_meta = __submit_image_from_url(filename, url)
