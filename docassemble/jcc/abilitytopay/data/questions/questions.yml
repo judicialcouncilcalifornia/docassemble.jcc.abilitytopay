@@ -862,11 +862,11 @@ code: |
   if benefits["cal_fresh"]:
     calfresh_proof
     if calfresh_proof:
-      attachment_urls.append(("CalFresh", calfresh_proof.url_for(external=True)), calfresh_proof.path()))
+      attachment_urls.append(("CalFresh", calfresh_proof.url_for(external=True), calfresh_proof.path()))
   if benefits["medi_cal"]:
     medi_cal_proof
     if medi_cal_proof:
-      attachment_urls.append(("MediCal", medi_cal_proof.url_for(external=True)), medi_cal_proof.path()))
+      attachment_urls.append(("MediCal", medi_cal_proof.url_for(external=True), medi_cal_proof.path()))
   if benefits["ssi"]:
     ssi_proof
     if ssi_proof:
