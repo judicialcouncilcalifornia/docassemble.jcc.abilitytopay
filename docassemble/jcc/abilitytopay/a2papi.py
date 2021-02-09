@@ -6,7 +6,8 @@ import json
 import re
 import requests
 import os
-from azure.storage.blob import BlockBlobService
+from azure.storage.blob import BlobServiceClient
+#from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
@@ -205,35 +206,29 @@ def _fetch_settings_data(county):
         'county': county
     }
 
-    log("settings_url: %s" % settings_url)
 
-    res = __do_request(a2p_config()['settings_url'], settings_params)
+    getsettings_url = a2p_config()['getsettings_url']
+    log("getsettings_url: %s" % getsettings_url)
+
+    res = __do_request(getsettings_url, settings_params)
     res = APIResult.from_http_response(res)
 
     log("Here you go settings data")
     log(json.dumps(res.data))
+
+    if res.data is None:
+        res.data = []
+        return res
+
+    if type(res.data) is dict:
+        res.data = [res.data]
+    return res
 
 #    log("court address %s " res.data[court[address]]
 #    log("court phone number %s " res.data[court[phoneNumber]]
 
 # Above code for adding fetching courts address and phone number settings data
 # Above code for adding court address and Court phone number here
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -566,11 +561,12 @@ def a2p_config():
     cfg = get_config('a2p')
     base_url = cfg['base_url']
     utility_url = cfg['utility_url']
+    settings_url = cfg['settings_url']
     cfg['citation_lookup_url'] = base_url + '/case/citation'
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
     cfg['status_url'] = utility_url + '/CitationStatusCheck'
-    cfg['settings_url'] = base_url + '/settings/county'
+    cfg['getsettings_url'] = settings_url + '/county'
     return cfg
 
 
@@ -580,12 +576,12 @@ def __submit_image_from_url(filename, url):
     decision--the A2P API should accept the image data as part of
     the user's submission."""
 
-    blob_service = BlockBlobService(
-        account_name=a2p_config()['blob_account_name'],
-        account_key=a2p_config()['blob_account_key']
-    )
+
+    connection_string = "DefaultEndpointsProtocol=https;AccountName="+a2p_config()['blob_account_name']+";AccountKey="+a2p_config()['blob_account_key']+";EndpointSuffix=core.windows.net"
+
+    blob = BlobClient.from_connection_string(conn_str=connection_string, container_name="attachments", blob_name=filename)
     image_body = requests.get(url).content
-    blob_service.create_blob_from_bytes('attachments', filename, image_body)
+    blob.upload_blob(image_body)
 
     return {
         "fileName": filename,
