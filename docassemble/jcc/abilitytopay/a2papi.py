@@ -6,7 +6,7 @@ import json
 import re
 import requests
 import os
-from azure.storage.blob.blockblobservice import BlockBlobService
+from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
