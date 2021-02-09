@@ -6,8 +6,8 @@ import json
 import re
 import requests
 import os
+
 from azure.storage.blob import BlobServiceClient
-#from azure.storage.blob import BlockBlobService
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
@@ -24,7 +24,7 @@ __all__ = [
     'fetch_case_data',
     'fetch_case_data_or_reconsider',
     'submit_all_citations',
-    'fetch_citation_check_status',
+    'fetch_citation_check_status'
 
 ]
 #
@@ -185,10 +185,6 @@ def fetch_case_data_from_citation(citation_number, county):
             # data shapes expected by the frontend
         except Exception as e:
             return ErrorResult.from_generic_error(e)
-
-
-# adding fetching courts address and phone number settings data
-# Adding court address and Court phone number here
 
 
 def _fetch_citation_data(citation_number, county):
@@ -533,13 +529,10 @@ def __submit_image_from_url(filename, url):
     decision--the A2P API should accept the image data as part of
     the user's submission."""
 
-
     connection_string = "DefaultEndpointsProtocol=https;AccountName="+a2p_config()['blob_account_name']+";AccountKey="+a2p_config()['blob_account_key']+";EndpointSuffix=core.windows.net"
-
     blob = BlobClient.from_connection_string(conn_str=connection_string, container_name="attachments", blob_name=filename)
     image_body = requests.get(url).content
     blob.upload_blob(image_body)
-
     return {
         "fileName": filename,
         "blobName": filename,
