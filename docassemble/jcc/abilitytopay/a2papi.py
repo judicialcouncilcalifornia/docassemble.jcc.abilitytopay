@@ -545,13 +545,13 @@ def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
     for proof_type, url, original_filename in attachments:
         log("Debug1 Uploading file url: %s" % url)
-        log("Debug2 Uploading file path: %s" % original_filename)
+        #log("Debug2 Uploading file path: %s" % original_filename)
 
         log("proof_type : %s" % proof_type)
         filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
-        #image_meta = __submit_image_from_url(filename, url)
+        image_meta = __submit_image_from_url(filename, url)
 
-        image_meta = __submit_image_from_url(filename, original_filename)
+        #image_meta = __submit_image_from_url(filename, original_filename)
 
         #log("Image_meta %s" % image_meta)
         benefit_files_data.append(image_meta)
