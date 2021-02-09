@@ -561,12 +561,12 @@ def a2p_config():
     cfg = get_config('a2p')
     base_url = cfg['base_url']
     utility_url = cfg['utility_url']
-    settings_url = cfg['settings_url']
+    #settings_url = cfg['settings_url']
     cfg['citation_lookup_url'] = base_url + '/case/citation'
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
     cfg['status_url'] = utility_url + '/CitationStatusCheck'
-    cfg['getsettings_url'] = settings_url + '/county'
+    #cfg['getsettings_url'] = settings_url + '/county'
     return cfg
 
 
