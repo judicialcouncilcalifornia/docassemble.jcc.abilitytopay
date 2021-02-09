@@ -25,7 +25,7 @@ __all__ = [
     'fetch_case_data_or_reconsider',
     'submit_all_citations',
     'fetch_citation_check_status',
-    'fetch_settings_data'
+#    'fetch_settings_data'
 
 ]
 #
@@ -191,38 +191,38 @@ def fetch_case_data_from_citation(citation_number, county):
 # adding fetching courts address and phone number settings data
 # Adding court address and Court phone number here
 
-def fetch_settings_data(county):
+#def fetch_settings_data(county):
 
-    try:
-        return _fetch_settings_data(county)
-    except APIError as e:
-        return ErrorResult.from_api_error(e)
-    except Exception as e:
-        return ErrorResult.from_generic_error(e)
-
-
-def _fetch_settings_data(county):
-    settings_params = {
-        'county': county
-    }
+#    try:
+#        return _fetch_settings_data(county)
+#    except APIError as e:
+#        return ErrorResult.from_api_error(e)
+#    except Exception as e:
+#        return ErrorResult.from_generic_error(e)
 
 
-    getsettings_url = a2p_config()['getsettings_url']
-    log("getsettings_url: %s" % getsettings_url)
+#def _fetch_settings_data(county):
+#    settings_params = {
+#        'county': county
+#    }
 
-    res = __do_request(getsettings_url, settings_params)
-    res = APIResult.from_http_response(res)
 
-    log("Here you go settings data")
-    log(json.dumps(res.data))
+#    getsettings_url = a2p_config()['getsettings_url']
+#    log("getsettings_url: %s" % getsettings_url)
 
-    if res.data is None:
-        res.data = []
-        return res
+#    res = __do_request(getsettings_url, settings_params)
+#    res = APIResult.from_http_response(res)
 
-    if type(res.data) is dict:
-        res.data = [res.data]
-    return res
+#    log("Here you go settings data")
+#    log(json.dumps(res.data))
+
+#    if res.data is None:
+#        res.data = []
+#        return res
+
+#    if type(res.data) is dict:
+#        res.data = [res.data]
+#    return res
 
 #    log("court address %s " res.data[court[address]]
 #    log("court phone number %s " res.data[court[phoneNumber]]
