@@ -860,7 +860,7 @@ code: |
 
   attachment_urls = []
   if benefits["cal_fresh"]:
-    calfresh_proof
+    calfresh_proof.set_attributes(private=False)
     if calfresh_proof:
       attachment_urls.append(("CalFresh", calfresh_proof.url_for(external=True), calfresh_proof.path()))
   if benefits["medi_cal"]:
