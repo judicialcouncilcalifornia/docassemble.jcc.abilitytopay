@@ -534,7 +534,7 @@ def __submit_image_from_url(filename, url):
     blob = BlobClient.from_connection_string(conn_str=connection_string, container_name="attachments", blob_name=filename)
     #image_body = requests.get(url).content
 
-    image_body = create_blob_from_path(url)
+    image_body = blob.create_blob_from_path(url)
     #image_body = url.path().content
     blob.upload_blob(image_body)
     return {
