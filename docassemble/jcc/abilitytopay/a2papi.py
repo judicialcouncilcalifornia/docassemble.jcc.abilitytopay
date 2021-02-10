@@ -6,7 +6,9 @@ import json
 import re
 import requests
 import os
-from azure.storage.blob import BlockBlobService
+
+from azure.storage.blob import BlobClient
+
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
@@ -528,27 +530,45 @@ def __submit_image_from_url(filename, url):
     decision--the A2P API should accept the image data as part of
     the user's submission."""
 
-    blob_service = BlockBlobService(
-        account_name=a2p_config()['blob_account_name'],
-        account_key=a2p_config()['blob_account_key']
-    )
-    image_body = requests.get(url).content
-    blob_service.create_blob_from_bytes('attachments', filename, image_body)
+    connection_string = "DefaultEndpointsProtocol=https;AccountName="+a2p_config()['blob_account_name']+";AccountKey="+a2p_config()['blob_account_key']+";EndpointSuffix=core.windows.net"
+    blob = BlobClient.from_connection_string(
+        conn_str=connection_string,
+        container_name="attachments",
+        blob_name=filename)
+    with open(url, "rb") as data:
+        blob.upload_blob(data)
+
+    image_body = os.path.getsize(url)
+    #blob.create_blob_from_path(container_name="attachments",blob_name=filename,file_path=url)
+
+    #image_body = url.path().content
+    #blob.upload_blob(image_body)
 
     return {
         "fileName": filename,
         "blobName": filename,
-        "size": len(image_body)
+        "size": image_body
+
     }
 
 
 def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
     for proof_type, url, original_filename in attachments:
-        log("Uploading file: %s" % url)
+        log("Debug1 Uploading file url: %s" % url)
+        log("Debug2 Uploading file path: %s" % original_filename)
+        log("OS PATH: %s" % os.path.abspath(original_filename))
+
+        absolutep1 = os.path.abspath(original_filename)
+
+        url = url.replace("https://","http://")
+
+        log("Debug9 Uploading file url: %s" % url)
         log("proof_type : %s" % proof_type)
         filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
-        image_meta = __submit_image_from_url(filename, url)
+        image_meta = __submit_image_from_url(filename, absolutep1)
+        #image_meta = __submit_image_from_url(filename, original_filename)
+        #log("Image_meta %s" % image_meta)
         benefit_files_data.append(image_meta)
     return benefit_files_data
 
@@ -572,7 +592,7 @@ def __create_filename(original_filename, proof_type, first_name, last_name, coun
     timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
     finalfilename = first_name + last_name + filename + county + timestamp + extension
     strippedfilename = finalfilename.replace(" ","")
-    log("file name stored in the Azure blob is: %s" % strippedfilename)
+    log("file name that will be stored in the Azure blob is: %s" % strippedfilename)
     return strippedfilename
 
 
