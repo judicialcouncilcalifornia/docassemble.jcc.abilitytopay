@@ -7,8 +7,7 @@ import re
 import requests
 import os
 
-from azure.storage.blob import BlockBlobService
-
+from azure.storage.blob import BlobClient
 
 from docassemble.base.util import *
 from flask import session
@@ -532,12 +531,18 @@ def __submit_image_from_url(filename, url):
     the user's submission."""
 
     connection_string = "DefaultEndpointsProtocol=https;AccountName="+a2p_config()['blob_account_name']+";AccountKey="+a2p_config()['blob_account_key']+";EndpointSuffix=core.windows.net"
-    blob = BlockBlobService(connection_string=connection_string)
+    blob = BlobClient.from_connection_string(
+        conn_str=connection_string,
+        container_name="attachments",
+        blob_name=filename)
+    with open(url, "rb") as data:
+        blob.upload_blob(data)
 
+    #blob = BlockBlobService(connection_string=connection_string)
     #image_body = requests.get(url).content
 
     image_body = os.path.getsize(url)
-    blob.create_blob_from_path(container_name="attachments",blob_name=filename,file_path=url)
+    #blob.create_blob_from_path(container_name="attachments",blob_name=filename,file_path=url)
 
     #image_body = url.path().content
     #blob.upload_blob(image_body)
