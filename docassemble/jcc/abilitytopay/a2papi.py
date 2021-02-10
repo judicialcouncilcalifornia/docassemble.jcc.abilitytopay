@@ -538,9 +538,6 @@ def __submit_image_from_url(filename, url):
     with open(url, "rb") as data:
         blob.upload_blob(data)
 
-    #blob = BlockBlobService(connection_string=connection_string)
-    #image_body = requests.get(url).content
-
     image_body = os.path.getsize(url)
     #blob.create_blob_from_path(container_name="attachments",blob_name=filename,file_path=url)
 
