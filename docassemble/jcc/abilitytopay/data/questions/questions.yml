@@ -2,6 +2,8 @@ comment: |
   We gather pleas for unadjudicated citations into the citation_pleas object.
 objects:
   - citation_pleas: DADict.using(auto_gather=False)
+
+
 ---
 id: landing-page
 question: |
@@ -81,6 +83,16 @@ only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
   #log(response.data,'primary')
+  courtInfo = fetch_settings_data(county)
+
+  addressCourt = courtInfo['address']
+  phoneNumberCourt = courtInfo['phoneNumber']
+
+  #log('Court Info Below','primary')
+  #log(courtInfo,'primary')
+  #log(addressCourt,'primary')
+  #log(phoneNumberCourt,'primary')
+
   if response.data is not None:
     if len(response.data['all_citations']) > 0:
       received_multiple_citations_for_one_citation_number = False
@@ -660,13 +672,20 @@ code: |
     all_citations[citation_number]
     for citation_number in selected_citation_numbers.true_values()
   ]
+
   unadjudicated_citations = [
     c for c in selected_citations
     if not c.get('adjudicated')
   ]
-  for citation in unadjudicated_citations:
+  for citation in selected_citations:
     citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
+
+
+
+
+
+
 ---
 id: make-your-plea
 question: |
@@ -773,6 +792,66 @@ fields:
     variable: why_difficult['difficult_other']
     is: True
 ---
+question: |
+
+  ${get_translation('preview_summary', lang)} ${citation['citationNumber'] }
+
+subquestion: |
+
+  <HTML>
+
+  ${get_translation('normal_public_benefits', lang)}
+
+  % if benefits.any_true():
+  * ${ comma_and_list(benefits.true_values()) } benefits
+  % endif
+
+
+  <div style="line-height:10px">
+
+    <p> ${get_translation('amount_of_income', lang)} :<strong> ${ income }. </p> </strong>
+    <p> ${get_translation('insurance', lang)}:<strong>  ${ insurance }. </p> </strong>
+    <p> ${get_translation('clothing', lang)}:<strong> ${ clothing }. </p> </strong>
+    <p> ${get_translation('child_spousal_support', lang)}: <strong> ${ child_spousal_support }. </p> </strong>
+    <p> ${get_translation('transportation_gas_etc', lang)}: <strong> ${ transportation } </p> </strong>
+    <p> ${get_translation('how_many_household', lang)}: <strong> ${ residents } </p> </strong>
+    <p> ${get_translation('rent', lang)}: <strong> ${ monthly_rent } </p> </strong>
+    <p> ${get_translation('mortgage', lang)}: <strong> ${ mortgage } </p> </strong>
+    <p> ${get_translation('utilities', lang)}: <strong> ${ utilities } </p> </strong>
+    <p> ${get_translation('phone_bill', lang)}: <strong>  ${ phone_bill } </p> </strong>
+    <p> ${get_translation('food_groceries_restaurants', lang)}: <strong> ${ food } </p> </strong>
+    <p> ${get_translation('insurance', lang)}: <strong> ${ insurance } </p> </strong>
+    <p> ${get_translation('clothing', lang)}: <strong> ${ clothing } </p> </strong>
+    <p> ${get_translation('child_spousal_support', lang)}: <strong> ${ child_spousal_support } </p> </strong>
+    <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship } </p> </strong>
+    <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </p> </strong>
+    <p> ${get_translation('total_additional_expenses', lang)}:<strong>  ${ hardship_amt } </p> </strong>
+
+    <p> Additional requests gathered: <strong> ${ additional_requests.gathered } </p> </strong>
+    <p> Community Service: <strong> ${ additional_requests['community_service'] } </p> </strong>
+    <p> Extension: <strong> ${ additional_requests['extension'] } </p> </strong>
+    <p> Payment Plan: <strong> ${ additional_requests['payment_plan'] } </p> </strong>
+
+    <br>
+    <br>
+    <br>
+
+    <strong> Note: If you wish to correct any of this information please use the back button at the top of the screen. </strong>
+
+    </HTML>
+
+progress: 90
+fields:
+- ${get_translation('did_review', lang)}: review_maa
+  required: false
+  datatype: radio
+  choices:
+  - ${get_translation('review21_page', lang)}: review_maa_optional
+
+
+---
+
+
 id: submission-signature
 question: |
   ${get_translation('final_step', lang)}
@@ -818,21 +897,72 @@ comment: |
   If it succeeds, the user can try to submit again by clicking the back button on their browser or
   the back button on the interview page.
 code: |
+  #log(all_variables(),'primary')
   submission_results = submit_all_citations(all_variables(), attachment_urls)
+
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
+    courtInfo = fetch_settings_data(county)
+    #log(courtInfo,'primary')
+    addressCourt = courtInfo['address']
+    phoneNumberCourt = courtInfo['phoneNumber']
+
+    email_sent_ok = send_email(email_address, template=notification)
+
   else:
     log(get_translation('something_went_wrong', lang), "danger")
     #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
     reconsider("ready_to_submit")
 ---
+template: notification
+subject: |
+  Your Ability to Pay submission for your Citation has been received
+content: |
+
+ <HTML>
+  <br>
+  <br>
+
+  Hello <strong>${citation['firstName'] } ${citation['lastName']}</strong>
+  <br>
+  <br>
+
+  This is confirmation that your request for a reduction based on financial hardship on citation <strong> ${citation['citationNumber']} </strong> has been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
+
+  If you have not received an email with a court order within 30 days, please check your spam or junk email folder. If you still have not received an email, please contact:
+
+  <style type="text/css">
+   p {margin-bottom: -1em;  margin-top: 0em;}
+  </style>
+
+  <br>
+
+  <p style=”padding: 0px; margin: 0px;margin-bottom: 0; > Superior Court of California, County of <strong>${county}</strong> </p>
+  <p style=”padding: 0px; margin: 0px;margin-bottom: 0;margin-top: 0; ”>Address: <strong>${addressCourt}</strong> </p>
+  <p style=”padding: 0px; margin: 0px;margin-bottom: 0;margin-top: 0; ”>Phone Number : <strong>${phoneNumberCourt}</strong> </p>
+
+  <br>
+  <b>Thank You,</b>
+  <br>
+  <br>
+  Clerk of the Court
+  <br>
+  <br>
+
+  <strong> Please do not reply to this email, this email inbox is not monitored.</strong>
+
+  </HTML>
+
+
+---
 id: submission-complete
 sets: all_done
 question: |
   ${get_translation('thank_you', lang)}
-#  ### Thank you!
+
+
 progress: 100
 subquestion: |
   ${get_translation('expect_response', lang)}
@@ -843,6 +973,7 @@ prevent going back: True
 ---
 mandatory: True
 code: |
+
   landing_page_visited
   completed_citation_form
   if citation_number_absent:
@@ -922,6 +1053,8 @@ code: |
   citation_pleas.gathered
 
   tool_helpful
+  review_maa
+
   email_address
   submission_signature
   ready_to_submit

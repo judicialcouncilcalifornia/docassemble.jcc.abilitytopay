@@ -261,6 +261,16 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-t": "### 公共福利"
   },
 
+
+"normal_public_benefits": {
+  "en": " Public Benefits uploaded",
+  "es": " Beneficios públicos",
+  "zh-s": " 公共福利",
+  "zh-t": " 公共福利"
+},
+
+
+
   "receiving_benefits": {
     "en": "Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click \"Other\".",
     "es": "¿Está recibiendo beneficios actualmente? Si no ve el beneficio público que está recibiendo actualmente, haga clic en \"Otro\".",
@@ -1044,7 +1054,32 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-t": ""
   },
 
-  "what_email_can_court_use": {
+
+"review21_page": {
+  "en": "Yes reviewed ?",
+  "es": "Yes reviewed ?",
+  "zh-s": "",
+  "zh-t": ""
+},
+
+"did_review": {
+  "en": "Did you review your petition ?",
+  "es": "Did you review your petition ?",
+  "zh-s": "",
+  "zh-t": ""
+},
+
+
+
+
+"preview_summary": {
+    "en": "##This is a summary of the information you provided for citation",
+    "es": "##Este es un resumen de la información que proporcionó para la cita",
+    "zh-s": "",
+    "zh-t": ""
+    },
+
+ "what_email_can_court_use": {
     "en": "What email address can the Court use to communicate about your request?",
     "es": "Su dirección de email donde la corte puede comunicarse con usted acerca de su solicitud",
     "zh-s": "",
@@ -1103,14 +1138,15 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "thank_you": {
     "en": "### Thank you!",
+
     "es": "### ¡Gracias!",
     "zh-s": "",
     "zh-t": ""
   },
 
   "expect_response": {
-    "en": "*Expect a response from the court by email in 30 business days. If you don't get a notification please contact the Court.*",
-    "es": "*Puede esperar una respuesta de la corte por email en 30 días hábiles. Si no recibe una notificación, comuníquese con la corte.",
+    "en": "*You will receive a confirmation email to the email address provided. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order explaining the courts decision by email within 30 days.*",
+    "es": "*Recibirá un correo electrónico de confirmación a la dirección de correo electrónico proporcionada. A menos que cambien sus circunstancias financieras, no es necesario que realice ninguna otra acción con respecto a esta solicitud. Debería recibir una orden explicando la decisión de los tribunales por correo electrónico dentro de los 30 días.*",
     "zh-s": "",
     "zh-t": ""
   },

@@ -23,7 +23,8 @@ __all__ = [
     'fetch_case_data',
     'fetch_case_data_or_reconsider',
     'submit_all_citations',
-    'fetch_citation_check_status'
+    'fetch_citation_check_status',
+    'fetch_settings_data'
 
 ]
 #
@@ -184,6 +185,54 @@ def fetch_case_data_from_citation(citation_number, county):
             # data shapes expected by the frontend
         except Exception as e:
             return ErrorResult.from_generic_error(e)
+
+
+# adding fetching courts address and phone number settings data
+# Adding court address and Court phone number here
+
+def fetch_settings_data(county):
+    log("withing fetch_settings_data")
+    try:
+        #settingsInformation = _fetch_settings_data(county)
+        #OnlyCourtSetttings = __serialized_settings_information(settingsInformation)
+
+        return _fetch_settings_data(county)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
+    except Exception as e:
+        return ErrorResult.from_generic_error(e)
+
+
+def _fetch_settings_data(county):
+
+    newsettings_url = a2p_config()['settings_url']+'/'+county
+    log("new settings url %s" % newsettings_url)
+    res1 = __doget_request(newsettings_url)
+    res1 = APIResult.from_http_response(res1)
+
+    if res1.data is None:
+        res1.data = []
+        return res1
+
+    if type(res1.data) is dict:
+        res1.data = [res1.data]
+
+    log(json.dumps(res1.data))
+
+    AllInfo = res1.data
+    courtInfo = AllInfo[0]['court']
+    log(json.dumps(courtInfo))
+
+
+    #return(res1)
+    return(courtInfo)
+    #log("res %s" res.data))
+
+# Above code for adding fetching courts address and phone number settings data
+# Above code for adding court address and Court phone number here
+
+
+
 
 
 def _fetch_citation_data(citation_number, county):
@@ -511,6 +560,44 @@ def __do_request(url, params):
     return res
 
 
+def __doget_request(url):
+    resource = a2p_config()['oauth_resource']
+    oauth_params = {
+        'resource': resource,
+        'grant_type': 'client_credentials',
+        'client_id': a2p_config()["client_id"],
+        'client_secret': a2p_config()["client_secret"],
+        'scope': 'openid ' + resource
+    }
+    r = requests.post(a2p_config()["ad_url"], oauth_params, timeout=10)
+    data = r.json()
+    if 'access_token' not in data:
+        __log_response("could not get access token", r)
+
+    access_token = data['access_token']
+
+    headers = {
+        'Authorization': 'Bearer ' + access_token,
+        'Content-Type': 'application/json'
+    }
+    log("making a2p api request to {} with payload".format(url))
+    res = requests.get(url, data=None, headers=headers,
+                        timeout=30)
+    __log_response("a2p api response", res)
+    return res
+
+
+
+
+
+
+
+
+
+
+
+
+
 def a2p_config():
     cfg = get_config('a2p')
     base_url = cfg['base_url']
@@ -519,6 +606,7 @@ def a2p_config():
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
     cfg['status_url'] = utility_url + '/CitationStatusCheck'
+    cfg['settings_url'] = base_url + '/settings/county'
     return cfg
 
 
@@ -767,6 +855,14 @@ def __serialized_case_information(case_information):
         "violationDate": case_information['charges'][0].get('violationDate'),
         "violationDescription": "\n".join(violDescriptions),
     }
+
+def __serialized_settings_information(settings_info):
+
+    return {
+
+	    "CourtAddress": settings_info.get('address'),
+        "PhoneNumber": settings_info.get('phoneNumber')
+	}
 
 
 def __is_number(s):
