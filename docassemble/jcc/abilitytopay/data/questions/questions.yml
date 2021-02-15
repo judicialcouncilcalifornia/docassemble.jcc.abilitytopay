@@ -803,7 +803,7 @@ subquestion: |
   ${get_translation('normal_public_benefits', lang)}
 
   % if benefits.any_true():
-  * ${ comma_and_list(benefits.true_values()) } benefits
+  <strong> ${ comma_and_list(benefits.true_values()) } </strong> benefits
   % endif
 
 
@@ -824,13 +824,13 @@ subquestion: |
     <p> ${get_translation('clothing', lang)}: <strong> ${ clothing } </p> </strong>
     <p> ${get_translation('child_spousal_support', lang)}: <strong> ${ child_spousal_support } </p> </strong>
     <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship } </p> </strong>
-    <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </p> </strong>
-    <p> ${get_translation('total_additional_expenses', lang)}:<strong>  ${ hardship_amt } </p> </strong>
 
-    <p> Additional requests gathered: <strong> ${ additional_requests.gathered } </p> </strong>
-    <p> Community Service: <strong> ${ additional_requests['community_service'] } </p> </strong>
-    <p> Extension: <strong> ${ additional_requests['extension'] } </p> </strong>
-    <p> Payment Plan: <strong> ${ additional_requests['payment_plan'] } </p> </strong>
+    <strong><p> Additional requests: </p> </strong>
+
+    % if additional_requests.any_true():
+    ${ comma_and_list(additional_requests, comma_string='<br><br>', oxford=False, before_and=' ', after_and='<br><br>') }
+    % endif
+
 
     <br>
     <br>
