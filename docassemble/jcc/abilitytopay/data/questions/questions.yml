@@ -677,7 +677,7 @@ code: |
     c for c in selected_citations
     if not c.get('adjudicated')
   ]
-  for citation in unadjudicated_citations:
+  for citation in selected_citations:
     citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
 
