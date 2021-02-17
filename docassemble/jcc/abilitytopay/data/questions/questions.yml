@@ -804,10 +804,10 @@ subquestion: |
 
   <div style="line-height:10px">
 
-    <p> ${get_translation('amount_of_income', lang)} :<strong> $ ${ income }. </p> </strong>
-    <p> ${get_translation('insurance', lang)}:<strong> $ ${ insurance }. </p> </strong>
-    <p> ${get_translation('clothing', lang)}:<strong> $ ${ clothing }. </p> </strong>
-    <p> ${get_translation('child_spousal_support', lang)}: <strong> $ ${ child_spousal_support }. </p> </strong>
+    <p> ${get_translation('amount_of_income', lang)} :<strong> $ ${ income } </p> </strong>
+    <p> ${get_translation('insurance', lang)}:<strong> $ ${ insurance } </p> </strong>
+    <p> ${get_translation('clothing', lang)}:<strong> $ ${ clothing } </p> </strong>
+    <p> ${get_translation('child_spousal_support', lang)}: <strong> $ ${ child_spousal_support } </p> </strong>
     <p> ${get_translation('transportation_gas_etc', lang)}: <strong> $ ${ transportation } </p> </strong>
     <p> ${get_translation('how_many_household', lang)}: <strong> ${ residents } </p> </strong>
     <p> ${get_translation('rent', lang)}: <strong> $ ${ monthly_rent } </p> </strong>
