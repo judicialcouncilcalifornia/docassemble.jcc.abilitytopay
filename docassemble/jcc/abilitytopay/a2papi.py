@@ -6,7 +6,10 @@ import json
 import re
 import requests
 import os
-from azure.storage.blob import BlockBlobService
+
+
+from azure.storage.blob import BlobClient
+
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
@@ -633,10 +636,20 @@ def __submit_image_from_url(filename, url):
 def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
     for proof_type, url, original_filename in attachments:
-        log("Uploading file: %s" % url)
+        log("Debug1 Uploading file url: %s" % url)
+        log("Debug2 Uploading file path: %s" % original_filename)
+        log("OS PATH: %s" % os.path.abspath(original_filename))
+
+        absolutep1 = os.path.abspath(original_filename)
+
+        url = url.replace("https://","http://")
+
+        log("Debug9 Uploading file url: %s" % url)
         log("proof_type : %s" % proof_type)
         filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
-        image_meta = __submit_image_from_url(filename, url)
+        image_meta = __submit_image_from_url(filename, absolutep1)
+        #image_meta = __submit_image_from_url(filename, original_filename)
+        #log("Image_meta %s" % image_meta)
         benefit_files_data.append(image_meta)
     return benefit_files_data
 
