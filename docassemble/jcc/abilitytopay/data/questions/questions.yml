@@ -836,14 +836,7 @@ subquestion: |
 
     </HTML>
 
-progress: 90
-fields:
-- ${get_translation('did_review', lang)}: review_maa
-  required: false
-  datatype: radio
-  choices:
-  - ${get_translation('review21_page', lang)}: review_maa_optional
-
+continue button field: review_screen
 
 ---
 
@@ -1049,8 +1042,8 @@ code: |
   citation_pleas.gathered
 
   tool_helpful
-  review_maa
 
+  review_screen
   email_address
   submission_signature
   ready_to_submit
