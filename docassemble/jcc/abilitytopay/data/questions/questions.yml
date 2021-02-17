@@ -822,10 +822,10 @@ subquestion: |
 
 
     % if additional_requests.any_true():
-    <strong><p> Additional requests: </p> </strong>
+    <p> Additional requests: </p>
 
     % for item in add_separators(additional_requests.true_values()):
-    <p style="margin-left: 40px; margin-bottom: 0px;">${ item }<br><br></p>
+    <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${ item }</strong><br><br></p>
     % endfor
     <br>
 
