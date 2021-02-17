@@ -619,19 +619,26 @@ def __submit_image_from_url(filename, url):
     decision--the A2P API should accept the image data as part of
     the user's submission."""
 
-    blob_service = BlockBlobService(
-        account_name=a2p_config()['blob_account_name'],
-        account_key=a2p_config()['blob_account_key']
-    )
-    image_body = requests.get(url).content
-    blob_service.create_blob_from_bytes('attachments', filename, image_body)
+    connection_string = "DefaultEndpointsProtocol=https;AccountName="+a2p_config()['blob_account_name']+";AccountKey="+a2p_config()['blob_account_key']+";EndpointSuffix=core.windows.net"
+    blob = BlobClient.from_connection_string(
+        conn_str=connection_string,
+        container_name="attachments",
+        blob_name=filename)
+    with open(url, "rb") as data:
+        blob.upload_blob(data)
+
+    image_body = os.path.getsize(url)
+    #blob.create_blob_from_path(container_name="attachments",blob_name=filename,file_path=url)
+
+    #image_body = url.path().content
+    #blob.upload_blob(image_body)
 
     return {
         "fileName": filename,
         "blobName": filename,
-        "size": len(image_body)
-    }
+        "size": image_body
 
+    }
 
 def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
