@@ -820,17 +820,21 @@ subquestion: |
     <p> ${get_translation('child_spousal_support', lang)}: <strong> ${ child_spousal_support } </p> </strong>
     <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship } </p> </strong>
 
-    <strong><p> Additional requests: </p> </strong>
 
     % if additional_requests.any_true():
-    ${ comma_and_list(additional_requests, comma_string='<br><br>', oxford=False, before_and=' ', after_and='<br><br>') }
+    <strong><p> Additional requests: </p> </strong>
+
+    % for item in add_separators(additional_requests.true_values()):
+    <p style="margin-left: 40px; margin-bottom: 0px;">${ item }<br><br></p>
+    % endfor
+    <br>
+
     % endif
 
     <br>
     <br>
     <br>
 
-    <br>
 
     <strong> Note: If you wish to correct any of this information please use the back button at the top of the screen. </strong>
 
