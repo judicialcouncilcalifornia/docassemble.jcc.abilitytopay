@@ -798,7 +798,7 @@ subquestion: |
   ${get_translation('normal_public_benefits', lang)}
 
   % if benefits.any_true():
-  <strong> ${ comma_and_list(benefits.true_values()) } </strong> benefits
+  <strong> ${ comma_and_list(benefits.true_values()) } </strong>
   % endif
 
 
@@ -839,7 +839,12 @@ subquestion: |
     <br>
 
     % endif
+
+
+
     </HTML>
+   Your Plea for <strong> ${citation['citationNumber'] } </strong>:                   ${citation_pleas[citation['citationNumber']] } </p>
+
 
 continue button field: review_screen
 
