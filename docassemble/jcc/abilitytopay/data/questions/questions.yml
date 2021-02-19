@@ -805,10 +805,7 @@ subquestion: |
   <div style="line-height:10px">
 
     <p> ${get_translation('amount_of_income', lang)} :<strong>   ${ currency(income)} </p> </strong>
-    <p> ${get_translation('insurance', lang)}:<strong>  ${ currency(insurance) } </p> </strong>
-    <p> ${get_translation('clothing', lang)}:<strong>  ${currency(clothing) } </p> </strong>
-    <p> ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) } </p> </strong>
-    <p> ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) } </p> </strong>
+
     <p> ${get_translation('how_many_household', lang)}: <strong> ${int(residents)} </p> </strong>
     <p> ${get_translation('rent', lang)}: <strong>  ${ currency(monthly_rent) } </p> </strong>
     <p> ${get_translation('mortgage', lang)}: <strong> ${ currency(mortgage) } </p> </strong>
@@ -818,6 +815,7 @@ subquestion: |
     <p> ${get_translation('insurance', lang)}: <strong>  ${ currency(insurance) } </p> </strong>
     <p> ${get_translation('clothing', lang)}: <strong>  ${ currency(clothing) } </p> </strong>
     <p> ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) } </p> </strong>
+    <p> ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) } </p> </strong>
     <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship } </p> </strong>
 
     % if other_hardship == True:
