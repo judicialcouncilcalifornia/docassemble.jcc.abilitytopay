@@ -788,6 +788,61 @@ fields:
     is: True
 ---
 question: |
+   ${get_translation('preview_summary', lang)} ${citation['citationNumber'] }
+
+review:
+  - Edit : income
+    button: |
+      ${get_translation('amount_of_income', lang)}: <strong> ${currency(income)} </strong>
+  - Edit : residents
+    button: |
+      ${get_translation('how_many_household', lang)}: <strong> ${int(residents)} </strong>
+
+  - Edit : monthly_rent
+    button: |
+      ${get_translation('rent', lang)}: <strong>  ${ currency(monthly_rent)} </strong>
+
+  - Edit : mortgage
+    button: |
+      ${get_translation('mortgage', lang)}: <strong> ${ currency(mortgage) } </strong>
+
+  - Edit : utilities
+    button: |
+     ${get_translation('utilities', lang)}: <strong> ${ currency(utilities) } </strong>
+
+  - Edit : phone_bill
+    button: |
+     ${get_translation('phone_bill', lang)}: <strong> ${ currency(phone_bill) }  </strong>
+
+  - Edit : food
+    button: |
+     ${get_translation('food_groceries_restaurants', lang)}: <strong> ${currency( food) }  </strong>
+
+  - Edit : insurance
+    button: |
+      ${get_translation('insurance', lang)}: <strong>  ${ currency(insurance) } </strong>
+
+  - Edit : clothing
+    button: |
+     ${get_translation('clothing', lang)}: <strong>  ${ currency(clothing) } </strong>
+
+  - Edit : child_spousal_support
+    button: |
+     ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) } </strong>
+
+  - Edit : transportation
+    button: |
+     ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) }  </strong>
+
+
+continue button field: answers_reviewed
+
+
+---
+
+
+
+question: |
 
   ${get_translation('preview_summary', lang)} ${citation['citationNumber'] }
 
@@ -804,24 +859,24 @@ subquestion: |
 
   <div style="line-height:10px">
 
-    <p> ${get_translation('amount_of_income', lang)} :<strong>   ${ currency(income)} </p> </strong>
+    <p> ${get_translation('amount_of_income', lang)} :<strong>   ${ currency(income)} </strong> </p>
 
-    <p> ${get_translation('how_many_household', lang)}: <strong> ${int(residents)} </p> </strong>
-    <p> ${get_translation('rent', lang)}: <strong>  ${ currency(monthly_rent) } </p> </strong>
-    <p> ${get_translation('mortgage', lang)}: <strong> ${ currency(mortgage) } </p> </strong>
-    <p> ${get_translation('utilities', lang)}: <strong> ${ currency(utilities) } </p> </strong>
-    <p> ${get_translation('phone_bill', lang)}: <strong>   ${ currency(phone_bill) } </p> </strong>
-    <p> ${get_translation('food_groceries_restaurants', lang)}: <strong> ${currency( food) } </p> </strong>
-    <p> ${get_translation('insurance', lang)}: <strong>  ${ currency(insurance) } </p> </strong>
-    <p> ${get_translation('clothing', lang)}: <strong>  ${ currency(clothing) } </p> </strong>
-    <p> ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) } </p> </strong>
-    <p> ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) } </p> </strong>
-    <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship } </p> </strong>
+    <p> ${get_translation('how_many_household', lang)}: <strong> ${int(residents)} </strong> </p>
+    <p> ${get_translation('rent', lang)}: <strong>  ${ currency(monthly_rent) }  </strong> </p>
+    <p> ${get_translation('mortgage', lang)}: <strong> ${ currency(mortgage) }  </strong> </p>
+    <p> ${get_translation('utilities', lang)}: <strong> ${ currency(utilities) }  </strong> </p>
+    <p> ${get_translation('phone_bill', lang)}: <strong>   ${ currency(phone_bill) }  </strong> </p>
+    <p> ${get_translation('food_groceries_restaurants', lang)}: <strong> ${currency( food) } </strong>  </p>
+    <p> ${get_translation('insurance', lang)}: <strong>  ${ currency(insurance) } </strong> </p>
+    <p> ${get_translation('clothing', lang)}: <strong>  ${ currency(clothing) }  </strong> </p>
+    <p> ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) }  </strong> </p>
+    <p> ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) } </strong>  </p>
+    <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship }  </strong> </p>
 
     % if other_hardship == True:
 
     <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </strong> </p>
-    <p> ${get_translation('total_additional_expenses', lang)}: <strong> ${ currency(hardship_amt) } </p> </strong>
+    <p> ${get_translation('total_additional_expenses', lang)}: <strong> ${ currency(hardship_amt) } </strong> </p>
 
     % endif
 
@@ -836,12 +891,15 @@ subquestion: |
     % endfor
     <br>
 
+
     % endif
+   Your Plea for <strong> ${citation['citationNumber'] } </strong>:                ${citation_pleas[citation['citationNumber']] }
 
 
 
     </HTML>
-   Your Plea for <strong> ${citation['citationNumber'] } </strong>:                   ${citation_pleas[citation['citationNumber']] } </p>
+
+
 
 
 continue button field: review_screen
@@ -1053,7 +1111,7 @@ code: |
   citation_pleas.gathered
 
   tool_helpful
-
+  answers_reviewed
   review_screen
   email_address
   submission_signature
