@@ -263,8 +263,8 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
 
 
 "normal_public_benefits": {
-  "en": " Public Benefits uploaded",
-  "es": " Beneficios públicos",
+  "en": " Public Benefits Selected :",
+  "es": " Beneficios públicos :",
   "zh-s": " 公共福利",
   "zh-t": " 公共福利"
 },

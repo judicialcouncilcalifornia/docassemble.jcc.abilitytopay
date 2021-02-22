@@ -791,6 +791,14 @@ question: |
    ${get_translation('preview_summary', lang)} ${citation['citationNumber'] }
 
 review:
+
+  - Edit : benefits
+    button: |
+      ${get_translation('normal_public_benefits', lang)}
+      % if benefits.any_true():
+      <strong> ${ comma_and_list(benefits.true_values()) } </strong>
+      % endif
+
   - Edit : income
     button: |
       ${get_translation('amount_of_income', lang)}: <strong> ${currency(income)} </strong>
@@ -833,6 +841,18 @@ review:
   - Edit : transportation
     button: |
      ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) }  </strong>
+
+  - Edit : other_hardship
+    button: |
+      ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship }  </strong>
+
+  - Edit : additional_requests
+    button: |
+      ${get_translation('additional_requests', lang)}
+
+         % if additional_requests.any_true():
+      <strong> ${ comma_and_list(additional_requests.true_values()) } </strong>
+         % endif
 
 
 continue button field: answers_reviewed
@@ -881,8 +901,6 @@ subquestion: |
     % endif
 
 
-
-
     % if additional_requests.any_true():
     <p> Additional requests: </p>
 
@@ -891,14 +909,10 @@ subquestion: |
     % endfor
     <br>
 
-
     % endif
    Your Plea for <strong> ${citation['citationNumber'] } </strong>:                ${citation_pleas[citation['citationNumber']] }
 
-
-
     </HTML>
-
 
 
 
