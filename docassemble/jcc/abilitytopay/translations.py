@@ -1073,7 +1073,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
 
 "preview_summary": {
-    "en": "##This is a summary of the information you provided for citation",
+    "en": "##This is a summary of the information you provided for citation/citations",
     "es": "##Este es un resumen de la información que proporcionó para la cita",
     "zh-s": "",
     "zh-t": ""
