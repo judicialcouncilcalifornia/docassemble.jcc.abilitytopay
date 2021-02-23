@@ -787,6 +787,7 @@ fields:
     variable: why_difficult['difficult_other']
     is: True
 ---
+
 question: |
    ${get_translation('preview_summary', lang)} ${citation['citationNumber'] }
 
@@ -854,9 +855,17 @@ review:
       <strong> ${ comma_and_list(additional_requests.true_values()) } </strong>
          % endif
 
+
   - Edit : citation_pleas[citation['citationNumber']]
     button: |
-      Your Plea for <strong> ${citation['citationNumber'] } </strong>: ${citation_pleas[citation['citationNumber']] }
+
+      % if citation_pleas[citation['citationNumber']] == 'agree_guilty':
+      Your Plea for <strong> ${citation['citationNumber'] } </strong>: Guilty Plea
+      % endif
+      % if citation_pleas[citation['citationNumber']] == 'agree_no_contest':
+      Your Plea for <strong> ${citation['citationNumber'] } </strong>: No Contest Plea
+      % endif
+
 
 
 
