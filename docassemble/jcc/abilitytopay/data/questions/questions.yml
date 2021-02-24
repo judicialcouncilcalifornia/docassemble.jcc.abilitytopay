@@ -895,12 +895,21 @@ review:
   - Edit : other_hardship
     button: |
       % if other_hardship == True:
-         ${get_translation('would_other_hardship', lang)}: Yes
+         ${get_translation('would_other_hardship', lang)}: <strong>Yes</strong>
       % endif
 
       % if other_hardship == False:
-         ${get_translation('would_other_hardship', lang)}: No
+         ${get_translation('would_other_hardship', lang)}:<strong> No </strong>
       % endif
+
+       % if other_hardship == True:
+
+      <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </strong> </p>
+      <p> ${get_translation('total_additional_expenses', lang)}: <strong> ${ currency(hardship_amt) } </strong> </p>
+
+       % endif
+
+
 
 
   - Edit : additional_requests
