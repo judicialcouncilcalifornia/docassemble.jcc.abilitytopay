@@ -803,15 +803,16 @@ review:
 
        % if benefits['cal_fresh']==True:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong>CalFresh</strong></p>
-
        % endif
 
        % if benefits['medi_cal']==True:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong>Medi_Cal</strong></p>
+
        % endif
 
        % if benefits['cr_ga']==True:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> General Assistance / County Relief</strong> </p>
+
        % endif
 
        % if benefits['ssi']==True:
@@ -938,13 +939,16 @@ review:
 
   - Edit : citation_pleas[citation['citationNumber']]
     button: |
+      % for citation_number in selected_citation_numbers.true_values():
 
-      % if citation_pleas[citation['citationNumber']] == 'agree_guilty':
-      Your Plea for <strong> ${citation['citationNumber'] } </strong>: Guilty Plea
-      % endif
-      % if citation_pleas[citation['citationNumber']] == 'agree_no_contest':
-      Your Plea for <strong> ${citation['citationNumber'] } </strong>: No Contest Plea
-      % endif
+        % if citation_pleas[citation_number] == 'agree_guilty':
+        Your Plea for <strong> ${citation_number } </strong>: Guilty Plea
+        % endif
+        % if citation_pleas[citation_number] == 'agree_no_contest':
+        Your Plea for <strong> ${citation_number } </strong>: No Contest Plea
+        % endif
+      % endfor
+
 
 continue button field: answers_reviewed
 
