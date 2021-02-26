@@ -806,7 +806,7 @@ review:
        % endif
 
        % if benefits['medi_cal']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>Medi_Cal</strong></p>
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>Medi-Cal</strong></p>
 
        % endif
 
