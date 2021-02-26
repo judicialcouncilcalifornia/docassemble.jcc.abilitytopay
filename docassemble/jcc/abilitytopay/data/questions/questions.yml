@@ -937,7 +937,13 @@ review:
          <br>
          % endif
 
-  - Edit : citation_pleas[citation['citationNumber']]
+
+
+
+  - Edit :
+      recompute:
+        - show_citation_plea
+
     button: |
       % for citation_number in selected_citation_numbers.true_values():
 
@@ -950,10 +956,15 @@ review:
       % endfor
 
 
+
 continue button field: answers_reviewed
 
 ---
 
+code: |
+  show_citation_plea = True
+  force_ask('citation_pleas[' + repr(citation['citationNumber']) + ']')
+---
 
 
 question: |
