@@ -801,53 +801,125 @@ review:
       ${get_translation('normal_public_benefits', lang)}
       % if benefits.any_true():
 
+
        % if benefits['cal_fresh']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>CalFresh</strong></p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong>CalFresh</strong></p>
+         <HTML>
+         % if calfresh_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)}: <strong>${calfresh_no_proof_reason}</strong></p>
+         % endif
+         </HTML>
+
        % endif
 
        % if benefits['medi_cal']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>Medi-Cal</strong></p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong>Medi-Cal</strong></p>
+
+         <HTML>
+         % if medi_cal_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${medi_cal_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
 
        % endif
 
        % if benefits['cr_ga']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> General Assistance / County Relief</strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> General Assistance / County Relief</strong> </p>
+
+         <HTML>
+         % if cr_ga_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cr_ga_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
 
        % endif
 
        % if benefits['ssi']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> SSI: Supplemental Security Income</strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> SSI: Supplemental Security Income</strong> </p>
+
+         <HTML>
+         % if ssi_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssi_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
 
 
         % if benefits['ssp']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> SSP: State Supplemental Payment </strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> SSP: State Supplemental Payment </strong> </p>
+
+         <HTML>
+         % if ssp_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssp_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
 
        % if benefits['tanf']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> TANF: Temporary Assistance for Needy Families </strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> TANF: Temporary Assistance for Needy Families </strong> </p>
+
+         <HTML>
+         % if tanf_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${tanf_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
 
        % if benefits['capi']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants </strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants </strong> </p>
+
+         <HTML>
+         % if capi_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${capi_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
 
        % if benefits['ihss']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> IHSS: In Home Supportive Services</strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> IHSS: In Home Supportive Services</strong> </p>
+         <HTML>
+         % if ihss_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ihss_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
 
        % if benefits['cal_works']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> CalWORKS: California Work Opportunity and Responsibility to Kids Act </strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> CalWORKS: California Work Opportunity and Responsibility to Kids Act </strong> </p>
+         <HTML>
+         % if cal_works_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cal_works_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
 
        % if benefits['other']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Other </strong> </p>
+         <p style="margin-left: 20px; margin-bottom: 0px;"><strong> Other </strong> </p>
+         <HTML>
+         % if other_benefit_no_proof == True:
+           <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${other_benefit_no_proof_reason}</strong></p>
+
+         % endif
+         </HTML>
+
        % endif
        % else:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> None </strong> </p>
-
        <br>
-
       % endif
 
   - Edit : income
