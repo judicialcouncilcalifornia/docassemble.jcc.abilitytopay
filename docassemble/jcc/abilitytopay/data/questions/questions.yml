@@ -796,6 +796,12 @@ question: |
 
 review:
 
+  - Edit : selected_citation_numbers
+
+    button: |
+      ${get_translation('select_citation', lang, county=county)}
+
+
   - Edit : benefits
 
     button: |
