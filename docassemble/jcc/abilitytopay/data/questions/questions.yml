@@ -797,6 +797,7 @@ question: |
 review:
 
   - Edit : benefits
+
     button: |
       ${get_translation('normal_public_benefits', lang)}
       % if benefits.any_true():
@@ -807,8 +808,12 @@ review:
          <HTML>
          % if calfresh_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)}: <strong>${calfresh_no_proof_reason}</strong></p>
-         % endif
+
          </HTML>
+         % else:
+           ${calfresh_proof.show('1in')}
+         % endif
+
 
        % endif
 
@@ -817,10 +822,15 @@ review:
 
          <HTML>
          % if medi_cal_no_proof == True:
+
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${medi_cal_no_proof_reason}</strong></p>
 
-         % endif
          </HTML>
+         % else:
+           ${medi_cal_proof.show('0.8in')}
+         % endif
+
+
 
        % endif
 
@@ -831,9 +841,11 @@ review:
          % if cr_ga_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cr_ga_no_proof_reason}</strong></p>
 
-         % endif
-         </HTML>
 
+         </HTML>
+          % else:
+          ${cr_ga_proof.show('0.8in')}
+          % endif
        % endif
 
        % if benefits['ssi']==True:
@@ -843,8 +855,11 @@ review:
          % if ssi_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssi_no_proof_reason}</strong></p>
 
-         % endif
          </HTML>
+         % else:
+          ${ssi_proof.show('0.8in')}
+         % endif
+
 
        % endif
 
@@ -855,10 +870,11 @@ review:
          <HTML>
          % if ssp_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssp_no_proof_reason}</strong></p>
-
-         % endif
          </HTML>
 
+         % else:
+           ${ssp_proof.show('0.8in')}
+         % endif
        % endif
 
        % if benefits['tanf']==True:
@@ -867,9 +883,12 @@ review:
          <HTML>
          % if tanf_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${tanf_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${tanf_proof.show('0.8in')}
 
          % endif
-         </HTML>
+
 
        % endif
 
@@ -879,10 +898,10 @@ review:
          <HTML>
          % if capi_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${capi_no_proof_reason}</strong></p>
-
-         % endif
          </HTML>
-
+          % else:
+           ${capi_proof.show('0.8in')}
+          % endif
        % endif
 
        % if benefits['ihss']==True:
@@ -890,10 +909,10 @@ review:
          <HTML>
          % if ihss_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ihss_no_proof_reason}</strong></p>
-
-         % endif
          </HTML>
-
+         % else:
+          ${ihss_proof.show('0.8in')}
+         % endif
        % endif
 
        % if benefits['cal_works']==True:
@@ -902,8 +921,11 @@ review:
          % if cal_works_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cal_works_no_proof_reason}</strong></p>
 
-         % endif
+
          </HTML>
+         % else:
+           ${cal_works_proof.show('0.8in')}
+         % endif
 
        % endif
 
@@ -913,8 +935,12 @@ review:
          % if other_benefit_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${other_benefit_no_proof_reason}</strong></p>
 
-         % endif
+
          </HTML>
+         % else:
+         ${other_benefit_picture.show('0.8in')}
+         % endif
+
 
        % endif
        % else:
