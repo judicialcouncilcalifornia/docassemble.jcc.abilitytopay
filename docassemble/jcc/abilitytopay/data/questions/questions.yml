@@ -799,7 +799,7 @@ review:
   - Edit : selected_citation_numbers
 
     button: |
-      ${get_translation('select_citation', lang, county=county)}
+      ${get_translation('select_citation_new', lang, county=county)}
 
 
   - Edit : benefits
