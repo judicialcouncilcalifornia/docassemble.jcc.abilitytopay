@@ -203,8 +203,8 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
   },
 
   "select_citation_new": {
-    "en": "We also looked for other citations in your name in {county} County. Select each of the citations for which you want to request a reduction..",
-    "es": "También buscamos otras citaciones bajo su nombre en el condado de {county}. Puede solicitar una reducción en las multas para todas las citaciones que aparecen abajo. ",
+    "en": "You selected the following citation(s):",
+    "es": "Seleccionaste las siguientes citas: ",
     "zh-s": "",
     "zh-t": ""
   },
