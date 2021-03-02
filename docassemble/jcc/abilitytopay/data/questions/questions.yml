@@ -800,8 +800,9 @@ review:
     button: |
       ${get_translation('select_citation_new', lang, county=county)}
        % for citation_number in selected_citation_numbers.true_values():
-       <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${ citation_number }</strong></p>
+       <p style="margin-left:20px; margin-bottom:0px;"><strong>${citation_number}</strong></p>
        % endfor
+      <br>
 
   - Edit : benefits
 
@@ -818,7 +819,7 @@ review:
 
          </HTML>
          % else:
-           ${calfresh_proof.show('1in')}
+           ${calfresh_proof.show('0.8in')}
          % endif
 
 
