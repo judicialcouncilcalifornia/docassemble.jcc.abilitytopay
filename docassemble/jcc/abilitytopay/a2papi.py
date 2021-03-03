@@ -391,6 +391,7 @@ def submit_all_citations(data, attachments=[]):
             try:
                 submit_url = a2p_config()['submit_url']
                 response = __do_request(submit_url, petitioner_payload)
+                log("submission how many times")
                 result = APIResult.from_http_response(response)
             except APIError as e:
                 result = ErrorResult.from_api_error(e)

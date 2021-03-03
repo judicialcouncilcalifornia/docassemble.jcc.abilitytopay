@@ -84,6 +84,9 @@ only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
   #log(response.data,'primary')
+
+
+
   courtInfo = fetch_settings_data(county)
 
   addressCourt = courtInfo['address']
@@ -100,10 +103,14 @@ code: |
       # reset the not_my_citations flag
       not_my_citations = False
       source_citation = response.data['source_citation']
+
+
+
       all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
       filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
+
       # newlength = len(response.data['filtered_citations'])
-      # log(newlength,'danger')
+
 
     else:
       log(get_translation('check_information', lang), 'danger')
@@ -123,13 +130,16 @@ code: |
     log(get_translation('something_went_wrong', lang), 'danger')
     # Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.
     reconsider('completed_citation_form')
+
+
+
   fetched_citations_from_citation_number = True
 ---
 
 only sets: fetched_citations_from_user_info
 code: |
     response = fetch_case_data_or_reconsider('completed_citation_form')
-    #log(response.data,'primary')
+    log(response.data,'primary')
     fetched_citations_from_user_info = True
     if response.data is not None:
       if len(response.data['all_citations']) > 0:
@@ -244,6 +254,7 @@ fields:
     ]
 
     # newlength = len(selected_citations_numbers)
+
 
 
 validation code: |
@@ -678,7 +689,7 @@ code: |
     c for c in selected_citations
     if not c.get('adjudicated')
   ]
-  for citation in selected_citations:
+  for citation in unadjudicated_citations:
     citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
 
@@ -1073,67 +1084,6 @@ code: |
 ---
 
 
-question: |
-
-  ${get_translation('preview_summary', lang)} ${citation['citationNumber'] }
-
-subquestion: |
-
-  <HTML>
-
-  ${get_translation('normal_public_benefits', lang)}
-
-  % if benefits.any_true():
-  <strong> ${ comma_and_list(benefits.true_values()) } </strong>
-  % endif
-
-
-  <div style="line-height:10px">
-
-    <p> ${get_translation('amount_of_income', lang)} :<strong>   ${ currency(income)} </strong> </p>
-
-    <p> ${get_translation('how_many_household', lang)}: <strong> ${int(residents)} </strong> </p>
-    <p> ${get_translation('rent', lang)}: <strong>  ${ currency(monthly_rent) }  </strong> </p>
-    <p> ${get_translation('mortgage', lang)}: <strong> ${ currency(mortgage) }  </strong> </p>
-    <p> ${get_translation('utilities', lang)}: <strong> ${ currency(utilities) }  </strong> </p>
-    <p> ${get_translation('phone_bill', lang)}: <strong>   ${ currency(phone_bill) }  </strong> </p>
-    <p> ${get_translation('food_groceries_restaurants', lang)}: <strong> ${currency( food) } </strong>  </p>
-    <p> ${get_translation('insurance', lang)}: <strong>  ${ currency(insurance) } </strong> </p>
-    <p> ${get_translation('clothing', lang)}: <strong>  ${ currency(clothing) }  </strong> </p>
-    <p> ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) }  </strong> </p>
-    <p> ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) } </strong>  </p>
-    <p> ${get_translation('would_other_hardship', lang)}: <strong> ${ other_hardship }  </strong> </p>
-
-    % if other_hardship == True:
-
-    <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </strong> </p>
-    <p> ${get_translation('total_additional_expenses', lang)}: <strong> ${ currency(hardship_amt) } </strong> </p>
-
-    % endif
-
-
-    % if additional_requests.any_true():
-    <p> Additional requests: </p>
-
-    % for item in add_separators(additional_requests.true_values()):
-    <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${ item }</strong><br><br></p>
-    % endfor
-    <br>
-
-    % endif
-   Your Plea for <strong> ${citation['citationNumber'] } </strong>:                ${citation_pleas[citation['citationNumber']] }
-
-    </HTML>
-
-
-
-continue button field: review_screen
-
-under: |
-  <strong> Note: If you wish to correct any of this information please use the back button at the top of the screen. </strong>
-
----
-
 
 id: submission-signature
 question: |
@@ -1186,13 +1136,14 @@ code: |
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
-    submission_success = True
+
     courtInfo = fetch_settings_data(county)
     #log(courtInfo,'primary')
     addressCourt = courtInfo['address']
     phoneNumberCourt = courtInfo['phoneNumber']
 
-    email_sent_ok = send_email(email_address, template=notification)
+    #email_sent_ok = send_email(email_address, template=notification)
+    submission_success = True
 
   else:
     log(get_translation('something_went_wrong', lang), "danger")
@@ -1205,14 +1156,12 @@ subject: |
 content: |
 
  <HTML>
-  <br>
-  <br>
 
-  Hello <strong>${citation['firstName'] } ${citation['lastName']}</strong>
-  <br>
-  <br>
 
-  This is confirmation that your request for a reduction based on financial hardship on citation <strong> ${citation['citationNumber']} </strong> has been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
+  Hello
+
+
+  This is confirmation that your request for a reduction based on financial hardship on citation  has been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
 
   If you have not received an email with a court order within 30 days, please check your spam or junk email folder. If you still have not received an email, please contact:
 
@@ -1237,7 +1186,6 @@ content: |
   <strong> Please do not reply to this email, this email inbox is not monitored.</strong>
 
   </HTML>
-
 
 ---
 id: submission-complete
@@ -1337,7 +1285,7 @@ code: |
 
   tool_helpful
   answers_reviewed
-  review_screen
+
   email_address
   submission_signature
   ready_to_submit
