@@ -810,9 +810,10 @@ review:
 
     button: |
       ${get_translation('select_citation_new', lang, county=county)}
-       % for citation_number in selected_citation_numbers.true_values():
-       <p style="margin-left:20px; margin-bottom:0px;"><strong>${citation_number}</strong></p>
-       % endfor
+
+       % if selected_citation_numbers.true_values():
+    	<strong>${ comma_and_list(selected_citation_numbers.true_values()) }</strong>
+       % endif
       <br>
 
   - Edit : benefits
@@ -1053,7 +1054,7 @@ review:
 
          <br>
          % endif
-
+         <br>
 
 
 
