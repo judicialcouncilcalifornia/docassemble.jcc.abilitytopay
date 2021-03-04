@@ -1169,8 +1169,7 @@ content: |
   % if selected_citation_numbers.true_values():
     	<strong>${ comma_and_list(selected_citation_numbers.true_values()) }</strong>
   % endif
-
-   has/have been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
+  has/have been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
 
   If you have not received an email with a court order within 30 days, please check your spam or junk email folder. If you still have not received an email, please contact:
 
