@@ -1144,8 +1144,7 @@ code: |
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
-
-    #email_sent_ok = send_email(email_address, template=notification)
+    
     submission_success = True
 
   else:
