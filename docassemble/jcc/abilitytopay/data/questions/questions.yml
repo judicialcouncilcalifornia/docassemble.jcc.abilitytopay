@@ -689,7 +689,7 @@ code: |
     c for c in selected_citations
     if not c.get('adjudicated')
   ]
-  for citation in unadjudicated_citations:
+  for citation in selected_citations:
     citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
 
@@ -1131,16 +1131,18 @@ comment: |
   the back button on the interview page.
 code: |
   #log(all_variables(),'primary')
+
+  courtInfo = fetch_settings_data(county)
+  log(courtInfo,'primary')
+  addressCourt = courtInfo['address']
+  phoneNumberCourt = courtInfo['phoneNumber']
+
+
   submission_results = submit_all_citations(all_variables(), attachment_urls)
 
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
-
-    courtInfo = fetch_settings_data(county)
-    #log(courtInfo,'primary')
-    addressCourt = courtInfo['address']
-    phoneNumberCourt = courtInfo['phoneNumber']
 
     #email_sent_ok = send_email(email_address, template=notification)
     submission_success = True
@@ -1155,13 +1157,15 @@ subject: |
   Your Ability to Pay submission for your Citation has been received
 content: |
 
- <HTML>
+  <HTML>
+  <br>
+  <br>
 
+  Hello <strong>${citation['firstName'] } ${citation['lastName']}</strong>
+  <br>
+  <br>
 
-  Hello
-
-
-  This is confirmation that your request for a reduction based on financial hardship on citation  has been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
+  This is confirmation that your request for a reduction based on financial hardship on citation <strong> ${citation['citationNumber']} </strong> has been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
 
   If you have not received an email with a court order within 30 days, please check your spam or junk email folder. If you still have not received an email, please contact:
 
@@ -1186,7 +1190,6 @@ content: |
   <strong> Please do not reply to this email, this email inbox is not monitored.</strong>
 
   </HTML>
-
 ---
 id: submission-complete
 sets: all_done
@@ -1194,13 +1197,26 @@ question: |
   ${get_translation('thank_you', lang)}
 
 
+
+
+
+
 progress: 100
 subquestion: |
   ${get_translation('expect_response', lang)}
 #  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
+
+
+
+
+
 buttons:
 - ${get_translation('restart', lang)}: restart
 prevent going back: True
+
+
+
+
 ---
 mandatory: True
 code: |
@@ -1290,4 +1306,6 @@ code: |
   submission_signature
   ready_to_submit
   submission_success
+  email_sent_ok = send_email(email_address, template=notification)
+
   all_done
