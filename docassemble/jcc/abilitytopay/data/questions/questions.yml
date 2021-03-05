@@ -323,6 +323,7 @@ fields:
 ---
 id: calfresh-proof
 sets: calfresh_proof
+if: benefits['cal_fresh'] == True
 question: |
   ${get_translation('proof_calfresh', lang)}
 # Proof of CalFresh
@@ -344,6 +345,7 @@ script: |
 ---
 id: medical-proof
 sets: medi_cal_proof
+if: benefits['medi_cal'] == True
 question: |
  ${get_translation('proof_of_medical', lang)}
 # Proof of Medi-Cal
@@ -365,6 +367,7 @@ script: |
 ---
 id: ssi-proof
 sets: ssi_proof
+if: benefits['ssi'] == True
 question: |
  ${get_translation('proof_of_ssi_title', lang)}
 # Proof of SSI
@@ -386,6 +389,7 @@ script: |
 ---
 id: ssp-proof
 sets: ssp_proof
+if: benefits['ssp'] == True
 question: |
   ${get_translation('proof_of_ssp', lang)}
 # Proof of State Supplemental Payment
@@ -407,6 +411,7 @@ script: |
 ---
 id: cr-ga-proof
 sets: cr_ga_proof
+if: benefits['cr_ga'] == True
 question: |
   ${get_translation('proof_of_gacr', lang)}
 # Proof of General Assistance/County Relief
@@ -428,6 +433,7 @@ script: |
 ---
 id: ihss-proof
 sets: ihss_proof
+if: benefits['ihss'] == True
 question: |
   ${get_translation('proof_of_ihss', lang)}
 # Proof of In Home Supportive Services
@@ -449,6 +455,7 @@ script: |
 ---
 id: tanf-proof
 sets: tanf_proof
+if: benefits['tanf'] == True
 question: |
   ${get_translation('proof_of_tanf', lang)}
 # Proof of TANF
@@ -470,6 +477,7 @@ script: |
 ---
 id: wic-proof
 sets: wic_proof
+
 question: |
   ${get_translation('proof_of_wic', lang)}
 # Proof of WIC
@@ -491,6 +499,7 @@ script: |
 ---
 id: cal-works-proof
 sets: cal_works_proof
+if: benefits['cal_works'] == True
 question: |
   ${get_translation('proof_of_calworks', lang)}
 # Proof of CalWORKS
@@ -512,6 +521,7 @@ script: |
 ---
 id: capi-proof
 sets: capi_proof
+if: benefits['capi'] == True
 question: |
   ${get_translation('proof_of_capi', lang)}
 # Proof of CAPI
@@ -533,6 +543,7 @@ script: |
 ---
 id: other-benefits-proof
 sets: other_benefit_picture
+if: benefits['other'] == True
 question: |
   ${get_translation('proof_of', lang)} "${other_benefit_name}"
 # Proof of "${other_benefit_name}"
@@ -819,6 +830,24 @@ review:
 
         - calfresh_proof
         - calfresh_no_proof
+        - medi_cal_proof
+        - medi_cal_no_proof
+        - cr_ga_proof
+        - cr_ga_no_proof
+        - ssi_proof
+        - ssi_no_proof
+        - ssp_proof
+        - ssp_no_proof
+        - tanf_proof
+        - tanf_no_proof
+        - capi_proof
+        - capi_no_proof
+        - ihss_proof
+        - ihss_no_proof
+        - cal_works_proof
+        - cal_works_no_proof
+        - other_benefit_picture
+        - other_benefit_no_proof
 
 
     button: |
