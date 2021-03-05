@@ -803,65 +803,45 @@ fields:
 question: |
    ${get_translation('preview_summary', lang)}
 
-
 review:
-
   - Edit : selected_citation_numbers
-
     button: |
       ${get_translation('select_citation_new', lang, county=county)}
-
        % if selected_citation_numbers.true_values():
     	<strong>${ comma_and_list(selected_citation_numbers.true_values()) }</strong>
        % endif
       <br>
-
   - Edit : benefits
-
     button: |
       ${get_translation('normal_public_benefits', lang)}
       % if benefits.any_true():
-
-
        % if benefits['cal_fresh']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong>CalFresh</strong></p>
          <HTML>
          % if calfresh_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)}: <strong>${calfresh_no_proof_reason}</strong></p>
-
          </HTML>
          % else:
            ${calfresh_proof.show('0.8in')}
          % endif
-
-
        % endif
 
        % if benefits['medi_cal']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong>Medi-Cal</strong></p>
-
          <HTML>
          % if medi_cal_no_proof == True:
-
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${medi_cal_no_proof_reason}</strong></p>
-
          </HTML>
          % else:
            ${medi_cal_proof.show('0.8in')}
          % endif
-
-
-
        % endif
 
        % if benefits['cr_ga']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong> General Assistance / County Relief</strong> </p>
-
          <HTML>
          % if cr_ga_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cr_ga_no_proof_reason}</strong></p>
-
-
          </HTML>
           % else:
           ${cr_ga_proof.show('0.8in')}
@@ -870,28 +850,21 @@ review:
 
        % if benefits['ssi']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong> SSI: Supplemental Security Income</strong> </p>
-
          <HTML>
          % if ssi_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssi_no_proof_reason}</strong></p>
-
          </HTML>
          % else:
           ${ssi_proof.show('0.8in')}
          % endif
-
-
        % endif
-
 
         % if benefits['ssp']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong> SSP: State Supplemental Payment </strong> </p>
-
          <HTML>
          % if ssp_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssp_no_proof_reason}</strong></p>
          </HTML>
-
          % else:
            ${ssp_proof.show('0.8in')}
          % endif
@@ -899,29 +872,24 @@ review:
 
        % if benefits['tanf']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong> TANF: Temporary Assistance for Needy Families </strong> </p>
-
          <HTML>
          % if tanf_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${tanf_no_proof_reason}</strong></p>
          </HTML>
          % else:
            ${tanf_proof.show('0.8in')}
-
          % endif
-
-
        % endif
 
        % if benefits['capi']==True:
          <p style="margin-left: 20px; margin-bottom: 0px;"><strong> CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants </strong> </p>
-
          <HTML>
          % if capi_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${capi_no_proof_reason}</strong></p>
          </HTML>
-          % else:
+         % else:
            ${capi_proof.show('0.8in')}
-          % endif
+         % endif
        % endif
 
        % if benefits['ihss']==True:
@@ -940,13 +908,10 @@ review:
          <HTML>
          % if cal_works_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cal_works_no_proof_reason}</strong></p>
-
-
          </HTML>
          % else:
            ${cal_works_proof.show('0.8in')}
          % endif
-
        % endif
 
        % if benefits['other']==True:
@@ -954,14 +919,10 @@ review:
          <HTML>
          % if other_benefit_no_proof == True:
            <p style="margin-left: 40px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${other_benefit_no_proof_reason}</strong></p>
-
-
          </HTML>
          % else:
          ${other_benefit_picture.show('0.8in')}
          % endif
-
-
        % endif
        % else:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> None </strong> </p>
@@ -1029,34 +990,25 @@ review:
        % endif
 
 
-
-
   - Edit : additional_requests
     button: |
       ${get_translation('additional_requests', lang)}
 
          % if additional_requests.any_true():
-
             % if additional_requests['community_service']==True:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Community Service </strong> </p>
             % endif
-
             % if additional_requests['payment_plan']==True:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Payment Plan </strong> </p>
             % endif
-
             % if additional_requests['extension']==True:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Extension</strong> </p>
             % endif
-
             % else:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> None </strong> </p>
-
          <br>
          % endif
          <br>
-
-
 
   - Edit :
       recompute:
@@ -1064,15 +1016,14 @@ review:
 
     button: |
       % for citation_number in selected_citation_numbers.true_values():
-
         % if citation_pleas[citation_number] == 'agree_guilty':
         Your Plea for <strong> ${citation_number } </strong>: Guilty Plea
         % endif
         % if citation_pleas[citation_number] == 'agree_no_contest':
         Your Plea for <strong> ${citation_number } </strong>: No Contest Plea
         % endif
+        <br>
       % endfor
-
 
 
 continue button field: answers_reviewed
@@ -1083,7 +1034,6 @@ code: |
   show_citation_plea = True
   force_ask('citation_pleas[' + repr(citation['citationNumber']) + ']')
 ---
-
 
 
 id: submission-signature
@@ -1144,7 +1094,6 @@ code: |
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
-    
     submission_success = True
 
   else:
@@ -1201,27 +1150,17 @@ question: |
   ${get_translation('thank_you', lang)}
 
 
-
-
-
-
 progress: 100
 subquestion: |
   ${get_translation('expect_response', lang)}
 #  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
 
-
-
-
-
 buttons:
 - ${get_translation('restart', lang)}: restart
 prevent going back: True
 
-
-
-
 ---
+
 mandatory: True
 code: |
 
@@ -1310,6 +1249,9 @@ code: |
   submission_signature
   ready_to_submit
   submission_success
-  email_sent_ok = send_email(email_address, template=notification)
-
+  document_emailed
   all_done
+---
+code: |
+  send_email(email_address, template=notification)
+  document_emailed = True
