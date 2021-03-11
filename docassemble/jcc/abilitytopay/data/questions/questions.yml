@@ -1167,7 +1167,7 @@ content: |
   <br>
 
   <p style=”padding: 0px; margin: 0px;margin-bottom: 0; > Superior Court of California, County of <strong>${county}</strong> </p>
-  <p style=”padding: 0px; margin: 0px;margin-bottom: 0;margin-top: 0; ”>Address: <strong>${addressCourt}</strong> </p>
+  Address: <strong>${addressCourt}</strong>
   <p style=”padding: 0px; margin: 0px;margin-bottom: 0;margin-top: 0; ”>Phone Number : <strong>${phoneNumberCourt}</strong> </p>
 
   <br>
