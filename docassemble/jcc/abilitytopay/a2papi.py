@@ -6,7 +6,10 @@ import json
 import re
 import requests
 import os
-from azure.storage.blob import BlockBlobService
+
+
+from azure.storage.blob import BlobClient
+
 from docassemble.base.util import *
 from flask import session
 from .a2putil import date_from_iso8601, format_money
@@ -23,7 +26,8 @@ __all__ = [
     'fetch_case_data',
     'fetch_case_data_or_reconsider',
     'submit_all_citations',
-    'fetch_citation_check_status'
+    'fetch_citation_check_status',
+    'fetch_settings_data'
 
 ]
 #
@@ -186,6 +190,54 @@ def fetch_case_data_from_citation(citation_number, county):
             return ErrorResult.from_generic_error(e)
 
 
+# adding fetching courts address and phone number settings data
+# Adding court address and Court phone number here
+
+def fetch_settings_data(county):
+    log("withing fetch_settings_data")
+    try:
+        #settingsInformation = _fetch_settings_data(county)
+        #OnlyCourtSetttings = __serialized_settings_information(settingsInformation)
+
+        return _fetch_settings_data(county)
+    except APIError as e:
+        return ErrorResult.from_api_error(e)
+    except Exception as e:
+        return ErrorResult.from_generic_error(e)
+
+
+def _fetch_settings_data(county):
+
+    newsettings_url = a2p_config()['settings_url']+'/'+county
+    log("new settings url %s" % newsettings_url)
+    res1 = __doget_request(newsettings_url)
+    res1 = APIResult.from_http_response(res1)
+
+    if res1.data is None:
+        res1.data = []
+        return res1
+
+    if type(res1.data) is dict:
+        res1.data = [res1.data]
+
+    log(json.dumps(res1.data))
+
+    AllInfo = res1.data
+    courtInfo = AllInfo[0]['court']
+    log(json.dumps(courtInfo))
+
+
+    #return(res1)
+    return(courtInfo)
+    #log("res %s" res.data))
+
+# Above code for adding fetching courts address and phone number settings data
+# Above code for adding court address and Court phone number here
+
+
+
+
+
 def _fetch_citation_data(citation_number, county):
     citation_params = {
         'num': citation_number,
@@ -339,6 +391,7 @@ def submit_all_citations(data, attachments=[]):
             try:
                 submit_url = a2p_config()['submit_url']
                 response = __do_request(submit_url, petitioner_payload)
+                log("submission how many times")
                 result = APIResult.from_http_response(response)
             except APIError as e:
                 result = ErrorResult.from_api_error(e)
@@ -511,6 +564,44 @@ def __do_request(url, params):
     return res
 
 
+def __doget_request(url):
+    resource = a2p_config()['oauth_resource']
+    oauth_params = {
+        'resource': resource,
+        'grant_type': 'client_credentials',
+        'client_id': a2p_config()["client_id"],
+        'client_secret': a2p_config()["client_secret"],
+        'scope': 'openid ' + resource
+    }
+    r = requests.post(a2p_config()["ad_url"], oauth_params, timeout=10)
+    data = r.json()
+    if 'access_token' not in data:
+        __log_response("could not get access token", r)
+
+    access_token = data['access_token']
+
+    headers = {
+        'Authorization': 'Bearer ' + access_token,
+        'Content-Type': 'application/json'
+    }
+    log("making a2p api request to {} with payload".format(url))
+    res = requests.get(url, data=None, headers=headers,
+                        timeout=30)
+    __log_response("a2p api response", res)
+    return res
+
+
+
+
+
+
+
+
+
+
+
+
+
 def a2p_config():
     cfg = get_config('a2p')
     base_url = cfg['base_url']
@@ -519,6 +610,7 @@ def a2p_config():
     cfg['case_lookup_url'] = base_url + '/case/cases'
     cfg['submit_url'] = base_url + '/request'
     cfg['status_url'] = utility_url + '/CitationStatusCheck'
+    cfg['settings_url'] = base_url + '/settings/county'
     return cfg
 
 
@@ -528,27 +620,44 @@ def __submit_image_from_url(filename, url):
     decision--the A2P API should accept the image data as part of
     the user's submission."""
 
-    blob_service = BlockBlobService(
-        account_name=a2p_config()['blob_account_name'],
-        account_key=a2p_config()['blob_account_key']
-    )
-    image_body = requests.get(url).content
-    blob_service.create_blob_from_bytes('attachments', filename, image_body)
+    connection_string = "DefaultEndpointsProtocol=https;AccountName="+a2p_config()['blob_account_name']+";AccountKey="+a2p_config()['blob_account_key']+";EndpointSuffix=core.windows.net"
+    blob = BlobClient.from_connection_string(
+        conn_str=connection_string,
+        container_name="attachments",
+        blob_name=filename)
+    with open(url, "rb") as data:
+        blob.upload_blob(data)
+
+    image_body = os.path.getsize(url)
+    #blob.create_blob_from_path(container_name="attachments",blob_name=filename,file_path=url)
+
+    #image_body = url.path().content
+    #blob.upload_blob(image_body)
 
     return {
         "fileName": filename,
         "blobName": filename,
-        "size": len(image_body)
-    }
+        "size": image_body
 
+    }
 
 def __upload_images(attachments, first_name, last_name, county):
     benefit_files_data = []
     for proof_type, url, original_filename in attachments:
-        log("Uploading file: %s" % url)
+        log("Debug1 Uploading file url: %s" % url)
+        log("Debug2 Uploading file path: %s" % original_filename)
+        log("OS PATH: %s" % os.path.abspath(original_filename))
+
+        absolutep1 = os.path.abspath(original_filename)
+
+        url = url.replace("https://","http://")
+
+        log("Debug9 Uploading file url: %s" % url)
         log("proof_type : %s" % proof_type)
         filename = __create_filename(original_filename, proof_type, first_name, last_name, county)
-        image_meta = __submit_image_from_url(filename, url)
+        image_meta = __submit_image_from_url(filename, absolutep1)
+        #image_meta = __submit_image_from_url(filename, original_filename)
+        #log("Image_meta %s" % image_meta)
         benefit_files_data.append(image_meta)
     return benefit_files_data
 
@@ -767,6 +876,14 @@ def __serialized_case_information(case_information):
         "violationDate": case_information['charges'][0].get('violationDate'),
         "violationDescription": "\n".join(violDescriptions),
     }
+
+def __serialized_settings_information(settings_info):
+
+    return {
+
+	    "CourtAddress": settings_info.get('address'),
+        "PhoneNumber": settings_info.get('phoneNumber')
+	}
 
 
 def __is_number(s):
