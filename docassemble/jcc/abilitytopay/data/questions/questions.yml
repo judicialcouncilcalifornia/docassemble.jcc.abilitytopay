@@ -1070,9 +1070,8 @@ continue button field: answers_reviewed
 
 code: |
   show_citation_plea = True
-  force_ask('citation_pleas[' + repr(citation['citationNumber']) + ']')
+  force_ask('citation_pleas[' + repr(y) + ']' for y in citation_pleas.keys())
 ---
-
 
 id: submission-signature
 question: |
