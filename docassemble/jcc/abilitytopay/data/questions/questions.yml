@@ -813,14 +813,12 @@ fields:
 question: |
    ${get_translation('preview_summary', lang)}
 
-review:
-  - Edit : selected_citation_numbers
-    button: |
-      ${get_translation('select_citation_new', lang, county=county)}
+    ${get_translation('select_citation_new', lang, county=county)}
        % if selected_citation_numbers.true_values():
     	<strong>${ comma_and_list(selected_citation_numbers.true_values()) }</strong>
        % endif
-      <br>
+review:
+
   - label: Edit
     fields:
       - benefits
