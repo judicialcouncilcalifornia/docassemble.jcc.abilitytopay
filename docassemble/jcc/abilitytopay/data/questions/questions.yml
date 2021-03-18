@@ -3,7 +3,6 @@ comment: |
 objects:
   - citation_pleas: DADict.using(auto_gather=False)
 
-
 ---
 id: landing-page
 question: |
@@ -700,7 +699,7 @@ code: |
     c for c in selected_citations
     if not c.get('adjudicated')
   ]
-  for citation in selected_citations:
+  for citation in unadjudicated_citations:
     citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
 
@@ -1048,30 +1047,32 @@ review:
          % endif
          <br>
 
+
   - Edit :
-      recompute:
+       recompute:
         - show_citation_plea
-
+    show if: len(unadjudicated_citations)
     button: |
-      % for citation_number in selected_citation_numbers.true_values():
-        % if citation_pleas[citation_number] == 'agree_guilty':
-        Your Plea for <strong> ${citation_number } </strong>: Guilty Plea
-        % endif
-        % if citation_pleas[citation_number] == 'agree_no_contest':
-        Your Plea for <strong> ${citation_number } </strong>: No Contest Plea
-        % endif
-        <br>
+     % for citation in unadjudicated_citations:
+       % if citation_pleas[citation['citationNumber']] == 'agree_guilty':
+        Your Plea for <strong> ${citation['citationNumber']}</strong>: Guilty Plea
+       % endif
+      % if citation_pleas[citation['citationNumber']] == 'agree_no_contest':
+        Your Plea for <strong> ${citation['citationNumber']}</strong>: No Contest Plea
+       % endif
+          <br>
       % endfor
-
 
 continue button field: answers_reviewed
 
 ---
 
 code: |
+
   show_citation_plea = True
   force_ask('citation_pleas[' + repr(y) + ']' for y in citation_pleas.keys())
 ---
+
 
 id: submission-signature
 question: |
@@ -1120,6 +1121,11 @@ comment: |
 code: |
   #log(all_variables(),'primary')
 
+  for citation in selected_citations:
+
+       NewfirstName = {citation['firstName']}
+       NewLastName =  {citation['lastName']}
+
   courtInfo = fetch_settings_data(county)
   #log(courtInfo,'primary')
   addressCourt = courtInfo['address']
@@ -1147,7 +1153,9 @@ content: |
   <br>
   <br>
 
-  Hello <strong>${citation['firstName'] } ${citation['lastName']}</strong>
+
+
+  Hello <strong> ${citation['firstName'] } ${citation['lastName']}</strong>
   <br>
   <br>
 
