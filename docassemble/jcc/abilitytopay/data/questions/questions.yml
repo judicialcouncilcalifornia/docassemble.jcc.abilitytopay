@@ -812,13 +812,14 @@ fields:
 
 question: |
    ${get_translation('preview_summary', lang)}
-   <br>
 
-    ${get_translation('select_citation_new', lang, county=county)}
+
+subquestion: |
+    ${get_translation('select_citation_new', lang)}
        % if selected_citation_numbers.true_values():
-    	<strong>${ comma_and_list(selected_citation_numbers.true_values()) }</strong>
+    	<strong>${comma_and_list(selected_citation_numbers.true_values())}</strong>
        % endif
-      <br>
+
 review:
 
   - label: Edit
@@ -875,7 +876,7 @@ review:
        % endif
 
        % if benefits['cr_ga']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> General Assistance / County Relief</strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('cr_ga',lang)} </strong> </p>
          <HTML>
          % if cr_ga_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cr_ga_no_proof_reason}</strong></p>
@@ -886,7 +887,7 @@ review:
        % endif
 
        % if benefits['ssi']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> SSI: Supplemental Security Income</strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> ${get_translation('ssi',lang)}</strong> </p>
          <HTML>
          % if ssi_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssi_no_proof_reason}</strong></p>
@@ -897,7 +898,7 @@ review:
        % endif
 
         % if benefits['ssp']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> SSP: State Supplemental Payment </strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> ${get_translation('ssp',lang)}</strong> </p>
          <HTML>
          % if ssp_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssp_no_proof_reason}</strong></p>
@@ -908,7 +909,7 @@ review:
        % endif
 
        % if benefits['tanf']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> TANF: Temporary Assistance for Needy Families </strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('tanf',lang)}</strong> </p>
          <HTML>
          % if tanf_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${tanf_no_proof_reason}</strong></p>
@@ -919,7 +920,7 @@ review:
        % endif
 
        % if benefits['capi']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> CAPI: Cash Assistance Program for Aged, Blind or Disabled Legal Immigrants </strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('capi',lang)}</strong> </p>
          <HTML>
          % if capi_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${capi_no_proof_reason}</strong></p>
@@ -930,7 +931,7 @@ review:
        % endif
 
        % if benefits['ihss']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> IHSS: In Home Supportive Services</strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('ihss',lang)}</strong> </p>
          <HTML>
          % if ihss_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ihss_no_proof_reason}</strong></p>
@@ -941,7 +942,7 @@ review:
        % endif
 
        % if benefits['cal_works']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> CalWORKS: California Work Opportunity and Responsibility to Kids Act </strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('cal_works',lang)} </strong> </p>
          <HTML>
          % if cal_works_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cal_works_no_proof_reason}</strong></p>
@@ -952,7 +953,7 @@ review:
        % endif
 
        % if benefits['other']==True:
-         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> Other </strong> </p>
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('other',lang)} </strong> </p>
          <HTML>
          % if other_benefit_no_proof == True:
            <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${other_benefit_no_proof_reason}</strong></p>
@@ -1011,21 +1012,19 @@ review:
 
   - Edit : other_hardship
     button: |
-      % if other_hardship == True:
-         ${get_translation('would_other_hardship', lang)}: <strong>Yes</strong>
-      % endif
+     % if other_hardship == True:
+       ${get_translation('would_other_hardship', lang)}: <strong>${get_translation('yes',lang)}</strong>
+     % endif
+     % if other_hardship == False:
+        ${get_translation('would_other_hardship', lang)}:<strong> No </strong>
+     % endif
 
-      % if other_hardship == False:
-         ${get_translation('would_other_hardship', lang)}:<strong> No </strong>
-      % endif
-
-       % if other_hardship == True:
+     % if other_hardship == True:
 
       <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </strong> </p>
       <p> ${get_translation('total_additional_expenses', lang)}: <strong> ${ currency(hardship_amt) } </strong> </p>
 
-       % endif
-
+      % endif
 
   - Edit : additional_requests
     button: |
@@ -1033,13 +1032,13 @@ review:
 
          % if additional_requests.any_true():
             % if additional_requests['community_service']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Community Service </strong> </p>
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> ${get_translation('community_service',lang)} </strong> </p>
             % endif
             % if additional_requests['payment_plan']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Payment Plan </strong> </p>
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${get_translation('payment_plan',lang)} </strong> </p>
             % endif
             % if additional_requests['extension']==True:
-         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> Extension</strong> </p>
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${get_translation('extension',lang)}</strong> </p>
             % endif
             % else:
          <p style="margin-left: 40px; margin-bottom: 0px;"><strong> None </strong> </p>
@@ -1055,10 +1054,10 @@ review:
     button: |
      % for citation in unadjudicated_citations:
        % if citation_pleas[citation['citationNumber']] == 'agree_guilty':
-        Your Plea for <strong> ${citation['citationNumber']}</strong>: Guilty Plea
+        ${get_translation('make2_plea',lang)} <strong> ${citation['citationNumber']} :   ${get_translation('guilty2_plea',lang)} </strong>
        % endif
       % if citation_pleas[citation['citationNumber']] == 'agree_no_contest':
-        Your Plea for <strong> ${citation['citationNumber']}</strong>: No Contest Plea
+        ${get_translation('make2_plea',lang)} <strong> ${citation['citationNumber']} :   ${get_translation('no_contest2_plea',lang)} </strong>
        % endif
           <br>
       % endfor

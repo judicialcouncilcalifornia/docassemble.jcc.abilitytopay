@@ -777,6 +777,14 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-t": "您是否願意報告其他開支或財務困難的原因？"
   },
 
+ "yes": {
+   "en": "Yes",
+   "es": "Sí",
+   "zh-s": "您是否想要报告其他花费或财务困难的原因？",
+   "zh-t": "您是否願意報告其他開支或財務困難的原因？"
+ },
+
+
   "what_hardship": {
     "en": "What other financial hardship would you like the Court to consider?",
     "es": "¿Qué otro tipo de problema económico quiere que considere la corte? Nota: debe responder esta pregunta en inglés.",
@@ -837,8 +845,16 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "en": "### Make a Plea for {citation_number}",
     "es": "### Haga su declaración {citation_number}",
     "zh-s": "### 进行答辩 {citation_number}",
-    "zh-t": "### 進行答辯 {citation_number}"
+    "zh-t": "###  進行答辯 {citation_number}"
   },
+
+"make2_plea": {
+  "en": "Your Plea for ",
+  "es": "Haga su declaración ",
+  "zh-s": "### 进行答辩 {citation_number}",
+  "zh-t": "###  進行答辯 {citation_number}"
+},
+
 
   "plea_instructions": {
     "en": """
@@ -900,9 +916,24 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-t": "**無異議答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯，我的答辯是自由、自願做出的，而且我同意「無異議」答辯。我理解，就本案而言，無異議答辯將被視同有罪答辯，如果我進行無異議答辯，法院將認定我有罪。"
   },
 
+"no_contest2_plea": {
+  "en": "No Contest Plea",
+  "es": "Sin disputa ",
+  "zh-s": "**无异议答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩，我的答辩是自由、自愿做出的，并且我同意“无异议”答辩。我理解，就本案而言，无异议答辩将被视同有罪答辩，并且如果我进行无异议答辩，法院将认定我有罪。",
+  "zh-t": "**無異議答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯，我的答辯是自由、自願做出的，而且我同意「無異議」答辯。我理解，就本案而言，無異議答辯將被視同有罪答辯，如果我進行無異議答辯，法院將認定我有罪。"
+},
+
+
   "guilty_plea": {
     "en": "**Guilty Plea.** I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.",
     "es": "**Declaración de culpable.** He leído, comprendo y renuncio a los derechos descritos arriba; hay hechos que justifican mi declaración. Hago esta declaración en forma libre y voluntaria, y acepto hacer una declaración de culpable.",
+    "zh-s": "**有罪答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩。我的答辩是自由、自愿做出的，并且我同意有罪答辩。",
+    "zh-t": "**有罪答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯。我的答辯是自由、自願做出的，而且我同意有罪答辯。"
+  },
+
+  "guilty2_plea": {
+    "en": "Guilty Plea ",
+    "es": "Declaración de culpable ",
     "zh-s": "**有罪答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩。我的答辩是自由、自愿做出的，并且我同意有罪答辩。",
     "zh-t": "**有罪答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯。我的答辯是自由、自願做出的，而且我同意有罪答辯。"
   },
@@ -1081,7 +1112,7 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
 "preview_summary": {
     "en": "##This is a summary of the information you provided for citation(s)",
-    "es": "##Este es un resumen de la información que proporcionó para la cita",
+    "es": "##Este es un resumen de la información que proporcionó para la (s) cita (s)",
     "zh-s": "",
     "zh-t": ""
     },
