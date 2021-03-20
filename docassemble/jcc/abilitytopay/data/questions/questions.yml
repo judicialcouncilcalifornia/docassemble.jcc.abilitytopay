@@ -47,7 +47,6 @@ fields:
 #- "What California county did you get the citation in?": county
   choices:
   - "Fresno": Fresno
-  - "Monterey": Monterey
   - "San Francisco": San Francisco
   - "Santa Clara": Santa Clara
   - "Shasta": Shasta
