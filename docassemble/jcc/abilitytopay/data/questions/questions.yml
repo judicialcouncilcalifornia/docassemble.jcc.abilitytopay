@@ -2,6 +2,7 @@ comment: |
   We gather pleas for unadjudicated citations into the citation_pleas object.
 objects:
   - citation_pleas: DADict.using(auto_gather=False)
+
 ---
 id: landing-page
 question: |
@@ -46,6 +47,7 @@ fields:
 #- "What California county did you get the citation in?": county
   choices:
   - "Fresno": Fresno
+  - "Monterey": Monterey
   - "San Francisco": San Francisco
   - "Santa Clara": Santa Clara
   - "Shasta": Shasta
@@ -81,16 +83,33 @@ only sets: fetched_citations_from_citation_number
 code: |
   response = fetch_case_data_from_citation(citation_number, county)
   #log(response.data,'primary')
+
+
+
+  courtInfo = fetch_settings_data(county)
+
+  addressCourt = courtInfo['address']
+  phoneNumberCourt = courtInfo['phoneNumber']
+
+  #log('Court Info Below','primary')
+  #log(courtInfo,'primary')
+  #log(addressCourt,'primary')
+  #log(phoneNumberCourt,'primary')
+
   if response.data is not None:
     if len(response.data['all_citations']) > 0:
       received_multiple_citations_for_one_citation_number = False
       # reset the not_my_citations flag
       not_my_citations = False
       source_citation = response.data['source_citation']
+
+
+
       all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
       filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
+
       # newlength = len(response.data['filtered_citations'])
-      # log(newlength,'danger')
+
 
     else:
       log(get_translation('check_information', lang), 'danger')
@@ -110,13 +129,16 @@ code: |
     log(get_translation('something_went_wrong', lang), 'danger')
     # Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.
     reconsider('completed_citation_form')
+
+
+
   fetched_citations_from_citation_number = True
 ---
 
 only sets: fetched_citations_from_user_info
 code: |
     response = fetch_case_data_or_reconsider('completed_citation_form')
-    #log(response.data,'primary')
+    log(response.data,'primary')
     fetched_citations_from_user_info = True
     if response.data is not None:
       if len(response.data['all_citations']) > 0:
@@ -233,6 +255,7 @@ fields:
     # newlength = len(selected_citations_numbers)
 
 
+
 validation code: |
 
       if len(selected_citation_numbers) == 0:
@@ -299,6 +322,7 @@ fields:
 ---
 id: calfresh-proof
 sets: calfresh_proof
+if: benefits['cal_fresh'] == True
 question: |
   ${get_translation('proof_calfresh', lang)}
 # Proof of CalFresh
@@ -320,6 +344,7 @@ script: |
 ---
 id: medical-proof
 sets: medi_cal_proof
+if: benefits['medi_cal'] == True
 question: |
  ${get_translation('proof_of_medical', lang)}
 # Proof of Medi-Cal
@@ -341,6 +366,7 @@ script: |
 ---
 id: ssi-proof
 sets: ssi_proof
+if: benefits['ssi'] == True
 question: |
  ${get_translation('proof_of_ssi_title', lang)}
 # Proof of SSI
@@ -362,6 +388,7 @@ script: |
 ---
 id: ssp-proof
 sets: ssp_proof
+if: benefits['ssp'] == True
 question: |
   ${get_translation('proof_of_ssp', lang)}
 # Proof of State Supplemental Payment
@@ -383,6 +410,7 @@ script: |
 ---
 id: cr-ga-proof
 sets: cr_ga_proof
+if: benefits['cr_ga'] == True
 question: |
   ${get_translation('proof_of_gacr', lang)}
 # Proof of General Assistance/County Relief
@@ -404,6 +432,7 @@ script: |
 ---
 id: ihss-proof
 sets: ihss_proof
+if: benefits['ihss'] == True
 question: |
   ${get_translation('proof_of_ihss', lang)}
 # Proof of In Home Supportive Services
@@ -425,6 +454,7 @@ script: |
 ---
 id: tanf-proof
 sets: tanf_proof
+if: benefits['tanf'] == True
 question: |
   ${get_translation('proof_of_tanf', lang)}
 # Proof of TANF
@@ -446,6 +476,7 @@ script: |
 ---
 id: wic-proof
 sets: wic_proof
+
 question: |
   ${get_translation('proof_of_wic', lang)}
 # Proof of WIC
@@ -467,6 +498,7 @@ script: |
 ---
 id: cal-works-proof
 sets: cal_works_proof
+if: benefits['cal_works'] == True
 question: |
   ${get_translation('proof_of_calworks', lang)}
 # Proof of CalWORKS
@@ -488,6 +520,7 @@ script: |
 ---
 id: capi-proof
 sets: capi_proof
+if: benefits['capi'] == True
 question: |
   ${get_translation('proof_of_capi', lang)}
 # Proof of CAPI
@@ -509,6 +542,7 @@ script: |
 ---
 id: other-benefits-proof
 sets: other_benefit_picture
+if: benefits['other'] == True
 question: |
   ${get_translation('proof_of', lang)} "${other_benefit_name}"
 # Proof of "${other_benefit_name}"
@@ -660,6 +694,7 @@ code: |
     all_citations[citation_number]
     for citation_number in selected_citation_numbers.true_values()
   ]
+
   unadjudicated_citations = [
     c for c in selected_citations
     if not c.get('adjudicated')
@@ -667,6 +702,7 @@ code: |
   for citation in unadjudicated_citations:
     citation_pleas[citation['citationNumber']]
   citation_pleas.gathered = True
+
 ---
 id: make-your-plea
 question: |
@@ -773,6 +809,270 @@ fields:
     variable: why_difficult['difficult_other']
     is: True
 ---
+
+question: |
+   ${get_translation('preview_summary', lang)}
+
+
+subquestion: |
+    ${get_translation('select_citation_new', lang)}
+       % if selected_citation_numbers.true_values():
+    	<strong>${comma_and_list(selected_citation_numbers.true_values())}</strong>
+       % endif
+
+review:
+
+  - label: Edit
+    fields:
+      - benefits
+
+      - follow up:
+
+        - calfresh_proof
+        - calfresh_no_proof
+        - medi_cal_proof
+        - medi_cal_no_proof
+        - cr_ga_proof
+        - cr_ga_no_proof
+        - ssi_proof
+        - ssi_no_proof
+        - ssp_proof
+        - ssp_no_proof
+        - tanf_proof
+        - tanf_no_proof
+        - capi_proof
+        - capi_no_proof
+        - ihss_proof
+        - ihss_no_proof
+        - cal_works_proof
+        - cal_works_no_proof
+        - other_benefit_picture
+        - other_benefit_no_proof
+
+
+    button: |
+      ${get_translation('normal_public_benefits', lang)}
+      % if benefits.any_true():
+       % if benefits['cal_fresh']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>CalFresh</strong></p>
+         <HTML>
+         % if calfresh_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)}: <strong>${calfresh_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${calfresh_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['medi_cal']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>Medi-Cal</strong></p>
+         <HTML>
+         % if medi_cal_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${medi_cal_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${medi_cal_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['cr_ga']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('cr_ga',lang)} </strong> </p>
+         <HTML>
+         % if cr_ga_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cr_ga_no_proof_reason}</strong></p>
+         </HTML>
+          % else:
+          ${cr_ga_proof.show('0.8in')}
+          % endif
+       % endif
+
+       % if benefits['ssi']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> ${get_translation('ssi',lang)}</strong> </p>
+         <HTML>
+         % if ssi_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssi_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+          ${ssi_proof.show('0.8in')}
+         % endif
+       % endif
+
+        % if benefits['ssp']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> ${get_translation('ssp',lang)}</strong> </p>
+         <HTML>
+         % if ssp_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ssp_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${ssp_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['tanf']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('tanf',lang)}</strong> </p>
+         <HTML>
+         % if tanf_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${tanf_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${tanf_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['capi']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('capi',lang)}</strong> </p>
+         <HTML>
+         % if capi_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${capi_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${capi_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['ihss']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('ihss',lang)}</strong> </p>
+         <HTML>
+         % if ihss_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${ihss_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+          ${ihss_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['cal_works']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('cal_works',lang)} </strong> </p>
+         <HTML>
+         % if cal_works_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${cal_works_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+           ${cal_works_proof.show('0.8in')}
+         % endif
+       % endif
+
+       % if benefits['other']==True:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong>${get_translation('other',lang)} </strong> </p>
+         <HTML>
+         % if other_benefit_no_proof == True:
+           <p style="margin-left: 0px; margin-bottom: 0px;">${get_translation('why_no_proof', lang)} : <strong>${other_benefit_no_proof_reason}</strong></p>
+         </HTML>
+         % else:
+         ${other_benefit_picture.show('0.8in')}
+         % endif
+       % endif
+       % else:
+         <p style="margin-left: 0px; margin-bottom: 0px;"><strong> None </strong> </p>
+       <br>
+      % endif
+
+  - Edit : income
+    button: |
+      ${get_translation('amount_of_income', lang)}: <strong> ${currency(income)} </strong>
+  - Edit : residents
+    button: |
+      ${get_translation('how_many_household', lang)}: <strong> ${int(residents)} </strong>
+
+  - Edit : monthly_rent
+    button: |
+      ${get_translation('rent', lang)}: <strong>  ${ currency(monthly_rent)} </strong>
+
+  - Edit : mortgage
+    button: |
+      ${get_translation('mortgage', lang)}: <strong> ${ currency(mortgage) } </strong>
+
+  - Edit : utilities
+    button: |
+     ${get_translation('utilities', lang)}: <strong> ${ currency(utilities) } </strong>
+
+  - Edit : phone_bill
+    button: |
+     ${get_translation('phone_bill', lang)}: <strong> ${ currency(phone_bill) }  </strong>
+
+  - Edit : food
+    button: |
+     ${get_translation('food_groceries_restaurants', lang)}: <strong> ${currency( food) }  </strong>
+
+  - Edit : insurance
+    button: |
+      ${get_translation('insurance', lang)}: <strong>  ${ currency(insurance) } </strong>
+
+  - Edit : clothing
+    button: |
+     ${get_translation('clothing', lang)}: <strong>  ${ currency(clothing) } </strong>
+
+  - Edit : child_spousal_support
+    button: |
+     ${get_translation('child_spousal_support', lang)}: <strong>  ${ currency(child_spousal_support) } </strong>
+
+  - Edit : transportation
+    button: |
+     ${get_translation('transportation_gas_etc', lang)}: <strong>  ${ currency(transportation) }  </strong>
+
+  - Edit : other_hardship
+    button: |
+     % if other_hardship == True:
+       ${get_translation('would_other_hardship', lang)}: <strong>${get_translation('yes',lang)}</strong>
+     % endif
+     % if other_hardship == False:
+        ${get_translation('would_other_hardship', lang)}:<strong> No </strong>
+     % endif
+
+     % if other_hardship == True:
+
+      <p> ${get_translation('what_hardship', lang)}: <strong> ${ hardship } </strong> </p>
+      <p> ${get_translation('total_additional_expenses', lang)}: <strong> ${ currency(hardship_amt) } </strong> </p>
+
+      % endif
+
+  - Edit : additional_requests
+    button: |
+      ${get_translation('additional_requests', lang)}
+
+         % if additional_requests.any_true():
+            % if additional_requests['community_service']==True:
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> ${get_translation('community_service',lang)} </strong> </p>
+            % endif
+            % if additional_requests['payment_plan']==True:
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${get_translation('payment_plan',lang)} </strong> </p>
+            % endif
+            % if additional_requests['extension']==True:
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong>${get_translation('extension',lang)}</strong> </p>
+            % endif
+            % else:
+         <p style="margin-left: 40px; margin-bottom: 0px;"><strong> None </strong> </p>
+         <br>
+         % endif
+         <br>
+
+
+  - Edit :
+       recompute:
+        - show_citation_plea
+    show if: len(unadjudicated_citations)
+    button: |
+     % for citation in unadjudicated_citations:
+       % if citation_pleas[citation['citationNumber']] == 'agree_guilty':
+        ${get_translation('make2_plea',lang)} <strong> ${citation['citationNumber']} :   ${get_translation('guilty2_plea',lang)} </strong>
+       % endif
+      % if citation_pleas[citation['citationNumber']] == 'agree_no_contest':
+        ${get_translation('make2_plea',lang)} <strong> ${citation['citationNumber']} :   ${get_translation('no_contest2_plea',lang)} </strong>
+       % endif
+          <br>
+      % endfor
+
+continue button field: answers_reviewed
+
+---
+
+code: |
+
+  show_citation_plea = True
+  force_ask('citation_pleas[' + repr(y) + ']' for y in citation_pleas.keys())
+---
+
+
 id: submission-signature
 question: |
   ${get_translation('final_step', lang)}
@@ -818,31 +1118,96 @@ comment: |
   If it succeeds, the user can try to submit again by clicking the back button on their browser or
   the back button on the interview page.
 code: |
+  #log(all_variables(),'primary')
+
+  for citation in selected_citations:
+
+       NewfirstName = {citation['firstName']}
+       NewLastName =  {citation['lastName']}
+
+  courtInfo = fetch_settings_data(county)
+  #log(courtInfo,'primary')
+  addressCourt = courtInfo['address']
+  phoneNumberCourt = courtInfo['phoneNumber']
+
+
   submission_results = submit_all_citations(all_variables(), attachment_urls)
+
   if submission_results.success:
     # Once submission_success is set, this code block will not be run again
     # unless submission_success is forgotten (e.g. by clicking the browser back button).
     submission_success = True
+
   else:
     log(get_translation('something_went_wrong', lang), "danger")
     #log("Sorry! Something went wrong with your submission. Our support team has been notified. Please try again in 24 hours, or contact your court.", "danger")
     reconsider("ready_to_submit")
 ---
+template: notification
+subject: |
+  Your Ability to Pay submission for your Citation has been received
+content: |
+
+  <HTML>
+  <br>
+  <br>
+
+
+
+  Hello <strong> ${citation['firstName'] } ${citation['lastName']}</strong>
+  <br>
+  <br>
+
+  This is confirmation that your request for a reduction based on financial hardship on citation(s)
+  % if selected_citation_numbers.true_values():
+    	<strong>${ comma_and_list(selected_citation_numbers.true_values()) }</strong>
+  % endif
+  has/have been received by the court. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order regarding the court’s decision by email within 30 days.
+
+  If you have not received an email with a court order within 30 days, please check your spam or junk email folder. If you still have not received an email, please contact:
+
+  <style type="text/css">
+   p {margin-bottom: -1em;  margin-top: 0em;}
+  </style>
+
+  <br>
+
+  <p style=”padding: 0px; margin: 0px;margin-bottom: 0; > Superior Court of California, County of <strong>${county}</strong> </p>
+  Address: <strong>${addressCourt}</strong>
+  <p style=”padding: 0px; margin: 0px;margin-bottom: 0;margin-top: 0; ”>Phone Number : <strong>${phoneNumberCourt}</strong> </p>
+
+  <br>
+  <b>Thank You,</b>
+  <br>
+  <br>
+  Clerk of the Court
+  <br>
+  <br>
+
+  <strong> Please do not reply to this email, this email inbox is not monitored.</strong>
+
+  </HTML>
+---
 id: submission-complete
 sets: all_done
 question: |
   ${get_translation('thank_you', lang)}
-#  ### Thank you!
+
+
 progress: 100
 subquestion: |
   ${get_translation('expect_response', lang)}
 #  *Expect a response from the court by email in 10 business days. If you don't get a notification please contact the Court.*
+
 buttons:
 - ${get_translation('restart', lang)}: restart
 prevent going back: True
+
 ---
+
 mandatory: True
 code: |
+
   landing_page_visited
   completed_citation_form
   if citation_number_absent:
@@ -922,8 +1287,15 @@ code: |
   citation_pleas.gathered
 
   tool_helpful
+  answers_reviewed
+
   email_address
   submission_signature
   ready_to_submit
   submission_success
+  document_emailed
   all_done
+---
+code: |
+  send_email(email_address, template=notification)
+  document_emailed = True

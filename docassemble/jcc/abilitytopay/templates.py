@@ -24,6 +24,7 @@ def a2p_file_input(file_variable_name):
     )
 
 
+
 def citation_info_card(case, lang):
     return """
 <div class='info-card'>

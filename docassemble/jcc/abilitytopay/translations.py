@@ -202,6 +202,13 @@ Por favor refiérase a su aviso de cortesía o comuníquese con su corte.
     "zh-t": ""
   },
 
+  "select_citation_new": {
+    "en": "You selected the following citation(s):",
+    "es": "Seleccionaste las siguientes citas: ",
+    "zh-s": "",
+    "zh-t": ""
+  },
+
 "submitted_citation": {
   "en": "Already Submitted.",
   "es": "Seleccione .",
@@ -260,6 +267,16 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-s": "### 公共福利",
     "zh-t": "### 公共福利"
   },
+
+
+"normal_public_benefits": {
+  "en": " Public Benefits Selected :",
+  "es": " Beneficios públicos :",
+  "zh-s": " 公共福利",
+  "zh-t": " 公共福利"
+},
+
+
 
   "receiving_benefits": {
     "en": "Are you currently receiving any benefits? If you don''t see the public benefit you are currently enrolled in, click \"Other\".",
@@ -760,6 +777,14 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "zh-t": "您是否願意報告其他開支或財務困難的原因？"
   },
 
+ "yes": {
+   "en": "Yes",
+   "es": "Sí",
+   "zh-s": "您是否想要报告其他花费或财务困难的原因？",
+   "zh-t": "您是否願意報告其他開支或財務困難的原因？"
+ },
+
+
   "what_hardship": {
     "en": "What other financial hardship would you like the Court to consider?",
     "es": "¿Qué otro tipo de problema económico quiere que considere la corte? Nota: debe responder esta pregunta en inglés.",
@@ -820,8 +845,16 @@ Esté preparado para compartir información sobre sus ingresos, gastos mensuales
     "en": "### Make a Plea for {citation_number}",
     "es": "### Haga su declaración {citation_number}",
     "zh-s": "### 进行答辩 {citation_number}",
-    "zh-t": "### 進行答辯 {citation_number}"
+    "zh-t": "###  進行答辯 {citation_number}"
   },
+
+"make2_plea": {
+  "en": "Your Plea for ",
+  "es": "Haga su declaración ",
+  "zh-s": "### 进行答辩 {citation_number}",
+  "zh-t": "###  進行答辯 {citation_number}"
+},
+
 
   "plea_instructions": {
     "en": """
@@ -883,9 +916,24 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-t": "**無異議答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯，我的答辯是自由、自願做出的，而且我同意「無異議」答辯。我理解，就本案而言，無異議答辯將被視同有罪答辯，如果我進行無異議答辯，法院將認定我有罪。"
   },
 
+"no_contest2_plea": {
+  "en": "No Contest Plea",
+  "es": "Sin disputa ",
+  "zh-s": "**无异议答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩，我的答辩是自由、自愿做出的，并且我同意“无异议”答辩。我理解，就本案而言，无异议答辩将被视同有罪答辩，并且如果我进行无异议答辩，法院将认定我有罪。",
+  "zh-t": "**無異議答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯，我的答辯是自由、自願做出的，而且我同意「無異議」答辯。我理解，就本案而言，無異議答辯將被視同有罪答辯，如果我進行無異議答辯，法院將認定我有罪。"
+},
+
+
   "guilty_plea": {
     "en": "**Guilty Plea.** I have read, understand, and waive the rights above, there are facts to support my plea. I am entering my plea freely and voluntarily, and agree to plead guilty.",
     "es": "**Declaración de culpable.** He leído, comprendo y renuncio a los derechos descritos arriba; hay hechos que justifican mi declaración. Hago esta declaración en forma libre y voluntaria, y acepto hacer una declaración de culpable.",
+    "zh-s": "**有罪答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩。我的答辩是自由、自愿做出的，并且我同意有罪答辩。",
+    "zh-t": "**有罪答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯。我的答辯是自由、自願做出的，而且我同意有罪答辯。"
+  },
+
+  "guilty2_plea": {
+    "en": "Guilty Plea ",
+    "es": "Declaración de culpable ",
     "zh-s": "**有罪答辩。** 我已阅读、理解并放弃以上权利，有事实支撑我的答辩。我的答辩是自由、自愿做出的，并且我同意有罪答辩。",
     "zh-t": "**有罪答辯。** 我已閱讀、理解並放棄以上權利，有事實支持我的答辯。我的答辯是自由、自願做出的，而且我同意有罪答辯。"
   },
@@ -1044,7 +1092,32 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
     "zh-t": ""
   },
 
-  "what_email_can_court_use": {
+
+"review21_page": {
+  "en": "Yes reviewed ?",
+  "es": "Yes reviewed ?",
+  "zh-s": "",
+  "zh-t": ""
+},
+
+"did_review": {
+  "en": "Did you review your petition ?",
+  "es": "Did you review your petition ?",
+  "zh-s": "",
+  "zh-t": ""
+},
+
+
+
+
+"preview_summary": {
+    "en": "##This is a summary of the information you provided for citation(s)",
+    "es": "##Este es un resumen de la información que proporcionó para la (s) cita (s)",
+    "zh-s": "",
+    "zh-t": ""
+    },
+
+ "what_email_can_court_use": {
     "en": "What email address can the Court use to communicate about your request?",
     "es": "Su dirección de email donde la corte puede comunicarse con usted acerca de su solicitud",
     "zh-s": "",
@@ -1103,14 +1176,15 @@ Al declararse culpable o sin disputa, estará renunciando a los siguientes derec
 
   "thank_you": {
     "en": "### Thank you!",
+
     "es": "### ¡Gracias!",
     "zh-s": "",
     "zh-t": ""
   },
 
   "expect_response": {
-    "en": "*Expect a response from the court by email in 30 business days. If you don't get a notification please contact the Court.*",
-    "es": "*Puede esperar una respuesta de la corte por email en 30 días hábiles. Si no recibe una notificación, comuníquese con la corte.",
+    "en": "*You will receive a confirmation email to the email address provided. Unless your financial circumstances change, you do not need to take any further action on this request. You should receive an order explaining the courts decision by email within 30 days.*",
+    "es": "*Recibirá un correo electrónico de confirmación a la dirección de correo electrónico proporcionada. A menos que cambien sus circunstancias financieras, no es necesario que realice ninguna otra acción con respecto a esta solicitud. Debería recibir una orden explicando la decisión de los tribunales por correo electrónico dentro de los 30 días.*",
     "zh-s": "",
     "zh-t": ""
   },
