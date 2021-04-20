@@ -1079,6 +1079,11 @@ question: |
 #  ### Final Step
 progress: 95
 fields:
+- ${get_translation('what_Phone Number_can_court_use', lang)}: DefendantPhNum
+#- What Phone number can the Court use to communicate about your request?: DefendantPhNum
+   Number: phone_number
+  
+
 - ${get_translation('what_email_can_court_use', lang)}: email_address_first
 #- What email address can the Court use to communicate about your request?: email_address_first
   datatype: email

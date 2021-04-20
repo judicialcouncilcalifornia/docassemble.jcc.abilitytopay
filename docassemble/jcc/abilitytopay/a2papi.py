@@ -840,6 +840,7 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
         "submittedById": "0",
         "judgment": "Submitted",
         "submittedByEmail": data.get('email_address'),
+        "submittedByPhoneNo": data.get('DefendantPhNum'),
         "submittedOn": submitted_on,
         "needMoreInformation": [],
         "toolRecommendations": [],
