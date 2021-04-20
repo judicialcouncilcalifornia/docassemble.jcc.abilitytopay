@@ -1079,7 +1079,7 @@ question: |
 #  ### Final Step
 progress: 95
 fields:
--  ${('what phone number can court communicate')}: DefendantPhNum
+-  ${('What phone number can the Court use to communicate about your request?')}: DefendantPhNum
 #- What Phone number can the Court use to communicate about your
    datatype: phone_number
 
