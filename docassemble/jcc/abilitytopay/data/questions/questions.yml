@@ -138,7 +138,7 @@ code: |
 only sets: fetched_citations_from_user_info
 code: |
     response = fetch_case_data_or_reconsider('completed_citation_form')
-    log(response.data,'primary')
+    #log(response.data,'primary')
     fetched_citations_from_user_info = True
     if response.data is not None:
       if len(response.data['all_citations']) > 0:
