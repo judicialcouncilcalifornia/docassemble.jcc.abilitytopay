@@ -209,7 +209,7 @@ def fetch_settings_data(county):
 def _fetch_settings_data(county):
 
     newsettings_url = a2p_config()['settings_url']+'/'+county
-    log("new settings url %s" % newsettings_url)
+    #log("new settings url %s" % newsettings_url)
     res1 = __doget_request(newsettings_url)
     res1 = APIResult.from_http_response(res1)
 
@@ -220,11 +220,11 @@ def _fetch_settings_data(county):
     if type(res1.data) is dict:
         res1.data = [res1.data]
 
-    log(json.dumps(res1.data))
+    #log(json.dumps(res1.data))
 
     AllInfo = res1.data
     courtInfo = AllInfo[0]['court']
-    log(json.dumps(courtInfo))
+    #log(json.dumps(courtInfo))
 
 
     #return(res1)
@@ -840,7 +840,6 @@ def __petitioner_payload_without_case_info(data, benefit_files_data):
         "submittedById": "0",
         "judgment": "Submitted",
         "submittedByEmail": data.get('email_address'),
-        "submittedByPhoneNo": data.get('DefendantPhNum'),
         "submittedOn": submitted_on,
         "needMoreInformation": [],
         "toolRecommendations": [],
