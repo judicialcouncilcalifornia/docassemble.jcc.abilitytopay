@@ -84,12 +84,9 @@ code: |
   response = fetch_case_data_from_citation(citation_number, county)
   #log(response.data,'primary')
 
-
-
-  courtInfo = fetch_settings_data(county)
-
-  addressCourt = courtInfo['address']
-  phoneNumberCourt = courtInfo['phoneNumber']
+  #courtInfo = fetch_settings_data(county)
+  #addressCourt = courtInfo['address']
+  #phoneNumberCourt = courtInfo['phoneNumber']
 
   #log('Court Info Below','primary')
   #log(courtInfo,'primary')
@@ -102,15 +99,9 @@ code: |
       # reset the not_my_citations flag
       not_my_citations = False
       source_citation = response.data['source_citation']
-
-
-
       all_citations = { case['citationNumber']: case for case in response.data['all_citations'] }
       filtered_citations = { case['citationNumber']: case for case in response.data['all_citations'] if case['submissionWithin24Hours'] == False }
-
       # newlength = len(response.data['filtered_citations'])
-
-
     else:
       log(get_translation('check_information', lang), 'danger')
       # Check the information you entered. Try again.
