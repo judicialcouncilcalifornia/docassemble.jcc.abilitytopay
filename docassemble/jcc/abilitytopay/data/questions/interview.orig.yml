@@ -1,8 +1,9 @@
 modules:
-- docassemble.base.util
-- docassemble.jcc.abilitytopay.a2papi
-- docassemble.jcc.abilitytopay.translations
-- docassemble.jcc.abilitytopay.templates
+  - docassemble.base.util
+  - .a2papi
+  - .a2pdisplayutil
+  - .translations
+  - .templates
 ---
 features:
   bootstrap theme: style.css
@@ -12,14 +13,14 @@ features:
     - a2p.js
     - version.js
     - chatbot.js
+    - polyfillalt.js
+
 ---
 metadata:
   title: Ability to Pay
-  #under: |
-  #   Read our [Privacy Policy](http://www.courts.ca.gov/11530.htm)
-
 ---
 include:
   - language-setup.yml
   - chatbot.yml
-  - newmeena2.yml
+  - questions.yml
+  - privacy_policy.yml
