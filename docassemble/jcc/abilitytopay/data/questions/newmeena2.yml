@@ -1,25 +1,16 @@
-modules:
-- docassemble.base.util
-- docassemble.jcc.abilitytopay.a2papi
-- docassemble.jcc.abilitytopay.translations
-- docassemble.jcc.abilitytopay.templates
+comment: |
+  We gather pleas for unadjudicated citations into the citation_pleas object.
+objects:
+  - citation_pleas: DADict.using(auto_gather=False)
 ---
-features:
-  bootstrap theme: style.css
-  progress bar: True
-  javascript:
-    - includes-prototype.js
-    - a2p.js
-    - version.js
-    - chatbot.js
----
-metadata:
-  title: Ability to Pay
-  #under: |
-  #   Read our [Privacy Policy](http://www.courts.ca.gov/11530.htm)
+id: landing-page
 
+
+mandatory: True
+question: |
+
+   <HTML>
+   <p style="margin-left: 0px; margin-bottom: 0px; color:orange"><strong>Ability to pay website temporarily under maintenance. Please check back after 8:00 AM </strong></p>
+
+   </HTML>
 ---
-include:
-  - language-setup.yml
-  - chatbot.yml
-  - newmeena2.yml
