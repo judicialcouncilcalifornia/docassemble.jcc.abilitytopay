@@ -22,5 +22,30 @@ metadata:
 include:
   - language-setup.yml
   - chatbot.yml
-  - questions.yml
+  - newmeena2.yml
   - privacy_policy.yml
+modules:
+  - docassemble.base.util
+  - .a2papi
+  - .a2pdisplayutil
+  - .translations
+  - .templates
+---
+features:
+  bootstrap theme: style.css
+  progress bar: True
+  javascript:
+    - includes-prototype.js
+    - a2p.js
+    - version.js
+    - chatbot.js
+    - polyfillalt.js
+
+---
+metadata:
+  title: Ability to Pay
+---
+include:
+  - language-setup.yml
+  - chatbot.yml
+  - newmeena2.yml
