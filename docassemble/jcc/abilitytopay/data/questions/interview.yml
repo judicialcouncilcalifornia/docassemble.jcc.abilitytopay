@@ -23,7 +23,6 @@ include:
   - language-setup.yml
   - chatbot.yml
   - newmeena2.yml
-  - privacy_policy.yml
 modules:
   - docassemble.base.util
   - .a2papi
