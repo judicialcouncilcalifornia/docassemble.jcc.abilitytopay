@@ -12,7 +12,7 @@ features:
     - includes-prototype.js
     - a2p.js
     - version.js
-    - chatbot.js
+
     - polyfillalt.js
 
 ---
@@ -36,7 +36,7 @@ features:
     - includes-prototype.js
     - a2p.js
     - version.js
-    - chatbot.js
+
     - polyfillalt.js
 
 ---
